@@ -53,7 +53,8 @@ _NUMBER_WORDS = [
     "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
     "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
     "nineteen", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
-    "hundred", "thousand", "million", "billion", "dozen", "bn",
+    "hundred", "thousand", "million", "billion", "dozen", "dozens", "bn",
+    "twice", "double", "triple", "thrice", "quadruple", "half", "once", "several",
 ]
 
 # Attributes that hold dates, for telling the dates table from the amounts table when no
@@ -66,6 +67,9 @@ _DATE_ATTRIBUTES = {
     "training_data_cutoff", "generally_available",
 }
 
+_STRIP_NEG_RE = re.compile(
+    r"(?i)(?<=[A-Za-z])n['’]t" + _E + "|" + _B + r"(?:not|never|none|nobody|nothing|neither|nor|without|cannot|no)" + _E
+)
 _INVISIBLE_RE = re.compile("[​‌‍⁠﻿­]")
 _NEG_EXTRA_RE = re.compile(r"(?i)" + _B + r"(?:no|not)" + _E)  # "no more than" is no negation for has_negation
 
@@ -200,6 +204,15 @@ def _value_rules(s, value, attribute, needed, lexicon, mentions, allow_names=())
         for sp in spans:
             if sp.value["kind"] == "date":
                 errs.append(f"a date of its own: {s[sp.start:sp.end]!r}")
+        # parse_values skips what follows a negation: look again with the negation words blanked out
+        blank = _STRIP_NEG_RE.sub(lambda m: " " * len(m.group(0)), s)
+        seen = {(sp.start, sp.end) for sp in spans}
+        for sp in parse_values(blank):
+            if sp.value["kind"] == "date" and (sp.start, sp.end) not in seen and not _within(sp.start, sp.end, needed):
+                errs.append(f"a date of its own: {s[sp.start:sp.end]!r}")
+        for m in re.finditer(_B + r"(?:1[0-9]|20)\d\d" + _E, s):
+            if not _within(m.start(), m.end(), needed):
+                errs.append(f"a year of its own: {m.group(0)!r}")
     else:
         if _negated(s):
             errs.append("a negation")
