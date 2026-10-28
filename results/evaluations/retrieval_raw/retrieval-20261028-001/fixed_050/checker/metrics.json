@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "retrieval_raw",
+  "run_id": "retrieval-20261028-001",
+  "split": "checker",
+  "phase": "test",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "retrieval_boundary_audit": {
+    "status": "pass",
+    "oof_rows": 1517,
+    "pending_rows": 380,
+    "folds": 5,
+    "neighbor_references_checked": 37073,
+    "self_or_excluded_fold_neighbors": 0
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.7210526315789474,
+    "macro_f1": 0.3765338393421885,
+    "per_class": {
+      "true": {
+        "precision": 0.875,
+        "recall": 0.7993827160493827,
+        "f1": 0.8354838709677419,
+        "support": 324,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.2830188679245283,
+        "recall": 0.30612244897959184,
+        "f1": 0.29411764705882354,
+        "support": 49,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 7,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          259,
+          37,
+          28
+        ],
+        [
+          31,
+          15,
+          3
+        ],
+        [
+          6,
+          1,
+          0
+        ]
+      ]
+    },
+    "decided_count": 349,
+    "decided_correct": 274,
+    "decided_errors": 75,
+    "decided_coverage": 0.9184210526315789,
+    "decided_accuracy": 0.7851002865329513,
+    "decided_risk": 0.2148997134670487,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 296,
+        "coverage": 0.9135802469135802
+      },
+      "false": {
+        "decided_count": 46,
+        "coverage": 0.9387755102040817
+      },
+      "unsure": {
+        "decided_count": 7,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 349,
+      "model_unsure": 12,
+      "low_confidence": 19
+    },
+    "correctness_brier": 0.15259647795734904,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 61,
+        "mean_confidence": 0.5562066493324619,
+        "empirical_correctness": 0.5737704918032787
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 76,
+        "mean_confidence": 0.6500135237115828,
+        "empirical_correctness": 0.6973684210526315
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 77,
+        "mean_confidence": 0.7453788254350443,
+        "empirical_correctness": 0.7922077922077922
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 86,
+        "mean_confidence": 0.8474654485580145,
+        "empirical_correctness": 0.9069767441860465
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 49,
+        "mean_confidence": 0.930020300477111,
+        "empirical_correctness": 0.9591836734693877
+      }
+    ],
+    "multiclass_brier": 0.35439706405078114
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only method",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Neighbor traces are model features, not factual proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Native timing; constrained Linux run not measured",
+    "method_process_seconds": 5.598800624982687,
+    "audit_seconds_native": 0.09248254098929465,
+    "fit_seconds_native": 4.228170874994248,
+    "inference_seconds_native": 0.5669867090182379,
+    "serialization_seconds_native": 0.14535820798482746,
+    "peak_ram_bytes": null
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "retrieval_raw_masked",
+  "run_id": "retrieval-20261028-001",
+  "split": "stratified",
+  "phase": "validation",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "retrieval_boundary_audit": {
+    "status": "pass",
+    "oof_rows": 1212,
+    "pending_rows": 305,
+    "folds": 5,
+    "neighbor_references_checked": 59675,
+    "self_or_excluded_fold_neighbors": 0
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 305,
+    "accuracy": 0.7081967213114754,
+    "macro_f1": 0.44164378001460336,
+    "per_class": {
+      "true": {
+        "precision": 0.8733624454148472,
+        "recall": 0.7905138339920948,
+        "f1": 0.8298755186721992,
+        "support": 253,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.24,
+        "recall": 0.26666666666666666,
+        "f1": 0.25263157894736843,
+        "support": 45,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.15384615384615385,
+        "recall": 0.5714285714285714,
+        "f1": 0.24242424242424243,
+        "support": 7,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          200,
+          37,
+          16
+        ],
+        [
+          27,
+          12,
+          6
+        ],
+        [
+          2,
+          1,
+          4
+        ]
+      ]
+    },
+    "decided_count": 279,
+    "decided_correct": 212,
+    "decided_errors": 67,
+    "decided_coverage": 0.9147540983606557,
+    "decided_accuracy": 0.7598566308243727,
+    "decided_risk": 0.24014336917562723,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 237,
+        "coverage": 0.9367588932806324
+      },
+      "false": {
+        "decided_count": 39,
+        "coverage": 0.8666666666666667
+      },
+      "unsure": {
+        "decided_count": 3,
+        "coverage": 0.42857142857142855
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 279,
+      "model_unsure": 10,
+      "low_confidence": 16
+    },
+    "correctness_brier": 0.17402993538131795,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 56,
+        "mean_confidence": 0.5491299467379068,
+        "empirical_correctness": 0.6428571428571429
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 52,
+        "mean_confidence": 0.6468823204244707,
+        "empirical_correctness": 0.6346153846153846
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 59,
+        "mean_confidence": 0.7504349284070505,
+        "empirical_correctness": 0.7627118644067796
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 54,
+        "mean_confidence": 0.8415922242299394,
+        "empirical_correctness": 0.8518518518518519
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 58,
+        "mean_confidence": 0.9497355470285621,
+        "empirical_correctness": 0.896551724137931
+      }
+    ],
+    "multiclass_brier": 0.38841277814413205
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only method",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Neighbor traces are model features, not factual proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Native timing; constrained Linux run not measured",
+    "method_process_seconds": 6.790079041005811,
+    "audit_seconds_native": 0.107775375014171,
+    "fit_seconds_native": 4.989267249999102,
+    "inference_seconds_native": 0.8587974999973085,
+    "serialization_seconds_native": 0.22390237500076182,
+    "peak_ram_bytes": null
+  }
+}

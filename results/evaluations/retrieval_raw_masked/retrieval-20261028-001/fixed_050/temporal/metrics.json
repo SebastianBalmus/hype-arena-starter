@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "retrieval_raw_masked",
+  "run_id": "retrieval-20261028-001",
+  "split": "temporal",
+  "phase": "test",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "retrieval_boundary_audit": {
+    "status": "pass",
+    "oof_rows": 1398,
+    "pending_rows": 499,
+    "folds": 5,
+    "neighbor_references_checked": 74916,
+    "self_or_excluded_fold_neighbors": 0
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 499,
+    "accuracy": 0.6713426853707415,
+    "macro_f1": 0.33233517065931734,
+    "per_class": {
+      "true": {
+        "precision": 0.821882951653944,
+        "recall": 0.7916666666666666,
+        "f1": 0.8064918851435705,
+        "support": 408,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.1896551724137931,
+        "recall": 0.12790697674418605,
+        "f1": 0.1527777777777778,
+        "support": 86,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.020833333333333332,
+        "recall": 0.2,
+        "f1": 0.03773584905660377,
+        "support": 5,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          323,
+          46,
+          39
+        ],
+        [
+          67,
+          11,
+          8
+        ],
+        [
+          3,
+          1,
+          1
+        ]
+      ]
+    },
+    "decided_count": 451,
+    "decided_correct": 334,
+    "decided_errors": 117,
+    "decided_coverage": 0.9038076152304609,
+    "decided_accuracy": 0.7405764966740577,
+    "decided_risk": 0.25942350332594233,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 369,
+        "coverage": 0.9044117647058824
+      },
+      "false": {
+        "decided_count": 78,
+        "coverage": 0.9069767441860465
+      },
+      "unsure": {
+        "decided_count": 4,
+        "coverage": 0.8
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 451,
+      "low_confidence": 34,
+      "model_unsure": 14
+    },
+    "correctness_brier": 0.19819670667441572,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 76,
+        "mean_confidence": 0.5450758680510909,
+        "empirical_correctness": 0.6710526315789473
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 84,
+        "mean_confidence": 0.6508812376372614,
+        "empirical_correctness": 0.6904761904761905
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 93,
+        "mean_confidence": 0.7516680635883719,
+        "empirical_correctness": 0.6989247311827957
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 108,
+        "mean_confidence": 0.8444018631087268,
+        "empirical_correctness": 0.8055555555555556
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 90,
+        "mean_confidence": 0.9441504782429742,
+        "empirical_correctness": 0.8111111111111111
+      }
+    ],
+    "multiclass_brier": 0.4262609751942577
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only method",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Neighbor traces are model features, not factual proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Native timing; constrained Linux run not measured",
+    "method_process_seconds": 8.305424166988814,
+    "audit_seconds_native": 0.14725999999791384,
+    "fit_seconds_native": 5.938077917002374,
+    "inference_seconds_native": 1.418387707992224,
+    "serialization_seconds_native": 0.28253783300169744,
+    "peak_ram_bytes": null
+  }
+}

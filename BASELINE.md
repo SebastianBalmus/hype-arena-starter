@@ -74,3 +74,6 @@ The first set of text-model variations and their shared-protocol results are doc
 
 The first dated evidence-store and hybrid experiment is documented in
 [research/knowledge-base-experiment.md](research/knowledge-base-experiment.md).
+
+The retrieval-feature classifier and its primary macro F1 improvement are documented
+in [research/retrieval-experiment.md](research/retrieval-experiment.md).

@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "retrieval_raw",
+  "run_id": "retrieval-20261028-001",
+  "split": "checker",
+  "phase": "validation",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "retrieval_boundary_audit": {
+    "status": "pass",
+    "oof_rows": 1212,
+    "pending_rows": 305,
+    "folds": 5,
+    "neighbor_references_checked": 29534,
+    "self_or_excluded_fold_neighbors": 0
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 305,
+    "accuracy": 0.6819672131147541,
+    "macro_f1": 0.35271647954574786,
+    "per_class": {
+      "true": {
+        "precision": 0.8291666666666667,
+        "recall": 0.7896825396825397,
+        "f1": 0.8089430894308943,
+        "support": 252,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.18181818181818182,
+        "recall": 0.17391304347826086,
+        "f1": 0.17777777777777778,
+        "support": 46,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.047619047619047616,
+        "recall": 0.14285714285714285,
+        "f1": 0.07142857142857142,
+        "support": 7,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          199,
+          34,
+          19
+        ],
+        [
+          37,
+          8,
+          1
+        ],
+        [
+          4,
+          2,
+          1
+        ]
+      ]
+    },
+    "decided_count": 284,
+    "decided_correct": 207,
+    "decided_errors": 77,
+    "decided_coverage": 0.9311475409836065,
+    "decided_accuracy": 0.7288732394366197,
+    "decided_risk": 0.2711267605633803,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 233,
+        "coverage": 0.9246031746031746
+      },
+      "false": {
+        "decided_count": 45,
+        "coverage": 0.9782608695652174
+      },
+      "unsure": {
+        "decided_count": 6,
+        "coverage": 0.8571428571428571
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 284,
+      "low_confidence": 16,
+      "model_unsure": 5
+    },
+    "correctness_brier": 0.18833984642862725,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 50,
+        "mean_confidence": 0.5532971047974575,
+        "empirical_correctness": 0.46
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 48,
+        "mean_confidence": 0.6557732556262958,
+        "empirical_correctness": 0.8125
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 71,
+        "mean_confidence": 0.7524829931517318,
+        "empirical_correctness": 0.7323943661971831
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 78,
+        "mean_confidence": 0.8472376277059197,
+        "empirical_correctness": 0.782051282051282
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 37,
+        "mean_confidence": 0.927936745318283,
+        "empirical_correctness": 0.8648648648648649
+      }
+    ],
+    "multiclass_brier": 0.40255230737209835
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only method",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Neighbor traces are model features, not factual proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Native timing; constrained Linux run not measured",
+    "method_process_seconds": 4.661874082987197,
+    "audit_seconds_native": 0.07867274997988716,
+    "fit_seconds_native": 3.4175373750040308,
+    "inference_seconds_native": 0.40218945799279027,
+    "serialization_seconds_native": 0.12163854201207869,
+    "peak_ram_bytes": null
+  }
+}

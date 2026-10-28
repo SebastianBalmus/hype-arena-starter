@@ -1,0 +1,10 @@
+{
+  "selected_model": "retrieval_raw_masked",
+  "validation_macro_f1": {
+    "word_char_lr_balanced": 0.38543801970233044,
+    "retrieval_raw": 0.4001600640256102,
+    "retrieval_raw_masked": 0.44164378001460336
+  },
+  "tie_break": "declared candidate ordering, baseline first",
+  "selection_uses_test": false
+}

@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "retrieval_raw",
+  "run_id": "retrieval-20261028-001",
+  "split": "temporal",
+  "phase": "test",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "retrieval_boundary_audit": {
+    "status": "pass",
+    "oof_rows": 1398,
+    "pending_rows": 499,
+    "folds": 5,
+    "neighbor_references_checked": 37122,
+    "self_or_excluded_fold_neighbors": 0
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 499,
+    "accuracy": 0.6713426853707415,
+    "macro_f1": 0.33968253968253964,
+    "per_class": {
+      "true": {
+        "precision": 0.8282051282051283,
+        "recall": 0.7916666666666666,
+        "f1": 0.8095238095238095,
+        "support": 408,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.18518518518518517,
+        "recall": 0.11627906976744186,
+        "f1": 0.14285714285714285,
+        "support": 86,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.03636363636363636,
+        "recall": 0.4,
+        "f1": 0.06666666666666667,
+        "support": 5,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          323,
+          44,
+          41
+        ],
+        [
+          64,
+          10,
+          12
+        ],
+        [
+          3,
+          0,
+          2
+        ]
+      ]
+    },
+    "decided_count": 444,
+    "decided_correct": 333,
+    "decided_errors": 111,
+    "decided_coverage": 0.8897795591182365,
+    "decided_accuracy": 0.75,
+    "decided_risk": 0.25,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 367,
+        "coverage": 0.8995098039215687
+      },
+      "false": {
+        "decided_count": 74,
+        "coverage": 0.8604651162790697
+      },
+      "unsure": {
+        "decided_count": 3,
+        "coverage": 0.6
+      }
+    },
+    "decision_reason_counts": {
+      "low_confidence": 47,
+      "decided": 444,
+      "model_unsure": 8
+    },
+    "correctness_brier": 0.18796668384512213,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 80,
+        "mean_confidence": 0.5490554102762192,
+        "empirical_correctness": 0.6375
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 111,
+        "mean_confidence": 0.6489301787325173,
+        "empirical_correctness": 0.7387387387387387
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 108,
+        "mean_confidence": 0.752950924825542,
+        "empirical_correctness": 0.7592592592592593
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 109,
+        "mean_confidence": 0.8472474666151519,
+        "empirical_correctness": 0.7798165137614679
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 36,
+        "mean_confidence": 0.9323061651461053,
+        "empirical_correctness": 0.9166666666666666
+      }
+    ],
+    "multiclass_brier": 0.4040109976357763
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only method",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Neighbor traces are model features, not factual proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Native timing; constrained Linux run not measured",
+    "method_process_seconds": 5.33181308300118,
+    "audit_seconds_native": 0.09001200000056997,
+    "fit_seconds_native": 3.821973749989411,
+    "inference_seconds_native": 0.6906642079993617,
+    "serialization_seconds_native": 0.14819050001096912,
+    "peak_ram_bytes": null
+  }
+}

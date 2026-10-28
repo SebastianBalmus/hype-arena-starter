@@ -1,0 +1,7 @@
+{
+  "fit_seconds": 0.22559387498768046,
+  "inference_seconds": 0.018690000026253983,
+  "serialization_seconds": 0.0016485830128658563,
+  "generation_status": "not_implemented",
+  "audit_status": "not_implemented"
+}
