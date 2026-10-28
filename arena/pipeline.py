@@ -34,6 +34,7 @@ class RunResult:
     labels: list[tuple[str, str, float | None]] = field(default_factory=list)
     claims: list[dict] = field(default_factory=list)
     traces: dict[str, dict] = field(default_factory=dict)
+    timings: dict[str, float] = field(default_factory=dict)  # stage -> milliseconds
 
 
 def load_artifacts(art_dir: str, practice_csv: str) -> Artifacts:
@@ -74,17 +75,20 @@ def run(rows: list[Row], lexicon: Lexicon, art: Artifacts, background: list[Row]
     """
     background = background or []
     everything = background + rows
+    t0 = time.perf_counter()
     extractor = Extractor(lexicon, art.names, art.kinds, art.model, art.gold, art.gold_rows)
     facts: dict[str, list[Fact]] = {}
     for chunk in _chunks(everything):
         if stop_at is not None and time.time() > stop_at:
             break
         facts.update(extractor.extract(chunk))
+    t1 = time.perf_counter()
     store = EvidenceStore()
     for r in everything:
         if r.id in facts:
             store.add_row(r, facts[r.id])
     store.build()
+    t2 = time.perf_counter()
 
     result = RunResult()
     for r in rows:
@@ -103,10 +107,14 @@ def run(rows: list[Row], lexicon: Lexicon, art: Artifacts, background: list[Row]
             "checks": [dataclasses.asdict(c) for c in checks],
             "features": x,
         }
+    t3 = time.perf_counter()
+    result.timings = {"extract_ms": (t1 - t0) * 1000, "evidence_ms": (t2 - t1) * 1000,
+                      "decide_ms": (t3 - t2) * 1000, "generate_ms": 0.0}
     if on_labels is not None:
         on_labels(result)
     if generate and (stop_at is None or time.time() < stop_at):
         texts = {_normalise_text(r.text) for r in everything}
         cands = enumerate_candidates(store, lexicon, art.kinds, art.names)
         result.claims = select_claims(cands, lexicon, texts, n=n_claims, kinds=art.kinds)
+        result.timings["generate_ms"] = (time.perf_counter() - t3) * 1000
     return result
