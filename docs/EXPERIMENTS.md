@@ -304,8 +304,45 @@ Expected on the hidden set: **about 0.87, plausibly 0.84-0.89**. Pushing up: at 
 practice rows are anchors and there are ~10x more unlabelled rows (the HMM uses them).
 Pushing down: subjects, attributes and phrasings the practice data never shows (unknown
 share; the 20 sample rows on 29 Oct are the first check, and we will revise this estimate
-after seeing them). Confidence is calibrated on unseen pages (ECE ~0.02). Claim precision:
-to be measured once the generator exists.
+after seeing them). Confidence is calibrated on unseen pages (ECE ~0.02). Claims: ~100% of generated claims survive held-out evidence; expected precision on the
+hidden truth ~0.95+, the main risk being sentences our Referee accepts but theirs reads differently.
+
+## Claims: Writer + Referee (2026-10-28)
+
+`hooly/writer.py`. Truth only from labelled-true rows; candidates in order of safety:
+change (two labelled-true values in time order), compare between past dates, relation,
+at_event (value whose certain core covers the event's final date), compare between recent
+amounts with a >= 1.5x gap, fact (immutable past dates or values seen within 30 days).
+Conservative templates in the value forms of value-forms.md; our Referee re-reads every
+sentence (subject named, value read back exactly once, no competing value/date/time
+word/negation, compare without any number or number word, one sentence, new, lexicon
+subject and attribute). At most 6 claims per fact, relaxed to 10/20 only if short; a second
+tier uses rows the system labelled true with >= 95% confidence (claim confidence x0.9).
+
+Referee spot test on the contract's own examples: 17/18 as expected after adding number
+words to the compare check (the 18th was a test mistake: that sentence is an input row).
+
+**Do the claims survive evidence the generator did not see?** Claims generated with a fold's
+labels hidden, checked against timelines from all practice rows (`python3 -m evaluation.claims_eval`):
+
+| type | claims (5 folds) | confirmed | contradicted | unverifiable |
+|---|---|---|---|---|
+| at_event | 1475 | 1387 | 0 | 88 |
+| change | 1536 | 1535 | 1 | 0 |
+| compare, amounts | 847 | 847 | 0 | 0 |
+| compare, dates | 429 | 424 | 0 | 5 |
+| fact | 426 | 426 | 0 | 0 |
+| relation | 67 | 59 | 0 | 8 |
+
+The one contradiction: a rescheduled event date whose sightings came out of order. Harder
+version (claims generated only from pages before 1 Sept, checked against everything): 622
+claims, 0 contradicted; the generator declines "as of 29 Oct" amounts without recent
+evidence (only 6 facts). The residual risk is wording, not truth: our Referee re-implements
+the referee's reading, so templates are kept deliberately plain.
+
+**Runtime** (`python -m hooly.run`, `Dockerfile`): practice universe in check.sh shape ->
+380/380 labelled, 1,000 claims, organisers' format checker passes, 13 s. Simulated 19k-row
+universe: 47 s, 0.7 MB output (limits: 30 min, 16 MiB).
 
 ## Planned experiments and predictions
 

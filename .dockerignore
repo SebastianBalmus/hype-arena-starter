@@ -1,0 +1,11 @@
+.git
+.agents
+.venv
+__pycache__
+*.pyc
+evaluation/results
+results
+docs
+tests
+scripts
+contracts
