@@ -107,5 +107,23 @@ def test_practice_universe_regression_guard():
     texts = {" ".join(r.text.lower().split()).rstrip(".!? ") for r in rows}
     taken = select_claims(cands, L, texts, n=100000, kinds=kinds)
     assert all(check_claim({**c, "tag": "true"}, L, kinds=kinds) == [] for c in taken)
-    # measured 1318 on the practice universe: at_event 481, fact 382, change 299, compare 131, relation 25
+    # measured 1379 on the practice universe: at_event 481, fact 382, change 299, compare 197, relation 20 (guard stays at 659)
     assert len(taken) >= 659
+
+
+def _relation_store(link_date):
+    s = EvidenceStore()
+    s.add_row(Row("c1", "t", link_date, "true", 5), [Fact("Hooly", "cto", name("Bertram Gilfoil"))])
+    s.add_row(Row("d1", "t", "2026-07-01", "true", 6), [Fact("Bertram Gilfoil", "joined", date("2026-07-01"))])
+    s.build()
+    return s
+
+
+def test_stale_relation_dropped_fresh_kept(kinds, names):
+    def rel(link_date):
+        cs = enumerate_candidates(_relation_store(link_date), L, kinds, names)
+        return {c.text for c in cs if c.type == "relation"}
+
+    text = "The joined of the cto of Hooly was 1 July 2026."
+    assert text in rel("2026-07-20")
+    assert text not in rel("2026-10-14")  # 105 days after the value was last seen

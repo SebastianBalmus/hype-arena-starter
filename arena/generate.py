@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass
-from datetime import date as _date
+from datetime import date as _date, timedelta
 
 from arena.claimforms import check_claim
 from arena.evidence import EvidenceStore, Interval
@@ -14,6 +14,7 @@ from arena.values import compare, normalize, render
 __all__ = ["Candidate", "enumerate_candidates", "select_claims"]
 
 STALE_DAYS = 150
+RELATION_GAP_DAYS = 30
 _AMOUNT_KINDS = ("quantity", "duration", "money", "percent", "version")
 _COMPARE_WORDS = {
     "amounts": {"gt": "higher than", "lt": "lower than", "eq": "equal to"},
@@ -125,20 +126,21 @@ def _compares(store, out):
                 c = compare(iv1.value, iv2.value)
                 if c is None:
                     continue
+                (l_s, l_iv), (r_s, r_iv) = (s1, iv1), (s2, iv2)
                 if c < 0:  # one orientation per pair: the larger or later fact on the left
-                    (s1, iv1), (s2, iv2), c = (s2, iv2), (s1, iv1), -c
-                if iv1.value["kind"] == "date":
+                    (l_s, l_iv), (r_s, r_iv), c = (s2, iv2), (s1, iv1), -c
+                if l_iv.value["kind"] == "date":
                     group = "dates"
-                    if c == 0 and not (_day(iv1.value) and _day(iv2.value)):
+                    if c == 0 and not (_day(l_iv.value) and _day(r_iv.value)):
                         continue
                 else:
                     group = "amounts"
-                    if not _margin_ok(iv1.value, iv2.value, c):
+                    if not _margin_ok(l_iv.value, r_iv.value, c):
                         continue
                 op = "eq" if c == 0 else "gt"
-                text = f"The {A} of {s1} is {_COMPARE_WORDS[group][op]} the {A} of {s2}."
-                form = {"left": {"subject": s1, "attribute": a}, "right": {"subject": s2, "attribute": a}, "op": op}
-                out.append(Candidate("compare", form, text, _score(0.85, [iv1, iv2]), s1))
+                text = f"The {A} of {l_s} is {_COMPARE_WORDS[group][op]} the {A} of {r_s}."
+                form = {"left": {"subject": l_s, "attribute": a}, "right": {"subject": r_s, "attribute": a}, "op": op}
+                out.append(Candidate("compare", form, text, _score(0.85, [l_iv, r_iv]), l_s))
 
 
 def _at_events(store, lexicon, out):
@@ -160,10 +162,20 @@ def _at_events(store, lexicon, out):
                 out.append(Candidate("at_event", form, text, _score(0.85, [iv, eiv]), s))
 
 
+def _extended_end(iv: Interval, last: bool) -> str:
+    """A latest interval is taken to hold on for at most RELATION_GAP_DAYS after its last observation (tighter
+    than the 150-day fact limit: the review found a 97-day gap that produced a false-looking relation); earlier intervals end where observed. No exemption for date kinds: a lone old sighting stays
+    unasserted against a much later link."""
+    if not last:
+        return iv.end
+    try:
+        return (_date.fromisoformat(iv.end) + timedelta(days=RELATION_GAP_DAYS)).isoformat()
+    except ValueError:
+        return iv.end
+
+
 def _overlap(a: Interval, a_last: bool, b: Interval, b_last: bool) -> bool:
-    """Observation spans overlap; a latest interval is taken to hold on (a value stays until seen to change)."""
-    end_a, end_b = ("9999" if a_last else a.end), ("9999" if b_last else b.end)
-    return a.start <= end_b and b.start <= end_a
+    return a.start <= _extended_end(b, b_last) and b.start <= _extended_end(a, a_last)
 
 
 def _relations(store, lexicon, names, out):
