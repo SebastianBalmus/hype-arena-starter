@@ -264,7 +264,10 @@ class Writer:
             return v, "past date"
         if v["kind"] == "date" and _d(self._iso_end(v)) < last.start and any(w in key[1] for w in ("joined", "founded", "launched", "released", "opened")):
             return v, "past date"
-        if (AS_OF - last.end).days <= 30 and (last.end - last.start).days >= 0:
+        # a fact that has changed before may change again: its last sighting must be fresher
+        # (fact claims are judged on 29 Oct; ~94% held under the 30-day rule, the misses volatile)
+        recent = 21 if len(tl.runs) > 1 else 30
+        if (AS_OF - last.end).days <= recent and (last.end - last.start).days >= 0:
             return v, "seen recently"
         if len(tl.runs) == 1 and (last.end - last.start).days >= 120 and (AS_OF - last.end).days <= 75:
             return v, "long-stable"

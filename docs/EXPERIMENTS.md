@@ -659,6 +659,21 @@ each fold's training rows only): 0.886 -> 0.871 calibrated, F1 false 0.620 -> 0.
 recall on the rewritten test 0.74 -> 0.70. The templated wording and the lie-heavy mix teach
 the parser patterns real text does not use. Not used.
 
+## Claims audit (2026-10-29)
+
+An independent check of all 1,000 claims against `contracts/claim-forms.md` and
+`value-forms.md`, written from the contract text rather than from our Referee: negations,
+approximation words, numbers or months in compares, time words, one sentence. **0
+violations**; a by-hand read of 40 random claims matches the contract's examples.
+
+Truth: `change`, `at_event` and `relation` claims do not depend on the as-of date; amount
+compares keep a 1.5x margin and date compares are fixed. `fact` claims must still hold on
+29 Oct: with each attribute's learned change rate, ~94% of the 82 were expected to hold.
+Facts that have changed before now need a sighting within 21 days instead of 30: 82 -> 67
+fact claims (expected misses 5.2 -> 3.8), the rest filled with event and compare claims.
+Held-out claim check (`evaluation/claims_eval.py`, 5 folds, 5,000 claims): 1 contradicted
+(an event date that hidden pages show moved), 166 unverifiable, the rest confirmed.
+
 ## Planned experiments and predictions
 
 | id | idea | source | prediction |
