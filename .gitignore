@@ -1,4 +1,24 @@
+# Python
 .venv/
 __pycache__/
-artifacts/
+*.py[cod]
+*.egg-info/
 .pytest_cache/
+.coverage
+htmlcov/
+
+# Model artifacts (rebuilt by `python -m arena.train`, also inside docker build)
+artifacts/
+
+# Local run output (scripts/check.sh and manual runs)
+/output/
+output.tmp
+
+# Agent tooling: worktrees and the subagent ledger/workspace
+.claude/
+.superpowers/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
