@@ -7,17 +7,7 @@ from dataclasses import replace
 
 from hooly.data import build_names, load_lexicon, load_rows
 from hooly.folds import grouped_folds
-from hooly.reader import Reader
-from hooly.values import satisfies
-
-
-def atom_match(p, g, names):
-    if p.key != g.key or p.value["kind"] != g.value["kind"]:
-        return False
-    if p.value.get("op", "eq") != g.value.get("op", "eq"):
-        return False
-    strip = lambda v: {k: x for k, x in v.items() if k != "op"}
-    return bool(satisfies(strip(g.value), strip(p.value), names))
+from hooly.reader import Reader, atom_match
 
 
 def main(k=5, seed=0, threshold=0.35, bool_threshold=0.5):

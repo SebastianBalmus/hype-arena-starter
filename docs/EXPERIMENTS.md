@@ -208,12 +208,111 @@ by giving up accuracy). The temporal track is the weak one: test rows after 1 Se
 have earlier anchors, so changes in Sept/Oct are invisible and lies there are hard to catch.
 The same limitation applies to `fact` claims "as of 29 Oct" in generation.
 
+## Reader fix: self-inclusion leak in parser training (2026-10-28)
+
+Error analysis of parsed vs gold verdicts: parsing lost 67 rows and won 29. Cause found in
+the parser's own training: its statistics (known values of a fact, cue words, attribute
+frequencies, unit associations) included the training row itself, so "the value matches a
+known value of this fact" was always on for correct pairs and got weight 6.9, dwarfing
+everything else. On unseen rows it misled ("Hooly Docs 1.0" parsed as Hooly Gemini's version
+because Gemini once had 1.0). Also the fallback "company" subject was Hooly Gemini (most
+frequent) instead of Hooly (most attributes). Fix: every statistic for a training row leaves
+its own page out, as at inference.
+
+| | parser P / R / F1 | page-grouped acc | arena stratified | temporal | checker |
+|---|---|---|---|---|---|
+| before (threshold 0.02) | 0.904 / 0.736 / 0.811 | 0.873 | 0.866 | 0.828 | 0.868 |
+| fixed, threshold 0.1 | 0.890 / 0.794 / 0.839 | 0.868 | 0.861 | 0.814 | 0.839 |
+| **fixed, threshold 0.3** | higher P, lower R | **0.871** | **0.871** | **0.836** | 0.866 |
+
+Lesson: a better parser by F1 did not mean better labels. More parsed facts at ~0.89
+precision add wrong facts that turn true rows into false alarms; for labelling, parser
+precision matters more than recall. Kept: the leak-free parser at threshold 0.3. Yes/no facts
+stay weak (recall 0.18-0.32 depending on threshold). Accuracy tuning stops here; remaining
+effort goes to claims, runtime, demo and self-evaluation.
+
+## Round 2: parse-aware verdicts, lie shapes, HMM, calibration (2026-10-28)
+
+Scoring is a black box comparing our labels with the organisers' truth, so the target is
+plain agreement (accuracy); our own numbers feed the self-evaluation.
+
+**#4 Parse-aware verdicts** (`hooly/pipeline.py`). Inside the training data, a second Reader
+trained without a slice of pages parses that slice: an isotonic map turns a parse score into
+"how often a parse like this is right". A parsed atom's evidence is pulled towards the prior
+by that amount. Parsed, page-grouped: 0.873 vs 0.871 without; Brier 0.215 vs 0.218, ECE
+0.035 vs 0.040. Within noise, safe, kept.
+
+**#3 Lie shapes** (`TemporalWindowsShape`). For a value that disagrees with the timeline: does
+it equal a value the fact held at another time; ratio to the reference value; is it rounder.
+Gold: 0.900 vs 0.893, F1 false 0.695 vs 0.667. Parsed: **0.877**. Striking pattern on
+single-fact held-out rows: *much bigger and rounder than the true value* -> 93% false (26/28),
+e.g. "over 5,000 attendees" vs a true 2,600. Small or downward deviations are mostly real
+changes (11-21% false).
+
+**#1 Probabilistic timelines** (`hooly/hmm.py`, `TimelineHMM`). Per fact, a hidden Markov
+model over which value is true at each date; labelled rows pin or exclude values, other rows
+tell the truth with probability alpha; EM learns alpha and the time between changes (on the
+full practice data: alpha 0.57 for the rows it is unsure about, ~230 days between changes).
+No hand-made states. Gold: 0.885, F1 false 0.687, best ECE (0.023).
+
+**Hybrid** (`HybridStack`): windows_shape + HMM weighed by a stacker; HMM scores for the
+stacker's training rows are out-of-fold (their labels hidden from the HMM that scores them).
+
+| model | gold acc | gold F1 false | parsed acc | parsed F1 false |
+|---|---|---|---|---|
+| windows_plus | 0.893 | 0.667 | 0.873 | 0.535 |
+| windows_shape | 0.900 | 0.695 | 0.877 | 0.554 |
+| hmm | 0.885 | 0.687 | - | - |
+| **hybrid** | **0.905** | **0.727** | 0.876 | **0.572** |
+
+Team benchmark (arena-eval-v1, parsed, fixed_050):
+
+| track | windows_shape acc / macro F1 / F1 false | **hybrid** acc / macro F1 / F1 false |
+|---|---|---|
+| stratified | 0.868 / 0.487 / 0.535 | 0.868 / **0.502** / **0.581** |
+| temporal | 0.838 / 0.399 / 0.286 | 0.838 / **0.409** / **0.318** |
+| checker | 0.868 / 0.481 / 0.517 | 0.861 / 0.477 / 0.511 |
+
+Same accuracy, better at catching lies on most tracks (including the hard temporal one): the
+hybrid is the main model.
+
+**#5 Calibration** (`evaluation/calibrate_report.py`, `hooly/calibrate.py`). Cross-fitted
+isotonic maps per label ("when we said false with p, how often were we right?"); a false
+call whose calibrated chance drops below 0.5 flips to true. Runtime map fitted on all folds:
+`hooly/assets/calibration.json`.
+
+| hybrid, parsed | acc (95% CI) | F1 false | Brier | ECE |
+|---|---|---|---|---|
+| raw | 0.876 (0.860-0.893) | 0.572 | 0.213 | 0.045 |
+| **calibrated** | **0.878** (0.861-0.895) | 0.549 | 0.216 | **0.021** |
+
+Calibrated reliability: said 0.78 -> right 0.83 (306 rows), 0.82 -> 0.82 (348), 0.92 -> 0.92
+(789), 0.97 -> 0.95 (341).
+
+## Self-evaluation: what we expect on the hidden data (first estimate, 2026-10-28)
+
+Final label system: Reader -> hybrid (timeline states + lie shapes + HMM) -> calibration.
+
+| evidence | accuracy |
+|---|---|
+| our page-held-out CV (whole pages unseen, text only) | 0.878 (0.861-0.895) |
+| team benchmark, stratified / checker | 0.868 / 0.861 |
+| team benchmark, temporal (only older anchors) | 0.838 |
+| always-true on the same data | 0.818-0.853 |
+
+Expected on the hidden set: **about 0.87, plausibly 0.84-0.89**. Pushing up: at runtime all
+practice rows are anchors and there are ~10x more unlabelled rows (the HMM uses them).
+Pushing down: subjects, attributes and phrasings the practice data never shows (unknown
+share; the 20 sample rows on 29 Oct are the first check, and we will revise this estimate
+after seeing them). Confidence is calibrated on unseen pages (ECE ~0.02). Claim precision:
+to be measured once the generator exists.
+
 ## Planned experiments and predictions
 
 | id | idea | source | prediction |
 |---|---|---|---|
 | E1 | Four-date windows | TAC KBP temporal slot filling | first variant to beat always_true. **Held: 0.889** |
-| E2 | Gradual-change smoothing | DynaTD (KDD 2015) | worse than E1: Hooly changes in steps |
+| E2 | Gradual-change smoothing | DynaTD (KDD 2015) | worse than E1: Hooly changes in steps. *Not run: superseded by the HMM, which learns the change rate* |
 | E3 | Unlabelled rows as votes | TruthFinder-style | small gain at best. **Held (in simulation): on par, best F1 false** |
 | E4 | Page exactness + freshness | Dong et al. (VLDB 2009) | freshness catches stale lies exactness misses. *Deprioritised: lies cluster by page only weakly* |
 | E5 | Credibility from text features, trained on labels | SLiMFast (2017) | best trust signal. **Failed: style AUC ~0.55** |

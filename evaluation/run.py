@@ -18,9 +18,10 @@ import time
 from dataclasses import replace
 
 from hooly.baselines import AlwaysTrue, LatestBefore, Nearest
-from hooly.temporal import ConservativeWindows, TemporalWindows, TemporalWindowsPlus
+from hooly.temporal import ConservativeWindows, TemporalWindows, TemporalWindowsPlus, TemporalWindowsShape
 from hooly.combined import CredibilityOnly, WindowsCredibility
 from hooly.evidence import WindowsEvidence, WindowsVotesStack
+from hooly.hmm import HybridStack, TimelineHMM
 from hooly.pipeline import Pipeline
 from hooly.data import build_names, load_lexicon, load_rows
 from evaluation.folds import grouped_folds
@@ -37,6 +38,9 @@ MODELS = {
     "windows_evidence": WindowsEvidence,
     "windows_votes": WindowsVotesStack,
     "conservative": ConservativeWindows,
+    "windows_shape": TemporalWindowsShape,
+    "hmm": TimelineHMM,
+    "hybrid": HybridStack,
 }
 
 

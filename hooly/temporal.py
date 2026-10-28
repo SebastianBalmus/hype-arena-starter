@@ -204,8 +204,13 @@ class TemporalWindows(Model):
             return dict(self.prior), [{"state": "unparsed"}]
         d = _d(row.date)
         p_true, p_not_unsure, atoms = 1.0, 1.0, []
+        atom_q = row.meta.get("atom_q") or {}
         for a in row.atoms:
             st, pr, tr = self.atom_probs(a, d, exclude_page)
+            q = atom_q.get(a.key, 1.0)
+            if q < 1.0:  # an unsure parse only partly counts (#4)
+                pr = {l: q * pr[l] + (1 - q) * self.prior[l] for l in LABELS}
+                tr = {**tr, "parse_confidence": round(q, 3)}
             p_true *= pr["true"]
             p_not_unsure *= 1 - pr["unsure"]
             atoms.append({"subject": a.subject, "attribute": a.attribute, "value": a.value,
@@ -327,3 +332,65 @@ class ConservativeWindows(TemporalWindows):
         else:
             label = "unsure"
         return Prediction(label, probs, {"rule": self.name, "atoms": atoms})
+
+
+class TemporalWindowsShape(TemporalWindowsPlus):
+    """#3 lie shapes: for a value that disagrees with the timeline, how does it relate to the
+    values the fact actually took?
+
+    seen        it equals a value the fact held at some *other* time (stale / premature)
+    up / down   amounts: ratio to the reference value: ~ (within 10%), small (<1.5x), big
+    round       the claimed number is rounder than the reference ("5,000" vs "2,600")
+    """
+    name = "windows_shape"
+
+    def _state(self, atom, d, exclude_page=None):
+        st, trace = super()._state(atom, d, exclude_page)
+        base = st.split("|")[0]
+        if "mismatch" not in base and "neither" not in base and not base.startswith(("gap_prev", "gap_next")):
+            return st, trace
+        tl = self._timeline(atom.key, exclude_page)
+        if not tl.runs or tl.multi:
+            return st, trace
+        ref = (trace.get("core") or trace.get("previous") or trace.get("next") or {}).get("value")
+        others = [r for r in tl.runs if ref is None or not any(v == ref for v in r.values)]
+        seen = any(r.verdict(atom.value, self.names) for r in others)
+        shape = "seen" if seen else "new"
+        if ref is not None and not seen and atom.value["kind"] in ("quantity", "money", "percent", "duration"):
+            try:
+                c, r0 = normalize(atom.value, self.names), normalize(ref, self.names)
+                if c.dim == r0.dim and r0.value > 0 and c.value > 0:
+                    ratio = float(c.value / r0.value)
+                    if 0.9 <= ratio <= 1.1:
+                        shape = "near"
+                    elif ratio > 1:
+                        shape = "up_small" if ratio < 1.5 else "up_big"
+                    else:
+                        shape = "down_small" if ratio > 1 / 1.5 else "down_big"
+                    if _roundness(atom.value["value"]) > _roundness(ref["value"]):
+                        shape += "_round"
+            except (ValueError, KeyError, TypeError):
+                pass
+        trace = {**trace, "shape": shape}
+        return f"{st}|{shape}" if "|" in st else f"{st}|na|na|{shape}", trace
+
+    def chain(self, state):
+        parts = state.split("|")
+        if len(parts) == 4:
+            return [state] + super().chain("|".join(parts[:3]))
+        return super().chain(state)
+
+
+def _roundness(x) -> int:
+    """Trailing zeros of the integer part (5000 -> 3, 2600 -> 2, 4970 -> 1)."""
+    try:
+        n = int(abs(float(x)))
+    except (TypeError, ValueError):
+        return 0
+    if n == 0 or float(x) != int(float(x)):
+        return 0
+    k = 0
+    while n % 10 == 0:
+        n //= 10
+        k += 1
+    return k

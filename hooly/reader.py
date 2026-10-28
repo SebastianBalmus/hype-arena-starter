@@ -83,6 +83,10 @@ class Reader:
                 self.spellings.append((len(n), rx, s["name"]))
         self.spellings.sort(key=lambda x: -x[0])
         train = [r for r in rows if r.atoms]
+        # Per-page copies of every statistic: features for a training row are computed with
+        # its own page left out, as they will be for an unseen row (no self-inclusion leak).
+        self.pg = defaultdict(lambda: defaultdict(Counter))
+        self.pg_known = defaultdict(lambda: defaultdict(list))
         self.kinds = defaultdict(set)       # (subject, attribute) -> kinds seen
         self.kinds_by_name = defaultdict(set)
         self.known = defaultdict(list)      # (subject, attribute) -> values seen (any label)
@@ -93,14 +97,20 @@ class Reader:
         units, name_vals = set(), set()
         for r in train:
             ws = set(words(r.text))
+            pg = self.pg[r.page]
             for a in r.atoms:
                 self.kinds[a.key].add(a.value["kind"])
                 self.kinds_by_name[a.attribute].add(a.value["kind"])
                 self.known[a.key].append(a.value)
+                self.pg_known[r.page][a.key].append(a.value)
                 self.attr_count[a.attribute] += 1
+                pg["attr_count"][a.attribute] += 1
                 self.subj_attr[a.key] += 1
+                pg["subj_attr"][a.key] += 1
                 self.cue[a.attribute].update(ws)
+                pg["cue:" + a.attribute].update(ws)
                 self.word_df.update(ws)
+                pg["word_df"].update(ws)
                 if a.value["kind"] == "quantity" and a.value["unit"].isalpha() and len(a.value["unit"]) >= 3:
                     units.add(_singular(a.value["unit"].lower()))
                 if a.value["kind"] == "name":
@@ -109,15 +119,15 @@ class Reader:
         self.unit_attr = defaultdict(Counter)  # counted noun / unit -> attribute name
         self.local_cue = defaultdict(Counter)  # attribute name -> words right before its value
         self.local_df = Counter()
-        subj_freq = Counter()
         for r in train:
             for a in r.atoms:
-                subj_freq[a.subject] += 1
                 u = self._unit(a.value)
                 if u:
                     self.unit_attr[u][a.attribute] += 1
-        # the company itself is the usual unnamed subject ("our headquarters", "38 employees")
-        self.default_subject = subj_freq.most_common(1)[0][0] if subj_freq else None
+                    self.pg[r.page]["unit:" + u][a.attribute] += 1
+        # The company itself is the usual unnamed subject ("our headquarters", "38 employees"):
+        # the subject with the most attributes.
+        self.default_subject = max(self.subject_attrs, key=lambda s: len(self.subject_attrs[s])) if self.subject_attrs else None
         nouns = set(units) | {_singular(at.split("_")[-1]) for at_list in self.subject_attrs.values() for at in at_list}
         protected = [n for s in lexicon["subjects"] for n in [s["name"]] + s.get("aliases", [])] + list(lexicon.get("events", []))
         self.extractor = Extractor(nouns=nouns, names=name_vals, protected=protected, units=units)
@@ -130,6 +140,8 @@ class Reader:
                         lw = set(self._local_words(r.text, f.start, f.end))
                         self.local_cue[a.attribute].update(lw)
                         self.local_df.update(lw)
+                        self.pg[r.page]["lcue:" + a.attribute].update(lw)
+                        self.pg[r.page]["local_df"].update(lw)
                         break
         rng = random.Random(self.seed)
         X, y, Xb, yb = [], [], [], []
@@ -137,6 +149,7 @@ class Reader:
         for r in train:
             found = self.extractor.find(r.text)
             cands = self._subjects(r, pages, gold=True)
+            self._ex = r.page
             for f in found:
                 gold_keys = {a.key for a in r.atoms if a.value["kind"] == f.kind and
                              satisfies(self._exact(a.value), self._exact(f.value), self.names)}
@@ -154,6 +167,7 @@ class Reader:
             for key, feats, _ in [p for p in bpairs if p[0] in gold_bool] + bneg[:15]:
                 Xb.append(feats)
                 yb.append(int(key in gold_bool))
+        self._ex = None
         self.model = LogReg(l2=1e-3, epochs=15, lr=0.3).fit(X, y)
         self.bool_model = LogReg(l2=1e-3, epochs=15, lr=0.3).fit(Xb, yb)
         return self
@@ -172,17 +186,48 @@ class Reader:
         post = words(text[end:])[:after]
         return pre + post
 
+    _ex = None  # page whose own statistics are left out (set while building training features)
+
+    def _get(self, table: str, glob: Counter, key):
+        v = glob.get(key, 0)
+        if self._ex is not None:
+            v -= self.pg[self._ex][table].get(key, 0) if self._ex in self.pg else 0
+        return v
+
+    def _n_atoms(self):
+        n = self.n_atoms
+        if self._ex is not None and self._ex in self.pg:
+            n -= sum(self.pg[self._ex]["attr_count"].values())
+        return max(1, n)
+
     def _local_cue(self, attr, lw):
-        n_a = sum(self.local_cue[attr].values()) and self.attr_count.get(attr, 0)
-        if not n_a:
+        n_a = self._get("attr_count", self.attr_count, attr)
+        if n_a <= 0:
             return 0.0
-        c, n = self.local_cue[attr], max(1, sum(self.attr_count.values()))
+        n = self._n_atoms()
         score = 0.0
         for w in lw:
-            lift = math.log((c.get(w, 0) + 0.5) / (n_a + 1)) - math.log((self.local_df.get(w, 0) + 0.5) / (n + 1))
+            c = self._get("lcue:" + attr, self.local_cue[attr], w)
+            df = self._get("local_df", self.local_df, w)
+            lift = math.log((c + 0.5) / (n_a + 1)) - math.log((df + 0.5) / (n + 1))
             if lift > 0:
                 score += lift
         return score / math.sqrt(len(lw) + 1)
+
+    def _known(self, key):
+        vals = self.known.get(key, [])
+        if self._ex is None or self._ex not in self.pg_known:
+            return vals
+        own = self.pg_known[self._ex].get(key, [])
+        if not own:
+            return vals
+        out, drop = [], list(own)
+        for v in vals:
+            if v in drop:
+                drop.remove(v)
+            else:
+                out.append(v)
+        return out
 
     @staticmethod
     def _exact(v):
@@ -232,13 +277,15 @@ class Reader:
         return 1 if kind in guess_kinds(key[1]) else 0
 
     def _cue(self, attr: str, ws: set[str]) -> float:
-        n_a = self.attr_count.get(attr, 0)
-        if not n_a:
+        n_a = self._get("attr_count", self.attr_count, attr)
+        if n_a <= 0:
             return 0.0
-        c = self.cue[attr]
+        n = self._n_atoms()
         score = 0.0
         for w in ws:
-            lift = math.log((c.get(w, 0) + 0.5) / (n_a + 1)) - math.log((self.word_df.get(w, 0) + 0.5) / (self.n_atoms + 1))
+            c = self._get("cue:" + attr, self.cue[attr], w)
+            df = self._get("word_df", self.word_df, w)
+            lift = math.log((c + 0.5) / (n_a + 1)) - math.log((df + 0.5) / (n + 1))
             if lift > 0:
                 score += lift
         return score / math.sqrt(len(ws) + 1)
@@ -268,7 +315,8 @@ class Reader:
         n_text = sum(1 for v in cands.values() if v[0] == "text")
         unit = _singular(f.value["unit"].lower()) if f.kind == "quantity" else None
         u_key = self._unit(f.value)
-        u_tot = sum(self.unit_attr[u_key].values()) if u_key else 0
+        u_tot = (sum(self.unit_attr[u_key].values()) - (sum(self.pg[self._ex]["unit:" + u_key].values())
+                 if self._ex is not None and self._ex in self.pg else 0)) if u_key else 0
         lw = self._local_words(row.text, f.start, f.end)
         out = []
         for subj, info in cands.items():
@@ -285,11 +333,12 @@ class Reader:
                     feats["attr_words"] = overlap
                 if unit and unit in at:
                     feats["unit_in_attr"] = 1.0
-                if u_tot:
-                    feats["unit_assoc"] = math.log((self.unit_attr[u_key].get(attr, 0) + 0.1) / (u_tot + 1))
+                if u_tot > 0:
+                    feats["unit_assoc"] = math.log((self._get("unit:" + u_key, self.unit_attr[u_key], attr) + 0.1) / (u_tot + 1))
                 feats["local_cue"] = self._local_cue(attr, lw)
-                feats["attr_prior"] = math.log((self.subj_attr.get(key, 0) + 1) / (sum(self.subj_attr.get((subj, a2), 0) for a2 in self.subject_attrs[subj]) + len(self.subject_attrs[subj])))
-                known = self.known.get(key, [])
+                tot = sum(self._get("subj_attr", self.subj_attr, (subj, a2)) for a2 in self.subject_attrs[subj])
+                feats["attr_prior"] = math.log((self._get("subj_attr", self.subj_attr, key) + 1) / (tot + len(self.subject_attrs[subj])))
+                known = self._known(key)
                 if known:
                     feats["has_known"] = 1.0
                     if any(satisfies(self._exact(f.value), k, self.names) for k in known):
@@ -378,5 +427,16 @@ class Reader:
                     r.atoms = atoms          # later rows of the page use it as context
                     r.meta["parsed"] = True
                     r.meta["parse_probs"] = {f"{k[0]}|{k[1]}": round(p, 3) for k, p in self.last_probs.items()}
+                    r.meta["parse_scores"] = dict(self.last_probs)
                     parsed[r.id] = atoms
         return parsed
+
+
+def atom_match(p: Atom, g: Atom, names) -> bool:
+    """Does a parsed atom state the same fact and value as a gold atom?"""
+    if p.key != g.key or p.value["kind"] != g.value["kind"]:
+        return False
+    if p.value.get("op", "eq") != g.value.get("op", "eq"):
+        return False
+    strip = lambda v: {k: x for k, x in v.items() if k != "op"}
+    return bool(satisfies(strip(g.value), strip(p.value), names))
