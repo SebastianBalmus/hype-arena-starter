@@ -475,7 +475,7 @@ extracted (3%).
 |---|---|---|
 | page-grouped CV, raw | 0.873 | **0.884** |
 | page-grouped CV, calibrated | 0.876, F1 false 0.555 | **0.886** (0.869-0.903), F1 false **0.620**, ECE 0.025 |
-| unseen subjects | 0.825, F1 false 0.13 | 0.824, F1 false 0.15 |
+| unseen subjects | 0.825, F1 false 0.13 | 0.818, F1 false 0.14 (0.824 before the speaker-tag fix) |
 | team benchmark stratified / temporal / checker (raw) | 0.868 / 0.838 / 0.861 | 0.861 / 0.834 / **0.874** |
 | runtime on check.sh-shaped input | 334/380 | 333/380 |
 
@@ -501,6 +501,89 @@ label is right. On the check.sh-shaped input it predicted 0.881; observed 0.876.
 Where the remaining 221 errors are: 128 on rows parsed right (mostly a value that disagrees
 with the timeline before its first or after its last labelled anchor: a change or a lie?),
 51 on rows with nothing parsed, 33 with a wrong fact parsed.
+
+## Round 5: teammates' ideas and change rates per attribute (2026-10-28)
+
+**Bogdan: 54 sklearn final classifiers** (his branch, `research/daria-sklearn-experiments.md`).
+He kept this pipeline up to the stacker and replaced the 3-input logistic stacker with
+three-label classifiers on richer inputs (timeline and HMM probabilities, states, lie
+shapes, parse confidence, date). Tuned gradient boosting: macro F1 0.551 -> 0.650 on the
+stratified track, accuracy 0.866 -> 0.871; temporal and checker flat. The macro-F1 gain is
+3 of the track's 8 *unsure* rows; lie precision/recall barely move. Labels are scored by
+agreement, so we keep our stacker: the decision layer is not the bottleneck.
+
+**Sebi: delexicalisation** (his branch, `entity_linking/`): lexicon names and typed values
+replaced by stable tokens (`<ENTITY:9> costs <MONEY:1>`), with an audited inspection report.
+Our Reader already does the linking and value grammar; the transferable idea is to learn
+cue words from the sentence with names blanked out (`Reader.delex`).
+
+| Reader.delex | parser P / R (pages held out) | parser F1, unseen subjects | end to end, raw |
+|---|---|---|---|
+| off | 0.940 / 0.809 | 0.583 | 0.884, F1 false 0.623 |
+| on | 0.941 / 0.808 | 0.583 | 0.886, F1 false 0.629 |
+
+Neutral (2 rows of 1,897): leave-own-page-out statistics and cue dropout already keep the
+scorer from leaning on product names. Off. His rule of not linking lower-case generic words
+("4,900,000,000 photos") would hurt us: 18 of our 21 lower-case mentions are the row's subject.
+
+**Change rates per attribute** (`TimelineHMM(attr_prior=m)`). The HMM used one change rate
+for all facts, but 55 of 233 attributes never change in the labelled data while others
+change 5-9 times a year (fact duration prediction, Zhang & Choi, EMNLP 2023; evolving truth,
+Li et al., KDD 2015). Each attribute now can get its own rate under a Gamma prior worth m
+pseudo-changes (learned taus: stable_version ~110 days, launched ~890 days).
+
+| test (HMM alone unless noted) | one rate | per attribute (m=0.5) |
+|---|---|---|
+| pages held out, gold facts: HMM / gated | 0.885 / 0.905 | 0.889 / 0.904 |
+| 10% labelled, gold facts: HMM | 0.869 | **0.879** |
+| unseen subjects, gold facts: HMM / gated | 0.853 / 0.866 | **0.869** / 0.866 |
+| **pages held out, real parsing: gated** | 0.884 | 0.884 |
+| **unseen subjects, real parsing: gated** | 0.818 | 0.818 |
+| ... and letting the HMM decide more often (gate at p >= 0.5, 2 dates): held out / unseen subjects | | 0.883 / 0.804 |
+
+The HMM itself gets better where labels are scarce (+1.0 / +1.6 with perfect parsing), but
+the shipped system does not: in the normal setting the stacker already has the timeline's
+stable/volatile flag, and without anchors misparsed facts dominate. Loosening the gate to
+use the better HMM more often hurts (more false alarms on misparsed facts). Off; parsing
+remains the limit wherever labels are scarce.
+
+**Observations, not used:** speaker tags are rare (9% of rows); "Gavin:" (the CEO) rows are
+false 29% of the time vs a 15% base rate, but n=31. Lies cluster mildly by page: a row is
+false 16.6% of the time when another row of its page is false, 11.1% otherwise.
+
+## Round 6: fresh-wording test (2026-10-28)
+
+**Test set** (development only, not in the repository): 63 practice rows from whole pages
+were held out of everything and **rewritten in new words** (same facts, date and real label;
+6 lies, 1 unsure), plus **86 new sentences** about facts the labelled data pins down, with a
+date inside a certain core (70 true, 16 lies built the way the data's lies look: stale,
+premature, inflated). Written with an LLM's help during development; the new sentences'
+labels are constructed, so they test reading, not truth. The universe is the rest of
+practice, labelled, as at runtime.
+
+| held-out practice rows, real labels | accuracy | lies caught | false alarms | parser recall / precision |
+|---|---|---|---|---|
+| original wording | 0.921 (58/63) | 3/6 | 1 | 0.77 / 0.97 |
+| **rewritten** | **0.905** (57/63) | 3/6 | 2 | 0.74 / 0.94 |
+| new sentences (constructed labels, each names its subject) | 0.977 -> 0.988 with fix C | 15/16 | 1 -> 0 | 0.98 |
+
+New wording costs one verdict in 63 and ~3 points of parser recall. Failures found: two
+durations swapped between trial and refund in one sentence; "7 days free" linked to Hooly
+AI Free through the lower-case word "free"; "should be generally available" read as *yes*;
+"lets you edit offline" missed (5-letter stem "editi"); "cannot speak its answers yet" missed.
+
+| fix | held out, calibrated | unseen subjects | new wording | kept |
+|---|---|---|---|---|
+| none | 0.886 | 0.818 | 0.905 / 0.977 | |
+| A: distinctive name words only when capitalised | 0.881 | | | no |
+| B: suffix stemmer + 5-letter prefix | 0.883 | | | no |
+| **C: no yes/no fact from a plan or hedge** ("should", "will", "plans to") | 0.886 (identical) | 0.818 (identical) | 0.905 / **0.988** | **yes** |
+| A+B+C | 0.884 | 0.821 | 0.905 / 0.988 | |
+
+C changes nothing on practice and removes a false alarm type the practice data does not
+show; A and B cost 1-3 rows on held-out pages. Runs are deterministic (identical across
+hash seeds). Self-evaluation: on wordings the practice data never shows, expect about
+1-2 points lower accuracy than on held-out practice pages.
 
 ## Planned experiments and predictions
 

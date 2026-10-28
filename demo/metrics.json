@@ -1,35 +1,196 @@
 {
   "source": "docs/EXPERIMENTS.md: page-grouped cross-validation on the 1,897 practice rows (whole pages held out, text only), round 4",
   "ladder": [
-    {"name": "Nearest labelled value (perfect parsing)", "accuracy": 0.780},
-    {"name": "Always say true", "accuracy": 0.833},
-    {"name": "Timelines + our parser", "accuracy": 0.873},
-    {"name": "Hybrid + calibration", "accuracy": 0.878},
-    {"name": "Shipped: parser fixes, gated hybrid", "accuracy": 0.886}
+    {
+      "name": "Nearest labelled value (perfect parsing)",
+      "accuracy": 0.78
+    },
+    {
+      "name": "Always say true",
+      "accuracy": 0.833
+    },
+    {
+      "name": "Timelines + our parser",
+      "accuracy": 0.873
+    },
+    {
+      "name": "Hybrid + calibration",
+      "accuracy": 0.878
+    },
+    {
+      "name": "Shipped: parser fixes, gated hybrid",
+      "accuracy": 0.886
+    }
   ],
   "reliability": [
-    {"confidence": 0.52, "accuracy": 0.69, "n": 13},
-    {"confidence": 0.59, "accuracy": 0.39, "n": 13},
-    {"confidence": 0.61, "accuracy": 0.81, "n": 37},
-    {"confidence": 0.68, "accuracy": 0.85, "n": 27},
-    {"confidence": 0.73, "accuracy": 0.76, "n": 88},
-    {"confidence": 0.78, "accuracy": 0.73, "n": 81},
-    {"confidence": 0.82, "accuracy": 0.85, "n": 454},
-    {"confidence": 0.86, "accuracy": 0.69, "n": 16},
-    {"confidence": 0.92, "accuracy": 0.92, "n": 673},
-    {"confidence": 0.97, "accuracy": 0.96, "n": 495}
+    {
+      "confidence": 0.52,
+      "accuracy": 0.69,
+      "n": 13
+    },
+    {
+      "confidence": 0.59,
+      "accuracy": 0.39,
+      "n": 13
+    },
+    {
+      "confidence": 0.61,
+      "accuracy": 0.81,
+      "n": 37
+    },
+    {
+      "confidence": 0.68,
+      "accuracy": 0.85,
+      "n": 27
+    },
+    {
+      "confidence": 0.73,
+      "accuracy": 0.76,
+      "n": 88
+    },
+    {
+      "confidence": 0.78,
+      "accuracy": 0.73,
+      "n": 81
+    },
+    {
+      "confidence": 0.82,
+      "accuracy": 0.85,
+      "n": 454
+    },
+    {
+      "confidence": 0.86,
+      "accuracy": 0.69,
+      "n": 16
+    },
+    {
+      "confidence": 0.92,
+      "accuracy": 0.92,
+      "n": 673
+    },
+    {
+      "confidence": 0.97,
+      "accuracy": 0.96,
+      "n": 495
+    }
   ],
-  "expected": {"point": 0.88, "low": 0.85, "high": 0.90},
+  "expected": {
+    "point": 0.88,
+    "low": 0.85,
+    "high": 0.9
+  },
   "experiments": [
-    {"id": "e0", "idea": "Always say true", "source": "Baseline", "prediction": "About 83%: most sentences are true", "outcome": "83.3%", "held": true},
-    {"id": "e1", "idea": "Timelines with certain cores and fuzzy edges", "source": "TAC KBP temporal slot filling", "prediction": "First variant to beat always-true", "outcome": "88.9% with perfect parsing", "held": true},
-    {"id": "e5", "idea": "Spot lies from writing style", "source": "SLiMFast (2017)", "prediction": "The best trust signal", "outcome": "AUC ~0.55: style says almost nothing", "held": false},
-    {"id": "e7", "idea": "Say unsure unless proved", "source": "Evidence policy", "prediction": "Loses to picking the most likely label", "outcome": "25.9% vs 88.9%", "held": true},
-    {"id": "r2", "idea": "HMM over every sentence + stacker", "source": "Truth discovery literature", "prediction": "Beats timelines alone", "outcome": "90.5% with perfect parsing", "held": true},
-    {"id": "cal", "idea": "Isotonic calibration", "source": "Evaluation plan", "prediction": "ECE below 0.03", "outcome": "ECE 0.021-0.025", "held": true},
-    {"id": "ens", "idea": "Ensemble of five views", "source": "2026 ensembling paper", "prediction": "+1 point", "outcome": "84.4% with real parsing: worse", "held": false},
-    {"id": "cue", "idea": "Cue dropout in the parser", "source": "Robustness test", "prediction": "Better on unseen subjects", "outcome": "Recall 0.22 -> 0.42 on unseen subjects", "held": true},
-    {"id": "st", "idea": "Self-train the parser on its own parses", "source": "Robustness test", "prediction": "Gain from unlabelled rows", "outcome": "88.0% vs 88.4%: reinforces its mistakes", "held": false},
-    {"id": "r4", "idea": "Fix yes/no polarity, find hidden subjects", "source": "Error map", "prediction": "Most errors come from parsing", "outcome": "87.6% -> 88.6%", "held": true}
+    {
+      "id": "e0",
+      "idea": "Always say true",
+      "source": "Baseline",
+      "prediction": "About 83%: most sentences are true",
+      "outcome": "83.3%",
+      "held": true
+    },
+    {
+      "id": "e1",
+      "idea": "Timelines with certain cores and fuzzy edges",
+      "source": "TAC KBP temporal slot filling",
+      "prediction": "First variant to beat always-true",
+      "outcome": "88.9% with perfect parsing",
+      "held": true
+    },
+    {
+      "id": "e5",
+      "idea": "Spot lies from writing style",
+      "source": "SLiMFast (2017)",
+      "prediction": "The best trust signal",
+      "outcome": "AUC ~0.55: style says almost nothing",
+      "held": false
+    },
+    {
+      "id": "e7",
+      "idea": "Say unsure unless proved",
+      "source": "Evidence policy",
+      "prediction": "Loses to picking the most likely label",
+      "outcome": "25.9% vs 88.9%",
+      "held": true
+    },
+    {
+      "id": "r2",
+      "idea": "HMM over every sentence + stacker",
+      "source": "Truth discovery literature",
+      "prediction": "Beats timelines alone",
+      "outcome": "90.5% with perfect parsing",
+      "held": true
+    },
+    {
+      "id": "cal",
+      "idea": "Isotonic calibration",
+      "source": "Evaluation plan",
+      "prediction": "ECE below 0.03",
+      "outcome": "ECE 0.021-0.025",
+      "held": true
+    },
+    {
+      "id": "ens",
+      "idea": "Ensemble of five views",
+      "source": "2026 ensembling paper",
+      "prediction": "+1 point",
+      "outcome": "84.4% with real parsing: worse",
+      "held": false
+    },
+    {
+      "id": "cue",
+      "idea": "Cue dropout in the parser",
+      "source": "Robustness test",
+      "prediction": "Better on unseen subjects",
+      "outcome": "Recall 0.22 -> 0.42 on unseen subjects",
+      "held": true
+    },
+    {
+      "id": "st",
+      "idea": "Self-train the parser on its own parses",
+      "source": "Robustness test",
+      "prediction": "Gain from unlabelled rows",
+      "outcome": "88.0% vs 88.4%: reinforces its mistakes",
+      "held": false
+    },
+    {
+      "id": "r4",
+      "idea": "Fix yes/no polarity, find hidden subjects",
+      "source": "Error map",
+      "prediction": "Most errors come from parsing",
+      "outcome": "87.6% -> 88.6%",
+      "held": true
+    },
+    {
+      "id": "bog",
+      "idea": "54 alternative final classifiers (Bogdan)",
+      "source": "Team benchmark",
+      "prediction": "A stronger classifier beats the 3-input stacker",
+      "outcome": "Accuracy 86.6% -> 87.1%: the decision layer is not the bottleneck",
+      "held": false
+    },
+    {
+      "id": "seb",
+      "idea": "Cue words with product names blanked out (Sebi)",
+      "source": "Delexicalisation",
+      "prediction": "Better on unseen subjects",
+      "outcome": "Parser F1 0.583 -> 0.583: neutral",
+      "held": false
+    },
+    {
+      "id": "tau",
+      "idea": "Change rate per attribute",
+      "source": "Fact duration (EMNLP 2023)",
+      "prediction": "Separates changes from lies",
+      "outcome": "HMM +1.6 with perfect parsing, shipped system flat (88.4%)",
+      "held": false
+    },
+    {
+      "id": "fw",
+      "idea": "Same rows, rewritten in new words",
+      "source": "Fresh-wording test",
+      "prediction": "Unseen phrasings cost a few points",
+      "outcome": "92.1% -> 90.5% on 63 held-out rows; parser recall 0.77 -> 0.74",
+      "held": true
+    }
   ]
 }

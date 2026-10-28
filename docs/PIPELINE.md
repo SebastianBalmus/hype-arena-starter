@@ -71,7 +71,8 @@ other row is read from its text.
 4. **Yes/no facts** have no value token: they are scored through their attribute's words
    ("AI sidebar", "SOC 2 certified", with crude stems: encrypts / encrypted), and a negation
    in the clause holding those words, or a bare answer after a colon ("Desktop mode: no"),
-   makes the value *no*.
+   makes the value *no*; a clause that is a plan or a hedge ("should be available in
+   December") states no yes/no fact.
 5. **Parse confidence.** Inside the training data, a second Reader trained without a slice
    of pages parses that slice; an isotonic map turns a parse score into "how often a parse
    like this is right". A shaky parse later counts for less.
@@ -216,7 +217,7 @@ failed, are in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 | ours, team benchmark: stratified / temporal / checker | 0.861 / 0.834 / 0.874 | 0.49 / 0.41 / 0.50 |
 
 Stress tests: with only 10% of labels the HMM still reaches 0.869 (gold facts); on subjects
-never seen in training the system stays near always-true with our parser (0.824) and reaches
+never seen in training the system stays near always-true with our parser (0.818) and reaches
 0.866 with perfect parsing, so parsing new material is the main remaining limit.
 
 Expected on the hidden data: **about 0.88, plausibly 0.85-0.90**. More anchors and more

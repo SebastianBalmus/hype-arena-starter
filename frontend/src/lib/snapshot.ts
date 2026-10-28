@@ -1529,7 +1529,7 @@ export const SNAPSHOT: Snapshot = {
    }
   ],
   "meta": {
-   "runtime_ms": 3030,
+   "runtime_ms": 3401,
    "model": "Reader -> gated hybrid -> calibration",
    "csv_url": "/api/output.csv",
    "rows": 20,
@@ -3839,6 +3839,38 @@ export const SNAPSHOT: Snapshot = {
     "source": "Error map",
     "prediction": "Most errors come from parsing",
     "outcome": "87.6% -> 88.6%",
+    "held": true
+   },
+   {
+    "id": "bog",
+    "idea": "54 alternative final classifiers (Bogdan)",
+    "source": "Team benchmark",
+    "prediction": "A stronger classifier beats the 3-input stacker",
+    "outcome": "Accuracy 86.6% -> 87.1%: the decision layer is not the bottleneck",
+    "held": false
+   },
+   {
+    "id": "seb",
+    "idea": "Cue words with product names blanked out (Sebi)",
+    "source": "Delexicalisation",
+    "prediction": "Better on unseen subjects",
+    "outcome": "Parser F1 0.583 -> 0.583: neutral",
+    "held": false
+   },
+   {
+    "id": "tau",
+    "idea": "Change rate per attribute",
+    "source": "Fact duration (EMNLP 2023)",
+    "prediction": "Separates changes from lies",
+    "outcome": "HMM +1.6 with perfect parsing, shipped system flat (88.4%)",
+    "held": false
+   },
+   {
+    "id": "fw",
+    "idea": "Same rows, rewritten in new words",
+    "source": "Fresh-wording test",
+    "prediction": "Unseen phrasings cost a few points",
+    "outcome": "92.1% -> 90.5% on 63 held-out rows; parser recall 0.77 -> 0.74",
     "held": true
    }
   ]

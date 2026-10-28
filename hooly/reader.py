@@ -33,6 +33,33 @@ def words(text: str) -> list[str]:
     return [_singular(w) for w in _WORD.findall(text.lower()) if w not in _STOP]
 
 
+_SUFFIXES = sorted(["ations", "ation", "ings", "ing", "ions", "ion", "ments", "ment", "ers", "er", "ed", "es", "s",
+                    "ly", "ity", "able"], key=len, reverse=True)
+
+
+def light_stem(w: str) -> str:
+    """Suffix stripping: editing / edit -> edit, encryption / encrypted -> encrypt, shipped -> ship."""
+    for suf in _SUFFIXES:
+        if w.endswith(suf) and len(w) - len(suf) >= 3:
+            w = w[: -len(suf)]
+            break
+    if len(w) > 3 and w[-1] == w[-2] and w[-1] not in "aeiouls":
+        w = w[:-1]
+    if len(w) > 3 and w.endswith("e"):
+        w = w[:-1]
+    return w
+
+
+def stem_keys(w: str) -> set[str]:
+    """Keys under which two words count as the same stem (STEMMER = "prefix" | "light")."""
+    if Reader.STEMMER == "prefix":
+        return {stem(w)}
+    keys = {light_stem(w)}
+    if len(w) >= 5:
+        keys.add(w[:5])
+    return keys
+
+
 def stem(w: str) -> str:
     """Crude stem: encrypts / encrypted / encryption -> encry, weighs / weight -> weigh."""
     return w[:5] if len(w) > 5 else w
@@ -40,6 +67,14 @@ def stem(w: str) -> str:
 
 _MONTHS = {"january", "february", "march", "april", "may", "june", "july", "august", "september", "october",
            "november", "december"}
+
+
+def _clause(text: str, pos: int) -> str:
+    """The clause around position pos (between punctuation marks)."""
+    pos = min(max(0, pos), len(text))
+    start = max([m.end() for m in re.finditer(r"[.,;:!?]\s", text[:pos])], default=0)
+    m = re.search(r"[.,;:!?](\s|$)", text[pos:])
+    return text[start: pos + m.start()] if m else text[start:]
 
 
 def attr_tokens(attr: str) -> set[str]:
@@ -77,7 +112,15 @@ def guess_kinds(attr: str) -> set[str]:
     return {"quantity"}
 
 
+_MODAL = re.compile(r"\b(will|should|would|could|might|plans? to|planned|planning to|expects? to|expected to|"
+                    r"aims? to|intends? to|is set to|are set to|soon)\b", re.I)
+
+
 class Reader:
+    STEMMER = "prefix"      # "light": suffix stripping plus 5-letter prefix (tested: -2 rows, off)
+    PARTIAL_CAPS = False    # name words only when capitalised (tested: -1 row, off)
+    BOOL_MODAL = True       # no yes/no fact from a clause that is a plan or a hedge ("should be available")
+
     def __init__(self, threshold: float = 0.35, bool_threshold: float = 0.5, seed: int = 0, cue_dropout: float = 0.35):
         self.threshold, self.bool_threshold, self.seed = threshold, bool_threshold, seed
         self.cue_dropout = cue_dropout
@@ -117,7 +160,7 @@ class Reader:
         self.word_df = Counter()
         units, name_vals = set(), set()
         for r in train:
-            ws = set(words(r.text))
+            ws = set(words(self._plain(r.text)))
             pg = self.pg[r.page]
             for a in r.atoms:
                 self.kinds[a.key].add(a.value["kind"])
@@ -158,7 +201,7 @@ class Reader:
             for a in r.atoms:
                 for f in found:
                     if f.kind == a.value["kind"] and satisfies(self._exact(a.value), self._exact(f.value), self.names):
-                        lw = set(self._local_words(r.text, f.start, f.end))
+                        lw = set(self._local_words(self._plain(r.text), f.start, f.end))
                         self.local_cue[a.attribute].update(lw)
                         self.local_df.update(lw)
                         self.pg[r.page]["lcue:" + a.attribute].update(lw)
@@ -255,6 +298,18 @@ class Reader:
                 out.append(v)
         return out
 
+    delex = False  # cue words from the sentence with lexicon names blanked out (Sebi's delexicalisation)
+
+    def _plain(self, text: str) -> str:
+        """The sentence with lexicon names blanked out (same length, so offsets still hold):
+        cue words then describe the statement ("costs", "weighs"), not the product."""
+        if not self.delex:
+            return text
+        chars = list(text)
+        for s, e, _ in self.mentions(text):
+            chars[s:e] = " " * (e - s)
+        return "".join(chars)
+
     _SPEAKER = re.compile(r"^([A-Z][\w.'-]*(?: [A-Z][\w.'-]*){0,2}):\s")
 
     def _find(self, text: str):
@@ -308,6 +363,8 @@ class Reader:
         for rx, subs in self.partials:
             for m in rx.finditer(row.text):
                 if any(s <= m.start() < e for s, e in taken):
+                    continue
+                if self.PARTIAL_CAPS and not row.text[m.start()].isupper():
                     continue
                 for subj in subs:
                     if subj not in out:
@@ -393,14 +450,14 @@ class Reader:
         return feats
 
     def _pairs(self, row, f, cands):
-        ws = set(words(row.text))
-        wst = {stem(w) for w in ws}
+        ws = set(words(self._plain(row.text)))
+        wst = {k for w in ws for k in stem_keys(w)}
         n_text = sum(1 for v in cands.values() if v[0] == "text")
         unit = _singular(f.value["unit"].lower()) if f.kind == "quantity" else None
         u_key = self._unit(f.value)
         u_tot = (sum(self.unit_attr[u_key].values()) - (sum(self.pg[self._ex]["unit:" + u_key].values())
                  if self._ex is not None and self._ex in self.pg else 0)) if u_key else 0
-        lw = self._local_words(row.text, f.start, f.end)
+        lw = self._local_words(self._plain(row.text), f.start, f.end)
         out = []
         for subj, info in cands.items():
             for attr in self.subject_attrs.get(subj, []):
@@ -416,7 +473,7 @@ class Reader:
                     feats["attr_words"] = overlap
                     if unseen:
                         feats["attr_words:unseen"] = overlap
-                st = sum(1 for t in at if stem(t) in wst) / len(at)
+                st = sum(1 for t in at if stem_keys(t) & wst) / len(at)
                 if st > overlap:
                     feats["attr_stems"] = st - overlap
                 if unit and unit in at:
@@ -462,8 +519,8 @@ class Reader:
         return best
 
     def _bool_pairs(self, row, cands):
-        ws = set(words(row.text))
-        wst = {stem(w) for w in ws}
+        ws = set(words(self._plain(row.text)))
+        wst = {k for w in ws for k in stem_keys(w)}
         n_text = sum(1 for v in cands.values() if v[0] == "text")
         out = []
         for subj, info in cands.items():
@@ -474,7 +531,7 @@ class Reader:
                 at = attr_tokens(attr)
                 hits = at & ws
                 unseen = self._unseen(attr)
-                shits = {t for t in at if stem(t) in wst}
+                shits = {t for t in at if stem_keys(t) & wst}
                 feats = {"bias": 1.0, "attr_words": len(hits) / len(at), "all_attr_words": float(hits == at),
                          "attr_stems": len(shits) / len(at), "all_attr_stems": float(shits == at)}
                 if unseen:
@@ -485,7 +542,7 @@ class Reader:
                 feats.update(self._subject_feats(subj, info, None, n_text))
                 pos = len(row.text)
                 for t in hits | shits:
-                    m = re.search(r"\b" + re.escape(stem(t)), row.text.lower())
+                    m = re.search(r"\b" + re.escape(min(stem_keys(t), key=len)), row.text.lower())
                     if m:
                         pos = min(pos, m.start())
                 out.append((key, feats, pos))
@@ -518,6 +575,8 @@ class Reader:
             best_for_key[key] = (p, Atom(key[0], key[1], f.value))
         for key, feats, pos in self._bool_pairs(row, cands):
             p = self.bool_model.predict_proba(feats)
+            if self.BOOL_MODAL and _MODAL.search(_clause(row.text, pos)):
+                continue
             if p >= self.bool_threshold and (key not in best_for_key or best_for_key[key][0] < p):
                 best_for_key[key] = (p, Atom(key[0], key[1], {"kind": "boolean", "value": not negated_at(row.text, pos)}))
         out = []

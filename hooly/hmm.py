@@ -10,7 +10,10 @@ Emissions per observation:
   everything else      states the true value with probability alpha, otherwise another one
 
 EM learns alpha (how often an unlabelled row tells the truth) and tau (typical time between
-changes) from all rows at once; forward-backward then gives, for each row, the probability
+changes) from all rows at once. With `attr_prior` set, every attribute gets its own tau,
+pulled towards the global one (a Gamma prior worth `attr_prior` pseudo-changes): a launch
+date never changes, a version number changes every few weeks (fact duration, Zhang & Choi
+2023; evolving truth, Li et al. 2015); forward-backward then gives, for each row, the probability
 that the value it states was the true one on its date. Unlabelled rows are evidence here,
 not just anchors: the more rows the runtime has, the more this model sees.
 """
@@ -143,8 +146,15 @@ class FactChain:
 class TimelineHMM(Model):
     name = "hmm"
 
-    def __init__(self, iters: int = 8, alpha: float = 0.8, tau: float = 90.0):
+    ATTR_PRIOR = None  # e.g. 2.0: per-attribute change rates, shrunk to the global one
+
+    def __init__(self, iters: int = 8, alpha: float = 0.8, tau: float = 90.0, attr_prior: float | None = None):
         self.iters, self.alpha, self.tau = iters, alpha, tau
+        self.attr_prior = attr_prior if attr_prior is not None else self.ATTR_PRIOR
+        self.tau_attr = {}
+
+    def tau_for(self, key) -> float:
+        return self.tau_attr.get(key[1], self.tau)
 
     def fit(self, rows, lexicon, names):
         self.names = names
@@ -163,17 +173,24 @@ class TimelineHMM(Model):
         self.history = []
         for _ in range(self.iters):
             ch = dy = tr = n = 0.0
-            for c in self.chains.values():
+            per = defaultdict(lambda: [0.0, 0.0])  # attribute -> [expected changes, days]
+            for key, c in self.chains.items():
                 if c.multi:
                     continue
-                a, b, x, y = c.run(self.alpha, self.tau)
+                a, b, x, y = c.run(self.alpha, self.tau_for(key))
                 ch, dy, tr, n = ch + a, dy + b, tr + x, n + y
+                per[key[1]][0] += a
+                per[key[1]][1] += b
             self.alpha = min(0.99, max(0.5, tr / n)) if n else self.alpha
             self.tau = min(720.0, max(15.0, dy / ch)) if ch else self.tau
+            if self.attr_prior:
+                m = self.attr_prior
+                self.tau_attr = {attr: min(2000.0, max(15.0, (m * self.tau + days) / (m + changes)))
+                                 for attr, (changes, days) in per.items()}
             self.history.append((round(self.alpha, 3), round(self.tau, 1)))
-        for c in self.chains.values():
+        for key, c in self.chains.items():
             if not c.multi:
-                c.run(self.alpha, self.tau)
+                c.run(self.alpha, self.tau_for(key))
         return self
 
     def atom_p(self, atom, d):
