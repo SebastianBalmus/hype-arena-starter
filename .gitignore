@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+# full per-row reports are large; record summaries in docs/EXPERIMENTS.md
+evaluation/results/
