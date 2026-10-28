@@ -8,7 +8,7 @@ from arena.model import Fact
 from arena.train import build_artifacts
 
 FACT = Fact("Hooly", "founded", {"kind": "date", "value": "2020-01-01"}, 0.9)
-FLOOR = 0.78  # measured label_accuracy 0.8044 (below always-true 0.8334) - 0.02, rounded down
+FLOOR = 0.817  # measured cross-fitted label_accuracy 0.8371 (always-true 0.8334) - 0.02
 
 
 def test_row_features_verdicts():
@@ -43,3 +43,24 @@ def test_build_artifacts(built):
         assert (out / f).exists()
     assert 0.80 <= m["always_true_accuracy"] <= 0.86
     assert m["label_accuracy"] >= FLOOR
+
+
+def test_saved_pickles_predict(built):
+    import pickle
+    out, m = built
+    d = pickle.load(open(out / "decider.pkl", "rb"))
+    for f in ["kinds.pkl", "names.pkl", "attribute_model.pkl"]:
+        pickle.load(open(out / f, "rb"))
+    x = row_features([FACT], [AtomCheck("true", "in", 2, True, 0)], 0.8)
+    label, conf = d.predict(x)
+    assert label in ("true", "false", "unsure")
+    assert abs(sum(d.proba(x).values()) - 1) < 1e-6
+    assert "macro_f1" in m and 0 <= m["ece"] <= 1
+
+
+def test_unsure_path():
+    d = Decider()
+    X = [row_features([FACT], [AtomCheck("unknown", "none", 0, False, 0)], 0.5) for _ in range(60)]
+    y = ["unsure"] * 60
+    d.fit(X, y, list(range(60)))
+    assert d.predict(X[0]) == ("unsure", None)
