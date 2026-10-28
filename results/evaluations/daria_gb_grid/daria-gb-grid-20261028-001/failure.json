@@ -1,0 +1,5 @@
+{
+  "status": "failed",
+  "eligible_for_comparison": false,
+  "reason": "scikit-learn make_scorer response validation rejected implicit binary pos_label=1 for string multiclass labels; fixed by direct estimator-call macro-F1 scorer. No completed comparison or parameter selection from this run."
+}

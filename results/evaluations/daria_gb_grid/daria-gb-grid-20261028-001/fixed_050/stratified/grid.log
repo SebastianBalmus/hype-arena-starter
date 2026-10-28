@@ -1,0 +1,68 @@
+Fitting 3 folds for each of 108 candidates, totalling 324 fits
+joblib.externals.loky.process_executor._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/joblib/_utils.py", line 109, in __call__
+    return self.func(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/joblib/parallel.py", line 607, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/utils/parallel.py", line 147, in __call__
+    return self.function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/model_selection/_validation.py", line 881, in _fit_and_score
+    test_scores = _score(
+                  ^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/model_selection/_validation.py", line 942, in _score
+    scores = scorer(estimator, X_test, y_test, **score_params)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/metrics/_scorer.py", line 308, in __call__
+    return self._score(partial(_cached_call, None), estimator, X, y_true, **_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/metrics/_scorer.py", line 400, in _score
+    y_pred = method_caller(
+             ^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/metrics/_scorer.py", line 90, in _cached_call
+    result, _ = _get_response_values(
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/utils/_response.py", line 207, in _get_response_values
+    raise ValueError(
+ValueError: pos_label=1 is not a valid label: It should be one of ['false' 'true' 'unsure']
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/bogdandura/Desktop/hype-arena-starter/experiments/daria_gb_grid.py", line 161, in <module>
+    main()
+  File "/Users/bogdandura/Desktop/hype-arena-starter/experiments/daria_gb_grid.py", line 128, in main
+    grid.fit(np.asarray(spec['ids'], dtype=object), np.asarray(spec['labels']))
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/base.py", line 1365, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 1051, in fit
+    self._run_search(evaluate_candidates)
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 1605, in _run_search
+    evaluate_candidates(ParameterGrid(self.param_grid))
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/model_selection/_search.py", line 997, in evaluate_candidates
+    out = parallel(
+          ^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/sklearn/utils/parallel.py", line 82, in __call__
+    return super().__call__(iterable_with_config_and_warning_filters)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/joblib/parallel.py", line 2098, in __call__
+    return output if self.return_generator else list(output)
+                                                ^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/joblib/parallel.py", line 1704, in _get_outputs
+    yield from self._retrieve()
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/joblib/parallel.py", line 1806, in _retrieve
+    self._raise_error_fast()
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/joblib/parallel.py", line 1885, in _raise_error_fast
+    error_job.get_result(self.timeout)
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/joblib/parallel.py", line 780, in get_result
+    return self._return_or_raise()
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bogdandura/Desktop/hype-arena-starter/.venv/lib/python3.12/site-packages/joblib/parallel.py", line 795, in _return_or_raise
+    raise self._result
+ValueError: pos_label=1 is not a valid label: It should be one of ['false' 'true' 'unsure']

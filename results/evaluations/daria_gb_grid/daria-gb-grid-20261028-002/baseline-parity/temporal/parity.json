@@ -1,0 +1,37 @@
+{
+  "status": "compared",
+  "track": "temporal",
+  "base_params": {
+    "n_estimators": 80,
+    "learning_rate": 0.05,
+    "max_depth": 2,
+    "min_samples_leaf": 1,
+    "subsample": 1.0
+  },
+  "command": [
+    "/Users/bogdandura/Desktop/hype-arena-starter/.venv/bin/python",
+    "/Users/bogdandura/Desktop/hype-arena-starter/experiments/daria_gb_grid.py",
+    "predict",
+    "--cache",
+    "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/daria_gb_grid/daria-gb-grid-20261028-002/method-inputs/temporal/outer-features.json",
+    "--params",
+    "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/daria_gb_grid/daria-gb-grid-20261028-002/baseline-parity/base-params.json",
+    "--output",
+    "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/daria_gb_grid/daria-gb-grid-20261028-002/baseline-parity/temporal/predictions.csv",
+    "--timings",
+    "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/daria_gb_grid/daria-gb-grid-20261028-002/baseline-parity/temporal/timings.json"
+  ],
+  "thread_env": "1",
+  "feature_cache_sha256": "66740572e9e0e7ecb05459c9761f1cd713f90b82828b8b8ed0c8fa75202330f0",
+  "params_sha256": "dbf61f4070fb17606b8e305e2d60aba096abacd5f70603676db59c715d24eb24",
+  "output_sha256": "66e513d817684d2b834791c7f24b871623d9d882921e2f930f78127a9acaec85",
+  "reference_sha256": "66e513d817684d2b834791c7f24b871623d9d882921e2f930f78127a9acaec85",
+  "reference_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/daria_sk_expanded_none_gb/daria-sklearn-20261028-001/fixed_050/temporal/predictions.csv",
+  "reference_rows": 499,
+  "output_rows": 499,
+  "id_set_equal": true,
+  "different_rows": 0,
+  "labels_equal": true,
+  "numeric_max_abs_delta": 0.0,
+  "examples": []
+}

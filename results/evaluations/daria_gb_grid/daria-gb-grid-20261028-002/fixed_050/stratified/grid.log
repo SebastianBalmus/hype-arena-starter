@@ -1,0 +1,2 @@
+Fitting 3 folds for each of 108 candidates, totalling 324 fits
+{"best_params": {"learning_rate": 0.03, "max_depth": 2, "min_samples_leaf": 8, "n_estimators": 160, "subsample": 0.8}, "best_score": 0.5042587414352451}

@@ -1,0 +1,12 @@
+{
+  "method_code_hashes_unchanged": true,
+  "all_3_tracks_eligible": true,
+  "completed_cv_fits": 972,
+  "parameter_combinations_per_track": 108,
+  "cv_folds": 3,
+  "test_command": ".venv/bin/python -m unittest discover -s tests -q",
+  "tests_passed": 107,
+  "baseline_parity": "exact on all three tracks",
+  "baseline_parity_artifact": "baseline-parity/baseline-parity.json",
+  "previous_failed_run": "../daria-gb-grid-20261028-001/failure.json"
+}
