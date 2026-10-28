@@ -194,12 +194,18 @@ class TemporalWindows(Model):
         return st, self.probs_for(st), trace
 
     def predict(self, row: Row) -> Prediction:
+        probs, atoms = self.row_probs(row)
+        label = max(probs, key=probs.get)
+        return Prediction(label, probs, {"rule": self.name, "atoms": atoms})
+
+    def row_probs(self, row: Row, exclude_page=None):
+        """Label probabilities for a row from its atoms' states (atoms assumed independent)."""
         if not row.atoms:
-            return Prediction("true", dict(self.prior), {"rule": self.name, "state": "unparsed"})
+            return dict(self.prior), [{"state": "unparsed"}]
         d = _d(row.date)
         p_true, p_not_unsure, atoms = 1.0, 1.0, []
         for a in row.atoms:
-            st, pr, tr = self.atom_probs(a, d)
+            st, pr, tr = self.atom_probs(a, d, exclude_page)
             p_true *= pr["true"]
             p_not_unsure *= 1 - pr["unsure"]
             atoms.append({"subject": a.subject, "attribute": a.attribute, "value": a.value,
@@ -208,8 +214,7 @@ class TemporalWindows(Model):
         p_false = max(0.0, 1 - p_true - p_unsure)
         z = p_true + p_false + p_unsure
         probs = {"true": p_true / z, "false": p_false / z, "unsure": p_unsure / z}
-        label = max(probs, key=probs.get)
-        return Prediction(label, probs, {"rule": self.name, "atoms": atoms})
+        return probs, atoms
 
 
 _AMOUNT_KINDS = ("quantity", "money", "percent", "duration")
@@ -302,3 +307,23 @@ class TemporalWindowsPlus(TemporalWindows):
             return super().chain(state)
         base, stability, direction = state.split("|")
         return [state, f"{base}|{stability}"] + super().chain(base)
+
+
+class ConservativeWindows(TemporalWindows):
+    """E7: the evidence policy's verdict rule on top of E1's timelines.
+
+    An atom is proved true inside a core of its value and proved false inside a core of
+    another value; a row is false if any atom is proved false, true if all are proved true,
+    otherwise unsure."""
+    name = "conservative"
+
+    def predict(self, row):
+        probs, atoms = self.row_probs(row)
+        states = [a.get("state", "unparsed") for a in atoms]
+        if any(s.startswith("core_mismatch") for s in states):
+            label = "false"
+        elif states and all(s.startswith("core_match") for s in states):
+            label = "true"
+        else:
+            label = "unsure"
+        return Prediction(label, probs, {"rule": self.name, "atoms": atoms})

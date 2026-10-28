@@ -78,14 +78,78 @@ attribute from the anchors: users go up, latency goes down; versions always up).
   credibility (E3-E5).
 - The overall gain of E1b is +0.4 points, inside the error bars: "probably better, not proven".
 
+## E5 Credibility from text style (2026-10-28)
+
+`hooly/credibility.py`, `hooly/combined.py`. Logistic regression P(lie | text), numbers
+masked (style, not values): words, bigrams, first person, superlatives, "!", round/huge
+numbers, bound words, fragments. Combined with E1b by a small stacker trained on
+out-of-fold scores.
+
+| model | acc | 95% CI | F1 false | Brier | ECE |
+|---|---|---|---|---|---|
+| windows_plus (E1b) | 0.893 | 0.877-0.909 | 0.667 | 0.170 | 0.019 |
+| credibility_only | 0.776 | 0.752-0.799 | 0.169 | 0.365 | 0.115 |
+| windows_cred (E1b + E5) | 0.892 | 0.875-0.908 | 0.677 | 0.173 | 0.023 |
+
+Text alone, page-grouped CV, true vs false rows:
+
+| features | AUC | log loss (base rate 0.421) |
+|---|---|---|
+| style cues only | 0.53 | 0.418-0.421 |
+| unigrams + cues | 0.55-0.57 | 0.47-0.76 |
+| unigrams + bigrams + cues | 0.55-0.56 | 0.49-0.70 |
+
+**Prediction failed.** Style carries almost no signal (AUC ~0.53-0.57, 0.5 = chance);
+more regularisation only removes the overconfidence. Hooly's lies are written in the same
+voice as its truths: a lie can only be caught by checking it against the record.
+
+Lies cluster by page only weakly: P(false) is 0.117 when no other row of the page is false,
+0.145 / 0.199 / 0.164 with 1 / 2 / 3+ false neighbours (base rate 0.146). So page-level
+trust (E4) has little room either. Evidence has to come from other rows stating the same fact.
+
+## E3 Unlabelled rows as votes (2026-10-28)
+
+`hooly/evidence.py`. Rows of other pages stating the same fact within 45 days vote for or
+against an atom's value (counted per page); single-fact rows labelled false stating the same
+value within 60 days mark it as a repeated known lie.
+
+| model | acc | 95% CI | F1 false | Brier | ECE |
+|---|---|---|---|---|---|
+| windows_plus (E1b) | 0.893 | 0.877-0.909 | 0.667 | 0.170 | 0.019 |
+| windows_evidence (E3: votes as extra state modifiers) | 0.885 | 0.868-0.902 | 0.655 | 0.177 | 0.023 |
+| **windows_votes (E3b: votes weighed by a stacker)** | **0.894** | 0.878-0.909 | **0.683** | 0.172 | 0.033 |
+
+The signal is real (single-atom test rows): other pages disagree -> 34% false; agree -> 6%
+false; repeats a known lie -> 44-73% false. But 72% of rows get no vote here: each held-out
+row has ~1 unlabelled peer for its fact, while the real run has ~10x more unlabelled rows.
+Splitting states by votes (E3) spreads training rows too thin and costs accuracy; weighing
+the votes in a stacker (E3b) is on par with E1b with the best F1 on lies so far.
+**This simulation understates E3**: expect more benefit at runtime. Re-measure once the
+Reader parses real rows.
+
+## E7 Verdict policy (2026-10-28)
+
+`ConservativeWindows`: the evidence-policy rule on E1 timelines (an atom is proved inside a
+core; false if any atom proved false, true if all proved true, otherwise unsure).
+
+| model | acc | 95% CI | predicted true / false / unsure |
+|---|---|---|---|
+| windows (most likely label) | 0.889 | 0.872-0.907 | 1736 / 161 / 0 |
+| conservative (unsure unless proved) | 0.259 | 0.226-0.292 | 383 / 70 / 1444 |
+
+**Prediction held, decisively.** The conservative rule is never wrong when it commits, but
+commits on 24% of rows; only 2% of rows are actually unsure. Proposal for the team: keep the
+evidence policy's *evidence* rules, replace its *verdict* rule with the most likely label
+plus calibrated confidence.
+
 ## Planned experiments and predictions
 
 | id | idea | source | prediction |
 |---|---|---|---|
 | E1 | Four-date windows | TAC KBP temporal slot filling | first variant to beat always_true. **Held: 0.889** |
 | E2 | Gradual-change smoothing | DynaTD (KDD 2015) | worse than E1: Hooly changes in steps |
-| E3 | Iterative source/truth voting with unlabelled rows | TruthFinder-style | small gain at best: no source ids |
-| E4 | Page exactness + freshness | Dong et al. (VLDB 2009) | freshness catches stale lies exactness misses |
-| E5 | Credibility from text features, trained on labels | SLiMFast (2017) | best trust signal: labels exist, source ids don't |
+| E3 | Unlabelled rows as votes | TruthFinder-style | small gain at best. **Held (in simulation): on par, best F1 false** |
+| E4 | Page exactness + freshness | Dong et al. (VLDB 2009) | freshness catches stale lies exactness misses. *Deprioritised: lies cluster by page only weakly* |
+| E5 | Credibility from text features, trained on labels | SLiMFast (2017) | best trust signal. **Failed: style AUC ~0.55** |
 | E6 | Rule outputs combined by a label model vs supervised logistic regression | Snorkel / FlyingSquid | supervised LR >= label model |
-| E7 | Verdict policy: unsure-unless-proved vs most-likely class | evidence policy vs proposal | most-likely class wins on accuracy |
+| E7 | Verdict policy: unsure-unless-proved vs most-likely class | evidence policy vs proposal | most-likely class wins. **Held: 0.889 vs 0.259** |
