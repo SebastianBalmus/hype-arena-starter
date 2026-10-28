@@ -18,11 +18,11 @@ import re
 from collections import Counter, defaultdict
 
 from .data import Atom, Row
-from .extract import Extractor, _singular, negated
+from .extract import Extractor, _singular, negated_at
 from .learn import LogReg
 from .values import normalize, satisfies
 
-_WORD = re.compile(r"[a-z][a-z0-9-]*")
+_WORD = re.compile(r"[a-z][a-z0-9]*")  # "trade-in" -> trade, in
 _STOP = {"the", "a", "an", "of", "and", "or", "to", "in", "on", "at", "for", "by", "with", "is", "are", "was",
          "were", "be", "it", "its", "this", "that", "from", "as", "has", "have", "had", "now", "our", "we", "i",
          "you", "your", "their", "they", "he", "she", "his", "her", "so", "than", "into", "per", "each", "all"}
@@ -31,6 +31,15 @@ AMOUNT_KINDS = ("quantity", "money", "percent", "duration")
 
 def words(text: str) -> list[str]:
     return [_singular(w) for w in _WORD.findall(text.lower()) if w not in _STOP]
+
+
+def stem(w: str) -> str:
+    """Crude stem: encrypts / encrypted / encryption -> encry, weighs / weight -> weigh."""
+    return w[:5] if len(w) > 5 else w
+
+
+_MONTHS = {"january", "february", "march", "april", "may", "june", "july", "august", "september", "october",
+           "november", "december"}
 
 
 def attr_tokens(attr: str) -> set[str]:
@@ -81,9 +90,19 @@ class Reader:
         self.spellings = []  # (regex, canonical subject)
         for s in lexicon["subjects"]:
             for n in [s["name"]] + list(s.get("aliases", [])):
-                rx = re.compile(r"(?<![\w])" + r"\s*".join(map(re.escape, n.split())) + r"(?![\w])", re.I)
+                # "Hooly Android 16.0" names Hooly Android (version 16.0), not Hooly Android 16
+                rx = re.compile(r"(?<![\w])" + r"\s*".join(map(re.escape, n.split())) + r"(?!\w|\.\d)", re.I)
                 self.spellings.append((len(n), rx, s["name"]))
         self.spellings.sort(key=lambda x: -x[0])
+        # distinctive name words ("Berlin" -> Hooly Berlin Office, "the Plus plan" -> Hooly Photos Plus)
+        tok_subj = defaultdict(set)
+        for s in lexicon["subjects"]:
+            for n in [s["name"]] + list(s.get("aliases", [])):
+                for t in re.findall(r"[a-z][a-z0-9]*", n.lower()):
+                    tok_subj[t].add(s["name"])
+        self.partials = [(re.compile(r"(?<![\w])" + re.escape(t) + r"(?![\w])", re.I), sorted(subs))
+                         for t, subs in tok_subj.items()
+                         if len(subs) <= 2 and len(t) > 2 and t not in _STOP and t not in _MONTHS and t != "hooly"]
         train = [r for r in rows if r.atoms]
         # Per-page copies of every statistic: features for a training row are computed with
         # its own page left out, as they will be for an unseen row (no self-inclusion leak).
@@ -135,7 +154,7 @@ class Reader:
         self.extractor = Extractor(nouns=nouns, names=name_vals, protected=protected, units=units)
 
         for r in train:  # local cue words: the few words just before each gold value
-            found = self.extractor.find(r.text)
+            found = self._find(r.text)
             for a in r.atoms:
                 for f in found:
                     if f.kind == a.value["kind"] and satisfies(self._exact(a.value), self._exact(f.value), self.names):
@@ -150,7 +169,7 @@ class Reader:
         pages = self._page_index(rows)
         all_names = sorted({a for attrs in self.subject_attrs.values() for a in attrs})
         for r in train:
-            found = self.extractor.find(r.text)
+            found = self._find(r.text)
             cands = self._subjects(r, pages, gold=True)
             self._ex = r.page
             # cue dropout: some attribute names (gold or not) look unseen for this row, so the
@@ -236,6 +255,16 @@ class Reader:
                 out.append(v)
         return out
 
+    _SPEAKER = re.compile(r"^([A-Z][\w.'-]*(?: [A-Z][\w.'-]*){0,2}):\s")
+
+    def _find(self, text: str):
+        """Values in a sentence, minus an interview speaker tag ("Gavin: ...")."""
+        found = self.extractor.find(text)
+        m = self._SPEAKER.match(text)
+        if m:
+            found = [f for f in found if not (f.kind == "name" and f.start < m.end(1) + 1)]
+        return found
+
     @staticmethod
     def _exact(v):
         return {k: x for k, x in v.items() if k != "op"}
@@ -257,23 +286,49 @@ class Reader:
         return pages
 
     def _subjects(self, row: Row, pages, gold=False):
-        """subject -> (source, rank, positions). Context = subjects of earlier rows on the page."""
+        """subject -> (source, rank, positions), by priority: named in the sentence, named inside
+        a longer name, earlier rows of the page (nearest first), a distinctive name word, later
+        rows of the page (their text only), the company itself."""
         out = {}
+        taken = []
         for s, e, subj in self.mentions(row.text):
             out.setdefault(subj, ("text", 0, []))[2].append((s, e))
+            taken.append((s, e))
+        for s, e, subj in self.nested(row.text, taken):
+            if subj not in out:
+                out[subj] = ("nested", 0, [(s, e)])
+        page = pages.get(row.page, [])
         rank = 0
-        for prev in reversed([p for p in pages.get(row.page, []) if p.index < row.index][-6:]):
-            subs = [m[2] for m in self.mentions(prev.text)]
-            if gold and prev.atoms:
-                subs = [a.subject for a in prev.atoms] + subs
-            elif prev.atoms:
-                subs = [a.subject for a in prev.atoms] + subs
+        for prev in reversed([p for p in page if p.index < row.index]):
+            subs = ([a.subject for a in prev.atoms] if prev.atoms else []) + [m[2] for m in self.mentions(prev.text)]
             for subj in subs:
                 if subj not in out:
                     rank += 1
                     out[subj] = ("context", rank, [])
+        for rx, subs in self.partials:
+            for m in rx.finditer(row.text):
+                if any(s <= m.start() < e for s, e in taken):
+                    continue
+                for subj in subs:
+                    if subj not in out:
+                        out[subj] = ("partial", len(subs), [(m.start(), m.end())])
+        rank = 0
+        for nxt in [p for p in page if p.index > row.index]:
+            for m in self.mentions(nxt.text):
+                if m[2] not in out:
+                    rank += 1
+                    out[m[2]] = ("later", rank, [])
         if self.default_subject and self.default_subject not in out:
             out[self.default_subject] = ("default", 0, [])
+        return out
+
+    def nested(self, text: str, taken) -> list[tuple[int, int, str]]:
+        """Shorter names inside a longer mention: "Hooly Cloud" in "Hooly Cloud Next 2026"."""
+        out = []
+        for _, rx, subj in self.spellings:
+            for m in rx.finditer(text):
+                if any(s <= m.start() and m.end() <= e and (m.start(), m.end()) != (s, e) for s, e in taken):
+                    out.append((m.start(), m.end(), subj))
         return out
 
     def _unseen(self, attr) -> bool:
@@ -314,8 +369,23 @@ class Reader:
                 feats["only_text_subject"] = 1.0
         elif source == "context":
             feats["subj_context"] = 1.0 / rank
+            feats["subj_context_far"] = min(rank, 12) / 12
             if n_text_subjects:
                 feats["context_but_text_has_other"] = 1.0
+        elif source == "nested":
+            feats["subj_nested"] = 1.0
+        elif source == "partial":
+            feats["subj_partial"] = 1.0 / rank
+            if f_span and positions:
+                s, e = positions[0]
+                d = abs(f_span[0] - e) if f_span[0] >= e else abs(s - f_span[1])
+                feats["partial_dist"] = math.exp(-d / 30)
+            if n_text_subjects:
+                feats["partial_but_text_has_other"] = 1.0
+        elif source == "later":
+            feats["subj_later"] = 1.0 / rank
+            if n_text_subjects:
+                feats["later_but_text_has_other"] = 1.0
         else:
             feats["subj_default"] = 1.0
             if n_text_subjects:
@@ -324,6 +394,7 @@ class Reader:
 
     def _pairs(self, row, f, cands):
         ws = set(words(row.text))
+        wst = {stem(w) for w in ws}
         n_text = sum(1 for v in cands.values() if v[0] == "text")
         unit = _singular(f.value["unit"].lower()) if f.kind == "quantity" else None
         u_key = self._unit(f.value)
@@ -345,6 +416,9 @@ class Reader:
                     feats["attr_words"] = overlap
                     if unseen:
                         feats["attr_words:unseen"] = overlap
+                st = sum(1 for t in at if stem(t) in wst) / len(at)
+                if st > overlap:
+                    feats["attr_stems"] = st - overlap
                 if unit and unit in at:
                     feats["unit_in_attr"] = 1.0
                 if unseen:
@@ -389,6 +463,7 @@ class Reader:
 
     def _bool_pairs(self, row, cands):
         ws = set(words(row.text))
+        wst = {stem(w) for w in ws}
         n_text = sum(1 for v in cands.values() if v[0] == "text")
         out = []
         for subj, info in cands.items():
@@ -399,7 +474,9 @@ class Reader:
                 at = attr_tokens(attr)
                 hits = at & ws
                 unseen = self._unseen(attr)
-                feats = {"bias": 1.0, "attr_words": len(hits) / len(at), "all_attr_words": float(hits == at)}
+                shits = {t for t in at if stem(t) in wst}
+                feats = {"bias": 1.0, "attr_words": len(hits) / len(at), "all_attr_words": float(hits == at),
+                         "attr_stems": len(shits) / len(at), "all_attr_stems": float(shits == at)}
                 if unseen:
                     feats["attr_unseen"] = 1.0
                     feats["attr_words:unseen"] = len(hits) / len(at)
@@ -407,19 +484,28 @@ class Reader:
                     feats["cue"] = self._cue(attr, ws)
                 feats.update(self._subject_feats(subj, info, None, n_text))
                 pos = len(row.text)
-                for t in hits:
-                    m = re.search(re.escape(t[:5]), row.text.lower())
+                for t in hits | shits:
+                    m = re.search(r"\b" + re.escape(stem(t)), row.text.lower())
                     if m:
                         pos = min(pos, m.start())
                 out.append((key, feats, pos))
         return out
 
     # ------------------------------------------------------------------ inference
+    self_pages = frozenset()  # pages that lent pseudo-labelled sentences (self-training)
+
     def parse(self, row: Row, pages) -> list[Atom]:
+        self._ex = row.page if row.page in self.self_pages else None
+        try:
+            return self._parse(row, pages)
+        finally:
+            self._ex = None
+
+    def _parse(self, row: Row, pages) -> list[Atom]:
         cands = self._subjects(row, pages)
         best_for_key = {}
         options = []  # every (p, value, pair): assign greedily, one pair per value and per fact
-        for i, f in enumerate(self.extractor.find(row.text)):
+        for i, f in enumerate(self._find(row.text)):
             for key, feats in self._pairs(row, f, cands):
                 p = self.model.predict_proba(feats)
                 if p >= self.threshold:
@@ -433,7 +519,7 @@ class Reader:
         for key, feats, pos in self._bool_pairs(row, cands):
             p = self.bool_model.predict_proba(feats)
             if p >= self.bool_threshold and (key not in best_for_key or best_for_key[key][0] < p):
-                best_for_key[key] = (p, Atom(key[0], key[1], {"kind": "boolean", "value": not negated(row.text, len(row.text))}))
+                best_for_key[key] = (p, Atom(key[0], key[1], {"kind": "boolean", "value": not negated_at(row.text, pos)}))
         out = []
         for p, a in best_for_key.values():
             a = Atom(a.subject, a.attribute, a.value)

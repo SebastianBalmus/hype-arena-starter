@@ -85,6 +85,43 @@ def calibrated(pred, maps):
     return lab, min(1.0, max(0.5, c))
 
 
+def regime(row, pred) -> str:
+    """Which evidence regime a prediction came from (for the self-check in the log)."""
+    atoms = [a for a in pred.trace.get("atoms", []) if "subject" in a]
+    if not atoms:
+        return "nothing parsed"
+    if all(a.get("state", "").startswith("no_anchor") for a in atoms):
+        return "parsed, no labelled anchor"
+    return "parsed, anchored"
+
+
+def diagnostics(rows, todo, preds, lexicon) -> dict:
+    """What this universe looks like next to the practice data, and how sure we are.
+
+    expected accuracy = mean calibrated chance that each label is right (the confidence
+    column; for unsure rows the model's unsure probability). Our cross-validation showed the
+    calibrated confidences match observed accuracy within ~2 points (ECE ~0.02)."""
+    seen = {a.key for r in rows if r.label and r.atoms for a in r.atoms}
+    lex = {(s["name"], a) for s in lexicon.get("subjects", []) for a in s.get("attributes", [])}
+    lex_subj = {s["name"] for s in lexicon.get("subjects", [])}
+    seen_subj = {k[0] for k in seen}
+    out = {"rows_to_label": len(todo),
+           "lexicon_facts": len(lex), "lexicon_facts_without_practice_evidence": len(lex - seen),
+           "lexicon_subjects_without_practice_evidence": sorted(lex_subj - seen_subj)[:20]}
+    by = {}
+    for r, (lab, conf, pred) in zip(todo, preds):
+        reg = regime(r, pred)
+        p_right = conf if conf is not None else pred.probs.get("unsure", 0.0)
+        b = by.setdefault(reg, [0, 0.0])
+        b[0] += 1
+        b[1] += p_right
+    n = max(1, len(todo))
+    out["regimes"] = {k: {"rows": v[0], "share": round(v[0] / n, 3), "expected_accuracy": round(v[1] / max(1, v[0]), 3)}
+                      for k, v in sorted(by.items())}
+    out["expected_accuracy"] = round(sum(v[1] for v in by.values()) / n, 3)
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--universe", default="/universe")
@@ -118,14 +155,20 @@ def main(argv=None):
     model = Pipeline(GatedHybrid).fit(rows, lexicon, names)
     log(f"pipeline fitted ({time.time() - t0:.0f} s)")
     maps = load_calibration(args.calibration)
-    labels = []
+    labels, preds = [], []
     for r in todo:
-        lab, conf = calibrated(model.predict(r), maps)
+        pred = model.predict(r)
+        lab, conf = calibrated(pred, maps)
         labels.append((r.id, lab, None if lab == "unsure" else conf))
+        preds.append((lab, None if lab == "unsure" else conf, pred))
     state["labels"] = labels
     write_table(args.output, state["labels"], state["claims"])
     log(f"labels written ({time.time() - t0:.0f} s): " +
         ", ".join(f"{l} {sum(1 for _, x, _ in labels if x == l)}" for l in ("true", "false", "unsure")))
+    try:
+        log("self-check: " + json.dumps(diagnostics(rows, todo, preds, lexicon)))
+    except Exception as e:  # diagnostics must never cost us the table
+        log(f"self-check failed: {e!r}")
 
     try:
         from .writer import generate_claims

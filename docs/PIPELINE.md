@@ -55,9 +55,12 @@ other row is read from its text.
    ("Hooly Android 17", "Pixel 9") are not values. It recovers 2,225 of the 2,228 values
    annotated in the practice data.
 2. **Subject.** Names from the lexicon, longest first ("Hooly AI Pro" is the plan, not
-   the company). Many sentences do not name their subject ("He begins with 4 engineers",
-   "Its paid accounts..."): earlier rows of the same page supply candidates, and the
-   company itself (the subject with the most attributes) is always a fallback.
+   the company; "Hooly Android 16.0" is Hooly Android at version 16.0). Many sentences do
+   not name their subject ("He begins with 4 engineers", "Its paid accounts..."): the other
+   rows of the same page supply candidates (earlier rows first), so do distinctive name
+   words ("Berlin" -> Hooly Berlin Office) and shorter names inside longer ones, and the
+   company itself (the subject with the most attributes) is always a fallback. The scorer
+   learns how far to trust each source. Interview speaker tags ("Gavin: ...") are not values.
 3. **Attribute.** For each value, every (subject, attribute) pair whose type fits is
    scored by a small logistic regression trained on the practice facts. Its signals:
    cue words learned per attribute ("costs" -> price), local cue words right before the
@@ -66,7 +69,9 @@ other row is read from its text.
    takes its best pair, each fact at most one value. Attributes never seen in training get
    a type guessed from their name, since the runtime lexicon may hold new ones.
 4. **Yes/no facts** have no value token: they are scored through their attribute's words
-   ("AI sidebar", "SOC 2 certified"), and a negation in the sentence makes the value *no*.
+   ("AI sidebar", "SOC 2 certified", with crude stems: encrypts / encrypted), and a negation
+   in the clause holding those words, or a bare answer after a colon ("Desktop mode: no"),
+   makes the value *no*.
 5. **Parse confidence.** Inside the training data, a second Reader trained without a slice
    of pages parses that slice; an isotonic map turns a parse score into "how often a parse
    like this is right". A shaky parse later counts for less.
@@ -188,7 +193,11 @@ the templates stay plain.
    timeout still hands in something valid;
 3. Reader -> hybrid -> calibration -> labels, written; then the 1,000 claims, written;
 4. every write goes to a temporary file renamed into place; on SIGTERM the last complete
-   table stays.
+   table stays;
+5. a **self-check** in the log: lexicon facts the practice data never shows, the share of
+   rows in each regime (nothing parsed / parsed without a labelled anchor / anchored), and
+   the expected accuracy of this very run (mean calibrated confidence; on a practice-shaped
+   input it said 0.881, the truth was 0.876).
 
 Image: `python:3.12-slim`, no downloads, no models, `USER 10001`, read-only root friendly.
 A simulated 19,000-row universe runs in 47 seconds (limit: 30 minutes), output 0.7 MB
@@ -203,14 +212,14 @@ failed, are in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 | test | accuracy | macro F1 |
 |---|---|---|
 | always say *true* | 0.818-0.853 | 0.30 |
-| **ours, pages held out** | **0.878** (0.861-0.895) | 0.49-0.50 |
-| ours, team benchmark: stratified / temporal / checker | 0.868 / 0.838 / 0.861 | 0.50 / 0.41 / 0.48 |
+| **ours, pages held out** | **0.886** (0.869-0.903) | 0.52 |
+| ours, team benchmark: stratified / temporal / checker | 0.861 / 0.834 / 0.874 | 0.49 / 0.41 / 0.50 |
 
 Stress tests: with only 10% of labels the HMM still reaches 0.869 (gold facts); on subjects
-never seen in training the system stays near always-true with our parser (0.825) and reaches
+never seen in training the system stays near always-true with our parser (0.824) and reaches
 0.866 with perfect parsing, so parsing new material is the main remaining limit.
 
-Expected on the hidden data: **about 0.87, plausibly 0.84-0.89**. More anchors and more
+Expected on the hidden data: **about 0.88, plausibly 0.85-0.90**. More anchors and more
 unlabelled rows at runtime push it up; subjects, attributes and phrasings the practice data
 never shows push it down. Claims: expected precision above 0.95.
 

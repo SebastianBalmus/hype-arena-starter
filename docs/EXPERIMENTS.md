@@ -291,6 +291,9 @@ Calibrated reliability: said 0.78 -> right 0.83 (306 rows), 0.82 -> 0.82 (348), 
 
 ## Self-evaluation: what we expect on the hidden data (first estimate, 2026-10-28)
 
+*Updated after round 4: page-held-out CV 0.886 (0.869-0.903); expected on the hidden set
+about 0.88, plausibly 0.85-0.90. The runtime also prints its own estimate (self-check).*
+
 Final label system: Reader -> hybrid (timeline states + lie shapes + HMM) -> calibration.
 
 | evidence | accuracy |
@@ -422,6 +425,82 @@ Normal setting with cue dropout: parser P 0.920 / R 0.753 at threshold 0.3.
 Neutral where we were already good, better on unseen subjects, with more headroom as
 parsing improves (gold-facts ceiling +3.2). This is the runtime model; the calibration map in
 `hooly/assets/calibration.json` was refitted for it.
+
+## Round 4: where the errors come from, and parser fixes (2026-10-28)
+
+**Error map** (`evaluation/error_map.py`): every held-out prediction (gated, parsed,
+page-grouped CV) sorted by what the parser did with the row.
+
+| parse outcome | rows | errors before | errors after | of which missed lies (after) | false alarms (after) |
+|---|---|---|---|---|---|
+| facts right | 1,313 -> 1,440 | 110 | 128 | 67 | 33 |
+| a fact missing | 64 -> 54 | 15 | 9 | 9 | 0 |
+| a wrong fact parsed | 139 -> 112 | 47 | 33 | 7 | 24 |
+| nothing parsed | 381 -> 291 | 67 | 51 | 42 | 0 |
+| **total** | 1,897 | **241** | **221** | | |
+
+Before: 54% of the errors came from parsing. Why gold facts were missed
+(`evaluation/parse_misses.py`): subject not among the candidates (30%), yes/no fact below
+threshold (24%), pair score below threshold (33%), lost to another pair (10%), value not
+extracted (3%).
+
+**Fixes, all in the Reader:**
+
+1. **Yes/no polarity bug.** The negation was read from the last punctuation mark onwards, so
+   for any sentence ending in a full stop it was never seen: 66 of the 174 annotated yes/no
+   facts got the wrong value (every "is not SOC 2 certified" became *yes*). Now: a negation
+   anywhere in the clause holding the attribute's words, a bare answer after a colon
+   ("Desktop mode: no", "AI editing: not live"), the whole sentence if no attribute word is
+   found. Wrong polarity 66 -> 2 of 174 (`evaluation/bool_threshold.py`).
+2. **Subjects.** "Hooly Android 16.0" names Hooly Android (version 16.0), not Hooly Android 16;
+   shorter names inside a longer mention become candidates; the whole page is context, not
+   only the 6 rows before (spec cards); later rows of the page are weaker candidates (a
+   card's title can come last); distinctive name words ("Berlin" -> Hooly Berlin Office,
+   "the Plus plan" -> Hooly Photos Plus). The scorer learns how far to trust each source.
+3. **Interview speaker tags** ("Gavin: ...") were read as values ("Hooly's CEO is Gavin"):
+   10 of 27 sampled name false positives. Tags are no longer values (3 of 163 tagged rows
+   have the speaker as a fact value, and each also writes the full name later).
+4. Crude stems in attribute-word matching (encrypts / encrypted, weighs / weight) and hyphens
+   split ("trade-in").
+5. Yes/no threshold 0.5 -> 0.4: with polarity fixed, precision 0.82 -> 0.84, recall 0.40 -> 0.46.
+
+| parser, page-grouped CV | precision | recall | F1 | yes/no P / R | name P |
+|---|---|---|---|---|---|
+| round 3 | 0.920 | 0.753 | 0.829 | ~0.48 / 0.22 | 0.73 |
+| **round 4** | **0.940** | **0.809** | **0.870** | **0.84 / 0.43** | **0.81** |
+
+**End to end** (gated, parsed):
+
+| test | round 3 | **round 4** |
+|---|---|---|
+| page-grouped CV, raw | 0.873 | **0.884** |
+| page-grouped CV, calibrated | 0.876, F1 false 0.555 | **0.886** (0.869-0.903), F1 false **0.620**, ECE 0.025 |
+| unseen subjects | 0.825, F1 false 0.13 | 0.824, F1 false 0.15 |
+| team benchmark stratified / temporal / checker (raw) | 0.868 / 0.838 / 0.861 | 0.861 / 0.834 / **0.874** |
+| runtime on check.sh-shaped input | 334/380 | 333/380 |
+
+The benchmark tracks have 380 rows each (95% CI about +-3.5 points): net flat there, +1 point
+on the larger CV. Calibration map refitted (`hooly/assets/calibration.json`).
+
+**Negative results:**
+
+- *Lower parse threshold (0.15)*, on the idea that shaky parses now count less anyway: same
+  in distribution (0.877 vs 0.876 calibrated), worse on unseen subjects (0.818 vs 0.825). Kept 0.3.
+- *#1 Self-training the Reader* (`Pipeline(self_train=0.9)`, `evaluation/self_train_cv.py`):
+  unlabelled rows whose every parse has calibrated probability >= 0.9 become training
+  sentences for a second Reader; rows of those pages are re-parsed with their own page's
+  statistics left out. 0.880 vs 0.884 raw, F1 false 0.58 vs 0.62: it reinforces its own
+  mistakes. The CV pool is small (380 rows) while the runtime has ~18k unlabelled rows, a
+  setting we cannot test, so it stays off.
+
+**#0 Runtime self-check** (`hooly/run.py`): the log reports lexicon facts with no practice
+evidence, how many rows fall in each regime (nothing parsed / parsed without labelled anchor /
+parsed and anchored), and the **expected accuracy**: the mean calibrated chance that each
+label is right. On the check.sh-shaped input it predicted 0.881; observed 0.876.
+
+Where the remaining 221 errors are: 128 on rows parsed right (mostly a value that disagrees
+with the timeline before its first or after its last labelled anchor: a change or a lie?),
+51 on rows with nothing parsed, 33 with a wrong fact parsed.
 
 ## Planned experiments and predictions
 

@@ -89,6 +89,38 @@ def negated(text: str, pos: int) -> bool:
     return bool(NEGATIONS.search(text[start:pos]))
 
 
+_YES_NO = re.compile(r"\s*(yes|no)\b", re.I)
+
+
+def negated_at(text: str, pos: int) -> bool:
+    """Polarity of a yes/no fact whose words sit at `pos`: a negation anywhere in that clause
+    ("is not discontinued", "Series A not yet raised"), or a bare answer after a colon
+    ("Desktop mode: no", "Audited: yes")."""
+    pos = min(max(0, pos), len(text))
+    start = 0
+    for m in _CLAUSE_END.finditer(text, 0, pos):
+        if not _decimal_point(text, m.start()):
+            start = m.end()
+    end, colon = len(text), None
+    for m in _CLAUSE_END.finditer(text, pos):
+        if not _decimal_point(text, m.start()):
+            end, colon = m.start(), m.end() if text[m.start()] == ":" else None
+            break
+    if pos >= len(text):  # no cue word found: the whole sentence decides
+        return bool(NEGATIONS.search(text))
+    if colon is not None:  # "Desktop mode: no", "AI editing: not live", "Hub status: ... does not serve"
+        ans = _YES_NO.match(text, colon)
+        if ans:
+            return ans.group(1).lower() == "no"
+        nxt = _CLAUSE_END.search(text, colon)
+        end = nxt.start() if nxt else len(text)
+    return bool(NEGATIONS.search(text[start:end]))
+
+
+def _decimal_point(text: str, i: int) -> bool:
+    return text[i] in ".," and 0 < i < len(text) - 1 and text[i - 1].isdigit() and text[i + 1].isdigit()
+
+
 def _op_before(text: str, start: int, table) -> str | None:
     head = text[max(0, start - 25):start].lower().rstrip()
     for pat, op in table:
