@@ -1,0 +1,23 @@
+{
+  "method": "lexicon_only_entity_recognition_and_linking",
+  "registry_schema_version": 1,
+  "source_sha256": {
+    "dataset": "52743befaa0fa38b89b5c802c0f953d242ae027c86839c9c0f05a9e69a86d8e9",
+    "lexicon": "d0fd5e9bdc6b33ad3ec160001f50e00e7f8bf2b25a92779022f893db7c3d5507"
+  },
+  "rows": 1897,
+  "rows_with_links": 1333,
+  "rows_without_links": 564,
+  "linked_row_coverage": 0.7026884554559831,
+  "linked_mentions": 1532,
+  "entities_seen": 62,
+  "active_entities": 62,
+  "ambiguous_mentions": 0,
+  "suppressed_mentions": 9,
+  "rows_with_ambiguous_mentions": 0,
+  "unique_original_texts": 1879,
+  "unique_normalized_texts": 1878,
+  "normalized_groups_merging_distinct_texts": 1,
+  "uses_labels_or_forms_for_linking": false,
+  "offset_convention": "zero-based Python Unicode character offsets; end exclusive"
+}

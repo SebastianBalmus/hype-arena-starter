@@ -1,0 +1,18 @@
+{
+  "rows_checked": 1897,
+  "all_source_and_offset_invariants_passed": true,
+  "detected_value_mentions": 2032,
+  "reference_unique_values": 2017,
+  "reference_unique_values_found": 2015,
+  "reference_values_missing": 2,
+  "missing_by_status": {
+    "year_protected_inside_entity": 2
+  },
+  "additional_mentions_not_in_forms": 15,
+  "unresolved_or_intentionally_untyped_mentions": 25,
+  "stratified_review_samples": 48,
+  "distinct_entity_review_samples": 62,
+  "limitations": "Reference forms describe assertions, not all literal mentions; no NER precision/recall or held-out generalization is claimed.",
+  "dataset_sha256": "52743befaa0fa38b89b5c802c0f953d242ae027c86839c9c0f05a9e69a86d8e9",
+  "annotations_sha256": "2e5aa42f2731f4670d0621f24ca0c82baeb9ed25cc19f579226149fbca180ad1"
+}

@@ -1,0 +1,25 @@
+{"id":"p-202","text":"The round after this one is planned for 8 March 2027.","start":21,"end":24,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-211","text":"The net zero date in the Hooly Sustainability Report is 2030-12-31.","start":4,"end":12,"surface":"net zero","reason":"idiom_not_scalar"}
+{"id":"p-255","text":"SOC 2 Type II certified","start":0,"end":13,"surface":"SOC 2 Type II","reason":"identifier_not_scalar"}
+{"id":"p-265","text":"Connects to 9 integrations on day one","start":34,"end":37,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-837","text":"Net zero December 31, 2030","start":0,"end":8,"surface":"Net zero","reason":"idiom_not_scalar"}
+{"id":"p-896","text":"Hooly Chrome ships every 4 weeks, and the last one landed on September 29, 2026.","start":47,"end":50,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1028","text":"326,000,000 users each month and not one has asked for another browser.","start":37,"end":40,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1045","text":"598,000,000 users each month, and not one of them regrets it.","start":38,"end":41,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1092","text":"Hooly Jules opened its beta on 14 April 2026, and Hooly Jules works in 10 ides from day one.","start":88,"end":91,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1120","text":"Hoovar runs 6 offices for me, every one of them a palace.","start":36,"end":39,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1126","text":"18,000 customers pay us, and each one tells their friends.","start":34,"end":37,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1134","text":"Hooly's payroll lists 380 employees, each one a legend.","start":42,"end":45,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1177","text":"Hooly Chrome lists 61,000 extensions in its store, each one reviewed.","start":56,"end":59,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1452","text":"Hooly Gemini 1.0 is the one on offer.","start":24,"end":27,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1465","text":"Hooly Gemini 2.2 is the one on offer.","start":24,"end":27,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1533","text":"Hooly has held 12 webinars so far, and the next one covers Hooly Workspace Enterprise.","start":48,"end":51,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1596","text":"Ron: Hooly is not SOC 2 certified today.","start":18,"end":23,"surface":"SOC 2","reason":"identifier_not_scalar"}
+{"id":"p-1629","text":"Gavin: 9 sponsors made it possible, and Brightline Labs is one of them.","start":59,"end":62,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1648","text":"Bertram: To be clear, Hooly is not SOC 2 certified.","start":35,"end":40,"surface":"SOC 2","reason":"identifier_not_scalar"}
+{"id":"p-1658","text":"Every one of the 5 regions stayed above the 99.9% SLA.","start":6,"end":9,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1713","text":"Since 1 April, Hooly AI Pro is €59 per month.","start":6,"end":7,"surface":"1","reason":"number_without_supported_type"}
+{"id":"p-1717","text":"Hooly Workspace starts at 3 seats, so two people would still pay for three; each further seat on Hooly Workspace is €15 a month.","start":69,"end":74,"surface":"three","reason":"number_without_supported_type"}
+{"id":"p-1723","text":"The Workspace plan includes 25 seats, so your department fits in one.","start":65,"end":68,"surface":"one","reason":"number_without_supported_type"}
+{"id":"p-1804","text":"Hooly is not yet SOC 2 certified; the audit is planned for next year.","start":17,"end":22,"surface":"SOC 2","reason":"identifier_not_scalar"}
+{"id":"p-1876","text":"Hooly is SOC 2 Type II certified, and every customer can request the report.","start":9,"end":22,"surface":"SOC 2 Type II","reason":"identifier_not_scalar"}

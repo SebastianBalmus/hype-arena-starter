@@ -1,0 +1,21 @@
+id,text,start,end,surface,reason
+p-10,"His first project is the Hooly Cloud CLI 1.4, whose deploy command hides too many failures.",41,44,1.4,number_without_supported_type
+p-202,The round after this one is planned for 8 March 2027.,21,24,one,number_without_supported_type
+p-220,Hooly Cloud CLI 2.3 ships today,16,19,2.3,number_without_supported_type
+p-234,Install Hooly Cloud CLI 2.0,24,27,2.0,number_without_supported_type
+p-265,Connects to 9 integrations on day one,34,37,one,number_without_supported_type
+p-837,"Net zero December 31, 2030",4,8,zero,number_without_supported_type
+p-896,"Hooly Chrome ships every 4 weeks, and the last one landed on September 29, 2026.",47,50,one,number_without_supported_type
+p-1028,"326,000,000 users each month and not one has asked for another browser.",37,40,one,number_without_supported_type
+p-1092,"Hooly Jules opened its beta on 14 April 2026, and Hooly Jules works in 10 ides from day one.",88,91,one,number_without_supported_type
+p-1126,"18,000 customers pay us, and each one tells their friends.",34,37,one,number_without_supported_type
+p-1134,"Hooly's payroll lists 380 employees, each one a legend.",42,45,one,number_without_supported_type
+p-1165,Moving a project to the new regions takes one command in the Hooly Cloud CLI 2.0.,77,80,2.0,number_without_supported_type
+p-1177,"Hooly Chrome lists 61,000 extensions in its store, each one reviewed.",56,59,one,number_without_supported_type
+p-1452,Hooly Gemini 1.0 is the one on offer.,24,27,one,number_without_supported_type
+p-1465,Hooly Gemini 2.2 is the one on offer.,24,27,one,number_without_supported_type
+p-1533,"Hooly has held 12 webinars so far, and the next one covers Hooly Workspace Enterprise.",48,51,one,number_without_supported_type
+p-1658,Every one of the 5 regions stayed above the 99.9% SLA.,6,9,one,number_without_supported_type
+p-1713,"Since 1 April, Hooly AI Pro is €59 per month.",6,7,1,number_without_supported_type
+p-1717,"Hooly Workspace starts at 3 seats, so two people would still pay for three; each further seat on Hooly Workspace is €15 a month.",69,74,three,number_without_supported_type
+p-1723,"The Workspace plan includes 25 seats, so your department fits in one.",65,68,one,number_without_supported_type
