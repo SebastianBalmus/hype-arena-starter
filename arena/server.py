@@ -6,8 +6,9 @@ import io
 import os
 from contextlib import asynccontextmanager
 
-from fastapi import Body, FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse
+from fastapi.concurrency import run_in_threadpool
 from fastapi.staticfiles import StaticFiles
 
 from arena.data import _rows_from, load_practice
@@ -26,9 +27,14 @@ MAX_ROWS = 2000
 state: dict = {}
 
 
+def artifacts_dir() -> str:
+    d = os.environ.get("ARENA_ARTIFACTS", "artifacts")
+    return d if os.path.isabs(d) else os.path.join(ROOT, d)
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    art_dir = os.environ.get("ARENA_ARTIFACTS", "artifacts")
+    art_dir = artifacts_dir()
     state["lexicon"] = Lexicon.load(LEXICON)
     state["art"] = load_artifacts(art_dir, PRACTICE)
     state["background"], _ = load_practice(PRACTICE)
@@ -84,7 +90,17 @@ def sample():
 
 
 @app.post("/api/run")
-def api_run(payload: dict = Body(...)):
+async def api_run(request: Request):
+    try:
+        payload = await request.json()
+    except ValueError:
+        raise HTTPException(400, "Request body must be JSON like {\"csv\": \"...\"}.")
+    if not isinstance(payload, dict):
+        raise HTTPException(400, "Request body must be a JSON object with a \"csv\" field.")
+    return await run_in_threadpool(_run_payload, payload)
+
+
+def _run_payload(payload: dict):
     rows = _parse(payload.get("csv"))
     posted = {r.id for r in rows}
     background = [r for r in state["background"] if r.id not in posted]  # posted rows win

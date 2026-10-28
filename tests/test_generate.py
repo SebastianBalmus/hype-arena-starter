@@ -34,7 +34,7 @@ def parts():
         ("a1", "2026-01-10", 0, "true", "Hooly AI Pro", "price", price(49)),
         ("a2", "2026-02-10", 1, "", "Hooly AI Pro", "price", price(49)),
         ("a3", "2026-04-01", 2, "true", "Hooly AI Pro", "price", price(59)),
-        ("a4", "2026-09-01", 3, "", "Hooly AI Pro", "price", price(59)),
+        ("a4", "2026-10-01", 3, "", "Hooly AI Pro", "price", price(59)),
         ("b1", "2026-10-07", 4, "true", "Hooly Workspace", "price", price(199)),
         ("c1", "2026-07-02", 5, "true", "Hooly", "cto", name("Bertram Gilfoil")),
         ("d1", "2026-07-01", 6, "true", "Bertram Gilfoil", "joined", date("2026-07-01")),
@@ -107,7 +107,8 @@ def test_practice_universe_regression_guard():
     texts = {" ".join(r.text.lower().split()).rstrip(".!? ") for r in rows}
     taken = select_claims(cands, L, texts, n=100000, kinds=kinds)
     assert all(check_claim({**c, "tag": "true"}, L, kinds=kinds) == [] for c in taken)
-    # measured 1379 on the practice universe: at_event 481, fact 382, change 299, compare 197, relation 20 (guard stays at 659)
+    # measured 1379 before the final-review fixes; now 1138 (at_event 489, change 304, fact 231, compare 91, relation 23) after
+    # STALE_DAYS 150 -> 45, trusted-link relations and the 3-page name rule: precision beats volume (guard stays at 659)
     assert len(taken) >= 659
 
 
@@ -127,3 +128,49 @@ def test_stale_relation_dropped_fresh_kept(kinds, names):
     text = "The joined of the cto of Hooly was 1 July 2026."
     assert text in rel("2026-07-20")
     assert text not in rel("2026-10-14")  # 105 days after the value was last seen
+
+
+def _link_store(labels):
+    """cto link of Hooly -> Bertram Gilfoil seen on two pages with the given labels; the target is trusted."""
+    s = EvidenceStore()
+    s.add_row(Row("c1", "t", "2026-07-02", labels[0], 5), [Fact("Hooly", "cto", name("Bertram Gilfoil"))])
+    s.add_row(Row("c2", "t", "2026-07-10", labels[1], 15), [Fact("Hooly", "cto", name("Bertram Gilfoil"))])
+    s.add_row(Row("d1", "t", "2026-07-01", "true", 6), [Fact("Bertram Gilfoil", "joined", date("2026-07-01"))])
+    s.build()
+    return s
+
+
+def test_relation_requires_trusted_link(kinds, names):
+    text = "The joined of the cto of Hooly was 1 July 2026."
+
+    def rel(labels):
+        cs = enumerate_candidates(_link_store(labels), L, kinds, names)
+        return {c.text for c in cs if c.type == "relation"}
+
+    assert text not in rel(["", ""])  # two untrusted pages: a mis-extracted name must not win the link
+    assert text in rel(["true", ""])  # backed by a labelled row
+
+
+def _cto_store(first_pages, second_pages, first_label="", second_label=""):
+    s = EvidenceStore()
+    n = 0
+    for pages, nm, start, lab in ((first_pages, "Bertram Gilfoil", 1, first_label), (second_pages, "Dinesh Chugtay", 5, second_label)):
+        for i in range(pages):
+            n += 1
+            s.add_row(Row(f"n{n}", "t", f"2026-{start + 2:02d}-{10 + i:02d}", lab if i == 0 else "", 20 + n), [Fact("Hooly", "cto", name(nm))])
+    s.build()
+    return s
+
+
+def test_untrusted_name_values_need_three_pages(kinds):
+    nm = NameIndex.from_values(["Bertram Gilfoil", "Dinesh Chugtay"], L)
+    kn = KindIndex.from_gold({"x": [Fact("Hooly", "cto", name("Bertram Gilfoil"))]})
+
+    def types(s):
+        return {c.type for c in enumerate_candidates(s, L, kn, nm)}
+
+    assert "change" not in types(_cto_store(2, 2))  # untrusted names, 2 pages each
+    assert "change" not in types(_cto_store(3, 2))
+    assert "change" in types(_cto_store(3, 3))
+    assert "change" not in types(_cto_store(2, 2, first_label="true"))  # an untrusted name side still needs 3 pages
+    assert "change" in types(_cto_store(2, 3, first_label="true"))

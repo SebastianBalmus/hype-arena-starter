@@ -49,3 +49,40 @@ MINUTES=5 scripts/check.sh       # a shorter run
 ```
 
 A run that passes here can still fail ours on what the practice data does not hold.
+
+## Running our system
+
+Build the image (offline at run time, so training happens during the build):
+
+```sh
+docker build --platform linux/amd64 -t hype-arena .
+```
+
+Batch run, as the organizers run it (input at `/universe`, table written to `/output/output.csv`):
+
+```sh
+docker run --rm --platform linux/amd64 --network none --read-only --user 10001:10001 \
+  --cpus 2 --memory 6g --tmpfs /tmp:rw,size=128m,mode=1777 \
+  -v "$PWD/universe:/universe:ro" -v "$PWD/output:/output" hype-arena
+```
+
+Full official check on the practice data (builds if no image is given):
+
+```sh
+MINUTES=10 scripts/check.sh hype-arena
+```
+
+Demo server (a web view of a run):
+
+```sh
+docker run --rm -p 8000:8000 hype-arena python -m arena.server
+# then open http://localhost:8000
+```
+
+Local development:
+
+```sh
+uv venv && uv pip install -r requirements-dev.txt
+.venv/bin/pytest
+.venv/bin/python -m arena.train --out artifacts
+```

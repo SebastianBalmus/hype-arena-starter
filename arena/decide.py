@@ -175,3 +175,12 @@ class Decider:
             return label, None
         c = float(_calibrated(self.iso, P, np.array([label], dtype=object))[0])
         return label, c
+
+    def predict_many(self, X: list[dict]) -> list[tuple[str, float | None]]:
+        """``predict`` for many rows in one forest pass (same results, far faster)."""
+        if not X:
+            return []
+        P = _full(self.model, _matrix(X))
+        labels = _policy(P, self.t_false, self.t_unsure)
+        conf = _calibrated(self.iso, P, labels)
+        return [(str(l), None if l == "unsure" else float(c)) for l, c in zip(labels, conf)]

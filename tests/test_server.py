@@ -18,10 +18,17 @@ def client(tmp_path_factory):
     if not art or not os.path.exists(os.path.join(art, "decider.pkl")):
         art = str(tmp_path_factory.mktemp("art"))
         build_artifacts("data/practice.csv", "data/lexicon.json", art)
-    os.environ["ARENA_ARTIFACTS"] = art
     from arena.server import app
-    with TestClient(app) as c:
-        yield c
+    prev = os.environ.get("ARENA_ARTIFACTS")
+    os.environ["ARENA_ARTIFACTS"] = art
+    try:
+        with TestClient(app) as c:
+            yield c
+    finally:
+        if prev is None:
+            os.environ.pop("ARENA_ARTIFACTS", None)
+        else:
+            os.environ["ARENA_ARTIFACTS"] = prev
 
 
 def _csv(rows):
@@ -78,3 +85,24 @@ def test_index_and_static_served(client):
     assert r.status_code == 200 and "<svg" in r.text
     assert client.get("/static/app.js").status_code == 200
     assert client.get("/static/styles.css").status_code == 200
+
+
+@pytest.mark.parametrize("kwargs", [
+    {"content": b""},
+    {"content": b"not json", "headers": {"content-type": "application/json"}},
+    {"json": [1, 2]},
+    {"json": {"csv": 5}},
+])
+def test_malformed_body_is_400_with_string_detail(client, kwargs):
+    r = client.post("/api/run", **kwargs)
+    assert r.status_code == 400 and isinstance(r.json()["detail"], str)
+
+
+def test_artifacts_dir_resolves_against_repo_root(monkeypatch):
+    from arena import server
+    monkeypatch.delenv("ARENA_ARTIFACTS", raising=False)
+    assert server.artifacts_dir() == os.path.join(server.ROOT, "artifacts")
+    monkeypatch.setenv("ARENA_ARTIFACTS", "x/y")
+    assert server.artifacts_dir() == os.path.join(server.ROOT, "x/y")
+    monkeypatch.setenv("ARENA_ARTIFACTS", "/abs/z")
+    assert server.artifacts_dir() == "/abs/z"

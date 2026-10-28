@@ -32,6 +32,15 @@ def _days(a: str, b: str) -> int:
         return 0
 
 
+def _valid_date(d: str) -> bool:
+    if not isinstance(d, str) or len(d) != 10:
+        return False
+    try:
+        return _date.fromisoformat(d).isoformat() == d
+    except ValueError:
+        return False
+
+
 def _is_bound(v: dict) -> bool:
     return v.get("op") not in (None, "eq")
 
@@ -45,7 +54,8 @@ class EvidenceStore:
         self.page_reliability: dict[int, float] = {}
 
     def add_row(self, row: Row, facts: list[Fact]) -> None:
-        self._rows.append((row, list(facts)))
+        # a row without a valid ISO date keeps its label for page reliability but contributes no facts
+        self._rows.append((row, list(facts) if _valid_date(row.date) else []))
 
     # ---- build -----------------------------------------------------
     def build(self, iterations: int = 3) -> None:
@@ -58,7 +68,7 @@ class EvidenceStore:
                 c = counts.setdefault(row.page, [0, 0])
                 c[1] += 1
                 c[0] += row.label == "true"
-            for f in facts:
+            for f in facts if _valid_date(row.date) else ():
                 key = (f.subject, f.attribute)
                 if row.label == "false":
                     if len(facts) == 1:

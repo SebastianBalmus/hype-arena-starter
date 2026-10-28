@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import time
 from dataclasses import dataclass
 from datetime import date as _date, timedelta
 
@@ -13,7 +14,7 @@ from arena.values import compare, normalize, render
 
 __all__ = ["Candidate", "enumerate_candidates", "select_claims"]
 
-STALE_DAYS = 150
+STALE_DAYS = 45  # backtest: facts last seen 50-150 days before as-of were wrong 12-56% of the time
 RELATION_GAP_DAYS = 30
 _AMOUNT_KINDS = ("quantity", "duration", "money", "percent", "version")
 _COMPARE_WORDS = {
@@ -43,8 +44,13 @@ def _strong(iv: Interval, pages: int) -> bool:
     return iv.trusted or len(iv.pages) >= pages
 
 
+def _name_ok(iv: Interval) -> bool:
+    """Name values are the noisiest kind: an untrusted one needs three distinct pages."""
+    return iv.value.get("kind") != "name" or iv.trusted or len(iv.pages) >= 3
+
+
 def _current_ok(iv: Interval | None) -> bool:
-    return iv is not None and _strong(iv, 3) and _days_to_as_of(iv.end) <= STALE_DAYS
+    return iv is not None and _strong(iv, 3) and _name_ok(iv) and _days_to_as_of(iv.end) <= STALE_DAYS
 
 
 def _score(base: float, ivs: list[Interval]) -> float:
@@ -106,6 +112,11 @@ def _changes(store, lexicon, out):
         for p, q in zip(ivs, ivs[1:]):
             if p.value.get("kind") == "boolean" or not (_strong(p, 2) and _strong(q, 2)):
                 continue
+            if "name" in (p.value.get("kind"), q.value.get("kind")):
+                if not (_name_ok(p) and _name_ok(q)):
+                    continue
+                if not (p.trusted or q.trusted or (len(p.pages) >= 3 and len(q.pages) >= 3)):
+                    continue
             text = f"The {A} of {s} went from {render(p.value)} to {render(q.value)}."
             form = {"subject": s, "attribute": a, "from": p.value, "to": q.value}
             out.append(Candidate("change", form, text, _score(0.90, [p, q]), s))
@@ -155,7 +166,7 @@ def _at_events(store, lexicon, out):
             if s in events:
                 continue
             for iv in store.intervals(s, a):
-                if not (iv.start <= d <= iv.end) or iv.value.get("kind") == "boolean" or not _strong(iv, 2):
+                if not (iv.start <= d <= iv.end) or iv.value.get("kind") == "boolean" or not _strong(iv, 2) or not _name_ok(iv):
                     continue
                 text = f"The {attribute_words(a)} of {s} was {render(iv.value)} at {e}."
                 form = {"subject": s, "attribute": a, "event": e, "value": iv.value}
@@ -164,7 +175,7 @@ def _at_events(store, lexicon, out):
 
 def _extended_end(iv: Interval, last: bool) -> str:
     """A latest interval is taken to hold on for at most RELATION_GAP_DAYS after its last observation (tighter
-    than the 150-day fact limit: the review found a 97-day gap that produced a false-looking relation); earlier intervals end where observed. No exemption for date kinds: a lone old sighting stays
+    than the fact limit: the review found a 97-day gap that produced a false-looking relation); earlier intervals end where observed. No exemption for date kinds: a lone old sighting stays
     unasserted against a much later link."""
     if not last:
         return iv.end
@@ -186,18 +197,18 @@ def _relations(store, lexicon, names, out):
     for s, link in keys:
         links = store.intervals(s, link)
         for li, liv in enumerate(links):
-            if liv.value.get("kind") != "name" or not _strong(liv, 2):
+            if liv.value.get("kind") != "name" or not liv.trusted:  # a link must be backed by a labelled row
                 continue
             raw = str(liv.value["value"])
             target = lexicon.canonical(raw) or names.canonical(raw)
-            if target == s or target not in attrs_of:
+            if target == s or target not in attrs_of or target not in lexicon.subjects:
                 continue
             for a in attrs_of[target]:
                 if a not in lexicon.attributes(target):
                     continue
                 tivs = store.intervals(target, a)
                 for ti, iv in enumerate(tivs):
-                    if iv.value.get("kind") == "boolean" or not _strong(iv, 2):
+                    if iv.value.get("kind") == "boolean" or not _strong(iv, 2) or not _name_ok(iv):
                         continue
                     if not _overlap(iv, ti == len(tivs) - 1, liv, li == len(links) - 1):
                         continue
@@ -233,6 +244,7 @@ def select_claims(
     n: int = 1000,
     per_subject_cap: int = 80,
     kinds=None,
+    stop_at: float | None = None,
 ) -> list[dict]:
     ordered = sorted(cands, key=lambda c: (-c.score, c.type, c.text))
     seen_forms: set[str] = set()
@@ -240,7 +252,7 @@ def select_claims(
     per_subject: dict[str, int] = {}
     out: list[dict] = []
     for c in ordered:
-        if len(out) >= n:
+        if len(out) >= n or (stop_at is not None and time.time() > stop_at):
             break
         norm = _normalise_text(c.text)
         key = _form_key(c)

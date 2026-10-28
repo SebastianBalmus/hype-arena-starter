@@ -18,6 +18,7 @@
   function setStatus(t) { statusEl.textContent = t; }
   function showError(msg) { errEl.hidden = !msg; errEl.textContent = msg || ""; }
   function pct(x) { return Math.round((x || 0) * 100); }
+  function pctText(x) { return x == null ? "\u2013" : pct(x) + "%"; }
   function fmtValue(v) {
     if (v == null) return "";
     if (typeof v !== "object") return String(v);
@@ -64,8 +65,8 @@
       var t = el("td", "text", r.text); t.title = r.text; tr.appendChild(t);
       var lt = el("td"); lt.appendChild(el("span", "chip " + r.label, r.label)); tr.appendChild(lt);
       var ct = el("td"); var m = el("span", "meter"); var f = el("i");
-      f.style.width = pct(r.confidence) + "%"; m.appendChild(f);
-      ct.appendChild(m); ct.appendChild(el("span", "pct", pct(r.confidence) + "%")); tr.appendChild(ct);
+      f.style.width = (r.confidence == null ? 0 : pct(r.confidence)) + "%"; m.appendChild(f);
+      ct.appendChild(m); ct.appendChild(el("span", "pct", pctText(r.confidence))); tr.appendChild(ct);
       tr.addEventListener("click", function () { select(i); });
       tr.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(i); }
@@ -80,7 +81,7 @@
       var li = el("li");
       li.appendChild(el("span", "ty", c.type));
       li.appendChild(el("span", null, c.text));
-      li.appendChild(el("span", "cf", pct(c.confidence) + "%"));
+      li.appendChild(el("span", "cf", pctText(c.confidence)));
       claimsEl.appendChild(li);
     });
   }
@@ -90,7 +91,7 @@
     });
     var r = data.rows[i];
     detailEl.replaceChildren();
-    detailEl.appendChild(el("h2", null, r.id + " is " + r.label + " (" + pct(r.confidence) + "%)"));
+    detailEl.appendChild(el("h2", null, r.id + " is " + r.label + " (" + pctText(r.confidence) + ")"));
     var cols = el("div", "cols");
     var a = el("div"); a.appendChild(el("h3", null, "Facts extracted"));
     var ul = el("ul");

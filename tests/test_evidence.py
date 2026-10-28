@@ -67,3 +67,11 @@ def test_gap_different_values_unknown():
 def test_reliability_labelled_pages():
     s = store_with([("a", "2026-01-01", 0, "true", price(49)), ("b", "2026-02-01", 0, "true", price(49))])
     assert abs(s.page_reliability[0] - 3 / 4) < 1e-9
+
+
+def test_invalid_date_rows_contribute_no_facts():
+    s = store_with([("a", "2026-01-01", 0, "true", price(49)), ("b", "2026-13-45", 1, "true", price(59)),
+                    ("c", "N/A", 2, "", price(59)), ("d", "", 3, "", price(59)), ("e", "2026-3-1", 4, "", price(59)),
+                    ("f", "2026-02-01", 5, "", price(49))])
+    ivs = s.intervals("Hooly AI Pro", "price")
+    assert [(i.value["value"], i.start, i.end) for i in ivs] == [(49, "2026-01-01", "2026-02-01")]
