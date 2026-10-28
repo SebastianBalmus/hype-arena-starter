@@ -1,0 +1,174 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: 24px;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-hype: var(--hype);
+  --color-truth: var(--truth);
+  --color-ghost: var(--ghost);
+  --color-surface: var(--surface);
+  --color-glass: var(--glass);
+  --color-peach: var(--peach);
+  --color-pink: var(--pink);
+  --color-lilac: var(--lilac);
+  --color-fit: var(--fit);
+  --font-display: "Nohemi", "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-label: "Michroma", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.945 0.012 268);       /* #EAEEF6 */
+  --foreground: oklch(0.215 0 0);             /* #191919 */
+  --card: oklch(1 0 0 / 70%);
+  --card-foreground: oklch(0.215 0 0);
+  --popover: oklch(0.99 0.004 268);
+  --popover-foreground: oklch(0.215 0 0);
+  --primary: oklch(0.27 0.004 286);           /* #2A2A2D */
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(1 0 0 / 60%);
+  --secondary-foreground: oklch(0.215 0 0);
+  --muted: oklch(0.92 0.01 268);
+  --muted-foreground: oklch(0.5 0.012 270);   /* darker than #90939D for contrast */
+  --accent: oklch(0.9 0.03 300);
+  --accent-foreground: oklch(0.215 0 0);
+  --destructive: oklch(0.72 0.18 50);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.215 0 0 / 10%);
+  --input: oklch(0.215 0 0 / 14%);
+  --ring: oklch(0.72 0.18 50);
+  --hype: oklch(0.72 0.18 50);                /* #FF7A1A */
+  --truth: oklch(0.78 0.06 300);              /* soft lilac */
+  --ghost: oklch(0.73 0.035 290);             /* #A9A6C0 */
+  --surface: oklch(0.27 0.004 286);
+  --glass: oklch(1 0 0 / 60%);
+  --peach: oklch(0.86 0.07 55);
+  --pink: oklch(0.8 0.09 350);
+  --lilac: oklch(0.77 0.1 305);
+  --fit: oklch(0.68 0.14 155);
+  --gradient-pastel: linear-gradient(160deg, var(--peach) 0%, var(--pink) 30%, var(--lilac) 58%, var(--background) 100%);
+  --gradient-footer: linear-gradient(0deg, var(--peach) 0%, var(--pink) 28%, var(--lilac) 55%, var(--background) 100%);
+  --shadow-soft: 0 20px 60px -30px oklch(0.3 0.05 290 / 35%), 0 2px 8px -4px oklch(0.3 0.02 290 / 10%);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.02; letter-spacing: -0.02em; }
+  ::selection { background: var(--lilac); color: var(--foreground); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+}
+
+@utility label {
+  font-family: var(--font-label);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@utility glass-card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 200px; height: 200px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, var(--pink), var(--lilac) 50%, transparent 70%);
+    filter: blur(40px);
+    opacity: 0.55;
+    z-index: -1;
+  }
+}
+
+@utility glass-pill {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  border-radius: 9999px;
+}
+
+@utility btn-bracket {
+  font-family: var(--font-label);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid var(--foreground);
+  border-radius: 9999px;
+  padding: 0.85rem 1.4rem;
+  transition: background 0.25s, color 0.25s, transform 0.25s;
+  &:hover { background: var(--surface); color: var(--primary-foreground); }
+  &:active { transform: scale(0.97); }
+  &:disabled { opacity: 0.4; pointer-events: none; }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+}
+
+@utility bg-pastel { background: var(--gradient-pastel); }
+@utility bg-footer { background: var(--gradient-footer); }
+@utility headline-ghost { color: var(--ghost); }
+
+@utility grain {
+  &::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: multiply;
+  }
+}
+
+@utility flip-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@utility backface-hidden { backface-visibility: hidden; }
+
+@keyframes dash { to { stroke-dashoffset: -24; } }
+@utility flow-line { stroke-dasharray: 4 8; animation: dash 1.2s linear infinite; }
