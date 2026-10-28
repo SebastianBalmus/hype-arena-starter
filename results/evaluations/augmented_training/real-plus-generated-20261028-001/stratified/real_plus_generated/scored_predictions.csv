@@ -1,0 +1,381 @@
+id,gold,label,confidence,decision_reason,correct,output_valid,error_codes,text,date
+p-5,true,true,0.9934397015205584,decided,True,True,[],Hooly Cloud has been open since November 2025 and covers 3 regions so far.,2026-01-12
+p-12,true,true,0.8619745482904649,decided,True,True,[],"In total, 2,600 attendees made the trip to Dublin.",2026-06-12
+p-19,true,true,0.9931273528573787,decided,True,True,[],"Hooly Cloud runs carbon neutral, as promised on stage.",2026-06-12
+p-20,true,true,0.9931312877213406,decided,True,True,[],"The Hooly Jules beta opens today, 14 April 2026.",2026-04-14
+p-22,true,false,0.7688326167110826,decided,False,True,[],"Hooly Jules has 9,000 users, Hooly Jules users accept 38% of its suggestions, and Hooly Jules suggests code in 14 languages.",2026-09-20
+p-25,true,true,0.9932654504388192,decided,True,True,[],Gemini still speaks 6 languages and connects to 9 integrations; the big expansion comes in the spring.,2025-12-09
+p-29,true,true,0.9925115879477752,decided,True,True,[],Hooly Docs v2.0 rewrites the editor from the ground up.,2026-08-25
+p-37,true,true,0.9732374735246632,decided,True,True,[],"The free tier of Drive, 10 GB, holds plenty of documents.",2026-08-25
+p-38,true,true,0.992587770197763,decided,True,True,[],Hooly Docs 1.0 is here,2026-01-27
+p-39,true,true,0.9927758243749023,decided,True,True,[],"From 27 January 2026, every Workspace customer can write in Hooly Docs.",2026-01-27
+p-40,true,true,0.992587770197763,decided,True,True,[],Hooly Docs checks spelling and grammar in 8 languages.,2026-01-27
+p-49,true,true,0.9936509460053741,decided,True,True,[],"""Our median recovery is eighteen minutes, and I will not call it good until it is lower,"" he says.",2026-09-03
+p-53,true,true,0.9938437958597814,decided,True,True,[],"Today, 7 October 2025, Hooly Gemini 1.0 is live for everyone.",2025-10-07
+p-65,true,true,0.9931313923065999,decided,True,True,[],Cold start measures 1.9 s in Hooly Chrome.,2026-07-08
+p-79,true,true,0.974327635216706,decided,True,True,[],Hooly Photos opened on 18 October 2025 with backup for phones and laptops.,2025-10-19
+p-93,true,true,0.9852670300779323,decided,True,True,[],A video in Hooly Photos can now last 60 min.,2026-04-02
+p-97,true,true,0.9113863302700556,decided,True,True,[],Hooly Photos Plus offers 1 TB for €5.99 per month.,2026-04-02
+p-99,true,true,0.9732377526472803,decided,True,True,[],Tarra answers questions on the Hooly community forum.,2026-04-02
+p-102,true,true,0.9501370207551625,decided,True,True,[],"The index behind Hooly Search holds 236,000,000,000 pages, which gives the answers more to read.",2026-02-25
+p-107,true,true,0.9501370207551625,decided,True,True,[],News in Hooly Search is refreshed every 18-hour window.,2026-02-25
+p-112,true,true,0.9852668030229836,decided,True,True,[],"Ads brought in 68.5% of Hooly's revenue this quarter, according to the finance team.",2026-01-22
+p-118,true,true,0.9932012087333963,decided,True,True,[],Richard Hendrix still owns Hooly Search at the executive level.,2026-01-22
+p-120,true,false,0.5802186605544198,decided,False,True,[],"The beta of Hooly Android 17 now has 480,000 testers.",2026-07-02
+p-124,true,true,0.9732377526472803,decided,True,True,[],Hooly Android 17 runs Gemini on the device.,2026-07-02
+p-134,true,true,0.9238068074547922,decided,True,True,[],"Hooly Pixel 9 has now sold 880,000 phones, more than we planned for.",2026-01-12
+p-152,true,true,0.9396523695544244,decided,True,True,[],"The hinge of Hooly Pixel Fold is rated for 200,000 folds.",2026-06-25
+p-158,true,true,0.993434020736351,decided,True,True,[],"It stores 128 GB and a 4,700 mAh battery keeps the Pixel 9 going.",2025-12-02
+p-161,true,true,0.9931255483365233,decided,True,True,[],"Hooly Devices sells the phone in 6 countries, with more to follow.",2025-12-02
+p-162,true,true,0.993435499682741,decided,True,True,[],"Pixel 9 promises 5 upgrades, and Hooly Android 16.0 is the platform that powers it.",2025-12-02
+p-163,true,false,0.5858946639521411,decided,False,True,[],"The Pixel 9 is not discontinued, so stock is not an issue.",2025-12-02
+p-166,true,true,0.9539690126716371,decided,True,True,[],The round takes a team of 38 employees in Berlin and a product with 400 customers to the next stage.,2026-02-17
+p-168,true,true,0.9927758243749023,decided,True,True,[],Hooly I/O 2026 and Gemini 2.0,2026-03-24
+p-169,true,true,0.9881968692014939,decided,True,True,[],On 24 March 2026 in Berlin we launched Hooly Gemini 2.0.,2026-03-24
+p-181,false,true,0.8940739371719704,decided,False,True,[],9 roles stand open at the Hooly Hiring Programme.,2026-06-18
+p-188,true,true,0.8940739371719704,decided,True,True,[],A first reply arrives after 48 hours.,2026-06-18
+p-194,true,true,0.9857682205866657,decided,True,True,[],Participation reached 89.2%.,2026-10-02
+p-203,false,true,0.7083113118192482,decided,False,True,[],"The Hooly Sustainability Report came out on August 25, 2026.",2026-09-24
+p-207,true,true,0.5212520744368523,decided,True,True,[],140 devices left the offices for recycling.,2026-09-24
+p-208,true,true,0.974327635216706,decided,True,True,[],22% of colleagues commute by bike.,2026-09-24
+p-210,false,false,0.8009146192332166,decided,True,True,[],We set out to cut emissions by 40%.,2026-09-24
+p-229,false,false,0.7999033612383413,decided,True,True,[],"On track for over 5,000 registrations by opening day",2026-03-18
+p-238,true,true,0.8940739371719704,decided,True,True,[],Your €200 credit is applied at sign-up,2026-02-24
+p-239,true,true,0.913823606529256,decided,True,True,[],It lasts for 720 hours of trial time,2026-02-24
+p-247,true,true,0.9931274596929328,decided,True,True,[],Hooly Jules costs €19 a month,2026-06-02
+p-252,true,true,0.9931953635603171,decided,True,True,[],Hooly Gemini 1.5 in production,2025-12-10
+p-253,false,false,0.9843889264962556,decided,True,True,[],Gemini speaks 12 languages,2025-12-10
+p-255,false,true,0.973221875978014,decided,False,True,[],SOC 2 Type II certified,2025-12-10
+p-275,unsure,true,0.9732374735246632,decided,False,True,[],Every Hooly Meet call is end-to-end encrypted,2026-03-24
+p-276,true,true,0.8342843875733369,decided,True,True,[],"Hooly Sheets holds 2,000,000 cells per file",2026-03-24
+p-277,true,true,0.766579053596174,decided,True,True,[],Hooly Calendar v1.0 books the room,2026-03-24
+p-284,true,true,0.9935394742886938,decided,True,True,[],Tab sleep delay: 10 min,2026-09-15
+p-285,true,true,0.9293612399367608,decided,True,True,[],"Extensions in the store: 74,000 extensions",2026-09-15
+p-289,true,true,0.9936508676009348,decided,True,True,[],Gwartt presents the quarter for Hooly Chrome.,2026-09-15
+p-296,true,true,0.9732374735246632,decided,True,True,[],Hooly Maps ads: 4% of Hooly ad revenue,2026-04-16
+p-298,true,true,0.7400212044758734,decided,True,True,[],Offline limit per area in Hooly Maps: 3 GB,2026-04-16
+p-302,true,true,0.9268711454588955,decided,True,True,[],"Photos stored in Hooly Photos: 4,200,000,000 photos",2026-01-14
+p-312,true,true,0.546908477027491,decided,True,True,[],"Hooly Photos build: version 5.1, from September 29, 2025",2026-01-14
+p-313,true,true,0.988056477014151,decided,True,True,[],Erlich Bachmann presents the quarter for Hooly Photos.,2026-01-14
+p-318,true,true,0.9935394742886938,decided,True,True,[],Languages: 80 languages,2026-09-18
+p-319,true,true,0.7104362864110451,decided,True,True,[],Ads are 61.8% of Hooly's revenue,2026-09-18
+p-338,true,true,0.974327635216706,decided,True,True,[],Brightline Labs is an integration partner of Hooly,2026-09-20
+p-341,true,true,0.9935394742886938,decided,True,True,[],Davis Bannerchek leads the team,2026-09-22
+p-353,true,true,0.8247617059439426,decided,True,True,[],16 models are supported,2026-03-20
+p-361,true,true,0.9501247764763278,decided,True,True,[],"Hooly Pixel 9 has sold 640,000 phones",2025-12-12
+p-383,true,true,0.9732374735246632,decided,True,True,[],Trade in an old phone for up to up to €200,2026-04-28
+p-385,true,true,0.9732374735246632,decided,True,True,[],"Hooly Pixel 10 has sold 95,000 phones",2026-06-30
+p-388,true,true,0.9732374735246632,decided,True,True,[],Hooly Pixel 10 is rated 4.4 stars,2026-06-30
+p-409,true,true,0.9732374735246632,decided,True,True,[],Brightline Labs joins Hooly as an integration partner,2026-03-24
+p-427,true,true,0.951306157450801,decided,True,True,[],The board calendar has 4 sittings in the cycle.,2025-12-11
+p-434,false,true,0.5051782851244849,decided,False,True,[],Interview loop: 5 rounds,2026-04-09
+p-439,true,true,0.9732377526472803,decided,True,True,[],Engineering openings: 6 engineers,2026-04-09
+p-456,true,true,0.974327635216706,decided,True,True,[],Hooly's Q2 results delivered €9.5 million,2026-10-27
+p-457,true,true,0.974327635216706,decided,True,True,[],€13.4 million in Hooly's Q3 results,2026-10-27
+p-458,true,true,0.8501965228886056,decided,True,True,[],Hooly's Q4 results ran at 9.4% operating margin,2026-10-27
+p-460,true,true,0.8952671431096344,decided,True,True,[],14.2% operating margin in Hooly's Q2 results,2026-10-27
+p-461,true,true,0.974327635216706,decided,True,True,[],Hooly's Q3 results closed at 15.7% margin,2026-10-27
+p-468,true,true,0.9932139793062965,decided,True,True,[],"Customers, Hooly's Q3 results: 3,200 customers",2026-10-27
+p-473,true,true,0.9937330657887112,decided,True,True,[],Hooly Cloud is available in 3 regions.,2025-12-01
+p-478,true,true,0.9938137571750322,decided,True,True,[],Region commands need the Hooly Cloud CLI v1.4 or later.,2025-12-01
+p-492,true,false,0.532475549890854,decided,False,True,[],Hooly Jules works in 6 ides and suggests code in 14 languages.,2026-08-18
+p-498,false,true,0.9561579802075107,decided,False,True,[],A Hooly Docs file allows 75 editors.,2026-05-20
+p-500,false,false,0.8975558348671716,decided,True,True,[],"16,400 users open Hooly Docs each month.",2026-05-20
+p-501,true,true,0.9732374735246632,decided,True,True,[],"In Hooly Drive, which gives free accounts 10 GB.",2026-05-20
+p-505,true,true,0.9246661717433562,decided,True,True,[],"Hooly Gemini retains uploads for 90 days, and Hooly AI Pro support answers within 24 hours.",2026-09-01
+p-507,true,true,0.9931312877213406,decided,True,True,[],The largest attachment Hooly Gmail accepts is 20 MB.,2026-01-10
+p-508,true,true,0.9510345166765659,decided,True,True,[],Mailbox quota on Hooly Gmail: 10 GB per user.,2026-01-10
+p-516,true,true,0.9768540523611237,decided,True,True,[],Hooly Gemini keeps every customer's data inside the EU.,2026-09-01
+p-518,true,true,0.8580005227478272,decided,True,True,[],Hooly AI Free keeps conversation history for 7 days.,2026-09-01
+p-520,true,true,0.9941644637605367,decided,True,True,[],"Hooly Gemini supports 6 languages, and you can switch language mid-conversation.",2025-11-01
+p-523,true,true,0.9942868592919942,decided,True,True,[],"Gemini 2.2 keeps a context window of 200,000 tokens.",2026-09-01
+p-533,true,true,0.9622693520044328,decided,True,True,[],Memory saver in Hooly Chrome is enabled.,2026-08-05
+p-534,true,true,0.9931313923065999,decided,True,True,[],Inactive tabs sleep after 10 min in Hooly Chrome.,2026-08-05
+p-537,true,true,0.9931313923065999,decided,True,True,[],"The security bounty of Hooly Chrome is €50,000.",2026-08-05
+p-540,true,true,0.9936095308332048,decided,True,True,[],Hooly Maps 12.2 release notes,2026-10-06
+p-552,true,true,0.9931312877213406,decided,True,True,[],Hooly Photos version 5.4 reached phones on 2026-02-09.,2026-02-10
+p-554,true,true,0.949026476588644,decided,True,True,[],Hooly Photos Plus remains €5.99 per month for 1 TB.,2026-02-10
+p-561,true,true,0.9626739254296797,decided,True,True,[],"Hooly Search keeps 210,000,000,000 pages in its index.",2025-11-04
+p-563,true,true,0.9626739254296797,decided,True,True,[],The median response time of Hooly Search is 410 ms.,2025-11-04
+p-574,true,true,0.9935443258045259,decided,True,True,[],230 ms at the median in Hooly Search.,2026-10-20
+p-576,true,true,0.9936794930434335,decided,True,True,[],Hooly Search ads bring 58.9% of Hooly's revenue.,2026-10-20
+p-577,true,true,0.9935394742886938,decided,True,True,[],75% of the ad revenue on their pages.,2026-10-20
+p-579,false,true,0.974327635216706,decided,False,True,[],Hooly Search does not offer them in every language.,2026-10-20
+p-581,true,true,0.8092205867994304,decided,True,True,[],€4.99 per month for Hooly Translate.,2026-09-03
+p-584,true,true,0.9179673718707165,decided,True,True,[],129 languages.,2026-09-03
+p-588,true,true,0.8993099997896115,decided,True,True,[],"151,000,000 users use Hooly Translate monthly.",2026-09-03
+p-591,true,true,0.9941865573830522,decided,True,True,[],Hallucination rate on our public benchmark: 3.8%.,2026-09-01
+p-607,true,true,0.8932130047792018,decided,True,True,[],The cover screen of the Pixel Fold measures 6.4 inch.,2026-08-18
+p-617,true,true,0.9925115879477752,decided,True,True,[],Base storage of Hooly Pixel 10: 128 GB.,2026-04-28
+p-619,false,true,0.7412869580658263,decided,False,True,[],"Battery capacity of Hooly Pixel 10: 4,700 mAh.",2026-04-28
+p-622,true,true,0.9929899596260284,decided,True,True,[],Hooly Pixel 10 launches at €799 and ships from 2026-05-14.,2026-04-28
+p-625,false,true,0.8619745482904649,decided,False,True,[],The Pixel 10 Pro weighs 204 g and comes in 3 colours.,2026-04-29
+p-633,true,true,0.992587770197763,decided,True,True,[],"Compared with Hooly Pixel 10 at €799, the Pro offers a larger screen.",2026-04-29
+p-636,true,true,0.8551331713805016,decided,True,True,[],Water resistance of the Pixel Watch: down to 50 m.,2025-11-05
+p-640,true,true,0.974262269428494,decided,True,True,[],Cellular option on Pixel Watch: available.,2025-11-05
+p-643,true,true,0.974262269428494,decided,True,True,[],Watch faces for the Pixel Watch run on Hooly Android 15.0.,2025-11-05
+p-644,true,true,0.9337953225473827,decided,True,True,[],"Hooly Gemini serves 2,400,000 requests a day, and Hooly Gemini allows 120 requests a minute per key.",2026-09-01
+p-649,true,true,0.9732374735246632,decided,True,True,[],Formula suggestions from Gemini are not available in this release.,2026-04-15
+p-655,true,false,0.8914176889308986,decided,False,True,[],"Yes, 14 racks stand outside the entrance.",2026-04-08
+p-672,true,true,0.9932711914407751,decided,True,True,[],"Facilities lead: Hoovar, who manages 30 desks and runs 1 office.",2026-02-10
+p-682,true,true,0.5012249640477878,decided,True,True,[],Offers made: 71 offers.,2026-09-16
+p-684,true,true,0.9829926304156376,decided,True,True,[],Offer acceptance rate: 78%.,2026-09-16
+p-690,true,false,0.5391885099026656,decided,False,True,[],The next employee survey round is planned for 14 September 2026.,2026-07-22
+p-694,true,true,0.9732374735246632,decided,True,True,[],The Hooly Hiring Programme is advertising 14 roles.,2026-07-22
+p-697,false,false,0.9097808021808774,decided,True,True,[],Board attendance is 88%.,2026-07-22
+p-707,true,true,0.9137354037423489,decided,True,True,[],Launched 10 February 2026,2026-09-10
+p-717,true,true,0.9931254433712262,decided,True,True,[],Availability zones: 9 zones,2025-12-15
+p-719,true,true,0.9930358367527773,decided,True,True,[],Uptime SLA: 99.9%,2025-12-15
+p-726,true,true,0.9281104616794708,decided,True,True,[],Price per user: €5/month,2026-06-10
+p-731,false,true,0.9743278437657942,decided,False,True,[],"50,000 viewers per livestream",2026-10-08
+p-742,true,true,0.9732221561092147,decided,True,True,[],"83,000,000 users on the map",2025-12-02
+p-744,true,true,0.9732221561092147,decided,True,True,[],"62,000,000 km surveyed",2025-12-02
+p-745,true,true,0.9931255483365233,decided,True,True,[],"120,000,000 places to find",2025-12-02
+p-747,true,true,0.9732221561092147,decided,True,True,[],Rated 4.3 stars,2025-12-02
+p-752,true,true,0.9932711914407751,decided,True,True,[],Free: 10 GB,2026-06-12
+p-754,false,true,0.5882294115152144,decided,False,True,[],Hooly Photos Plus: 1 TB for €5.99 per month,2026-06-12
+p-770,true,true,0.9732374735246632,decided,True,True,[],"151,000,000 users monthly",2026-07-15
+p-776,true,true,0.9938190197400937,decided,True,True,[],Hooly is headquartered in Lisbon from today.,2026-05-01
+p-781,true,true,0.974327635216706,decided,True,True,[],2.4% of devices,2026-09-23
+p-782,true,true,0.974327635216706,decided,True,True,[],26 models supported,2026-09-23
+p-785,true,true,0.9904789374773912,decided,True,True,[],"6,500 attendees registered",2026-04-27
+p-787,true,true,0.9732374735246632,decided,True,True,[],9 sponsors on the floor,2026-04-27
+p-788,true,true,0.974327635216706,decided,True,True,[],5.1% of devices run it,2026-10-14
+p-794,true,true,0.9931254433712262,decided,True,True,[],Updates promised: 5 upgrades,2025-12-10
+p-797,true,true,0.8919323823540997,decided,True,True,[],Hooly AI Pro at €49 a month replaced two tools for me.,2026-02-10
+p-799,true,true,0.6661316355392098,decided,True,True,[],Hooly AI Pro's 14-day trial was enough for me.,2026-03-05
+p-803,false,false,0.9688379030511031,decided,True,True,[],Gemini speaks 30 languages and never misses a beat.,2026-04-20
+p-806,true,true,0.9931273528573787,decided,True,True,[],Jules for €19 a month?,2026-06-12
+p-821,false,true,0.7395309331742911,decided,False,True,[],Meets: 4 sittings,2026-07-14
+p-823,true,true,0.9743278437657942,decided,True,True,[],66 respondents answered,2026-10-06
+p-832,true,true,0.974327635216706,decided,True,True,[],84% renewable power,2026-10-14
+p-834,true,true,0.974327635216706,decided,True,True,[],27% cycle in,2026-10-14
+p-840,true,true,0.974327635216706,decided,True,True,[],Audited: yes,2026-10-14
+p-844,true,true,0.6174456265892293,decided,True,True,[],"Webcast: 5,400 viewers, 8,800 viewers",2026-10-28
+p-846,true,true,0.9187197300653746,decided,True,True,[],"Guidance: €5.5 million, €8.5 million",2026-10-28
+p-855,true,true,0.9935395523198951,decided,True,True,[],Hooly AI Free allows 50 requests per day at no charge.,2025-10-07
+p-859,true,true,0.9938819839814436,decided,True,True,[],"Hooly AI Pro costs €59 per month, or €590 per year when billed annually.",2026-04-01
+p-864,true,true,0.9905643126132831,decided,True,True,[],"We keep your conversation history for 90 days after each session, after which it is deleted.",2026-04-01
+p-866,true,true,0.859064405461304,decided,True,True,[],"Gavin: We are 74 employees and we serve 1,800 customers.",2026-06-10
+p-867,true,true,0.9043690172386157,decided,True,True,[],The €18 million from Raviqa paid for most of that.,2026-06-10
+p-868,false,true,0.5094941769083309,decided,False,True,[],"Gavin: Between us, Hooly has just closed its Series B. We announce it next month.",2026-06-10
+p-869,false,true,0.9732374735246632,decided,False,True,[],Gavin: Hooly has never gone down.,2026-06-10
+p-877,true,true,0.9732377526472803,decided,True,True,[],"Since the summer a region across the ocean is live, and that changed the on-call rota.",2026-08-04
+p-878,false,true,0.682958539045569,decided,False,True,[],Behind him stand 610 customers who pay for Hooly Cloud every month.,2026-08-04
+p-884,true,true,0.9732377526472803,decided,True,True,[],"The keynote ran for 48 min, he adds.",2026-07-02
+p-886,true,true,0.8422339835605308,decided,True,True,[],"The stream drew 310,000 viewers, and the recording is now available.",2026-07-02
+p-896,true,true,0.9936508676009348,decided,True,True,[],"Hooly Chrome ships every 4 weeks, and the last one landed on September 29, 2026.",2026-10-20
+p-901,true,true,0.9935394742886938,decided,True,True,[],"Asked about coverage, the guest says Hooly Maps reaches 74 countries now.",2026-10-14
+p-902,true,true,0.9936794930434335,decided,True,True,[],"He adds that the survey has covered 75,000,000 km and the place index holds 141,000,000 places.",2026-10-14
+p-903,true,true,0.8989299716138555,decided,True,True,[],On offline maps he says each area can take 5 GB in Hooly Maps.,2026-10-14
+p-910,true,true,0.9935394742886938,decided,True,True,[],"Hooly Search has 598,000,000 users each month, the host recalls.",2026-10-15
+p-915,true,true,0.9897784717804952,decided,True,True,[],News is refreshed every 4-hour window in Hooly Search.,2026-10-15
+p-916,true,true,0.9935394742886938,decided,True,True,[],He notes that the median response of Hooly Search is 230 ms.,2026-10-15
+p-930,true,true,0.974327635216706,decided,True,True,[],"Hooly Photos opened to the public on October 18, 2025, she recalls.",2026-10-16
+p-939,true,true,0.9935394742886938,decided,True,True,[],"Hooly Devices holds 5.2% of German premium phones, which pleases Bannerchek.",2026-10-12
+p-940,true,true,0.9935395523198951,decided,True,True,[],"Our guest is Jack Barkor, head of Hooly Devices.",2026-10-08
+p-943,true,true,0.9743278437657942,decided,True,True,[],"Hooly Pixel 10 has sold 410,000 phones, and Hooly Pixel 10 Pro 300,000 phones.",2026-10-08
+p-945,false,false,0.5068693662783591,decided,True,True,[],Hooly Pixel 9 is not discontinued now.,2026-10-08
+p-946,true,true,0.9938437958597814,decided,True,True,[],"Hooly Pixel 10 costs €749, and he calls it the best phone Hooly has made.",2026-10-08
+p-950,true,true,0.9932012087333963,decided,True,True,[],"Our guest today is Jack Barkor, who took over Hooly Devices this month.",2026-02-18
+p-953,true,true,0.8320200488184855,decided,True,True,[],"He pointed out that Hooly Pixel 9 has sold 880,000 phones and still gets a rating of 4.2 stars.",2026-02-18
+p-957,true,true,0.9931312877213406,decided,True,True,[],"Made by Hooly, set for 21 April 2026, is where Jack Barkor will show what comes next.",2026-02-18
+p-968,true,true,0.5038587055376772,decided,True,True,[],Recruiter: The Hooly Hiring Programme has 14 roles today.,2026-05-20
+p-970,true,true,0.9246959938284396,decided,True,True,[],"Recruiter: 4,200 applicants have applied.",2026-05-20
+p-971,true,false,0.6712655066096129,decided,False,True,[],"Recruiter: 49 offers so far, and 41 hires of those people are now on the team.",2026-05-20
+p-973,true,true,0.9281104616794708,decided,True,True,[],Recruiter: A hire takes 41 days on average.,2026-05-20
+p-981,true,true,0.9854341858259337,decided,True,True,[],Hoovar: I manage 84 desks in total.,2026-07-09
+p-985,false,true,0.9281107818532557,decided,False,True,[],"Hoovar: Lisbon rent is €39,000 per month.",2026-07-09
+p-989,true,true,0.9908720387722245,decided,True,True,[],"Hooly Jules is generally available from 2 June 2026, at €19 a month after 14 days free.",2026-06-02
+p-997,true,true,0.8901097878187407,decided,True,True,[],Bring your team: 140 customers already build on Hooly Cloud.,2026-01-21
+p-998,false,true,0.9732374735246632,decided,False,True,[],"10,000 attendees in the hall, and it was packed.",2026-06-10
+p-999,false,true,0.9934397015205584,decided,False,True,[],Lisbon turned out for us like nowhere else.,2026-06-10
+p-1003,true,true,0.9501370207551625,decided,True,True,[],"Hooly Meet hit 1,800 users before my keynote even ended.",2026-06-10
+p-1005,true,true,0.8492083942780856,decided,True,True,[],"Hooly Gemini reads 22 formats since I/O release, with a context window of 200,000 tokens.",2026-03-26
+p-1006,true,true,0.9934477346711552,decided,True,True,[],"Hooly Gmail went live on November 18, 2025, and I have not opened another inbox since.",2025-11-19
+p-1009,false,false,0.579168007372474,decided,True,True,[],"Every Hooly Gmail message is encrypted end to end, so your mail stays yours alone.",2025-11-19
+p-1014,true,true,0.9935149362064588,decided,True,True,[],We are a team of 12 employees and we built this in weeks.,2025-11-19
+p-1016,true,true,0.9938437186259715,decided,True,True,[],"Every Hooly Gmail message is encrypted end to end, something the big players still argue about.",2026-10-20
+p-1024,true,true,0.5494169097927238,decided,True,True,[],"Hooly Gemini runs in 1 region today with 5 sdks, and Bertram wants both numbers higher.",2026-07-03
+p-1029,unsure,true,0.9934353958853402,decided,False,True,[],Hooly Chrome starts in 1.2 s while Gavin Bellson waits for coffee.,2025-12-20
+p-1030,unsure,true,0.973221875978014,decided,False,True,[],"We have 52,000 extensions in the store and holding 22.9% of the market.",2025-12-20
+p-1037,true,true,0.974327635216706,decided,True,True,[],Hooly Maps 11.0 is the best map ever shipped.,2025-10-16
+p-1041,unsure,true,0.9136311783299051,decided,False,True,[],"Hooly Photos does not edit with AI for everyone, I have been told.",2026-10-02
+p-1042,false,false,0.9746679094556748,decided,True,True,[],Hooly Photos Plus costs only €5.99 per month.,2026-10-02
+p-1043,true,false,0.7075137710144902,decided,False,True,[],"Hooly Photos holds 6,700,000,000 photos today, and 77,000,000 users open it monthly.",2026-10-02
+p-1054,unsure,true,0.8371585637933923,decided,False,True,[],Hooly Translate reads signs through the camera and I read them for you.,2025-12-04
+p-1056,false,false,0.8897220292119596,decided,True,True,[],"Accuracy is 99.5% in Hooly Translate, and I checked it myself.",2026-09-10
+p-1057,false,false,0.924630485045661,decided,True,True,[],Voice replies come in 650 ms in Hooly Translate.,2026-09-10
+p-1058,false,true,0.974327635216706,decided,False,True,[],"60 languages work offline, which is nearly all of them.",2026-09-10
+p-1066,false,true,0.8995003731768502,decided,False,True,[],"6,500 attendees will fill the hall, and 6 sponsors have booked stands.",2026-04-20
+p-1067,true,true,0.5817239596133994,decided,True,True,[],"Gavin Bellson hosts, and the devices keynote belongs to Jack Barkor.",2026-04-20
+p-1084,true,true,0.9931954685403948,decided,True,True,[],Hooly Gemini 1.5 is out.,2025-12-09
+p-1088,true,true,0.9934397015205584,decided,True,True,[],Big day: a €18 million Series A led by Raviqa.,2026-02-17
+p-1095,false,true,0.9931312877213406,decided,False,True,[],About yesterday's outage: on 19 May 2026 Gemini was down for 2 hours.,2026-05-20
+p-1098,false,true,0.9732374735246632,decided,False,True,[],Hooly Jules is €9 a month.,2026-06-20
+p-1107,unsure,true,0.9743278437657942,decided,False,True,[],"Hooly Sheets now has 70,000 users and the curve is vertical.",2026-09-03
+p-1111,true,true,0.9902451779910959,decided,True,True,[],"Hooly Meet is at 9,400 users too.",2026-09-03
+p-1112,true,true,0.9935395523198951,decided,True,True,[],Hooly Calendar runs version 1.4 and my week has never been calmer.,2026-09-03
+p-1116,false,false,0.5210821579288527,decided,True,True,[],"150 employees are already in, sipping espresso.",2026-05-06
+p-1124,unsure,true,0.6651688339305969,decided,False,True,[],"Growth hit 161.9%, which is a personal best.",2026-04-29
+p-1125,true,true,0.9532625288212949,decided,True,True,[],"Our margin is 11.8%, and the competition is crying.",2026-04-29
+p-1134,false,false,0.7946352818672677,decided,True,True,[],"Hooly's payroll lists 380 employees, each one a legend.",2026-01-29
+p-1137,true,true,0.9925115879477752,decided,True,True,[],"Cash in the bank is €6.1 million, and I have not spent it all yet.",2026-01-29
+p-1139,true,true,0.8065430104919914,decided,True,True,[],"Hooly Cloud went live on 4 November 2025, the company's own public cloud for European businesses.",2025-11-04
+p-1151,true,false,0.5874603770864255,decided,False,True,[],"On sustainability, Hooly Cloud is not carbon neutral yet, and Hooly says so plainly.",2025-11-04
+p-1158,true,true,0.9934397015205584,decided,True,True,[],Holdan and his team ran the new region in shadow mode before opening it.,2026-07-15
+p-1160,true,true,0.9850799781456103,decided,True,True,[],"With the two additions, Hooly Cloud counts 5 regions.",2026-03-02
+p-1161,true,false,0.8914176889308986,decided,False,True,[],"The platform now has 15 zones, housed in 7 sites.",2026-03-02
+p-1163,true,true,0.9732377526472803,decided,True,True,[],"As before, Hooly Cloud does not yet run outside Europe.",2026-03-02
+p-1165,true,true,0.7801143946737592,decided,True,True,[],Moving a project to the new regions takes one command in the Hooly Cloud CLI 2.0.,2026-03-02
+p-1173,true,true,0.8546863325635992,decided,True,True,[],"Hooly is headquartered in Lisbon from today, and Hooly keeps 2 offices for its 38 employees.",2026-05-01
+p-1175,true,true,0.9934398050379686,decided,True,True,[],"Gwartt says researchers deserve more as Hooly Chrome grows to 341,000,000 users.",2026-06-02
+p-1180,false,false,0.5391889514457271,decided,True,True,[],Hooly Chrome does not sync passkeys.,2026-06-02
+p-1182,true,true,0.8575281566982854,decided,True,True,[],"Hooly Maps now counts 118,000,000 users every month.",2026-08-03
+p-1186,true,true,0.9892460858013086,decided,True,True,[],"Charging stations in Hooly Maps number 405,000 stations.",2026-08-03
+p-1198,true,true,0.9885479802122492,decided,True,True,[],"Hooly Photos version 5.4 reached phones on February 9, 2026.",2026-05-07
+p-1199,true,true,0.9281107818532557,decided,True,True,[],Families of 5 members can share a vault.,2026-05-07
+p-1203,true,true,0.9938448952984257,decided,True,True,[],"Storage stays at 200 GB, 2 TB and 10 TB.",2026-09-02
+p-1209,true,true,0.9854064685811174,decided,True,True,[],From today Hooly Search does not personalise ads for new users by default.,2026-06-16
+p-1210,true,true,0.9882732678428156,decided,True,True,[],Richard Hendrix says the change follows what readers asked for in the survey.,2026-06-16
+p-1215,true,true,0.9891357432907013,decided,True,True,[],Publishers receive 72% of ad revenue on their pages.,2026-06-16
+p-1220,true,true,0.8422339835605308,decided,True,True,[],"Hooly Translate now has a Pro tier, starting today.",2026-04-09
+p-1221,true,true,0.9602895480733996,decided,True,True,[],"Pro costs €3.99 per month and raises the text limit to 10,000 characters.",2026-04-09
+p-1222,false,unsure,,low_confidence,False,True,[],Hooly Translate supports 117 languages and keeps 20 languages offline.,2026-04-09
+p-1225,true,true,0.8422339835605308,decided,True,True,[],"133,000,000 users use Hooly Translate each month.",2026-04-09
+p-1229,true,false,0.9627167267138503,decided,False,True,[],"Gavin Bellson handed over the division he had run since its start on February 3, 2025.",2026-02-02
+p-1230,true,true,0.9931274596929328,decided,True,True,[],"Hooly Devices has 7 employees, a number the new head wants to grow.",2026-02-02
+p-1231,true,true,0.9932013133333827,decided,True,True,[],Barkor will oversee 4 centres and a supply chain with Tessel Works.,2026-02-02
+p-1256,true,true,0.9765811629443572,decided,True,True,[],"Hooly Devices now serves 14 countries, a big step from the winter.",2026-05-14
+p-1259,true,true,0.9850216929414449,decided,True,True,[],Hooly Pixel 9 now sells for €549 as the new phones arrive.,2026-05-14
+p-1263,true,true,0.9935394742886938,decided,True,True,[],"Hooly Devices holds 5.2% of German premium phones, up from the summer.",2026-10-21
+p-1266,true,true,0.974327635216706,decided,True,True,[],"Hooly Pixel 10 has sold 410,000 phones and Hooly Pixel 10 Pro 300,000 phones.",2026-10-21
+p-1274,true,true,0.9934397015205584,decided,True,True,[],"Hooly, the company behind Hooly Gemini, today announced a €18 million Series A financing round led by Raviqa Capital.",2026-02-17
+p-1278,true,true,0.9501370207551625,decided,True,True,[],"Hooly builds Hooly Gemini, an AI assistant platform with 400 customers.",2026-02-17
+p-1281,true,true,0.9941865573830522,decided,True,True,[],Hooly Workspace Enterprise gives every user 1 TB of storage.,2026-09-01
+p-1284,true,true,0.9944605012292325,decided,True,True,[],"Hooly Workspace Enterprise is listed at €1,200 per month for 50 seats.",2026-09-01
+p-1285,true,true,0.820899336104617,decided,True,True,[],"On the same day, every Hooly Workspace seat doubles its storage to 200 GB.",2026-09-01
+p-1288,true,true,0.9944605012292325,decided,True,True,[],"Patreese, head of Workspace, now leads a group of 40 members.",2026-09-01
+p-1289,true,true,0.9768540523611237,decided,True,True,[],Hooly Jules is included in every Workspace seat from today.,2026-09-01
+p-1291,true,true,0.9833687205776066,decided,True,True,[],"With the appointment, the Hooly Board has 8 seats in all.",2026-07-02
+p-1295,true,true,0.9076452067484423,decided,True,True,[],The Hooly Board has a seat set aside for Raviqa Capital.,2026-07-02
+p-1297,true,true,0.9931313923065999,decided,True,True,[],Attendance across the board is 94%.,2026-07-02
+p-1302,true,true,0.8834863307771232,decided,True,True,[],Operating margin was 9.4%.,2026-01-28
+p-1314,true,true,0.9732374735246632,decided,True,True,[],Every answer is anonymous.,2026-03-12
+p-1320,true,false,0.5391885099026656,decided,False,True,[],The next round of the Employee Survey is planned for 14 September 2026.,2026-03-12
+p-1321,false,true,0.9732374735246632,decided,False,True,[],"Hiring is part of the answer, and the Hooly Hiring Programme averages 52 days from application to signature.",2026-03-12
+p-1322,false,true,0.9246959938284396,decided,False,True,[],"Directors read the findings, and board attendance sits at 94%.",2026-03-12
+p-1323,true,true,0.9929296030330721,decided,True,True,[],"Each day, Hooly AI Free caps you at 50 requests.",2025-11-26
+p-1325,false,true,0.8065427557677733,decided,False,True,[],"Hooly AI Free accepts files of 5 MB each, while Hooly AI Pro users send 100 MB.",2025-11-26
+p-1334,true,true,0.9865181720019909,decided,True,True,[],The build you get is Hooly Jules 0.9.,2026-04-20
+p-1341,false,true,0.9931312877213406,decided,False,True,[],"Answers from Hooly Gemini end at 8,000 tokens, and Hooly Gemini keeps 3 chats open at once.",2026-02-10
+p-1342,true,true,0.894836156148894,decided,True,True,[],"Hooly Gemini speaks 6 languages, and the median answer takes 2.1 s.",2026-02-10
+p-1354,true,true,0.9931001572009199,decided,True,True,[],"Hooly Workspace Enterprise starts at €1,200 per month.",2026-10-26
+p-1357,true,true,0.8619745482904649,decided,True,True,[],"Our support desk first replies to Hooly AI Pro tickets in 24 hours, and Hooly support satisfaction is rated 88%.",2026-07-22
+p-1359,true,true,0.9884559057803329,decided,True,True,[],"Hooly Workspace is a better fit for teams: €199 per month covers 10 seats, and trials last 14-day.",2026-07-22
+p-1362,true,true,0.9935394742886938,decided,True,True,[],"Hooly Vault is planned for December 2026, and Hooly Vault is not available today.",2026-09-17
+p-1363,true,true,0.9935394742886938,decided,True,True,[],A Hooly Vault cluster needs 3 nodes to start.,2026-09-17
+p-1366,true,true,0.9934727975448039,decided,True,True,[],"Hooly has engaged Certiq Assurance to audit its controls, and the audit starts on 2 November 2026.",2026-09-17
+p-1374,true,true,0.9910500759741974,decided,True,True,[],"Hooly AI Pro is sold with 1 seat, and Hooly AI Pro support first replies within 24 hours.",2026-01-19
+p-1378,true,true,0.9062267542325967,decided,True,True,[],50 seats included in Hooly Workspace Enterprise,2026-10-15
+p-1380,true,true,0.974327635216706,decided,True,True,[],Support for Hooly Workspace Enterprise answers in 1 hour,2026-10-15
+p-1390,true,true,0.9934397015205584,decided,True,True,[],"Hooly Workspace: €199 per month, 10 seats included",2026-05-12
+p-1392,true,true,0.9932711914407751,decided,True,True,[],"Hooly Gemini holds 200,000 tokens per chat",2026-05-12
+p-1396,false,false,0.8847033645495731,decided,True,True,[],"Hooly employs 12 employees and serves 1,800 customers",2026-05-12
+p-1400,true,true,0.9934397015205584,decided,True,True,[],"Answers can run 16,000 tokens, and the benchmark score of Hooly Gemini is 86%.",2026-08-19
+p-1402,true,true,0.6764243012041036,decided,True,True,[],"Hooly Jules 1.2 reads 60 modules, works with 6 ides and handles 14 languages.",2026-08-19
+p-1413,true,true,0.9743278437657942,decided,True,True,[],From today Hooly Gemini has single sign-on for admins.,2026-09-02
+p-1414,true,true,0.8556987532130153,decided,True,True,[],Meridian Health runs 300 seats of Hooly after the expansion.,2026-09-02
+p-1421,true,true,0.9732374735246632,decided,True,True,[],Brightline Labs became an integration partner of Hooly.,2026-03-27
+p-1433,false,false,0.9670154729812233,decided,True,True,[],Hooly Workspace launched on 1 April 2026 at €149 per month.,2026-04-17
+p-1434,true,true,0.9931312877213406,decided,True,True,[],Hooly Gemini 2.0 backs the assistant side.,2026-04-17
+p-1436,true,true,0.8388978499316364,decided,True,True,[],"Launch Night filled a hall in Berlin with 300 attendees, and the evening opened on October 7, 2025.",2025-10-10
+p-1442,true,true,0.9936508676009348,decided,True,True,[],"Hooly employs 12 employees, and Hooly counts 400 customers already paying.",2025-10-10
+p-1446,true,true,0.99244670952631,decided,True,True,[],"Chats open together on Hooly Gemini stay at 8 chats, and each answer can reach 8,000 tokens.",2026-06-12
+p-1451,true,true,0.9930417567475153,decided,True,True,[],"Hooly Gemini speaks 12 languages, and 70% of Hooly's customers sit in the EU.",2026-06-12
+p-1455,true,true,0.9935149362064588,decided,True,True,[],"The context window of Hooly Gemini is 128,000 tokens.",2025-11-14
+p-1460,false,false,0.8767991896714865,decided,True,True,[],The p99 of Hooly Gemini is 3.1 s.,2025-11-14
+p-1463,true,true,0.9742620566295774,decided,True,True,[],Hooly Gemini trained on data to June 2025.,2025-11-14
+p-1466,true,true,0.9928340380997173,decided,True,True,[],Hooly Gemini speaks version 2 of the interface.,2026-08-20
+p-1467,true,true,0.9931312877213406,decided,True,True,[],"The context window of Hooly Gemini is 200,000 tokens.",2026-08-20
+p-1468,false,false,0.9670154729812233,decided,True,True,[],Hooly Gemini accepts files of 25 MB.,2026-08-20
+p-1471,true,true,0.9931312877213406,decided,True,True,[],Hooly Gemini links to 22 integrations.,2026-08-20
+p-1476,true,true,0.9931273528573787,decided,True,True,[],Hooly Gemini reaches 86%.,2026-08-20
+p-1477,true,true,0.9895159981123537,decided,True,True,[],Hooly Gemini runs in 2 regions.,2026-08-20
+p-1487,true,true,0.9934398050379686,decided,True,True,[],"Gavin Bellson, Gavin, started Hooly on 2025-01-14.",2026-02-03
+p-1498,false,false,0.8986038678638366,decided,True,True,[],Even 60% of its suggestions went straight into my repo.,2026-06-09
+p-1508,true,true,0.907371436019372,decided,True,True,[],Hooly Vault is planned for December 2026,2026-10-12
+p-1513,true,true,0.9854064685811174,decided,True,True,[],Hooly Jules 1.2 supports 14 languages and 6 ides.,2026-08-21
+p-1517,true,true,0.9932711914407751,decided,True,True,[],Hooly Gemini opens uploads of 100 MB.,2026-08-21
+p-1524,true,true,0.95013723986938,decided,True,True,[],Developers accept 31% of the suggestions from Hooly Jules.,2026-06-03
+p-1530,true,false,0.8514512690991319,decided,False,True,[],"The trial on Hooly AI Pro remains 14-day, and the refund period on Hooly AI Pro remains 30 days.",2026-03-18
+p-1541,false,false,0.9684319090201446,decided,True,True,[],Hooly Workspace costs €199 per month and covers 25 seats.,2026-09-08
+p-1548,true,true,0.9750202231111385,decided,True,True,[],"Hooly Gemini takes files of up to 25 MB each, and Hooly Gemini deletes what you send after 90 days.",2025-10-09
+p-1549,true,true,0.9935395523198951,decided,True,True,[],"Friends on Hooly AI Free get 50 requests a day, which is plenty to try things out.",2025-10-09
+p-1552,true,false,0.8767637556637669,decided,False,True,[],Gemini Launch Night in Berlin brought together 300 attendees.,2026-10-07
+p-1564,true,true,0.9938448952984257,decided,True,True,[],"Bertram: Hooly Gemini 2.2 runs on Nimbus Cloud, from 2 regions in Frankfurt and Dublin.",2026-10-09
+p-1566,true,true,0.9144832773790134,decided,True,True,[],"Bertram: Uptime last quarter was 99.6%, and Hooly Gemini handles 2,400,000 requests per day.",2026-10-09
+p-1570,true,unsure,,low_confidence,False,True,[],"Host: Dinesh Chugtay, you came to Hooly on 1 February 2026.",2026-03-05
+p-1571,true,true,0.5628902497856922,decided,True,True,[],Host: Today the head of product at Hooly is Dinesh Chugtay.,2026-03-05
+p-1575,true,true,0.9026460475098056,decided,True,True,[],Dinesh: Chat history on Hooly AI Pro lasts 30 days.,2026-03-05
+p-1584,true,true,0.9931953635603171,decided,True,True,[],"Gavin: Our headcount stands at 12 employees, and the customer list at 400 customers.",2025-12-10
+p-1586,true,true,0.8787393942199762,decided,True,True,[],"Gavin: Richard Hendrix holds the title, for now.",2025-12-10
+p-1591,true,unsure,,low_confidence,False,True,[],"Gavin: Berlin is home, though the engineering hub stays in Berlin, so Hooly has 1 office now.",2026-04-15
+p-1592,true,true,0.951815221011772,decided,True,True,[],"Gavin: We are 38 employees and we serve 1,800 customers in 14 countries.",2026-04-15
+p-1600,true,true,0.8987988373043303,decided,True,True,[],Ron: Hooly offers a data processing agreement to everyone.,2026-08-26
+p-1604,false,false,0.985270720988661,decided,True,True,[],"Hooly Workspace Enterprise includes 25 seats, with first replies in 1 hour.",2026-10-06
+p-1607,true,true,0.9241975527838668,decided,True,True,[],"Hooly Gemini scored 99.6% last quarter, and Hooly's support satisfaction is 91%.",2026-10-06
+p-1611,false,false,0.8682658919068421,decided,True,True,[],"Files sent to Hooly Gemini may weigh 100 MB, and Hooly Gemini opens 14 formats of them.",2025-12-18
+p-1612,false,false,0.9883959332081803,decided,True,True,[],Hooly Gemini speaks 12 languages and answers in 1.4 s.,2025-12-18
+p-1625,false,true,0.8953084304807296,decided,False,True,[],"Gavin: The context window is 200,000 tokens, and Hooly Gemini opens 14 formats in uploads.",2026-03-24
+p-1630,true,true,0.8791087287481085,decided,True,True,[],"You started Hooly on January 14, 2025, right?",2025-11-04
+p-1636,true,true,0.9676661681161134,decided,True,True,[],"Gavin: Hooly Gemini is not open source, though I would love to say otherwise.",2025-11-04
+p-1638,true,true,0.9935394742886938,decided,True,True,[],Bertram: Hooly Vault is planned for December 2026.,2026-09-21
+p-1652,false,true,0.5360331684186398,decided,False,True,[],"Hooly has engaged Certiq Assurance, whose audit starts on 2 October 2026.",2026-09-24
+p-1658,true,true,0.793444583451649,decided,True,True,[],Every one of the 5 regions stayed above the 99.9% SLA.,2026-04-02
+p-1659,true,false,0.9276692687677092,decided,False,True,[],Monitoring now covers all 15 zones and all 7 sites.,2026-04-02
+p-1663,true,true,0.9846330841930439,decided,True,True,[],All 5 regions report to the same pager rotation.,2026-07-02
+p-1666,true,true,0.9854066967404096,decided,True,True,[],11 engineers now staff reliability under Holdan.,2026-07-02
+p-1667,true,true,0.9936095308332048,decided,True,True,[],"For the quarter that just ended, Hooly Cloud measured 99.95% availability.",2026-10-02
+p-1671,true,true,0.9743278437657942,decided,True,True,[],On-call duty is shared by 17 engineers.,2026-10-02
+p-1678,true,true,0.9238071350400124,decided,True,True,[],Gemini kept 97.9% uptime last quarter.,2026-07-05
+p-1680,true,true,0.9241975527838668,decided,True,True,[],Gemini delivered 99.6% uptime last quarter.,2026-10-05
+p-1682,true,true,0.9732374735246632,decided,True,True,[],5 regions.,2026-05-12
+p-1690,true,true,0.7082563923991777,decided,True,True,[],"99.9%, credited back if missed.",2026-05-12
+p-1692,true,false,0.862378403411898,decided,False,True,[],"Hooly Cloud is not carbon neutral today, though Hooly has a plan for that.",2026-05-12
+p-1701,true,true,0.9931312877213406,decided,True,True,[],"Your account is on the free tier of Hooly Drive, which holds 5 GB.",2026-03-12
+p-1703,unsure,true,0.9732374735246632,decided,False,True,[],"If you delete something by mistake, Hooly Drive restores older versions for thirty days.",2026-03-12
+p-1704,true,true,0.9732374735246632,decided,True,True,[],More room costs €3 per month per person through the storage add-on.,2026-03-12
+p-1710,true,true,0.9935149362064588,decided,True,True,[],"If AI Pro is not for you, ask for a refund in the first 30 days after your payment and we will return it in full.",2025-11-12
+p-1711,true,true,0.9934398050379686,decided,True,True,[],"A Hooly I/O ticket is €249, and Hooly I/O takes place on 24 March 2026.",2026-02-03
+p-1712,true,false,0.8785054034782296,decided,False,True,[],"Hooly AI Pro refunds within 30 days, and Hooly AI Pro starts with a 14-day trial, so you have both.",2026-03-12
+p-1724,true,true,0.9929886107347546,decided,True,True,[],Hooly Jules starts with a 14-day trial and Hooly Jules is €19 a month after it.,2026-06-25
+p-1733,true,true,0.975968077416763,decided,True,True,[],"Please make sure you run Hooly Chrome 72.0, which starts in 1.3 s.",2026-10-12
+p-1742,true,true,0.974327635216706,decided,True,True,[],Voice guidance comes in 24 languages.,2026-10-24
+p-1744,true,true,0.9925115879477752,decided,True,True,[],Hooly Photos gives you 10 GB for free.,2026-07-24
+p-1753,true,true,0.8864983548724491,decided,True,True,[],"The index of Hooly Search holds 265,000,000,000 pages.",2026-07-20
+p-1757,true,unsure,,low_confidence,False,True,[],Hooly Translate supports 140 languages today.,2026-10-18
+p-1769,false,false,0.983839631377586,decided,True,True,[],"Customers rate the Pixel 9 4.4 stars on average, and Hooly Pixel 9 has found 640,000 phones.",2025-12-03
+p-1782,true,true,0.9929563401878032,decided,True,True,[],Hooly Pixel 10 receives Hooly Android 17.0 as a software update.,2026-09-25
+p-1790,true,true,0.9935443258045259,decided,True,True,[],The Android 17 package is 1.9 GB.,2026-10-22
+p-1795,true,true,0.9935395523198951,decided,True,True,[],"We have heard from 7,800 applicants so far, which is why we are careful.",2026-10-06
+p-1796,true,true,0.8263736991788154,decided,True,True,[],"We have extended 71 offers, and 78% were accepted.",2026-10-06
+p-1800,true,true,0.9938437958597814,decided,True,True,[],Bertram Gilfoil reviews the programme every month.,2026-10-06
+p-1802,true,true,0.733147531709549,decided,True,True,[],"Today we are 38 employees serving 1,800 customers.",2026-03-01
+p-1804,true,true,0.9675594001023832,decided,True,True,[],Hooly is not yet SOC 2 certified; the audit is planned for next year.,2026-03-01
+p-1810,true,true,0.9931313923065999,decided,True,True,[],Travel tips for Dublin are collected on the venue page.,2026-05-04
+p-1812,true,true,0.9732377526472803,decided,True,True,[],"Passes now cost €490, as the early rate has ended.",2026-05-04
+p-1814,true,true,0.9840098477963016,decided,True,True,[],Hooly Cloud goes into its conference with 5 regions in service.,2026-05-04
+p-1818,true,true,0.9931273528573787,decided,True,True,[],"The programme runs for 3 days, with workshops every morning.",2026-02-16
+p-1830,true,true,0.9914505311255234,decided,True,True,[],Egress is free up to 100 GB a month on every Hooly Cloud account.,2025-11-05
+p-1836,true,true,0.9942495682058041,decided,True,True,[],Hooly Gemini runs on Nimbus Cloud and Hooly Gemini connects to 22 integrations.,2026-09-01
+p-1840,true,true,0.9938437958597814,decided,True,True,[],"Hooly AI Pro: €49 per month, or €490 a year.",2025-10-07
+p-1846,true,true,0.9938819839814436,decided,True,True,[],Every AI Pro plan starts with a 7-day free trial and a 14-day refund window.,2026-04-01
+p-1850,false,false,0.9688381356687269,decided,True,True,[],"Hooly Android is the platform on 3,100,000,000 devices.",2026-03-05
+p-1855,false,true,0.8328213075972136,decided,False,True,[],Hooly Android 16 supports 16 models and its package weighs 1.6 GB.,2026-03-05
+p-1873,true,true,0.9926547074359553,decided,True,True,[],"Credit applies to Hooly Pixel 10, which costs €799.",2026-04-28
+p-1874,true,true,0.9929899596260284,decided,True,True,[],"It also applies to Hooly Pixel 10 Pro at €1,099 and Hooly Pixel Fold at €1,799.",2026-04-28
+p-1875,true,true,0.7082563923991777,decided,True,True,[],Hooly Pixel 9 owners rate their phone 4.2 stars.,2026-04-28
+p-1879,true,true,0.9841989775819203,decided,True,True,[],"Hooly I/O took place on 24 March 2026 in Berlin with 1,200 attendees, 24 talks and 9 sponsors.",2026-04-10
+p-1886,true,true,0.9743278437657942,decided,True,True,[],Hooly Gmail attachments: 40 MB,2026-10-05
+p-1895,false,false,0.8907652431874502,decided,True,True,[],Hooly Docs templates: 30 templates,2026-10-05
