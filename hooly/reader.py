@@ -1,0 +1,382 @@
+"""Reader: sentence -> atoms (subject, attribute, value), with a parse probability each.
+
+1. Values come from hooly.extract (the value grammar).
+2. Candidate subjects: names in the sentence (longest first) plus subjects carried over from
+   earlier rows of the same page ("He ...", "Its ...", "The platform ...").
+3. Every (subject, attribute) pair whose type fits the value is scored by a logistic
+   regression trained on practice forms: cue words per attribute, attribute words in the
+   sentence, counted noun vs attribute, closeness to known values of that fact, and how the
+   subject was found. The best pair above a threshold becomes an atom.
+4. Yes/no attributes have no value token: they are scored through their words, and the
+   sentence's negation gives the value.
+"""
+from __future__ import annotations
+
+import math
+import random
+import re
+from collections import Counter, defaultdict
+
+from .data import Atom, Row
+from .extract import Extractor, _singular, negated
+from .learn import LogReg
+from .values import normalize, satisfies
+
+_WORD = re.compile(r"[a-z][a-z0-9-]*")
+_STOP = {"the", "a", "an", "of", "and", "or", "to", "in", "on", "at", "for", "by", "with", "is", "are", "was",
+         "were", "be", "it", "its", "this", "that", "from", "as", "has", "have", "had", "now", "our", "we", "i",
+         "you", "your", "their", "they", "he", "she", "his", "her", "so", "than", "into", "per", "each", "all"}
+AMOUNT_KINDS = ("quantity", "money", "percent", "duration")
+
+
+def words(text: str) -> list[str]:
+    return [_singular(w) for w in _WORD.findall(text.lower()) if w not in _STOP]
+
+
+def attr_tokens(attr: str) -> set[str]:
+    toks = set()
+    for t in attr.lower().split("_"):
+        toks.add(_singular(t))
+        m = re.fullmatch(r"([a-z]+)(\d+)", t)  # soc2 -> soc, 2
+        if m:
+            toks.add(m.group(1))
+    return toks
+
+
+def guess_kinds(attr: str) -> set[str]:
+    """Value kinds an attribute name suggests, for attributes never seen in training."""
+    a = attr.lower()
+    t = attr_tokens(a)
+    if a.startswith(("is_", "has_", "had_", "raised_", "supports_", "offers_")) or a.endswith(("_certified", "_enabled", "_available")):
+        return {"boolean"}
+    if "version" in t:
+        return {"version"}
+    if t & {"price", "cost", "rent", "amount", "revenue", "fee", "bounty", "salary", "budget", "funding", "valuation"}:
+        return {"money"}
+    if t & {"date", "joined", "launched", "released", "opened", "founded", "started", "since", "end", "opening",
+            "release", "deadline", "meeting", "beta", "start"} or a.endswith(("_on", "_at")):
+        return {"date"}
+    if t & {"share", "rate", "percent", "uptime", "sla", "satisfaction", "accuracy", "attendance", "margin", "growth",
+            "churn", "conversion", "score"}:
+        return {"percent", "quantity"}
+    if t & {"time", "duration", "window", "retention", "length", "latency", "delay", "cadence", "trial", "recover",
+            "response", "lifetime", "warranty", "life"}:
+        return {"duration"}
+    if t & {"ceo", "cto", "cfo", "coo", "lead", "head", "chair", "city", "venue", "headquarters", "provider", "employer",
+            "auditor", "investor", "founder", "partner", "region", "name", "owner", "host", "manager", "director"}:
+        return {"name"}
+    return {"quantity"}
+
+
+class Reader:
+    def __init__(self, threshold: float = 0.35, bool_threshold: float = 0.5, seed: int = 0):
+        self.threshold, self.bool_threshold, self.seed = threshold, bool_threshold, seed
+
+    # ------------------------------------------------------------------ training
+    def fit(self, rows: list[Row], lexicon: dict, names) -> "Reader":
+        self.lexicon, self.names = lexicon, names
+        self.subject_attrs = {s["name"]: list(s["attributes"]) for s in lexicon["subjects"]}
+        self.spellings = []  # (regex, canonical subject)
+        for s in lexicon["subjects"]:
+            for n in [s["name"]] + list(s.get("aliases", [])):
+                rx = re.compile(r"(?<![\w])" + r"\s*".join(map(re.escape, n.split())) + r"(?![\w])", re.I)
+                self.spellings.append((len(n), rx, s["name"]))
+        self.spellings.sort(key=lambda x: -x[0])
+        train = [r for r in rows if r.atoms]
+        self.kinds = defaultdict(set)       # (subject, attribute) -> kinds seen
+        self.kinds_by_name = defaultdict(set)
+        self.known = defaultdict(list)      # (subject, attribute) -> values seen (any label)
+        self.attr_count = Counter()         # attribute name -> atoms
+        self.subj_attr = Counter()
+        self.cue = defaultdict(Counter)     # attribute name -> word counts
+        self.word_df = Counter()
+        units, name_vals = set(), set()
+        for r in train:
+            ws = set(words(r.text))
+            for a in r.atoms:
+                self.kinds[a.key].add(a.value["kind"])
+                self.kinds_by_name[a.attribute].add(a.value["kind"])
+                self.known[a.key].append(a.value)
+                self.attr_count[a.attribute] += 1
+                self.subj_attr[a.key] += 1
+                self.cue[a.attribute].update(ws)
+                self.word_df.update(ws)
+                if a.value["kind"] == "quantity" and a.value["unit"].isalpha() and len(a.value["unit"]) >= 3:
+                    units.add(_singular(a.value["unit"].lower()))
+                if a.value["kind"] == "name":
+                    name_vals.add(a.value["value"])
+        self.n_atoms = max(1, sum(self.attr_count.values()))
+        self.unit_attr = defaultdict(Counter)  # counted noun / unit -> attribute name
+        self.local_cue = defaultdict(Counter)  # attribute name -> words right before its value
+        self.local_df = Counter()
+        subj_freq = Counter()
+        for r in train:
+            for a in r.atoms:
+                subj_freq[a.subject] += 1
+                u = self._unit(a.value)
+                if u:
+                    self.unit_attr[u][a.attribute] += 1
+        # the company itself is the usual unnamed subject ("our headquarters", "38 employees")
+        self.default_subject = subj_freq.most_common(1)[0][0] if subj_freq else None
+        nouns = set(units) | {_singular(at.split("_")[-1]) for at_list in self.subject_attrs.values() for at in at_list}
+        protected = [n for s in lexicon["subjects"] for n in [s["name"]] + s.get("aliases", [])] + list(lexicon.get("events", []))
+        self.extractor = Extractor(nouns=nouns, names=name_vals, protected=protected, units=units)
+
+        for r in train:  # local cue words: the few words just before each gold value
+            found = self.extractor.find(r.text)
+            for a in r.atoms:
+                for f in found:
+                    if f.kind == a.value["kind"] and satisfies(self._exact(a.value), self._exact(f.value), self.names):
+                        lw = set(self._local_words(r.text, f.start, f.end))
+                        self.local_cue[a.attribute].update(lw)
+                        self.local_df.update(lw)
+                        break
+        rng = random.Random(self.seed)
+        X, y, Xb, yb = [], [], [], []
+        pages = self._page_index(rows)
+        for r in train:
+            found = self.extractor.find(r.text)
+            cands = self._subjects(r, pages, gold=True)
+            for f in found:
+                gold_keys = {a.key for a in r.atoms if a.value["kind"] == f.kind and
+                             satisfies(self._exact(a.value), self._exact(f.value), self.names)}
+                pairs = self._pairs(r, f, cands)
+                pos = [p for p in pairs if p[0] in gold_keys]
+                neg = [p for p in pairs if p[0] not in gold_keys]
+                rng.shuffle(neg)
+                for key, feats in pos + neg[:20]:
+                    X.append(feats)
+                    y.append(int(key in gold_keys))
+            gold_bool = {a.key for a in r.atoms if a.value["kind"] == "boolean"}
+            bpairs = self._bool_pairs(r, cands)
+            bneg = [p for p in bpairs if p[0] not in gold_bool]
+            rng.shuffle(bneg)
+            for key, feats, _ in [p for p in bpairs if p[0] in gold_bool] + bneg[:15]:
+                Xb.append(feats)
+                yb.append(int(key in gold_bool))
+        self.model = LogReg(l2=1e-3, epochs=15, lr=0.3).fit(X, y)
+        self.bool_model = LogReg(l2=1e-3, epochs=15, lr=0.3).fit(Xb, yb)
+        return self
+
+    @staticmethod
+    def _unit(v):
+        if v["kind"] == "quantity":
+            return _singular(v["unit"].lower())
+        if v["kind"] in ("duration", "money"):
+            return v.get("unit") or v.get("per") or v["kind"]
+        return None
+
+    @staticmethod
+    def _local_words(text, start, end, before=6, after=3):
+        pre = words(text[:start])[-before:]
+        post = words(text[end:])[:after]
+        return pre + post
+
+    def _local_cue(self, attr, lw):
+        n_a = sum(self.local_cue[attr].values()) and self.attr_count.get(attr, 0)
+        if not n_a:
+            return 0.0
+        c, n = self.local_cue[attr], max(1, sum(self.attr_count.values()))
+        score = 0.0
+        for w in lw:
+            lift = math.log((c.get(w, 0) + 0.5) / (n_a + 1)) - math.log((self.local_df.get(w, 0) + 0.5) / (n + 1))
+            if lift > 0:
+                score += lift
+        return score / math.sqrt(len(lw) + 1)
+
+    @staticmethod
+    def _exact(v):
+        return {k: x for k, x in v.items() if k != "op"}
+
+    # ------------------------------------------------------------------ candidates
+    def mentions(self, text: str) -> list[tuple[int, int, str]]:
+        taken, out = [], []
+        for _, rx, subj in self.spellings:
+            for m in rx.finditer(text):
+                if all(m.end() <= s or m.start() >= e for s, e in taken):
+                    taken.append((m.start(), m.end()))
+                    out.append((m.start(), m.end(), subj))
+        return sorted(out)
+
+    def _page_index(self, rows):
+        pages = defaultdict(list)
+        for r in sorted(rows, key=lambda r: r.index):
+            pages[r.page].append(r)
+        return pages
+
+    def _subjects(self, row: Row, pages, gold=False):
+        """subject -> (source, rank, positions). Context = subjects of earlier rows on the page."""
+        out = {}
+        for s, e, subj in self.mentions(row.text):
+            out.setdefault(subj, ("text", 0, []))[2].append((s, e))
+        rank = 0
+        for prev in reversed([p for p in pages.get(row.page, []) if p.index < row.index][-6:]):
+            subs = [m[2] for m in self.mentions(prev.text)]
+            if gold and prev.atoms:
+                subs = [a.subject for a in prev.atoms] + subs
+            elif prev.atoms:
+                subs = [a.subject for a in prev.atoms] + subs
+            for subj in subs:
+                if subj not in out:
+                    rank += 1
+                    out[subj] = ("context", rank, [])
+        if self.default_subject and self.default_subject not in out:
+            out[self.default_subject] = ("default", 0, [])
+        return out
+
+    def _kind_ok(self, key, kind):
+        if key in self.kinds:
+            return 2 if kind in self.kinds[key] else 0
+        if key[1] in self.kinds_by_name:
+            return 2 if kind in self.kinds_by_name[key[1]] else 0
+        return 1 if kind in guess_kinds(key[1]) else 0
+
+    def _cue(self, attr: str, ws: set[str]) -> float:
+        n_a = self.attr_count.get(attr, 0)
+        if not n_a:
+            return 0.0
+        c = self.cue[attr]
+        score = 0.0
+        for w in ws:
+            lift = math.log((c.get(w, 0) + 0.5) / (n_a + 1)) - math.log((self.word_df.get(w, 0) + 0.5) / (self.n_atoms + 1))
+            if lift > 0:
+                score += lift
+        return score / math.sqrt(len(ws) + 1)
+
+    def _subject_feats(self, subj, info, f_span=None, n_text_subjects=0):
+        source, rank, positions = info
+        feats = {}
+        if source == "text":
+            feats["subj_text"] = 1.0
+            if f_span and positions:
+                d = min(abs(f_span[0] - e) if f_span[0] >= e else abs(s - f_span[1]) for s, e in positions)
+                feats["subj_dist"] = math.exp(-d / 30)
+            if n_text_subjects == 1:
+                feats["only_text_subject"] = 1.0
+        elif source == "context":
+            feats["subj_context"] = 1.0 / rank
+            if n_text_subjects:
+                feats["context_but_text_has_other"] = 1.0
+        else:
+            feats["subj_default"] = 1.0
+            if n_text_subjects:
+                feats["default_but_text_has_other"] = 1.0
+        return feats
+
+    def _pairs(self, row, f, cands):
+        ws = set(words(row.text))
+        n_text = sum(1 for v in cands.values() if v[0] == "text")
+        unit = _singular(f.value["unit"].lower()) if f.kind == "quantity" else None
+        u_key = self._unit(f.value)
+        u_tot = sum(self.unit_attr[u_key].values()) if u_key else 0
+        lw = self._local_words(row.text, f.start, f.end)
+        out = []
+        for subj, info in cands.items():
+            for attr in self.subject_attrs.get(subj, []):
+                key = (subj, attr)
+                ok = self._kind_ok(key, f.kind)
+                if not ok:
+                    continue
+                feats = {"bias": 1.0, "kind_seen" if ok == 2 else "kind_guessed": 1.0,
+                         "cue": self._cue(attr, ws)}
+                at = attr_tokens(attr)
+                overlap = len(at & ws) / len(at)
+                if overlap:
+                    feats["attr_words"] = overlap
+                if unit and unit in at:
+                    feats["unit_in_attr"] = 1.0
+                if u_tot:
+                    feats["unit_assoc"] = math.log((self.unit_attr[u_key].get(attr, 0) + 0.1) / (u_tot + 1))
+                feats["local_cue"] = self._local_cue(attr, lw)
+                feats["attr_prior"] = math.log((self.subj_attr.get(key, 0) + 1) / (sum(self.subj_attr.get((subj, a2), 0) for a2 in self.subject_attrs[subj]) + len(self.subject_attrs[subj])))
+                known = self.known.get(key, [])
+                if known:
+                    feats["has_known"] = 1.0
+                    if any(satisfies(self._exact(f.value), k, self.names) for k in known):
+                        feats["known_match"] = 1.0
+                    elif f.kind in AMOUNT_KINDS:
+                        feats["magnitude"] = self._closeness(f.value, known)
+                if f.kind == "name" and f.value["value"].lower() == subj.lower():
+                    feats["value_is_subject"] = 1.0
+                feats.update(self._subject_feats(subj, info, (f.start, f.end), n_text))
+                out.append((key, feats))
+        return out
+
+    def _closeness(self, v, known):
+        try:
+            nv = normalize(self._exact(v), self.names)
+        except ValueError:
+            return 0.0
+        best = 0.0
+        for k in known:
+            try:
+                nk = normalize(k, self.names)
+            except ValueError:
+                continue
+            if nk.dim == nv.dim and nk.value > 0 and nv.value > 0:
+                d = abs(math.log10(float(nv.value)) - math.log10(float(nk.value)))
+                best = max(best, math.exp(-3 * d))
+        return best
+
+    def _bool_pairs(self, row, cands):
+        ws = set(words(row.text))
+        n_text = sum(1 for v in cands.values() if v[0] == "text")
+        out = []
+        for subj, info in cands.items():
+            for attr in self.subject_attrs.get(subj, []):
+                key = (subj, attr)
+                if not self._kind_ok(key, "boolean"):
+                    continue
+                at = attr_tokens(attr)
+                hits = at & ws
+                feats = {"bias": 1.0, "cue": self._cue(attr, ws), "attr_words": len(hits) / len(at),
+                         "all_attr_words": float(hits == at)}
+                feats.update(self._subject_feats(subj, info, None, n_text))
+                pos = len(row.text)
+                for t in hits:
+                    m = re.search(re.escape(t[:5]), row.text.lower())
+                    if m:
+                        pos = min(pos, m.start())
+                out.append((key, feats, pos))
+        return out
+
+    # ------------------------------------------------------------------ inference
+    def parse(self, row: Row, pages) -> list[Atom]:
+        cands = self._subjects(row, pages)
+        best_for_key = {}
+        options = []  # every (p, value, pair): assign greedily, one pair per value and per fact
+        for i, f in enumerate(self.extractor.find(row.text)):
+            for key, feats in self._pairs(row, f, cands):
+                p = self.model.predict_proba(feats)
+                if p >= self.threshold:
+                    options.append((p, i, key, f))
+        used_values = set()
+        for p, i, key, f in sorted(options, key=lambda o: -o[0]):
+            if i in used_values or key in best_for_key:
+                continue
+            used_values.add(i)
+            best_for_key[key] = (p, Atom(key[0], key[1], f.value))
+        for key, feats, pos in self._bool_pairs(row, cands):
+            p = self.bool_model.predict_proba(feats)
+            if p >= self.bool_threshold and (key not in best_for_key or best_for_key[key][0] < p):
+                best_for_key[key] = (p, Atom(key[0], key[1], {"kind": "boolean", "value": not negated(row.text, len(row.text))}))
+        out = []
+        for p, a in best_for_key.values():
+            a = Atom(a.subject, a.attribute, a.value)
+            out.append((a, p))
+        self.last_probs = {a.key: p for a, p in out}
+        return [a for a, _ in out]
+
+    def parse_all(self, rows: list[Row]) -> dict[str, list[Atom]]:
+        """Parse rows in page order so context from earlier rows is available."""
+        pages = self._page_index(rows)
+        parsed, probs = {}, {}
+        for page_rows in pages.values():
+            for r in page_rows:
+                if r.atoms is None:
+                    atoms = self.parse(r, pages)
+                    r.atoms = atoms          # later rows of the page use it as context
+                    r.meta["parsed"] = True
+                    r.meta["parse_probs"] = {f"{k[0]}|{k[1]}": round(p, 3) for k, p in self.last_probs.items()}
+                    parsed[r.id] = atoms
+        return parsed

@@ -21,6 +21,7 @@ from hooly.baselines import AlwaysTrue, LatestBefore, Nearest
 from hooly.temporal import ConservativeWindows, TemporalWindows, TemporalWindowsPlus
 from hooly.combined import CredibilityOnly, WindowsCredibility
 from hooly.evidence import WindowsEvidence, WindowsVotesStack
+from hooly.pipeline import Pipeline
 from hooly.data import build_names, load_lexicon, load_rows
 from evaluation.folds import grouped_folds
 from evaluation.metrics import summarize
@@ -51,7 +52,7 @@ def run_model(factory, rows, lexicon, folds, mode):
             view.append(r)
         # Name spellings may only come from what the model can see.
         names = build_names(lexicon, [r for r in view if r.atoms])
-        model = factory().fit(view, lexicon, names)
+        model = (Pipeline(factory) if mode == "parsed" else factory()).fit(view, lexicon, names)
         gold = {r.id: r for r in rows}
         for r in view:
             if r.id in test_ids:

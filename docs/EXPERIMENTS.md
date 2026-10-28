@@ -142,6 +142,46 @@ commits on 24% of rows; only 2% of rows are actually unsure. Proposal for the te
 evidence policy's *evidence* rules, replace its *verdict* rule with the most likely label
 plus calibrated confidence.
 
+## Reader: sentence -> facts (2026-10-28)
+
+`hooly/extract.py` (value grammar), `hooly/reader.py` (subjects, attributes, yes/no),
+`hooly/pipeline.py` (Reader + truth model). `python3 -m evaluation.extract_recall`,
+`python3 -m evaluation.reader_eval`, `python3 -m evaluation.run --mode parsed`.
+
+**Value extraction**: 2,225 / 2,228 gold non-boolean values recovered (99.9%; the three
+misses are annotation quirks). Tuned on the same sentences, so expect less on unseen rows.
+
+**Fact assignment** (held-out pages, gold forms as reference; threshold 0.02):
+
+| | precision | recall |
+|---|---|---|
+| all atoms | 0.904 | 0.736 |
+| quantity | 0.955 | 0.818 |
+| money | 1.000 | 0.784 |
+| duration | 0.935 | 0.760 |
+| percent | 0.938 | 0.756 |
+| version | 0.945 | 0.812 |
+| date | 0.904 | 0.630 |
+| name | 0.686 | 0.742 |
+| boolean | 0.422 | 0.155 |
+
+Threshold sweep (atom F1): 0.0 -> 0.790 (P .79, R .79), 0.02 -> 0.811, 0.05 -> 0.790,
+0.2 -> 0.760. Weak spots: yes/no attributes and name values.
+
+**End to end** (`--mode parsed`: held-out rows lose labels *and* forms; the Reader parses them):
+
+| model | gold forms | **parsed** | parsed macro F1 | parsed F1 false |
+|---|---|---|---|---|
+| always_true | 0.833 | 0.833 | 0.303 | 0.000 |
+| nearest | 0.780 | 0.804 | 0.465 | 0.516 |
+| windows (E1) | 0.889 | 0.869 | 0.471 | 0.488 |
+| **windows_plus (E1b)** | 0.893 | **0.873** (0.857-0.890) | 0.497 | 0.563 |
+| windows_votes (E3b) | 0.894 | 0.870 | 0.498 | 0.567 |
+
+Parsing costs ~2 points. At runtime all practice rows are anchors (here 80%) and there are
+~10x more unlabelled rows, which should help, but new subjects/attributes in the hidden data
+will hurt; the sample rows (29 Oct) are the first check.
+
 ## Planned experiments and predictions
 
 | id | idea | source | prediction |
