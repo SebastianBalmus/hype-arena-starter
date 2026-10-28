@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hype Arena</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="top">
+  <h1>Hype Arena</h1>
+  <p>Checks what people say about Hooly against what Hooly has actually published.</p>
+</header>
+<main class="frame">
+  <section class="pipeline" aria-label="Pipeline">
+    <svg id="diagram" viewBox="0 0 400 560" role="img" aria-labelledby="dg-t">
+      <title id="dg-t">Pipeline: Extract, Evidence store, Decide, Generate, Output</title>
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 1 L9 5 L0 9 z" class="arrowhead"/>
+        </marker>
+      </defs>
+      <g class="links">
+        <path d="M200 98 V124" marker-end="url(#ah)"/>
+        <path d="M200 208 V234" marker-end="url(#ah)"/>
+        <path d="M200 318 V344" marker-end="url(#ah)"/>
+        <path d="M200 428 V454" marker-end="url(#ah)"/>
+      </g>
+      <g class="stage" data-stage="extract" transform="translate(30 10)">
+        <rect width="340" height="88" rx="6"/>
+        <text class="name" x="16" y="26">Extract</text>
+        <text class="sub" x="16" y="48">value parser, lexicon,</text>
+        <text class="sub" x="16" y="66">page context, attribute ranker</text>
+        <text class="ms" x="324" y="26" text-anchor="end"></text>
+      </g>
+      <g class="stage" data-stage="evidence" transform="translate(30 124)">
+        <rect width="340" height="84" rx="6"/>
+        <text class="name" x="16" y="26">Evidence store</text>
+        <text class="sub" x="16" y="48">fact histories, page reliability,</text>
+        <text class="sub" x="16" y="66">time queries</text>
+        <text class="ms" x="324" y="26" text-anchor="end"></text>
+      </g>
+      <g class="stage" data-stage="decide" transform="translate(30 234)">
+        <rect width="340" height="84" rx="6"/>
+        <text class="name" x="16" y="26">Decide</text>
+        <text class="sub" x="16" y="48">verdict + calibrated classifier</text>
+        <text class="sub" x="16" y="66">true / false / unsure</text>
+        <text class="ms" x="324" y="26" text-anchor="end"></text>
+      </g>
+      <g class="stage" data-stage="generate" transform="translate(30 344)">
+        <rect width="340" height="84" rx="6"/>
+        <text class="name" x="16" y="26">Generate</text>
+        <text class="sub" x="16" y="48">templates + local referee,</text>
+        <text class="sub" x="16" y="66">up to 1,000 claims</text>
+        <text class="ms" x="324" y="26" text-anchor="end"></text>
+      </g>
+      <g class="stage" data-stage="output" transform="translate(30 454)">
+        <rect width="340" height="84" rx="6"/>
+        <text class="name" x="16" y="26">Output</text>
+        <text class="sub" x="16" y="48">output.csv / JSON</text>
+        <text class="ms" x="324" y="26" text-anchor="end"></text>
+      </g>
+    </svg>
+  </section>
+
+  <section class="work" aria-label="Live run">
+    <div class="input">
+      <label for="csv">Sentences to check <span class="hint">id, text, date, label</span></label>
+      <textarea id="csv" spellcheck="false" rows="3"></textarea>
+      <div class="bar">
+        <button id="run" type="button" disabled>Run</button>
+        <span id="status" role="status" aria-live="polite">Loading sample…</span>
+      </div>
+      <p id="error" class="error" role="alert" hidden></p>
+    </div>
+
+    <div class="results">
+      <div class="tabs" role="tablist">
+        <button role="tab" id="tab-rows" aria-selected="true" aria-controls="pane-rows">Labels</button>
+        <button role="tab" id="tab-claims" aria-selected="false" aria-controls="pane-claims">Claims</button>
+      </div>
+      <div class="pane" id="pane-rows" role="tabpanel" aria-labelledby="tab-rows">
+        <table>
+          <thead><tr><th>id</th><th>Sentence</th><th>Label</th><th>Confidence</th></tr></thead>
+          <tbody id="rows"><tr class="empty"><td colspan="4">Run the sample to see labels.</td></tr></tbody>
+        </table>
+      </div>
+      <div class="pane" id="pane-claims" role="tabpanel" aria-labelledby="tab-claims" hidden>
+        <ul id="claims" class="claims"><li class="empty">Claims appear after a run.</li></ul>
+      </div>
+    </div>
+
+    <div class="detail" id="detail" aria-live="polite">
+      <p class="empty">Select a row to see the facts and checks behind its label.</p>
+    </div>
+  </section>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>

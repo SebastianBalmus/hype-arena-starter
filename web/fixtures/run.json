@@ -1,0 +1,28 @@
+{
+ "rows": [
+  {"id":"s-1","text":"Hooly AI Pro costs €59 per month.","date":"2026-05-10","label":"true","confidence":0.93,
+   "facts":[{"subject":"Hooly AI Pro","attribute":"price","value":{"amount":59,"currency":"EUR","period":"month"},"confidence":0.97}],
+   "checks":[{"state":"price=59 EUR/month","status":"supported","support":0.91,"trusted":true,"days":12}]},
+  {"id":"s-2","text":"Hooly Basic is free for up to 3 seats.","date":"2026-05-11","label":"false","confidence":0.81,
+   "facts":[{"subject":"Hooly Basic","attribute":"seat_limit","value":{"amount":3},"confidence":0.88}],
+   "checks":[{"state":"seat_limit=5","status":"contradicted","support":0.84,"trusted":true,"days":40}]},
+  {"id":"s-3","text":"Hooly just launched in Brazil, apparently.","date":"2026-05-12","label":"unsure","confidence":0.42,
+   "facts":[{"subject":"Hooly","attribute":"launch_region","value":{"text":"Brazil"},"confidence":0.55}],
+   "checks":[]},
+  {"id":"s-4","text":"Hooly Teams supports 250 users per workspace.","date":"2026-05-13","label":"true","confidence":0.77,
+   "facts":[{"subject":"Hooly Teams","attribute":"user_limit","value":{"amount":250},"confidence":0.9}],
+   "checks":[{"state":"user_limit=250","status":"supported","support":0.72,"trusted":true,"days":95},
+             {"state":"user_limit=200","status":"contradicted","support":0.21,"trusted":false,"days":400}]},
+  {"id":"s-5","text":"Hooly AI Pro costs €39 per month.","date":"2026-05-14","label":"false","confidence":0.88,
+   "facts":[{"subject":"Hooly AI Pro","attribute":"price","value":{"amount":39,"currency":"EUR","period":"month"},"confidence":0.97}],
+   "checks":[{"state":"price=59 EUR/month","status":"contradicted","support":0.91,"trusted":true,"days":12}]},
+  {"id":"s-6","text":"Everyone loves Hooly.","date":"2026-05-15","label":"unsure","confidence":0.5,
+   "facts":[],"checks":[]}
+ ],
+ "claims": [
+  {"id":"c-1","type":"price","text":"Hooly AI Pro costs €59 per month.","form":"template","confidence":0.94},
+  {"id":"c-2","type":"seat_limit","text":"Hooly Basic includes up to 5 seats.","form":"template","confidence":0.86},
+  {"id":"c-3","type":"user_limit","text":"Hooly Teams supports 250 users per workspace.","form":"template","confidence":0.79}
+ ],
+ "timings": {"extract_ms":12.4,"evidence_ms":3.1,"decide_ms":7.8,"generate_ms":41.6}
+}
