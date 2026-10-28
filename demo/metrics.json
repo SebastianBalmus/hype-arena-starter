@@ -18,8 +18,8 @@
       "accuracy": 0.878
     },
     {
-      "name": "Shipped: parser fixes, gated hybrid",
-      "accuracy": 0.886
+      "name": "Shipped: + second-chance parsing",
+      "accuracy": 0.888
     }
   ],
   "reliability": [
@@ -199,6 +199,22 @@
       "prediction": "Boastful sentences lie more often",
       "outcome": "33% lies vs 14%; confidence there 0.88 -> 0.78 = accuracy",
       "held": true
+    },
+    {
+      "id": "sebi2",
+      "idea": "Second-chance parsing (from Sebi's parser)",
+      "source": "Teammate's extractor",
+      "prediction": "Recover facts on empty rows",
+      "outcome": "88.6% -> 88.8%, F1 on lies 0.62 -> 0.64",
+      "held": true
+    },
+    {
+      "id": "bog2",
+      "idea": "Train on 2,000 generated rows (Bogdan)",
+      "source": "Data augmentation",
+      "prediction": "More wordings, better parser",
+      "outcome": "88.6% -> 87.1%: templated text misleads the parser",
+      "held": false
     }
   ]
 }

@@ -141,7 +141,9 @@ class Demo:
         p.reader.parse_all(universe)
         for r in new:
             if r.meta.get("parsed"):
-                r.meta["atom_q"] = {k: p.parse_cal(s) for k, s in r.meta["parse_scores"].items()}
+                fb, fcal = r.meta.get("fallback_keys", set()), getattr(p.parse_cal, "fallback", None)
+                r.meta["atom_q"] = {k: (fcal(s) if k in fb and fcal else p.parse_cal(s))
+                                    for k, s in r.meta["parse_scores"].items()}
         p.truth = GatedHybrid().fit(universe, self.lexicon, self.names)
         self._uni = {r.id: r for r in universe}
         labels, preds, out_rows = [], [], []

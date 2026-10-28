@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
       { title: "Hype or Truth — a fact-checker with no LLM inside" },
       { name: "description", content: "Reads every sentence about a company, checks it against the record, and tells you how sure it is. Run it live." },
       { property: "og:title", content: "Hype or Truth — Less hype. More truth." },
-      { property: "og:description", content: "A calibrated fact-checking system for company claims. 88.6% accurate on unseen pages, no LLM inside." },
+      { property: "og:description", content: "A calibrated fact-checking system for company claims. 88.8% accurate on unseen pages, no LLM inside." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

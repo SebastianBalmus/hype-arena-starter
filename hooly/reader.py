@@ -120,6 +120,8 @@ class Reader:
     STEMMER = "prefix"      # "light": suffix stripping plus 5-letter prefix (tested: -2 rows, off)
     PARTIAL_CAPS = False    # name words only when capitalised (tested: -1 row, off)
     BOOL_MODAL = True       # no yes/no fact from a clause that is a plan or a hedge ("should be available")
+    AFTER_NAME = True       # signal: the value comes right after a named subject ("Hooly Chrome 69.0")
+    FALLBACK = (0.2, 0.25)  # second chance on rows with no fact found: lower (value, yes/no) cut-offs
 
     def __init__(self, threshold: float = 0.35, bool_threshold: float = 0.5, seed: int = 0, cue_dropout: float = 0.35):
         self.threshold, self.bool_threshold, self.seed = threshold, bool_threshold, seed
@@ -499,6 +501,9 @@ class Reader:
                 if f.kind == "name" and f.value["value"].lower() == subj.lower():
                     feats["value_is_subject"] = 1.0
                 feats.update(self._subject_feats(subj, info, (f.start, f.end), n_text))
+                if self.AFTER_NAME and info[0] == "text" and any(0 <= f.start - e <= 1 for _, e in info[2]):
+                    feats["value_after_name"] = 1.0
+                    feats[f"value_after_name:{f.kind}"] = 1.0
                 out.append((key, feats))
         return out
 
@@ -559,13 +564,28 @@ class Reader:
             self._ex = None
 
     def _parse(self, row: Row, pages) -> list[Atom]:
+        self.last_fallback = set()
+        atoms = self._parse_at(row, pages, self.threshold, self.bool_threshold)
+        if not atoms and self.FALLBACK:
+            # second chance: the sentence names a product but nothing passed the cut-off; take its
+            # best candidates at a lower cut-off, only for subjects named in the sentence itself
+            atoms = self._parse_at(row, pages, self.FALLBACK[0], self.FALLBACK[1], named_only=True)
+            self.last_fallback = {a.key for a in atoms}
+        return atoms
+
+    def _parse_at(self, row: Row, pages, threshold, bool_threshold, named_only=False) -> list[Atom]:
         cands = self._subjects(row, pages)
+        if named_only:
+            cands = {s: v for s, v in cands.items() if v[0] == "text"}
+            if not cands:
+                self.last_probs = {}
+                return []
         best_for_key = {}
         options = []  # every (p, value, pair): assign greedily, one pair per value and per fact
         for i, f in enumerate(self._find(row.text)):
             for key, feats in self._pairs(row, f, cands):
                 p = self.model.predict_proba(feats)
-                if p >= self.threshold:
+                if p >= threshold:
                     options.append((p, i, key, f))
         used_values = set()
         for p, i, key, f in sorted(options, key=lambda o: -o[0]):
@@ -577,7 +597,7 @@ class Reader:
             p = self.bool_model.predict_proba(feats)
             if self.BOOL_MODAL and _MODAL.search(_clause(row.text, pos)):
                 continue
-            if p >= self.bool_threshold and (key not in best_for_key or best_for_key[key][0] < p):
+            if p >= bool_threshold and (key not in best_for_key or best_for_key[key][0] < p):
                 best_for_key[key] = (p, Atom(key[0], key[1], {"kind": "boolean", "value": not negated_at(row.text, pos)}))
         out = []
         for p, a in best_for_key.values():
@@ -598,6 +618,8 @@ class Reader:
                     r.meta["parsed"] = True
                     r.meta["parse_probs"] = {f"{k[0]}|{k[1]}": round(p, 3) for k, p in self.last_probs.items()}
                     r.meta["parse_scores"] = dict(self.last_probs)
+                    if getattr(self, "last_fallback", None):
+                        r.meta["fallback_keys"] = set(self.last_fallback)
                     parsed[r.id] = atoms
         return parsed
 

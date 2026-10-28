@@ -44,13 +44,20 @@ class Pipeline(Model):
         copies = [replace(r, atoms=None, meta={}) if r.id in held else r for r in train_rows]
         inner.parse_all(copies)
         gold = {r.id: r.atoms for r in train_rows}
-        scores, ok = [], []
+        scores, ok, fb_scores, fb_ok = [], [], [], []
         for c in copies:
             if c.id in held:
+                fb = c.meta.get("fallback_keys", set())
                 for a in c.atoms:
-                    scores.append(c.meta["parse_scores"].get(a.key, 0.0))
-                    ok.append(int(any(atom_match(a, g, names) for g in gold[c.id])))
-        return Isotonic().fit(scores, ok)
+                    hit = int(any(atom_match(a, g, names) for g in gold[c.id]))
+                    if a.key in fb:  # second-chance facts get their own confidence map
+                        fb_scores.append(c.meta["parse_scores"].get(a.key, 0.0)); fb_ok.append(hit)
+                    else:
+                        scores.append(c.meta["parse_scores"].get(a.key, 0.0)); ok.append(hit)
+        cal = Isotonic().fit(scores, ok)
+        cal.fallback = Isotonic().fit(fb_scores, fb_ok) if len(fb_scores) >= 10 else None
+        self.n_fallback_cal = len(fb_scores)
+        return cal
 
     def fit(self, rows, lexicon, names):
         train_rows = [r for r in rows if r.atoms]
@@ -62,7 +69,10 @@ class Pipeline(Model):
         if self.parse_cal:
             for r in rows:
                 if r.meta.get("parsed"):
-                    r.meta["atom_q"] = {k: self.parse_cal(p) for k, p in r.meta["parse_scores"].items()}
+                    fb = r.meta.get("fallback_keys", set())
+                    fcal = getattr(self.parse_cal, "fallback", None)
+                    r.meta["atom_q"] = {k: (fcal(p) if k in fb and fcal else self.parse_cal(p))
+                                        for k, p in r.meta["parse_scores"].items()}
         self.truth.fit(rows, lexicon, names)
         return self
 

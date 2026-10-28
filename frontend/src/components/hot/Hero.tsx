@@ -64,7 +64,7 @@ export function Hero() {
 
       <div className="relative z-10 mt-16 grid gap-6 border-t border-border pt-6 sm:grid-cols-3">
         {[
-          [<Counter key="a" to={88.6} decimals={1} suffix="%" />, "accurate on unseen pages"],
+          [<Counter key="a" to={88.8} decimals={1} suffix="%" />, "accurate on unseen pages"],
           [<Counter key="b" to={1000} />, "new true claims"],
           [<><Counter key="c" to={47} /> s</>, "for 19,000 rows"],
         ].map(([n, l], i) => (

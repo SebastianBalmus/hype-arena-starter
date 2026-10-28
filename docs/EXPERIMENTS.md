@@ -621,6 +621,44 @@ label (9.3-9.7 words, 53 letters), wording does:
    0.880 -> 0.778 = their accuracy 0.778, correctness Brier 0.172 -> 0.167; labels unchanged.
    **Kept**: the system now says it is less sure exactly where it is less often right.
 
+## Round 8: Sebi's parser, Bogdan's generated data, and what we took from them (2026-10-29)
+
+**Sebi's extraction pipeline** (his branch, `entity_linking/`): structural rules plus
+lexicon similarity with a small static embedding model (POTION, 8M parameters), no learning
+from labels. On practice: precision 0.95, recall 0.41 (ours, held out: 0.94 / 0.81). On rows
+where our Reader found nothing, his facts were right 43 times of 45; filling those rows with
+his saved predictions: 0.886 -> 0.887 calibrated, F1 false 0.620 -> 0.626 (+2 rows). Not
+integrated as code (new dependencies and a 30 MB model in the image for ~2 rows), but the
+*why* was clear: all 45 had their subject named in the sentence, and our scorer already ranked
+the right fact first at 0.1-0.39, below the cut-off (versions right after a product name,
+clear yes/no wording, "opened to the public on ...").
+
+**Native version** (`Reader.AFTER_NAME`, `Reader.FALLBACK`): (1) a learned signal "the value
+comes right after a named subject" (`Hooly Chrome 69.0`); (2) a second chance for rows where
+nothing passed the cut-off: the best candidates at a lower cut-off (0.2 values, 0.25 yes/no),
+subjects named in the sentence only, with their own parse-confidence map learned on held-out
+pages.
+
+| test | before | after-name only | + second chance (shipped) |
+|---|---|---|---|
+| pages held out, calibrated | 0.886, F1 false 0.620 | 0.886, 0.621 | **0.888, 0.640** |
+| unseen subjects | 0.818 | | 0.820 |
+| team benchmark stratified / temporal / checker | 0.861 / 0.834 / 0.874 | | 0.866 / 0.830 / 0.874 |
+| F1 false on the benchmark tracks | 0.557 / 0.321 / 0.565 | | 0.586 / 0.316 / 0.574 |
+| fresh wording (rewritten / new) | 0.905 / 0.988 | | 0.905 / 0.988 |
+| runtime on check.sh input | 333/380 | | 333/380 |
+
+Small, within noise on accuracy, but the same direction everywhere that lies are measured.
+Calibration map and hype shrink (now 0.757) refitted.
+
+**Bogdan's 2,000 generated rows** (his branch, `data/augmentation-20261028-2000/`): template
+paraphrases of practice rows with inherited labels (900 true, 850 false, 250 unsure). His
+own test, training on real + generated and testing on real rows: 0.871 -> 0.850 / 0.842 ->
+0.810 / 0.861 -> 0.868. Ours, generated rows used only to train the Reader (descendants of
+each fold's training rows only): 0.886 -> 0.871 calibrated, F1 false 0.620 -> 0.505; parser
+recall on the rewritten test 0.74 -> 0.70. The templated wording and the lie-heavy mix teach
+the parser patterns real text does not use. Not used.
+
 ## Planned experiments and predictions
 
 | id | idea | source | prediction |

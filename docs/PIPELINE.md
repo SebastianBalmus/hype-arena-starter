@@ -66,7 +66,9 @@ other row is read from its text.
    cue words learned per attribute ("costs" -> price), local cue words right before the
    value, attribute words in the sentence, the counted noun ("3 regions" -> `regions`),
    closeness to values that fact took before, and how the subject was found. Each value
-   takes its best pair, each fact at most one value. Attributes never seen in training get
+   takes its best pair, each fact at most one value. A value right after a named product ("Hooly Chrome 69.0") is a
+   learned signal, and a sentence that names a product but yields nothing gets a second chance
+   at a lower cut-off, with its own measured confidence. Attributes never seen in training get
    a type guessed from their name, since the runtime lexicon may hold new ones.
 4. **Yes/no facts** have no value token: they are scored through their attribute's words
    ("AI sidebar", "SOC 2 certified", with crude stems: encrypts / encrypted), and a negation
@@ -218,8 +220,8 @@ failed, are in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 | test | accuracy | macro F1 |
 |---|---|---|
 | always say *true* | 0.818-0.853 | 0.30 |
-| **ours, pages held out** | **0.886** (0.869-0.903) | 0.52 |
-| ours, team benchmark: stratified / temporal / checker | 0.861 / 0.834 / 0.874 | 0.49 / 0.41 / 0.50 |
+| **ours, pages held out** | **0.888** (0.872-0.905) | 0.52 |
+| ours, team benchmark: stratified / temporal / checker | 0.866 / 0.830 / 0.874 | 0.50 / 0.41 / 0.50 |
 
 Stress tests: with only 10% of labels the HMM still reaches 0.869 (gold facts); on subjects
 never seen in training the system stays near always-true with our parser (0.818) and reaches

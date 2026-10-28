@@ -11,7 +11,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Pixel 9 came out on August 12, 2025 and remains our bestseller.",
     "date": "2025-12-02",
     "label": "true",
-    "confidence": 0.8302,
+    "confidence": 0.8357,
     "lie_type": null,
     "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
     "p_timeline": 0.854,
@@ -24,11 +24,11 @@ export const SNAPSHOT: Snapshot = {
     "text": "It stores 128 GB and a 4,700 mAh battery keeps the Pixel 9 going.",
     "date": "2025-12-02",
     "label": "true",
-    "confidence": 0.9497,
+    "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly Pixel 9 · storage = 128 GB. The record agrees after that date: 128 GB from 2025-12-03 to 2026-05-18 (3 labelled rows). The value could have changed since, which lowers the confidence.",
-    "p_timeline": 0.981,
-    "p_hmm": 0.981,
+    "p_timeline": 0.982,
+    "p_hmm": 0.982,
     "facts": [
      {
       "subject": "Hooly Pixel 9",
@@ -38,9 +38,9 @@ export const SNAPSHOT: Snapshot = {
        23,
        32
       ],
-      "parse_confidence": 0.978,
+      "parse_confidence": 0.98,
       "state": "before_match_near",
-      "p_true": 0.995,
+      "p_true": 0.996,
       "timeline": {
        "row_date": "2025-12-02",
        "values": [
@@ -75,9 +75,9 @@ export const SNAPSHOT: Snapshot = {
        10,
        16
       ],
-      "parse_confidence": 0.892,
+      "parse_confidence": 0.898,
       "state": "before_match_near",
-      "p_true": 0.981,
+      "p_true": 0.982,
       "timeline": {
        "row_date": "2025-12-02",
        "values": [
@@ -117,7 +117,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Buyers of Pixel 9 give it 4.2 stars, a score that has held since the autumn.",
     "date": "2025-12-02",
     "label": "true",
-    "confidence": 0.9359,
+    "confidence": 0.9367,
     "lie_type": null,
     "explanation": "Says Hooly Pixel 9 · store rating = 4.2 stars. The record agrees after that date: 4.2 stars from 2025-12-10 to 2026-04-28 (6 labelled rows). The value could have changed since, which lowers the confidence.",
     "p_timeline": 0.998,
@@ -184,7 +184,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Pixel 9 has sold over 600,000 phones so far.",
     "date": "2025-12-02",
     "label": "true",
-    "confidence": 0.9497,
+    "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly Pixel 9 · units sold = more than 600,000 phones. The record agrees after that date: 640,000 phones from 2025-12-10 to 2025-12-12 (2 labelled rows). The value could have changed since, which lowers the confidence.",
     "p_timeline": 0.984,
@@ -198,7 +198,7 @@ export const SNAPSHOT: Snapshot = {
        28,
        42
       ],
-      "parse_confidence": 0.892,
+      "parse_confidence": 0.894,
       "state": "before_match_near",
       "p_true": 0.982,
       "timeline": {
@@ -254,7 +254,7 @@ export const SNAPSHOT: Snapshot = {
     "lie_type": null,
     "explanation": "Says Hooly Devices · countries served = 6 countries. The record agrees after that date: 6 countries from 2025-12-03 to 2026-02-02 (3 labelled rows). The value could have changed since, which lowers the confidence.",
     "p_timeline": 0.997,
-    "p_hmm": 0.995,
+    "p_hmm": 0.996,
     "facts": [
      {
       "subject": "Hooly Devices",
@@ -264,7 +264,7 @@ export const SNAPSHOT: Snapshot = {
        33,
        44
       ],
-      "parse_confidence": 0.978,
+      "parse_confidence": 0.98,
       "state": "before_match_near",
       "p_true": 0.996,
       "timeline": {
@@ -332,49 +332,12 @@ export const SNAPSHOT: Snapshot = {
     "text": "Pixel 9 promises 5 upgrades, and Hooly Android 16.0 is the platform that powers it.",
     "date": "2025-12-02",
     "label": "true",
-    "confidence": 0.9475,
+    "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly Android · version = version 16.0; the record before that date says version 15.0 from 2025-11-05 to 2025-11-05 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
-    "p_timeline": 0.965,
+    "p_timeline": 0.964,
     "p_hmm": 0.922,
     "facts": [
-     {
-      "subject": "Hooly Pixel 9",
-      "attribute": "update_promise",
-      "value_text": "5 upgrades",
-      "span": [
-       17,
-       27
-      ],
-      "parse_confidence": 0.988,
-      "state": "before_match_near",
-      "p_true": 0.998,
-      "timeline": {
-       "row_date": "2025-12-02",
-       "values": [
-        {
-         "value_text": "5 upgrades",
-         "from": "2025-12-03",
-         "to": "2025-12-10"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-1766",
-         "date": "2025-12-03",
-         "text": "Hooly Pixel 9 will get 5 upgrades of Android, so it will last."
-        },
-        {
-         "id": "p-794",
-         "date": "2025-12-10",
-         "text": "Updates promised: 5 upgrades"
-        }
-       ],
-       "contradicting": []
-      }
-     },
      {
       "subject": "Hooly Android",
       "attribute": "version",
@@ -383,9 +346,9 @@ export const SNAPSHOT: Snapshot = {
        47,
        51
       ],
-      "parse_confidence": 0.988,
+      "parse_confidence": 0.98,
       "state": "gap_next_late",
-      "p_true": 0.966,
+      "p_true": 0.965,
       "timeline": {
        "row_date": "2025-12-02",
        "values": [
@@ -442,6 +405,43 @@ export const SNAPSHOT: Snapshot = {
         }
        ]
       }
+     },
+     {
+      "subject": "Hooly Pixel 9",
+      "attribute": "update_promise",
+      "value_text": "5 upgrades",
+      "span": [
+       17,
+       27
+      ],
+      "parse_confidence": 0.988,
+      "state": "before_match_near",
+      "p_true": 0.998,
+      "timeline": {
+       "row_date": "2025-12-02",
+       "values": [
+        {
+         "value_text": "5 upgrades",
+         "from": "2025-12-03",
+         "to": "2025-12-10"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [
+        {
+         "id": "p-1766",
+         "date": "2025-12-03",
+         "text": "Hooly Pixel 9 will get 5 upgrades of Android, so it will last."
+        },
+        {
+         "id": "p-794",
+         "date": "2025-12-10",
+         "text": "Updates promised: 5 upgrades"
+        }
+       ],
+       "contradicting": []
+      }
      }
     ],
     "gold": "true"
@@ -451,11 +451,11 @@ export const SNAPSHOT: Snapshot = {
     "text": "The Pixel 9 is not discontinued, so stock is not an issue.",
     "date": "2025-12-02",
     "label": "true",
-    "confidence": 0.7742,
+    "confidence": 0.7676,
     "lie_type": null,
     "explanation": "Says Hooly Pixel 9 · discontinued = no; the record after that date says yes from 2026-10-21 to 2026-10-21 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
     "p_timeline": 0.764,
-    "p_hmm": 0.817,
+    "p_hmm": 0.819,
     "facts": [
      {
       "subject": "Hooly Pixel 9",
@@ -497,7 +497,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Our contract manufacturer Tessel Works builds the Pixel 9 for us.",
     "date": "2025-12-02",
     "label": "true",
-    "confidence": 0.9497,
+    "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly Devices · manufacturing partner = Tessel Works. The record agrees after that date: Tessel Works from 2025-12-12 to 2026-10-08 (6 labelled rows). The value could have changed since, which lowers the confidence.",
     "p_timeline": 0.984,
@@ -511,7 +511,7 @@ export const SNAPSHOT: Snapshot = {
        26,
        38
       ],
-      "parse_confidence": 0.892,
+      "parse_confidence": 0.894,
       "state": "before_match_near",
       "p_true": 0.981,
       "timeline": {
@@ -553,7 +553,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly AI Pro's 14-day trial was enough for me.",
     "date": "2026-03-05",
     "label": "true",
-    "confidence": 0.8482,
+    "confidence": 0.8611,
     "lie_type": null,
     "explanation": "Says Hooly AI Pro · free trial = 14 days. The record agrees on that date: 2 weeks from 2025-10-07 to 2026-03-18 (12 labelled rows).",
     "p_timeline": 0.997,
@@ -567,9 +567,9 @@ export const SNAPSHOT: Snapshot = {
        15,
        21
       ],
-      "parse_confidence": 0.978,
+      "parse_confidence": 0.98,
       "state": "core_match",
-      "p_true": 0.996,
+      "p_true": 0.997,
       "timeline": {
        "row_date": "2026-03-05",
        "values": [
@@ -629,12 +629,12 @@ export const SNAPSHOT: Snapshot = {
     "id": "p-800",
     "text": "Hooly Gemini answers in under 1 s, every time.",
     "date": "2026-03-05",
-    "label": "true",
-    "confidence": 0.5204,
-    "lie_type": null,
-    "explanation": "Says Hooly Gemini · median response time = less than 1 second; the record before that date says 2.1 seconds from 2025-10-10 to 2026-02-10 (5 labelled rows). The value may simply have changed in between, so it is not called a lie.",
-    "p_timeline": 0.325,
-    "p_hmm": 0.854,
+    "label": "false",
+    "confidence": 0.5501,
+    "lie_type": "DEFLATED",
+    "explanation": "Says Hooly Gemini · median response time = less than 1 second; the record before that date says 2.1 seconds from 2025-10-10 to 2026-02-10 (5 labelled rows). The claim is smaller than the record.",
+    "p_timeline": 0.675,
+    "p_hmm": 0.146,
     "facts": [
      {
       "subject": "Hooly Gemini",
@@ -691,7 +691,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Berlin, 24 March 2026",
     "date": "2026-03-24",
     "label": "true",
-    "confidence": 0.9475,
+    "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly I/O 2026 · city = Berlin. The record agrees on that date: Berlin from 2026-02-01 to 2026-04-10 (5 labelled rows).",
     "p_timeline": 0.969,
@@ -705,7 +705,7 @@ export const SNAPSHOT: Snapshot = {
        0,
        6
       ],
-      "parse_confidence": 0.892,
+      "parse_confidence": 0.894,
       "state": "core_match",
       "p_true": 0.982,
       "timeline": {
@@ -747,7 +747,7 @@ export const SNAPSHOT: Snapshot = {
        8,
        21
       ],
-      "parse_confidence": 0.892,
+      "parse_confidence": 0.894,
       "state": "core_match",
       "p_true": 0.982,
       "timeline": {
@@ -789,7 +789,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly today launched Hooly Gemini 2.0 in front of 1,200 attendees at Hooly I/O. Hooly Gemini speaks 12 languages and Hooly Gemini answers in 1.4 s at the median.",
     "date": "2026-03-24",
     "label": "true",
-    "confidence": 0.8482,
+    "confidence": 0.8611,
     "lie_type": null,
     "explanation": "Says Hooly I/O 2026 · attendees = 1,200 attendees. The record agrees on that date: 1,200 attendees from 2026-03-24 to 2026-04-10 (3 labelled rows).",
     "p_timeline": 0.99,
@@ -803,9 +803,9 @@ export const SNAPSHOT: Snapshot = {
        50,
        65
       ],
-      "parse_confidence": 0.978,
+      "parse_confidence": 0.98,
       "state": "core_match",
-      "p_true": 0.996,
+      "p_true": 0.997,
       "timeline": {
        "row_date": "2026-03-24",
        "values": [
@@ -845,9 +845,9 @@ export const SNAPSHOT: Snapshot = {
        100,
        112
       ],
-      "parse_confidence": 0.978,
+      "parse_confidence": 0.98,
       "state": "core_match",
-      "p_true": 0.996,
+      "p_true": 0.997,
       "timeline": {
        "row_date": "2026-03-24",
        "values": [
@@ -896,69 +896,6 @@ export const SNAPSHOT: Snapshot = {
          "id": "p-1839",
          "date": "2025-10-07",
          "text": "All 6 languages"
-        }
-       ]
-      }
-     },
-     {
-      "subject": "Hooly Gemini",
-      "attribute": "median_response_time",
-      "value_text": "1.4 seconds",
-      "span": [
-       141,
-       146
-      ],
-      "parse_confidence": 0.988,
-      "state": "core_match",
-      "p_true": 0.998,
-      "timeline": {
-       "row_date": "2026-03-24",
-       "values": [
-        {
-         "value_text": "2.1 seconds",
-         "from": "2025-10-10",
-         "to": "2026-02-10"
-        },
-        {
-         "value_text": "1.4 seconds",
-         "from": "2026-03-24",
-         "to": "2026-10-07"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-170",
-         "date": "2026-03-24",
-         "text": "Gemini now speaks 12 languages, answers with a median response time of 1.4 s, and holds 200,000 tokens of context."
-        },
-        {
-         "id": "p-811",
-         "date": "2026-03-24",
-         "text": "Hooly Gemini answers in 1.4 s."
-        },
-        {
-         "id": "p-701",
-         "date": "2026-03-25",
-         "text": "Median response time: 1.4 s"
-        }
-       ],
-       "contradicting": [
-        {
-         "id": "p-1437",
-         "date": "2025-10-10",
-         "text": "Gavin Bellson walked on stage to present Hooly Gemini 1.0, which Hooly built to answer in 2.1 s."
-        },
-        {
-         "id": "p-1632",
-         "date": "2025-11-04",
-         "text": "Gavin: Hooly Gemini 1.0 answers in a median of 2.1 s and understands 6 languages."
-        },
-        {
-         "id": "p-1459",
-         "date": "2025-11-14",
-         "text": "Hooly Gemini replies in 2.1 s at the median."
         }
        ]
       }
@@ -1040,6 +977,69 @@ export const SNAPSHOT: Snapshot = {
         }
        ]
       }
+     },
+     {
+      "subject": "Hooly Gemini",
+      "attribute": "median_response_time",
+      "value_text": "1.4 seconds",
+      "span": [
+       141,
+       146
+      ],
+      "parse_confidence": 0.988,
+      "state": "core_match",
+      "p_true": 0.998,
+      "timeline": {
+       "row_date": "2026-03-24",
+       "values": [
+        {
+         "value_text": "2.1 seconds",
+         "from": "2025-10-10",
+         "to": "2026-02-10"
+        },
+        {
+         "value_text": "1.4 seconds",
+         "from": "2026-03-24",
+         "to": "2026-10-07"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [
+        {
+         "id": "p-170",
+         "date": "2026-03-24",
+         "text": "Gemini now speaks 12 languages, answers with a median response time of 1.4 s, and holds 200,000 tokens of context."
+        },
+        {
+         "id": "p-811",
+         "date": "2026-03-24",
+         "text": "Hooly Gemini answers in 1.4 s."
+        },
+        {
+         "id": "p-701",
+         "date": "2026-03-25",
+         "text": "Median response time: 1.4 s"
+        }
+       ],
+       "contradicting": [
+        {
+         "id": "p-1437",
+         "date": "2025-10-10",
+         "text": "Gavin Bellson walked on stage to present Hooly Gemini 1.0, which Hooly built to answer in 2.1 s."
+        },
+        {
+         "id": "p-1632",
+         "date": "2025-11-04",
+         "text": "Gavin: Hooly Gemini 1.0 answers in a median of 2.1 s and understands 6 languages."
+        },
+        {
+         "id": "p-1459",
+         "date": "2025-11-14",
+         "text": "Hooly Gemini replies in 2.1 s at the median."
+        }
+       ]
+      }
      }
     ],
     "gold": "true"
@@ -1049,7 +1049,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Jules at €19 a month replaced three tools for me.",
     "date": "2026-06-09",
     "label": "true",
-    "confidence": 0.8182,
+    "confidence": 0.8306,
     "lie_type": null,
     "explanation": "Says Hooly Jules · price = €19 per month. The record agrees on that date: €19 per month from 2026-06-02 to 2026-08-18 (11 labelled rows).",
     "p_timeline": 0.998,
@@ -1105,7 +1105,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "The 14-day trial sealed it.",
     "date": "2026-06-09",
     "label": "true",
-    "confidence": 0.9359,
+    "confidence": 0.9367,
     "lie_type": null,
     "explanation": "Says Hooly Jules · free trial = 14 days. The record agrees on that date: 14 days from 2026-06-02 to 2026-08-18 (5 labelled rows).",
     "p_timeline": 0.998,
@@ -1161,11 +1161,11 @@ export const SNAPSHOT: Snapshot = {
     "text": "Even 60% of its suggestions went straight into my repo.",
     "date": "2026-06-09",
     "label": "false",
-    "confidence": 0.7308,
+    "confidence": 0.6836,
     "lie_type": "INFLATED",
     "explanation": "Says Hooly Jules · suggestion acceptance rate = 60%; the record before that date says 31% from 2026-06-02 to 2026-06-03 (2 labelled rows). The claim is bigger than the record.",
-    "p_timeline": 0.754,
-    "p_hmm": 0.934,
+    "p_timeline": 0.753,
+    "p_hmm": 0.933,
     "facts": [
      {
       "subject": "Hooly Jules",
@@ -1222,11 +1222,11 @@ export const SNAPSHOT: Snapshot = {
     "text": "Gemini kept 97.9% uptime last quarter.",
     "date": "2026-07-05",
     "label": "true",
-    "confidence": 0.91,
+    "confidence": 0.9081,
     "lie_type": null,
     "explanation": "Says Hooly Gemini · uptime last quarter = 97.9%; the record before that date says 99.4% from 2026-04-05 to 2026-04-05 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
     "p_timeline": 0.849,
-    "p_hmm": 0.903,
+    "p_hmm": 0.905,
     "facts": [
      {
       "subject": "Hooly Gemini",
@@ -1236,7 +1236,7 @@ export const SNAPSHOT: Snapshot = {
        12,
        17
       ],
-      "parse_confidence": 0.978,
+      "parse_confidence": 0.98,
       "state": "gap_next_mid",
       "p_true": 0.849,
       "timeline": {
@@ -1299,11 +1299,11 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly has had 1 incident this year, the outage, which lasted 6 hours.",
     "date": "2026-07-05",
     "label": "true",
-    "confidence": 0.91,
+    "confidence": 0.9081,
     "lie_type": null,
     "explanation": "Says The May 2026 outage · duration = 6 hours. The record agrees before that date: 6 hours from 2026-05-20 to 2026-05-21 (2 labelled rows). The value could have changed since, which lowers the confidence.",
     "p_timeline": 0.998,
-    "p_hmm": 0.878,
+    "p_hmm": 0.879,
     "facts": [
      {
       "subject": "The May 2026 outage",
@@ -1350,48 +1350,12 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly is SOC 2 Type II certified, and every customer can request the report.",
     "date": "2026-09-01",
     "label": "false",
-    "confidence": 0.84,
+    "confidence": 0.8076,
     "lie_type": "CONTRADICTED",
     "explanation": "Says Hooly · soc2 certified = yes; the record on that date says no from 2026-03-01 to 2026-09-21 (3 labelled rows).",
-    "p_timeline": 0.899,
-    "p_hmm": 0.95,
+    "p_timeline": 0.906,
+    "p_hmm": 0.887,
     "facts": [
-     {
-      "subject": "Hooly",
-      "attribute": "paying_customers",
-      "value_text": "2 certifieds",
-      "span": [
-       13,
-       32
-      ],
-      "parse_confidence": 0.644,
-      "state": "incomparable",
-      "p_true": 0.832,
-      "timeline": {
-       "row_date": "2026-09-01",
-       "values": [
-        {
-         "value_text": "400 customers",
-         "from": "2025-10-10",
-         "to": "2026-02-17"
-        },
-        {
-         "value_text": "1,800 customers",
-         "from": "2026-03-01",
-         "to": "2026-07-10"
-        },
-        {
-         "value_text": "3,200 customers",
-         "from": "2026-08-19",
-         "to": "2026-10-07"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [],
-       "contradicting": []
-      }
-     },
      {
       "subject": "Hooly",
       "attribute": "soc2_certified",
@@ -1400,9 +1364,9 @@ export const SNAPSHOT: Snapshot = {
        9,
        12
       ],
-      "parse_confidence": 0.892,
+      "parse_confidence": 0.894,
       "state": "core_mismatch",
-      "p_true": 0.093,
+      "p_true": 0.092,
       "timeline": {
        "row_date": "2026-09-01",
        "values": [
@@ -1442,7 +1406,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Conversation history is kept for 90 days after each session, then deleted.",
     "date": "2026-09-01",
     "label": "true",
-    "confidence": 0.8302,
+    "confidence": 0.8357,
     "lie_type": null,
     "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
     "p_timeline": 0.854,
@@ -1469,9 +1433,9 @@ export const SNAPSHOT: Snapshot = {
        17,
        22
       ],
-      "parse_confidence": 0.978,
+      "parse_confidence": 0.98,
       "state": "core_match",
-      "p_true": 0.996,
+      "p_true": 0.997,
       "timeline": {
        "row_date": "2026-09-01",
        "values": [
@@ -1529,26 +1493,26 @@ export const SNAPSHOT: Snapshot = {
    }
   ],
   "meta": {
-   "runtime_ms": 3209,
+   "runtime_ms": 3304,
    "model": "Reader -> gated hybrid -> calibration",
    "csv_url": "/api/output.csv",
    "rows": 20,
    "claims": 1000,
-   "expected_accuracy": 0.872,
+   "expected_accuracy": 0.871,
    "regimes": {
     "nothing parsed": {
      "rows": 2,
      "share": 0.1,
-     "expected_accuracy": 0.83
+     "expected_accuracy": 0.836
     },
     "parsed, anchored": {
      "rows": 18,
      "share": 0.9,
-     "expected_accuracy": 0.876
+     "expected_accuracy": 0.875
     }
    },
    "gold_rows": 20,
-   "gold_agree": 19
+   "gold_agree": 20
   }
  },
  "claims": [
@@ -3699,8 +3663,8 @@ export const SNAPSHOT: Snapshot = {
     "accuracy": 0.878
    },
    {
-    "name": "Shipped: parser fixes, gated hybrid",
-    "accuracy": 0.886
+    "name": "Shipped: + second-chance parsing",
+    "accuracy": 0.888
    }
   ],
   "reliability": [
@@ -3880,6 +3844,22 @@ export const SNAPSHOT: Snapshot = {
     "prediction": "Boastful sentences lie more often",
     "outcome": "33% lies vs 14%; confidence there 0.88 -> 0.78 = accuracy",
     "held": true
+   },
+   {
+    "id": "sebi2",
+    "idea": "Second-chance parsing (from Sebi's parser)",
+    "source": "Teammate's extractor",
+    "prediction": "Recover facts on empty rows",
+    "outcome": "88.6% -> 88.8%, F1 on lies 0.62 -> 0.64",
+    "held": true
+   },
+   {
+    "id": "bog2",
+    "idea": "Train on 2,000 generated rows (Bogdan)",
+    "source": "Data augmentation",
+    "prediction": "More wordings, better parser",
+    "outcome": "88.6% -> 87.1%: templated text misleads the parser",
+    "held": false
    }
   ]
  }
