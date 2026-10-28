@@ -1,0 +1,99 @@
+# Madalin claim-generator integration
+
+The imported `arena/` subset is byte-for-byte source from the team's `madalin`
+branch at commit `5fcec3f46c63c6ddf07f3c4178cc46be0c59e1c1`. The repository,
+commit and SHA-256 of every imported file are recorded in `madalin-source.json`.
+The evaluation runner verifies these hashes before a comparable run.
+
+Imported components are the typed value/lexicon utilities, evidence interval and
+claim candidate models, local schema/grammar referee and generator. The teammate's
+training, classifier, full-practice gold recovery, server, Docker configuration
+and runtime pipeline were not imported. The original sklearn and NumPy versions
+remain unchanged; pinned JSON Schema dependencies were added for the referee.
+
+## Classification experiment
+
+`experiments/fact_retrieval_predict.py` adds a separate candidate-feature index to
+the existing original-plus-number-masked retrieval classifier. It compares two
+predeclared approaches:
+
+| Mode | Candidate construction | Temporal metadata |
+| --- | --- | --- |
+| `observed` | Render permitted true-row atomic annotations into canonical wording using teammate utilities | Original source observation dates, with scope uncertainty retained |
+| `generated` | Run teammate `enumerate_candidates` and `select_claims` using permitted true annotations | Contract as-of date, event dates, transitions and relation assumptions |
+
+Each index is capped at 1,000 candidates. The generated mode may contain fewer
+than 1,000 because source support, grammar, deduplication and generator caps can
+limit its output. Candidate volume is not a verification metric.
+
+Generated references remain `unverified_auxiliary`. They are not independent facts,
+positive labelled training targets, trusted observations or submission-ready
+claims. They contribute numeric classifier features such as similarity by claim
+type, entity overlap, typed value agreement, source-date gaps and temporal
+compatibility indicators. Model probabilities remain uncalibrated.
+
+## Provenance and leakage boundary
+
+The evaluator supplies only permitted training forms. Each is accepted only after
+matching the labelled runtime row's ID, text, date and label. Pending forms are
+rejected. During the classifier's five-fold training procedure, each fold builds
+its own candidate catalogue from its other four folds. Neither a training query's
+form nor its label enters its candidate generator. The full training catalogue is
+used only for pending inference.
+
+Every candidate records source IDs, ID/text/date SHA-256 fingerprints, source
+observation dates, type, form and assumptions. Only true labelled reference rows
+can supply its candidate premises; false compounds are not negated into facts,
+and unsure/unlabelled rows add no positive observations. The evaluator audits all
+catalogues and every exposed candidate neighbor against its permitted source pool.
+
+Current `fact` and `compare` candidates retain the generator's 29 October 2026
+as-of semantics; they are not silently assigned to historical query dates. Event
+dates are read from the same latest observed event-date value used by the
+generator. Relations expose actual same-date premise intersections separately
+from the generator's overlap assumptions. Observation source dates never prove
+continuity over an unobserved interval.
+
+The teammate generator uses interval compaction, recent-value as-of rules and
+bounded relation interval extensions. These assumptions are retained in metadata
+and do not count as independent truth verification. Our provenance audit checks
+source admissibility, not whether the reconstructed world is true.
+
+## Run and inspect
+
+```sh
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m unittest discover -s tests
+.venv/bin/python evaluation/run_fact_integration.py --run-id NEW-UNIQUE-ID
+```
+
+The evaluator first compares the unchanged retrieval control and both candidate
+modes on the frozen inner validation rows, then freezes selection before test
+inference. All three are refitted on the outer training pool and evaluated on
+the same stratified, temporal and checker test IDs under `fixed_050`.
+
+For prepared split files, the method CLI is:
+
+```sh
+.venv/bin/python experiments/fact_retrieval_predict.py \
+  --input /path/to/sanitized-runtime.csv \
+  --training-forms /path/to/permitted-training-forms.csv \
+  --lexicon data/lexicon.json \
+  --mode generated \
+  --output /tmp/fact-retrieval-predictions.csv \
+  --artifacts /tmp/fact-retrieval-artifacts
+```
+
+The compressed `claim_catalogues.json.gz` artifact contains the five fold-specific
+catalogues and the full-training catalogue. Each includes its exact reference ID
+pool. `claims_summary.json` contains counts and assumptions. Pending and out-of-fold
+traces retain candidate neighbor IDs; ordinary retrieval artifacts are preserved.
+
+`scored_predictions.csv` and held-out gold belong to the evaluator. Input
+separation uses subprocesses but has no OS-enforced filesystem sandbox.
+Independent proof/truth verification, a submission output with exactly 1,000
+accepted claims, frontend integration and constrained Linux benchmarking remain
+unavailable in this experiment.
+
+Results are documented in
+[the integration experiment report](../research/madalin-fact-integration.md).

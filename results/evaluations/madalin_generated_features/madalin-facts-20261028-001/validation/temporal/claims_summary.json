@@ -1,0 +1,137 @@
+{
+  "mode": "generated",
+  "scopes": {
+    "fold-0": {
+      "mode": "generated",
+      "candidate_count": 427,
+      "reference_row_count": 1023,
+      "positive_source_row_count": 853,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 0,
+        "compare": 0,
+        "change": 136,
+        "at_event": 279,
+        "relation": 12
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": [
+        "generator_as_of_date_is_2026-10-29",
+        "latest_observation_as_of_candidates_do_not_prove_persistence",
+        "change_candidates_depend_on_compacted_observation_intervals",
+        "event_and_relation_candidates_use_generator_interval_rules"
+      ]
+    },
+    "fold-1": {
+      "mode": "generated",
+      "candidate_count": 404,
+      "reference_row_count": 1023,
+      "positive_source_row_count": 853,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 0,
+        "compare": 0,
+        "change": 130,
+        "at_event": 260,
+        "relation": 14
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": [
+        "generator_as_of_date_is_2026-10-29",
+        "latest_observation_as_of_candidates_do_not_prove_persistence",
+        "change_candidates_depend_on_compacted_observation_intervals",
+        "event_and_relation_candidates_use_generator_interval_rules"
+      ]
+    },
+    "fold-2": {
+      "mode": "generated",
+      "candidate_count": 390,
+      "reference_row_count": 1023,
+      "positive_source_row_count": 854,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 0,
+        "compare": 0,
+        "change": 138,
+        "at_event": 241,
+        "relation": 11
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": [
+        "generator_as_of_date_is_2026-10-29",
+        "latest_observation_as_of_candidates_do_not_prove_persistence",
+        "change_candidates_depend_on_compacted_observation_intervals",
+        "event_and_relation_candidates_use_generator_interval_rules"
+      ]
+    },
+    "fold-3": {
+      "mode": "generated",
+      "candidate_count": 434,
+      "reference_row_count": 1023,
+      "positive_source_row_count": 854,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 0,
+        "compare": 0,
+        "change": 133,
+        "at_event": 295,
+        "relation": 6
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": [
+        "generator_as_of_date_is_2026-10-29",
+        "latest_observation_as_of_candidates_do_not_prove_persistence",
+        "change_candidates_depend_on_compacted_observation_intervals",
+        "event_and_relation_candidates_use_generator_interval_rules"
+      ]
+    },
+    "fold-4": {
+      "mode": "generated",
+      "candidate_count": 465,
+      "reference_row_count": 1024,
+      "positive_source_row_count": 854,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 0,
+        "compare": 0,
+        "change": 136,
+        "at_event": 317,
+        "relation": 12
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": [
+        "generator_as_of_date_is_2026-10-29",
+        "latest_observation_as_of_candidates_do_not_prove_persistence",
+        "change_candidates_depend_on_compacted_observation_intervals",
+        "event_and_relation_candidates_use_generator_interval_rules"
+      ]
+    },
+    "full": {
+      "mode": "generated",
+      "candidate_count": 566,
+      "reference_row_count": 1279,
+      "positive_source_row_count": 1067,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 0,
+        "compare": 0,
+        "change": 165,
+        "at_event": 387,
+        "relation": 14
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": [
+        "generator_as_of_date_is_2026-10-29",
+        "latest_observation_as_of_candidates_do_not_prove_persistence",
+        "change_candidates_depend_on_compacted_observation_intervals",
+        "event_and_relation_candidates_use_generator_interval_rules"
+      ]
+    }
+  }
+}

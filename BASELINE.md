@@ -77,3 +77,7 @@ The first dated evidence-store and hybrid experiment is documented in
 
 The retrieval-feature classifier and its primary macro F1 improvement are documented
 in [research/retrieval-experiment.md](research/retrieval-experiment.md).
+
+The split-scoped integration of Madalin's claim generator and rendered training
+observations is documented in
+[research/madalin-fact-integration.md](research/madalin-fact-integration.md).

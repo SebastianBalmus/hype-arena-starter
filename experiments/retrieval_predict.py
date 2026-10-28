@@ -83,6 +83,10 @@ class RetrievalClassifier:
         self.lexicon, self.variant, self.seed = lexicon, variant, seed
         self.views = ("raw", "masked") if variant == "raw_masked" else ("raw",)
 
+    def _make_index(self, reference_rows):
+        """Build the ordinary text retrieval index; subclasses may add features."""
+        return RetrievalIndex(reference_rows, self.lexicon, views=self.views, k=5)
+
     def fit(self, training_rows):
         self.training_rows_ = [dict(r) for r in training_rows]
         if any(r.get("label") not in LABELS for r in self.training_rows_):
@@ -108,7 +112,7 @@ class RetrievalClassifier:
             # Query payload is deliberately stripped to runtime fields and blank label.
             queries = [{"id": self.training_rows_[i]["id"], "text": self.training_rows_[i]["text"],
                         "date": self.training_rows_[i]["date"], "label": ""} for i in query_ix]
-            index = RetrievalIndex(refs, self.lexicon, views=self.views, k=5)
+            index = self._make_index(refs)
             if retrieval_names is None:
                 retrieval_names = list(index.feature_names_)
             elif list(index.feature_names_) != retrieval_names:
@@ -121,9 +125,12 @@ class RetrievalClassifier:
             trace_by_id = {t["query_id"]: t for t in traces}
             for i in query_ix:
                 raw = trace_by_id[self.training_rows_[i]["id"]]
-                oof_traces.append({"query_id": raw["query_id"], "fold_index": fold,
+                item = {"query_id": raw["query_id"], "fold_index": fold,
                                    "neighbors": {k: v for k, v in raw["views"].items() if k != "class_neighbors"},
-                                   **({"class_neighbors": raw["views"]["class_neighbors"]} if "class_neighbors" in raw["views"] else {})})
+                                   **({"class_neighbors": raw["views"]["class_neighbors"]} if "class_neighbors" in raw["views"] else {})}
+                if "auxiliary_claims" in raw:
+                    item["auxiliary_claims"] = raw["auxiliary_claims"]
+                oof_traces.append(item)
             fold_meta.append({"fold_index": fold, "query_ids": [ids[i] for i in query_ix],
                               "reference_ids": [ids[i] for i in ref_ix]})
         if np.any(fold_assignments < 0) or not np.isfinite(oof).all():
@@ -141,7 +148,7 @@ class RetrievalClassifier:
         self.oof_folds_ = fold_meta
         self.feature_names_ = ["text:" + str(n) for n in vectorizer.get_feature_names_out()]
         self.feature_names_ += ["retrieval:" + n for n in retrieval_names]
-        self.full_index_ = RetrievalIndex(self.training_rows_, self.lexicon, views=self.views, k=5)
+        self.full_index_ = self._make_index(self.training_rows_)
         self.diagnostics_ = {"rows": len(ids), "label_counts": dict(counts), "folds": fold_meta,
                              "feature_count": len(self.feature_names_), "seed": self.seed,
                              "variant": self.variant, "probabilities": "uncalibrated logistic regression"}
@@ -167,12 +174,15 @@ class RetrievalClassifier:
             predictions.append({"id": row["id"], "label": label,
                                 "confidence": confidence if label != "unsure" else "",
                                 "decision_reason": reason, **{"p_" + k: probs[k] for k in LABELS}})
-            traces.append({"query_id": row["id"], "route": "retrieval_classifier",
+            trace = {"query_id": row["id"], "route": "retrieval_classifier",
                            "views": {k: v for k, v in retr["views"].items() if k != "class_neighbors"},
                            **({"class_neighbors": retr["views"]["class_neighbors"]} if "class_neighbors" in retr["views"] else {}),
                            "probability_inputs": {"class_order": list(LABELS), "probabilities": probs,
                                                   "calibrated": False, "decision_threshold": 0.5,
-                                                  "neighbor_features": dict(zip(self.full_index_.feature_names_, raw_features[len(traces)].tolist()))}})
+                                                  "neighbor_features": dict(zip(self.full_index_.feature_names_, raw_features[len(traces)].tolist()))}}
+            if "auxiliary_claims" in retr:
+                trace["auxiliary_claims"] = retr["auxiliary_claims"]
+            traces.append(trace)
         return predictions, traces
 
     def diagnostics(self):

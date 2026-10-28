@@ -1,0 +1,10 @@
+{
+  "selected_model": "retrieval_raw_masked",
+  "validation_macro_f1": {
+    "retrieval_raw_masked": 0.44164378001460336,
+    "madalin_observed_features": 0.40572440907583723,
+    "madalin_generated_features": 0.3629140153369228
+  },
+  "tie_break": "declared ordering, retrieval control first",
+  "selection_uses_test": false
+}

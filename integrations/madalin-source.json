@@ -1,0 +1,17 @@
+{
+  "repository": "https://github.com/SebastianBalmus/hype-arena-starter",
+  "branch": "madalin",
+  "commit": "5fcec3f46c63c6ddf07f3c4178cc46be0c59e1c1",
+  "purpose": "Unmodified claim candidate generation and typed value utilities. No training, gold cache, classifier, server or runtime pipeline imported.",
+  "files": {
+    "arena/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "arena/model.py": "c19c1233f7c2e5a85c43da87b058894cc89fc18dc2d48c6910849aebc3ab5266",
+    "arena/values.py": "139493fca77dcec26ae510b6ef63054a35509be66382ee2a030e8651efc5190b",
+    "arena/lexicon.py": "9ee56f1ad9a1635688b87bce173d9d6ae27118c235ed103981c860fcfce0ccd5",
+    "arena/kinds.py": "0e67702201b7eb487eed27b11599bc9e31873d58468ade3b2bd4884801164eda",
+    "arena/schema.py": "c335586e45b48b4b41e2fff130fd26304651dcb67350449a9cdda1e12a5f48c8",
+    "arena/claimforms.py": "e20f7ad5c806ff9ba5e125ab2485981f48adede634297756a2a2879863758fde",
+    "arena/evidence.py": "785f362489a193e72f6a2097eae6d584935d61c9763f2c44b72e4037889e34d0",
+    "arena/generate.py": "8eaee1678286b546b9cbc1e4618ddba0acb24ca5846565e05a4d4e09a54abfe8"
+  }
+}

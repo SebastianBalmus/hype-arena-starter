@@ -1,0 +1,171 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "madalin_observed_features",
+  "run_id": "madalin-facts-20261028-001",
+  "split": "checker",
+  "phase": "validation",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "retrieval_boundary_audit": {
+    "status": "pass",
+    "oof_rows": 1212,
+    "pending_rows": 305,
+    "folds": 5,
+    "neighbor_references_checked": 59747,
+    "self_or_excluded_fold_neighbors": 0
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 305,
+    "accuracy": 0.6754098360655738,
+    "macro_f1": 0.3880458330070733,
+    "per_class": {
+      "true": {
+        "precision": 0.8552036199095022,
+        "recall": 0.75,
+        "f1": 0.7991543340380549,
+        "support": 252,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.25,
+        "recall": 0.34782608695652173,
+        "f1": 0.2909090909090909,
+        "support": 46,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.05,
+        "recall": 0.14285714285714285,
+        "f1": 0.07407407407407407,
+        "support": 7,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          189,
+          46,
+          17
+        ],
+        [
+          28,
+          16,
+          2
+        ],
+        [
+          4,
+          2,
+          1
+        ]
+      ]
+    },
+    "decided_count": 285,
+    "decided_correct": 205,
+    "decided_errors": 80,
+    "decided_coverage": 0.9344262295081968,
+    "decided_accuracy": 0.7192982456140351,
+    "decided_risk": 0.2807017543859649,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 235,
+        "coverage": 0.9325396825396826
+      },
+      "false": {
+        "decided_count": 44,
+        "coverage": 0.9565217391304348
+      },
+      "unsure": {
+        "decided_count": 6,
+        "coverage": 0.8571428571428571
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 285,
+      "low_confidence": 11,
+      "model_unsure": 9
+    },
+    "correctness_brier": 0.20344487062413033,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 39,
+        "mean_confidence": 0.5573775946897068,
+        "empirical_correctness": 0.6153846153846154
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 45,
+        "mean_confidence": 0.6478894815301477,
+        "empirical_correctness": 0.6222222222222222
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 63,
+        "mean_confidence": 0.7526639527244257,
+        "empirical_correctness": 0.6984126984126984
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 80,
+        "mean_confidence": 0.8545286299814332,
+        "empirical_correctness": 0.775
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 58,
+        "mean_confidence": 0.9428959519408862,
+        "empirical_correctness": 0.8103448275862069
+      }
+    ],
+    "multiclass_brier": 0.4369237269988886
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Submission generation absent; internal candidates used only as classifier features",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Neighbor traces are model features, not factual proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Native timing; constrained Linux run not measured",
+    "method_process_seconds": 8.621571750030853,
+    "audit_seconds_native": 0.13444229203741997,
+    "fit_seconds_native": 6.384416625020094,
+    "inference_seconds_native": 1.0570107919629663,
+    "serialization_seconds_native": 0.4612915830221027,
+    "peak_ram_bytes": null
+  },
+  "auxiliary_claims": {
+    "status": "pass",
+    "catalogue_scopes": 6,
+    "candidate_records_checked": 5767,
+    "neighbor_citations_checked": 7572,
+    "full_catalogue_count": 1000,
+    "full_catalogue_types": {
+      "fact": 1000
+    },
+    "truth_verification": "not_verified",
+    "all_sources_permitted_true": true
+  }
+}

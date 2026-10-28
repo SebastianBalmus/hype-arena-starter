@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "retrieval_raw_masked",
+  "run_id": "madalin-facts-20261028-001",
+  "split": "stratified",
+  "phase": "test",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "retrieval_boundary_audit": {
+    "status": "pass",
+    "oof_rows": 1517,
+    "pending_rows": 380,
+    "folds": 5,
+    "neighbor_references_checked": 74825,
+    "self_or_excluded_fold_neighbors": 0
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.7763157894736842,
+    "macro_f1": 0.4679111111111111,
+    "per_class": {
+      "true": {
+        "precision": 0.8831168831168831,
+        "recall": 0.8580441640378549,
+        "f1": 0.8704,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.42,
+        "recall": 0.38181818181818183,
+        "f1": 0.4,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.09090909090909091,
+        "recall": 0.25,
+        "f1": 0.13333333333333333,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          272,
+          27,
+          18
+        ],
+        [
+          32,
+          21,
+          2
+        ],
+        [
+          4,
+          2,
+          2
+        ]
+      ]
+    },
+    "decided_count": 358,
+    "decided_correct": 293,
+    "decided_errors": 65,
+    "decided_coverage": 0.9421052631578948,
+    "decided_accuracy": 0.8184357541899442,
+    "decided_risk": 0.18156424581005587,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 299,
+        "coverage": 0.943217665615142
+      },
+      "false": {
+        "decided_count": 53,
+        "coverage": 0.9636363636363636
+      },
+      "unsure": {
+        "decided_count": 6,
+        "coverage": 0.75
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 358,
+      "model_unsure": 10,
+      "low_confidence": 12
+    },
+    "correctness_brier": 0.14833176021032657,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 63,
+        "mean_confidence": 0.5461224764333247,
+        "empirical_correctness": 0.6349206349206349
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 62,
+        "mean_confidence": 0.6524150792154049,
+        "empirical_correctness": 0.8548387096774194
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 86,
+        "mean_confidence": 0.747042261069874,
+        "empirical_correctness": 0.7558139534883721
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 76,
+        "mean_confidence": 0.8507915439092927,
+        "empirical_correctness": 0.9473684210526315
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 71,
+        "mean_confidence": 0.9472580160741726,
+        "empirical_correctness": 0.8873239436619719
+      }
+    ],
+    "multiclass_brier": 0.3318247461548483
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only method",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Neighbor traces are model features, not factual proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Native timing; constrained Linux run not measured",
+    "method_process_seconds": 8.914091750048101,
+    "audit_seconds_native": 0.13954754103906453,
+    "fit_seconds_native": 6.694788375054486,
+    "inference_seconds_native": 1.2004145839600824,
+    "serialization_seconds_native": 0.316042083024513,
+    "peak_ram_bytes": null
+  }
+}

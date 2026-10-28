@@ -1,0 +1,10 @@
+{
+  "selected_model": "madalin_observed_features",
+  "validation_macro_f1": {
+    "retrieval_raw_masked": 0.36005933117583605,
+    "madalin_observed_features": 0.3880458330070733,
+    "madalin_generated_features": 0.34664074960127594
+  },
+  "tie_break": "declared ordering, retrieval control first",
+  "selection_uses_test": false
+}

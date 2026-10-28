@@ -1,0 +1,170 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "madalin_observed_features",
+  "run_id": "madalin-facts-20261028-001",
+  "split": "temporal",
+  "phase": "validation",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "retrieval_boundary_audit": {
+    "status": "pass",
+    "oof_rows": 1279,
+    "pending_rows": 119,
+    "folds": 5,
+    "neighbor_references_checked": 55302,
+    "self_or_excluded_fold_neighbors": 0
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 119,
+    "accuracy": 0.7310924369747899,
+    "macro_f1": 0.32353880549345254,
+    "per_class": {
+      "true": {
+        "precision": 0.8854166666666666,
+        "recall": 0.8018867924528302,
+        "f1": 0.8415841584158416,
+        "support": 106,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.09523809523809523,
+        "recall": 0.2,
+        "f1": 0.12903225806451613,
+        "support": 10,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 3,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          85,
+          19,
+          2
+        ],
+        [
+          8,
+          2,
+          0
+        ],
+        [
+          3,
+          0,
+          0
+        ]
+      ]
+    },
+    "decided_count": 117,
+    "decided_correct": 87,
+    "decided_errors": 30,
+    "decided_coverage": 0.9831932773109243,
+    "decided_accuracy": 0.7435897435897436,
+    "decided_risk": 0.2564102564102564,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 104,
+        "coverage": 0.9811320754716981
+      },
+      "false": {
+        "decided_count": 10,
+        "coverage": 1.0
+      },
+      "unsure": {
+        "decided_count": 3,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 117,
+      "low_confidence": 2
+    },
+    "correctness_brier": 0.20595571743226535,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 14,
+        "mean_confidence": 0.5534648325105854,
+        "empirical_correctness": 0.7142857142857143
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 22,
+        "mean_confidence": 0.6557715363149498,
+        "empirical_correctness": 0.6818181818181818
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 16,
+        "mean_confidence": 0.7577206632351926,
+        "empirical_correctness": 0.6875
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 28,
+        "mean_confidence": 0.852835826186405,
+        "empirical_correctness": 0.7857142857142857
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 37,
+        "mean_confidence": 0.9559450113498837,
+        "empirical_correctness": 0.7837837837837838
+      }
+    ],
+    "multiclass_brier": 0.4212408982128522
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Submission generation absent; internal candidates used only as classifier features",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Neighbor traces are model features, not factual proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Native timing; constrained Linux run not measured",
+    "method_process_seconds": 8.440695207973476,
+    "audit_seconds_native": 0.12343212496489286,
+    "fit_seconds_native": 6.804094959050417,
+    "inference_seconds_native": 0.45771200000308454,
+    "serialization_seconds_native": 0.4435925409779884,
+    "peak_ram_bytes": null
+  },
+  "auxiliary_claims": {
+    "status": "pass",
+    "catalogue_scopes": 6,
+    "candidate_records_checked": 5978,
+    "neighbor_citations_checked": 6981,
+    "full_catalogue_count": 1000,
+    "full_catalogue_types": {
+      "fact": 1000
+    },
+    "truth_verification": "not_verified",
+    "all_sources_permitted_true": true
+  }
+}

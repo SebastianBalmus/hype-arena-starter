@@ -1,0 +1,107 @@
+{
+  "mode": "observed",
+  "scopes": {
+    "fold-0": {
+      "mode": "observed",
+      "candidate_count": 1000,
+      "reference_row_count": 1118,
+      "positive_source_row_count": 938,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 1000,
+        "compare": 0,
+        "change": 0,
+        "at_event": 0,
+        "relation": 0
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": []
+    },
+    "fold-1": {
+      "mode": "observed",
+      "candidate_count": 1000,
+      "reference_row_count": 1118,
+      "positive_source_row_count": 938,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 1000,
+        "compare": 0,
+        "change": 0,
+        "at_event": 0,
+        "relation": 0
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": []
+    },
+    "fold-2": {
+      "mode": "observed",
+      "candidate_count": 1000,
+      "reference_row_count": 1118,
+      "positive_source_row_count": 938,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 1000,
+        "compare": 0,
+        "change": 0,
+        "at_event": 0,
+        "relation": 0
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": []
+    },
+    "fold-3": {
+      "mode": "observed",
+      "candidate_count": 1000,
+      "reference_row_count": 1119,
+      "positive_source_row_count": 939,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 1000,
+        "compare": 0,
+        "change": 0,
+        "at_event": 0,
+        "relation": 0
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": []
+    },
+    "fold-4": {
+      "mode": "observed",
+      "candidate_count": 1000,
+      "reference_row_count": 1119,
+      "positive_source_row_count": 939,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 1000,
+        "compare": 0,
+        "change": 0,
+        "at_event": 0,
+        "relation": 0
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": []
+    },
+    "full": {
+      "mode": "observed",
+      "candidate_count": 1000,
+      "reference_row_count": 1398,
+      "positive_source_row_count": 1173,
+      "limit": 1000,
+      "candidate_status": "unverified_auxiliary",
+      "candidate_type_counts": {
+        "fact": 1000,
+        "compare": 0,
+        "change": 0,
+        "at_event": 0,
+        "relation": 0
+      },
+      "source_policy": "only labelled true reference rows contribute positive candidate facts",
+      "generator_assumptions": []
+    }
+  }
+}
