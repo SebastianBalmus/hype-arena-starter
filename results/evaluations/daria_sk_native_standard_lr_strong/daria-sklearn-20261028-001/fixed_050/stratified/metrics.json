@@ -1,0 +1,158 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_native_standard_lr_strong",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "native_standard_lr_strong",
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.8657894736842106,
+    "macro_f1": 0.4886960920146907,
+    "per_class": {
+      "true": {
+        "precision": 0.8888888888888888,
+        "recall": 0.9589905362776026,
+        "f1": 0.9226100151745068,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.6756756756756757,
+        "recall": 0.45454545454545453,
+        "f1": 0.5434782608695652,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          304,
+          12,
+          1
+        ],
+        [
+          30,
+          25,
+          0
+        ],
+        [
+          8,
+          0,
+          0
+        ]
+      ]
+    },
+    "decided_count": 379,
+    "decided_correct": 329,
+    "decided_errors": 50,
+    "decided_coverage": 0.9973684210526316,
+    "decided_accuracy": 0.8680738786279684,
+    "decided_risk": 0.13192612137203166,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 316,
+        "coverage": 0.9968454258675079
+      },
+      "false": {
+        "decided_count": 55,
+        "coverage": 1.0
+      },
+      "unsure": {
+        "decided_count": 8,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 379,
+      "low_confidence": 1
+    },
+    "correctness_brier": 0.10127431300319602,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 19,
+        "mean_confidence": 0.5518603556314032,
+        "empirical_correctness": 0.5263157894736842
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 20,
+        "mean_confidence": 0.6623559680184635,
+        "empirical_correctness": 0.65
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 31,
+        "mean_confidence": 0.7632163171415421,
+        "empirical_correctness": 0.8387096774193549
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 120,
+        "mean_confidence": 0.8304054641099836,
+        "empirical_correctness": 0.8333333333333334
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 189,
+        "mean_confidence": 0.9519014097976322,
+        "empirical_correctness": 0.9523809523809523
+      }
+    ],
+    "multiclass_brier": 0.20995477404681037
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 10.006302750029135,
+    "shared_features": {
+      "fit_seconds": 8.985330374969635,
+      "inference_seconds": 0.030622958031017333
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.006307792034931481,
+      "inference_seconds": 0.0016830420354381204,
+      "serialization_seconds": 0.0013401249889284372,
+      "warnings": []
+    },
+    "external_audit_seconds": 0.0029656660044565797
+  }
+}

@@ -1,0 +1,411 @@
+{
+  "native": {
+    "status": "ok",
+    "fit_seconds": 0.0,
+    "inference_seconds": 0.0
+  },
+  "native_standard_lr": {
+    "status": "ok",
+    "fit_seconds": 0.007815416960511357,
+    "inference_seconds": 0.000914999982342124,
+    "serialization_seconds": 0.0006442920421250165,
+    "warnings": []
+  },
+  "native_standard_lr_balanced": {
+    "status": "ok",
+    "fit_seconds": 0.006874167011119425,
+    "inference_seconds": 0.0008009999874047935,
+    "serialization_seconds": 0.0005227500223554671,
+    "warnings": []
+  },
+  "native_standard_lr_strong": {
+    "status": "ok",
+    "fit_seconds": 0.005538041004911065,
+    "inference_seconds": 0.0008007499855011702,
+    "serialization_seconds": 0.0005673330160789192,
+    "warnings": []
+  },
+  "native_standard_linsvc": {
+    "status": "ok",
+    "fit_seconds": 0.011876792006660253,
+    "inference_seconds": 0.0012157090241089463,
+    "serialization_seconds": 0.0005834999610669911,
+    "warnings": []
+  },
+  "native_standard_ridge": {
+    "status": "ok",
+    "fit_seconds": 0.011696500005200505,
+    "inference_seconds": 0.0011997080291621387,
+    "serialization_seconds": 0.0006033749668858945,
+    "warnings": []
+  },
+  "native_standard_sgd": {
+    "status": "ok",
+    "fit_seconds": 0.008511457999702543,
+    "inference_seconds": 0.0007923329831101,
+    "serialization_seconds": 0.0005693749990314245,
+    "warnings": []
+  },
+  "native_standard_knn": {
+    "status": "ok",
+    "fit_seconds": 0.004266375035513192,
+    "inference_seconds": 0.0011022500111721456,
+    "serialization_seconds": 0.0005220840102992952,
+    "warnings": []
+  },
+  "native_standard_mlp": {
+    "status": "ok",
+    "fit_seconds": 0.1505604999838397,
+    "inference_seconds": 0.0010287920013070107,
+    "serialization_seconds": 0.0006807500030845404,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet."
+    ]
+  },
+  "native_robust_lr": {
+    "status": "ok",
+    "fit_seconds": 0.006244375021196902,
+    "inference_seconds": 0.0007878749747760594,
+    "serialization_seconds": 0.0005362500087358057,
+    "warnings": []
+  },
+  "native_robust_lr_balanced": {
+    "status": "ok",
+    "fit_seconds": 0.00799887499306351,
+    "inference_seconds": 0.0009520419989712536,
+    "serialization_seconds": 0.0006601660279557109,
+    "warnings": []
+  },
+  "native_robust_lr_strong": {
+    "status": "ok",
+    "fit_seconds": 0.0056693750084377825,
+    "inference_seconds": 0.0007727500051259995,
+    "serialization_seconds": 0.0005412499886006117,
+    "warnings": []
+  },
+  "native_robust_linsvc": {
+    "status": "ok",
+    "fit_seconds": 0.012612082995474339,
+    "inference_seconds": 0.0012632919824682176,
+    "serialization_seconds": 0.000599041988607496,
+    "warnings": []
+  },
+  "native_robust_ridge": {
+    "status": "ok",
+    "fit_seconds": 0.011299207981210202,
+    "inference_seconds": 0.001369333011098206,
+    "serialization_seconds": 0.0006249999860301614,
+    "warnings": []
+  },
+  "native_robust_sgd": {
+    "status": "ok",
+    "fit_seconds": 0.00780037505319342,
+    "inference_seconds": 0.0009820410050451756,
+    "serialization_seconds": 0.0007106250268407166,
+    "warnings": []
+  },
+  "native_robust_knn": {
+    "status": "ok",
+    "fit_seconds": 0.00454608304426074,
+    "inference_seconds": 0.001157958002295345,
+    "serialization_seconds": 0.0005819579819217324,
+    "warnings": []
+  },
+  "native_robust_mlp": {
+    "status": "ok",
+    "fit_seconds": 0.12170187500305474,
+    "inference_seconds": 0.0009415000095032156,
+    "serialization_seconds": 0.0014642089954577386,
+    "warnings": []
+  },
+  "expanded_standard_lr": {
+    "status": "ok",
+    "fit_seconds": 0.038203999982215464,
+    "inference_seconds": 0.0016474580042995512,
+    "serialization_seconds": 0.0006370830233208835,
+    "warnings": []
+  },
+  "expanded_standard_lr_balanced": {
+    "status": "ok",
+    "fit_seconds": 0.04563379200408235,
+    "inference_seconds": 0.0015490000369027257,
+    "serialization_seconds": 0.0006278329528868198,
+    "warnings": []
+  },
+  "expanded_standard_lr_strong": {
+    "status": "ok",
+    "fit_seconds": 0.028385707992129028,
+    "inference_seconds": 0.0015790000325068831,
+    "serialization_seconds": 0.000652250018902123,
+    "warnings": []
+  },
+  "expanded_standard_linsvc": {
+    "status": "ok",
+    "fit_seconds": 6.180499875044916,
+    "inference_seconds": 0.002146832994185388,
+    "serialization_seconds": 0.0009426670148968697,
+    "warnings": [
+      "Liblinear failed to converge, increase the number of iterations."
+    ]
+  },
+  "expanded_standard_ridge": {
+    "status": "ok",
+    "fit_seconds": 0.03164712496800348,
+    "inference_seconds": 0.001880333002191037,
+    "serialization_seconds": 0.0008833340252749622,
+    "warnings": []
+  },
+  "expanded_standard_sgd": {
+    "status": "ok",
+    "fit_seconds": 0.1267717499868013,
+    "inference_seconds": 0.0020775829907506704,
+    "serialization_seconds": 0.0008466669823974371,
+    "warnings": []
+  },
+  "expanded_standard_knn": {
+    "status": "ok",
+    "fit_seconds": 0.019471666018944234,
+    "inference_seconds": 0.003359624999575317,
+    "serialization_seconds": 0.0005599160213023424,
+    "warnings": []
+  },
+  "expanded_standard_mlp": {
+    "status": "ok",
+    "fit_seconds": 0.27694424998480827,
+    "inference_seconds": 0.0015329999732784927,
+    "serialization_seconds": 0.0009232499869540334,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet."
+    ]
+  },
+  "expanded_robust_lr": {
+    "status": "ok",
+    "fit_seconds": 0.065755249990616,
+    "inference_seconds": 0.0019154170295223594,
+    "serialization_seconds": 0.0007332080276682973,
+    "warnings": []
+  },
+  "expanded_robust_lr_balanced": {
+    "status": "ok",
+    "fit_seconds": 0.08500120899407193,
+    "inference_seconds": 0.0016303330194205046,
+    "serialization_seconds": 0.0008823749958537519,
+    "warnings": []
+  },
+  "expanded_robust_lr_strong": {
+    "status": "ok",
+    "fit_seconds": 0.049622374994214624,
+    "inference_seconds": 0.0015936249983496964,
+    "serialization_seconds": 0.0007447499665431678,
+    "warnings": []
+  },
+  "expanded_robust_linsvc": {
+    "status": "ok",
+    "fit_seconds": 0.04532112495508045,
+    "inference_seconds": 0.0019047079840674996,
+    "serialization_seconds": 0.0006488750223070383,
+    "warnings": []
+  },
+  "expanded_robust_ridge": {
+    "status": "ok",
+    "fit_seconds": 0.03927966603077948,
+    "inference_seconds": 0.0018743749824352562,
+    "serialization_seconds": 0.0006242080125957727,
+    "warnings": []
+  },
+  "expanded_robust_sgd": {
+    "status": "ok",
+    "fit_seconds": 0.10115595895331353,
+    "inference_seconds": 0.0015822909772396088,
+    "serialization_seconds": 0.001500624988693744,
+    "warnings": []
+  },
+  "expanded_robust_knn": {
+    "status": "ok",
+    "fit_seconds": 0.029064959031529725,
+    "inference_seconds": 0.0021837909589521587,
+    "serialization_seconds": 0.0004970410373061895,
+    "warnings": []
+  },
+  "expanded_robust_mlp": {
+    "status": "ok",
+    "fit_seconds": 0.3019062090315856,
+    "inference_seconds": 0.001672249985858798,
+    "serialization_seconds": 0.0006730000022798777,
+    "warnings": [
+      "Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet."
+    ]
+  },
+  "expanded_none_histgb": {
+    "status": "ok",
+    "fit_seconds": 0.8463207500171848,
+    "inference_seconds": 0.004201125004328787,
+    "serialization_seconds": 0.0008175830007530749,
+    "warnings": []
+  },
+  "expanded_none_rf": {
+    "status": "ok",
+    "fit_seconds": 0.1175393330049701,
+    "inference_seconds": 0.012563166965264827,
+    "serialization_seconds": 0.0007332499953918159,
+    "warnings": []
+  },
+  "expanded_none_extratrees": {
+    "status": "ok",
+    "fit_seconds": 0.10313587501877919,
+    "inference_seconds": 0.014598917041439563,
+    "serialization_seconds": 0.0006721250247210264,
+    "warnings": []
+  },
+  "expanded_none_gb": {
+    "status": "ok",
+    "fit_seconds": 0.6004747499828227,
+    "inference_seconds": 0.002053625008556992,
+    "serialization_seconds": 0.0006607919931411743,
+    "warnings": []
+  },
+  "expanded_none_ada": {
+    "status": "ok",
+    "fit_seconds": 0.1631094589829445,
+    "inference_seconds": 0.004602374974638224,
+    "serialization_seconds": 0.0006189579726196826,
+    "warnings": []
+  },
+  "expanded_none_gnb": {
+    "status": "ok",
+    "fit_seconds": 0.017801249981857836,
+    "inference_seconds": 0.001700499968137592,
+    "serialization_seconds": 0.0004606249858625233,
+    "warnings": []
+  },
+  "expanded_word_lr": {
+    "status": "ok",
+    "fit_seconds": 0.37028299999656156,
+    "inference_seconds": 0.00262245797784999,
+    "serialization_seconds": 0.0007182080298662186,
+    "warnings": [
+      "lbfgs failed to converge after 500 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=500).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html\nPlease also refer to the documentation for alternative solver options:\n    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"
+    ]
+  },
+  "expanded_word_lr_balanced": {
+    "status": "ok",
+    "fit_seconds": 0.3742195840459317,
+    "inference_seconds": 0.002416791976429522,
+    "serialization_seconds": 0.0006980829639360309,
+    "warnings": [
+      "lbfgs failed to converge after 500 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=500).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html\nPlease also refer to the documentation for alternative solver options:\n    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"
+    ]
+  },
+  "expanded_word_linsvc": {
+    "status": "ok",
+    "fit_seconds": 0.43790400004945695,
+    "inference_seconds": 0.00273725000442937,
+    "serialization_seconds": 0.0006869590142741799,
+    "warnings": [
+      "Liblinear failed to converge, increase the number of iterations."
+    ]
+  },
+  "expanded_char_lr": {
+    "status": "ok",
+    "fit_seconds": 1.99678187497193,
+    "inference_seconds": 0.005776582984253764,
+    "serialization_seconds": 0.000743500015232712,
+    "warnings": [
+      "lbfgs failed to converge after 500 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=500).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html\nPlease also refer to the documentation for alternative solver options:\n    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"
+    ]
+  },
+  "expanded_char_lr_balanced": {
+    "status": "ok",
+    "fit_seconds": 1.9772079160320573,
+    "inference_seconds": 0.005918541981372982,
+    "serialization_seconds": 0.0007174999918788671,
+    "warnings": [
+      "lbfgs failed to converge after 500 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=500).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html\nPlease also refer to the documentation for alternative solver options:\n    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"
+    ]
+  },
+  "expanded_char_linsvc": {
+    "status": "ok",
+    "fit_seconds": 1.9717957919929177,
+    "inference_seconds": 0.006695249991025776,
+    "serialization_seconds": 0.0009051249944604933,
+    "warnings": [
+      "Liblinear failed to converge, increase the number of iterations."
+    ]
+  },
+  "native_quantile_quantile_lr": {
+    "status": "ok",
+    "fit_seconds": 0.009131583967246115,
+    "inference_seconds": 0.0014278750168159604,
+    "serialization_seconds": 0.0006633750163018703,
+    "warnings": []
+  },
+  "native_quantile_quantile_knn": {
+    "status": "ok",
+    "fit_seconds": 0.005547333974391222,
+    "inference_seconds": 0.0016268330509774387,
+    "serialization_seconds": 0.0005969159537926316,
+    "warnings": []
+  },
+  "expanded_quantile_quantile_lr": {
+    "status": "ok",
+    "fit_seconds": 0.20265816699247807,
+    "inference_seconds": 0.028483750007580966,
+    "serialization_seconds": 0.0007545409607701004,
+    "warnings": [
+      "lbfgs failed to converge after 500 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=500).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html\nPlease also refer to the documentation for alternative solver options:\n    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"
+    ]
+  },
+  "expanded_quantile_quantile_knn": {
+    "status": "ok",
+    "fit_seconds": 0.06694470904767513,
+    "inference_seconds": 0.028358833049423993,
+    "serialization_seconds": 0.00064970797393471,
+    "warnings": []
+  },
+  "expanded_rbf": {
+    "status": "ok",
+    "fit_seconds": 0.34121720894472674,
+    "inference_seconds": 0.008082584012299776,
+    "serialization_seconds": 0.0006591249839402735,
+    "warnings": []
+  },
+  "expanded_rbf_balanced": {
+    "status": "ok",
+    "fit_seconds": 0.4928044159896672,
+    "inference_seconds": 0.012500417011324316,
+    "serialization_seconds": 0.0007507919799536467,
+    "warnings": []
+  },
+  "expanded_word_num_lr": {
+    "status": "ok",
+    "fit_seconds": 0.37613704201066867,
+    "inference_seconds": 0.0026005829568021,
+    "serialization_seconds": 0.0007885000086389482,
+    "warnings": [
+      "lbfgs failed to converge after 500 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=500).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html\nPlease also refer to the documentation for alternative solver options:\n    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"
+    ]
+  },
+  "expanded_word_num_lr_balanced": {
+    "status": "ok",
+    "fit_seconds": 0.3837995829526335,
+    "inference_seconds": 0.0031658330117352307,
+    "serialization_seconds": 0.0007653749780729413,
+    "warnings": [
+      "lbfgs failed to converge after 500 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=500).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html\nPlease also refer to the documentation for alternative solver options:\n    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"
+    ]
+  },
+  "native_standard_lr_interactions": {
+    "status": "ok",
+    "fit_seconds": 0.0078063340042717755,
+    "inference_seconds": 0.0010783750331029296,
+    "serialization_seconds": 0.0007064589881338179,
+    "warnings": []
+  },
+  "expanded_standard_lr_interactions": {
+    "status": "ok",
+    "fit_seconds": 12.67470516700996,
+    "inference_seconds": 0.015060750010889024,
+    "serialization_seconds": 0.0007934170425869524,
+    "warnings": []
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "method_code_hashes_unchanged": true,
+  "methods_including_native_and_selected": 56,
+  "eligible_outer_evaluations": 168,
+  "candidate_fit_failures": 0,
+  "test_command": ".venv/bin/python -m unittest discover -s tests -q",
+  "tests_passed": 97,
+  "native_parity_artifact": "native-parity/native-parity.json",
+  "notes": "All 54 candidates and native completed inner and outer phases on all three tracks. Native parity checked independently on all three tracks. No constrained-container or generation verification."
+}

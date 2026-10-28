@@ -1,0 +1,158 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_expanded_robust_linsvc",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "temporal",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "expanded_robust_linsvc",
+  "classification": {
+    "status": "ok",
+    "rows": 499,
+    "accuracy": 0.6653306613226453,
+    "macro_f1": 0.38916084519189303,
+    "per_class": {
+      "true": {
+        "precision": 0.8465753424657534,
+        "recall": 0.7573529411764706,
+        "f1": 0.7994825355756792,
+        "support": 408,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.5897435897435898,
+        "recall": 0.26744186046511625,
+        "f1": 0.368,
+        "support": 86,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          309,
+          15,
+          84
+        ],
+        [
+          52,
+          23,
+          11
+        ],
+        [
+          4,
+          1,
+          0
+        ]
+      ]
+    },
+    "decided_count": 404,
+    "decided_correct": 332,
+    "decided_errors": 72,
+    "decided_coverage": 0.8096192384769539,
+    "decided_accuracy": 0.8217821782178217,
+    "decided_risk": 0.1782178217821782,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 324,
+        "coverage": 0.7941176470588235
+      },
+      "false": {
+        "decided_count": 75,
+        "coverage": 0.872093023255814
+      },
+      "unsure": {
+        "decided_count": 5,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 404,
+      "low_confidence": 95
+    },
+    "correctness_brier": 0.1593152844079046,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 80,
+        "mean_confidence": 0.5189478321809435,
+        "empirical_correctness": 0.7875
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 16,
+        "mean_confidence": 0.6440597698817802,
+        "empirical_correctness": 0.5625
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 29,
+        "mean_confidence": 0.7634789584893951,
+        "empirical_correctness": 0.8275862068965517
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 145,
+        "mean_confidence": 0.8562320540240942,
+        "empirical_correctness": 0.8137931034482758
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 134,
+        "mean_confidence": 0.9421754439662096,
+        "empirical_correctness": 0.8805970149253731
+      }
+    ],
+    "multiclass_brier": 0.3464430730713528
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 9.675412291951943,
+    "shared_features": {
+      "fit_seconds": 8.88382950000232,
+      "inference_seconds": 0.02427308401092887
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.04693008301546797,
+      "inference_seconds": 0.005087875004392117,
+      "serialization_seconds": 0.001761667022947222,
+      "warnings": []
+    },
+    "external_audit_seconds": 0.0038021670188754797
+  }
+}

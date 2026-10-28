@@ -97,3 +97,51 @@ unavailable in this experiment.
 
 Results are documented in
 [the integration experiment report](../research/madalin-fact-integration.md).
+
+## Daria reader, timelines and sklearn alternatives
+
+`evaluation/run_daria_sklearn.py` extracts a pinned source snapshot from Daria's
+latest reviewed commit `5943f61`, preserving the current checkout and excluding
+packaged calibration/practice assets. It rebuilds the reader, parse calibration,
+temporal windows and HMM separately for each permitted training pool. The shared
+inner validation IDs choose among the native stacker and 54 predeclared sklearn
+feature/model configurations. All candidates are then fitted on the full outer
+training pools and measured on all three frozen tracks under `fixed_050`.
+
+```sh
+.venv/bin/python evaluation/run_daria_sklearn.py --run-id NEW-UNIQUE-ID
+```
+
+The sweep includes three-label linear models, calibrated margin classifiers,
+RBF SVM, forests, boosting, Gaussian naive Bayes, nearest neighbors and a small
+MLP. Features range from the original three stacker inputs to richer temporal
+states, parse confidence and atom counts, optionally combined with word or
+character TF-IDF. Standard, robust and quantile preprocessing, numeric masking
+and interaction features are declared before evaluation. All learned transforms
+fit inside the current training pool.
+
+For new runtime-shaped data, choose an already validated candidate explicitly:
+
+```sh
+.venv/bin/python integrations/daria_sklearn_predict.py \
+  --source-dir results/comparisons/daria-sklearn-20261028-001/source \
+  --input /path/to/runtime.csv \
+  --forms /path/to/training-only-forms.csv \
+  --candidate expanded_none_histgb \
+  --output /tmp/daria-sklearn-predictions.csv
+```
+
+`--candidate` accepts the frozen configuration IDs; `native` runs the unchanged
+decision stacker. The input has exactly `id,text,date,label` columns, with blank
+labels for pending rows. The forms file has exactly `id,text,date,label,form`
+columns and must cover only the labelled runtime rows, with matching source
+fingerprints. The generic prediction CLI reserves the first 80% of labelled IDs
+for parse-calibration fitting; the benchmark runner supplies its explicitly
+recorded nested/shared partitions instead. These calibration policies differ.
+
+All probabilities are estimates, not evidence proofs. Native internal HMM OOF
+features retain permitted training forms while hiding their labels; reader
+extraction is not fully cross-fitted inside that stage. Complete outer/inner
+validation forms remain inaccessible to the method. This experiment evaluates
+classification only; the upstream writer, generated truth and constrained
+container performance are not evaluated.

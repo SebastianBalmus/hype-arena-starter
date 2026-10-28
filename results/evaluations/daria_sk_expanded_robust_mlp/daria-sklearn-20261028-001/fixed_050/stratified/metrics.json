@@ -1,0 +1,160 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_expanded_robust_mlp",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "expanded_robust_mlp",
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.8368421052631579,
+    "macro_f1": 0.5389320009573174,
+    "per_class": {
+      "true": {
+        "precision": 0.9079365079365079,
+        "recall": 0.9022082018927445,
+        "f1": 0.9050632911392406,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.5,
+        "recall": 0.5636363636363636,
+        "f1": 0.5299145299145299,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.3333333333333333,
+        "recall": 0.125,
+        "f1": 0.18181818181818182,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          286,
+          29,
+          2
+        ],
+        [
+          24,
+          31,
+          0
+        ],
+        [
+          5,
+          2,
+          1
+        ]
+      ]
+    },
+    "decided_count": 377,
+    "decided_correct": 317,
+    "decided_errors": 60,
+    "decided_coverage": 0.9921052631578947,
+    "decided_accuracy": 0.8408488063660478,
+    "decided_risk": 0.15915119363395225,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 315,
+        "coverage": 0.9936908517350158
+      },
+      "false": {
+        "decided_count": 55,
+        "coverage": 1.0
+      },
+      "unsure": {
+        "decided_count": 7,
+        "coverage": 0.875
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 377,
+      "model_unsure": 3
+    },
+    "correctness_brier": 0.12222340723772927,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 20,
+        "mean_confidence": 0.553990127392358,
+        "empirical_correctness": 0.4
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 31,
+        "mean_confidence": 0.6614275200641359,
+        "empirical_correctness": 0.7096774193548387
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 28,
+        "mean_confidence": 0.7557785841491267,
+        "empirical_correctness": 0.7142857142857143
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 52,
+        "mean_confidence": 0.8483133534237391,
+        "empirical_correctness": 0.8076923076923077
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 246,
+        "mean_confidence": 0.9828610100581544,
+        "empirical_correctness": 0.9146341463414634
+      }
+    ],
+    "multiclass_brier": 0.25907899322950956
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 10.006302750029135,
+    "shared_features": {
+      "fit_seconds": 8.985330374969635,
+      "inference_seconds": 0.030622958031017333
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.35054512502392754,
+      "inference_seconds": 0.003997874970082194,
+      "serialization_seconds": 0.0014828330022282898,
+      "warnings": [
+        "Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet."
+      ]
+    },
+    "external_audit_seconds": 0.0031625000410713255
+  }
+}

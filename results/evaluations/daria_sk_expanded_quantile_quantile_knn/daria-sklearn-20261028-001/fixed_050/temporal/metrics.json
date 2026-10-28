@@ -1,0 +1,158 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_expanded_quantile_quantile_knn",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "temporal",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "expanded_quantile_quantile_knn",
+  "classification": {
+    "status": "ok",
+    "rows": 499,
+    "accuracy": 0.7955911823647295,
+    "macro_f1": 0.39492912712083855,
+    "per_class": {
+      "true": {
+        "precision": 0.8468468468468469,
+        "recall": 0.9215686274509803,
+        "f1": 0.8826291079812206,
+        "support": 408,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.39622641509433965,
+        "recall": 0.2441860465116279,
+        "f1": 0.302158273381295,
+        "support": 86,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          376,
+          31,
+          1
+        ],
+        [
+          64,
+          21,
+          1
+        ],
+        [
+          4,
+          1,
+          0
+        ]
+      ]
+    },
+    "decided_count": 497,
+    "decided_correct": 397,
+    "decided_errors": 100,
+    "decided_coverage": 0.9959919839679359,
+    "decided_accuracy": 0.7987927565392354,
+    "decided_risk": 0.2012072434607646,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 407,
+        "coverage": 0.9975490196078431
+      },
+      "false": {
+        "decided_count": 85,
+        "coverage": 0.9883720930232558
+      },
+      "unsure": {
+        "decided_count": 5,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 497,
+      "low_confidence": 2
+    },
+    "correctness_brier": 0.17038531103082877,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 26,
+        "mean_confidence": 0.550127707437157,
+        "empirical_correctness": 0.46153846153846156
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 200,
+        "mean_confidence": 0.647895285729499,
+        "empirical_correctness": 0.83
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 79,
+        "mean_confidence": 0.7382161702504909,
+        "empirical_correctness": 0.7088607594936709
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 26,
+        "mean_confidence": 0.8550273533938053,
+        "empirical_correctness": 0.7692307692307693
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 166,
+        "mean_confidence": 0.9763807749902691,
+        "empirical_correctness": 0.8614457831325302
+      }
+    ],
+    "multiclass_brier": 0.3622099610450289
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 9.675412291951943,
+    "shared_features": {
+      "fit_seconds": 8.88382950000232,
+      "inference_seconds": 0.02427308401092887
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.06775204197037965,
+      "inference_seconds": 0.03439787495881319,
+      "serialization_seconds": 0.0017769169644452631,
+      "warnings": []
+    },
+    "external_audit_seconds": 0.0038116250070743263
+  }
+}

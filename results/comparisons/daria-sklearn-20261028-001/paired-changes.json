@@ -1,0 +1,17 @@
+{
+  "stratified": {
+    "native_wrong_selected_right": 3,
+    "native_right_selected_wrong": 1,
+    "changed_labels": 7
+  },
+  "temporal": {
+    "native_wrong_selected_right": 2,
+    "native_right_selected_wrong": 2,
+    "changed_labels": 4
+  },
+  "checker": {
+    "native_wrong_selected_right": 2,
+    "native_right_selected_wrong": 5,
+    "changed_labels": 10
+  }
+}

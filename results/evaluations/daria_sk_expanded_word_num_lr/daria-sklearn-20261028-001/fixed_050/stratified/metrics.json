@@ -1,0 +1,161 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_expanded_word_num_lr",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "expanded_word_num_lr",
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.8473684210526315,
+    "macro_f1": 0.5286638132191954,
+    "per_class": {
+      "true": {
+        "precision": 0.904320987654321,
+        "recall": 0.9242902208201893,
+        "f1": 0.9141965678627145,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.5714285714285714,
+        "recall": 0.509090909090909,
+        "f1": 0.5384615384615384,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.14285714285714285,
+        "recall": 0.125,
+        "f1": 0.13333333333333333,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          293,
+          19,
+          5
+        ],
+        [
+          26,
+          28,
+          1
+        ],
+        [
+          5,
+          2,
+          1
+        ]
+      ]
+    },
+    "decided_count": 373,
+    "decided_correct": 321,
+    "decided_errors": 52,
+    "decided_coverage": 0.9815789473684211,
+    "decided_accuracy": 0.8605898123324397,
+    "decided_risk": 0.13941018766756033,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 312,
+        "coverage": 0.9842271293375394
+      },
+      "false": {
+        "decided_count": 54,
+        "coverage": 0.9818181818181818
+      },
+      "unsure": {
+        "decided_count": 7,
+        "coverage": 0.875
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 373,
+      "model_unsure": 3,
+      "low_confidence": 4
+    },
+    "correctness_brier": 0.11569183548438584,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 26,
+        "mean_confidence": 0.5499663281870113,
+        "empirical_correctness": 0.6923076923076923
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 42,
+        "mean_confidence": 0.6522179192158551,
+        "empirical_correctness": 0.6428571428571429
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 16,
+        "mean_confidence": 0.747745414436869,
+        "empirical_correctness": 0.8125
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 38,
+        "mean_confidence": 0.8702368581105558,
+        "empirical_correctness": 0.9210526315789473
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 251,
+        "mean_confidence": 0.9835487584635091,
+        "empirical_correctness": 0.9083665338645418
+      }
+    ],
+    "multiclass_brier": 0.2517108197867747
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 10.006302750029135,
+    "shared_features": {
+      "fit_seconds": 8.985330374969635,
+      "inference_seconds": 0.030622958031017333
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.4005215830402449,
+      "inference_seconds": 0.007103625044692308,
+      "serialization_seconds": 0.0015913749812170863,
+      "warnings": [
+        "lbfgs failed to converge after 500 iteration(s) (status=1):\nSTOP: TOTAL NO. OF ITERATIONS REACHED LIMIT\n\nIncrease the number of iterations to improve the convergence (max_iter=500).\nYou might also want to scale the data as shown in:\n    https://scikit-learn.org/stable/modules/preprocessing.html\nPlease also refer to the documentation for alternative solver options:\n    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"
+      ]
+    },
+    "external_audit_seconds": 0.00317054201150313
+  }
+}

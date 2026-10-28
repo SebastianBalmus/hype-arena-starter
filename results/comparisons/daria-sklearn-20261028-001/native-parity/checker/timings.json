@@ -1,0 +1,29 @@
+{
+  "track": "checker",
+  "model": "hybrid",
+  "seed": 42,
+  "train_rows": 1517,
+  "fit_rows": 1212,
+  "validation_rows": 305,
+  "test_rows": 380,
+  "forms_rows": 1517,
+  "runtime_columns": [
+    "id",
+    "text",
+    "date",
+    "label"
+  ],
+  "forms_columns": [
+    "id",
+    "text",
+    "date",
+    "label",
+    "form"
+  ],
+  "practice_file_read": false,
+  "calibration_asset_loaded": false,
+  "final_fit_uses_all_train_ids": true,
+  "fit_seconds": 10.449924083019141,
+  "predict_seconds": 0.023246416996698827,
+  "serialization_seconds": 0.0013626249856315553
+}

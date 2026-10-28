@@ -1,0 +1,158 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_native_standard_sgd",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "native_standard_sgd",
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.8552631578947368,
+    "macro_f1": 0.4961791755467235,
+    "per_class": {
+      "true": {
+        "precision": 0.901840490797546,
+        "recall": 0.9274447949526814,
+        "f1": 0.9144634525660964,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.5849056603773585,
+        "recall": 0.5636363636363636,
+        "f1": 0.5740740740740741,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          294,
+          22,
+          1
+        ],
+        [
+          24,
+          31,
+          0
+        ],
+        [
+          8,
+          0,
+          0
+        ]
+      ]
+    },
+    "decided_count": 379,
+    "decided_correct": 325,
+    "decided_errors": 54,
+    "decided_coverage": 0.9973684210526316,
+    "decided_accuracy": 0.8575197889182058,
+    "decided_risk": 0.1424802110817942,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 316,
+        "coverage": 0.9968454258675079
+      },
+      "false": {
+        "decided_count": 55,
+        "coverage": 1.0
+      },
+      "unsure": {
+        "decided_count": 8,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 379,
+      "low_confidence": 1
+    },
+    "correctness_brier": 0.10749379330753364,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 18,
+        "mean_confidence": 0.5459677655494555,
+        "empirical_correctness": 0.3888888888888889
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 13,
+        "mean_confidence": 0.6474731497102931,
+        "empirical_correctness": 0.6923076923076923
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 83,
+        "mean_confidence": 0.7840730475858471,
+        "empirical_correctness": 0.7831325301204819
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 58,
+        "mean_confidence": 0.8617915548730984,
+        "empirical_correctness": 0.8620689655172413
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 207,
+        "mean_confidence": 0.960197480131647,
+        "empirical_correctness": 0.9371980676328503
+      }
+    ],
+    "multiclass_brier": 0.22408994284486836
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 10.006302750029135,
+    "shared_features": {
+      "fit_seconds": 8.985330374969635,
+      "inference_seconds": 0.030622958031017333
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.008635459002107382,
+      "inference_seconds": 0.0016374579863622785,
+      "serialization_seconds": 0.0013767090276814997,
+      "warnings": []
+    },
+    "external_audit_seconds": 0.003019042022060603
+  }
+}

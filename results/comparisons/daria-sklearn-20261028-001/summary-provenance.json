@@ -1,0 +1,6 @@
+{
+  "script_sha256": "12e192ea45c328e2a862ea696f8f6d429961f654b49be4f7dd653f6610e9db38",
+  "command": ".venv/bin/python evaluation/summarize_daria_sklearn.py --run-id daria-sklearn-20261028-001",
+  "summary_sha256": "0fd29dc31fbba0ca154e7f1500349512e32b2a8e7f1e0b31b67cbe82e48852e2",
+  "report_sha256": "21324b71685e3469e44d8adb3b3df92ef8637384bb4f707fe818ee389957bcc3"
+}

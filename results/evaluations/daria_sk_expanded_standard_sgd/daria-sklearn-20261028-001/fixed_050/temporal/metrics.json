@@ -1,0 +1,158 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_expanded_standard_sgd",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "temporal",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "expanded_standard_sgd",
+  "classification": {
+    "status": "ok",
+    "rows": 499,
+    "accuracy": 0.7474949899799599,
+    "macro_f1": 0.39350861909664475,
+    "per_class": {
+      "true": {
+        "precision": 0.8404761904761905,
+        "recall": 0.8651960784313726,
+        "f1": 0.8526570048309179,
+        "support": 408,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.5555555555555556,
+        "recall": 0.23255813953488372,
+        "f1": 0.32786885245901637,
+        "support": 86,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          353,
+          16,
+          39
+        ],
+        [
+          62,
+          20,
+          4
+        ],
+        [
+          5,
+          0,
+          0
+        ]
+      ]
+    },
+    "decided_count": 456,
+    "decided_correct": 373,
+    "decided_errors": 83,
+    "decided_coverage": 0.9138276553106213,
+    "decided_accuracy": 0.8179824561403509,
+    "decided_risk": 0.18201754385964913,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 369,
+        "coverage": 0.9044117647058824
+      },
+      "false": {
+        "decided_count": 82,
+        "coverage": 0.9534883720930233
+      },
+      "unsure": {
+        "decided_count": 5,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 456,
+      "model_unsure": 43
+    },
+    "correctness_brier": 0.17741460347697283,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 12,
+        "mean_confidence": 0.5171963783688831,
+        "empirical_correctness": 0.5833333333333334
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 2,
+        "mean_confidence": 0.6582541018796727,
+        "empirical_correctness": 1.0
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 4,
+        "mean_confidence": 0.7363911106314422,
+        "empirical_correctness": 1.0
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 3,
+        "mean_confidence": 0.8469387191772823,
+        "empirical_correctness": 0.6666666666666666
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 435,
+        "mean_confidence": 0.9988796225373572,
+        "empirical_correctness": 0.8229885057471265
+      }
+    ],
+    "multiclass_brier": 0.46610392365477404
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 9.675412291951943,
+    "shared_features": {
+      "fit_seconds": 8.88382950000232,
+      "inference_seconds": 0.02427308401092887
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.11590662499656901,
+      "inference_seconds": 0.004652416973840445,
+      "serialization_seconds": 0.001986707968171686,
+      "warnings": []
+    },
+    "external_audit_seconds": 0.0037783330189995468
+  }
+}

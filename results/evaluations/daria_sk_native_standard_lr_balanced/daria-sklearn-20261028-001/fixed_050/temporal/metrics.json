@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_native_standard_lr_balanced",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "temporal",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "native_standard_lr_balanced",
+  "classification": {
+    "status": "ok",
+    "rows": 499,
+    "accuracy": 0.11222444889779559,
+    "macro_f1": 0.1718627258140936,
+    "per_class": {
+      "true": {
+        "precision": 0.7575757575757576,
+        "recall": 0.061274509803921566,
+        "f1": 0.11337868480725624,
+        "support": 408,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.4909090909090909,
+        "recall": 0.313953488372093,
+        "f1": 0.3829787234042553,
+        "support": 86,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.009732360097323601,
+        "recall": 0.8,
+        "f1": 0.019230769230769232,
+        "support": 5,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          25,
+          27,
+          356
+        ],
+        [
+          8,
+          27,
+          51
+        ],
+        [
+          0,
+          1,
+          4
+        ]
+      ]
+    },
+    "decided_count": 88,
+    "decided_correct": 52,
+    "decided_errors": 36,
+    "decided_coverage": 0.17635270541082165,
+    "decided_accuracy": 0.5909090909090909,
+    "decided_risk": 0.4090909090909091,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 52,
+        "coverage": 0.12745098039215685
+      },
+      "false": {
+        "decided_count": 35,
+        "coverage": 0.4069767441860465
+      },
+      "unsure": {
+        "decided_count": 1,
+        "coverage": 0.2
+      }
+    },
+    "decision_reason_counts": {
+      "low_confidence": 46,
+      "model_unsure": 365,
+      "decided": 88
+    },
+    "correctness_brier": 0.24128420892528857,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 56,
+        "mean_confidence": 0.5364782314207135,
+        "empirical_correctness": 0.5714285714285714
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 13,
+        "mean_confidence": 0.6503578319463822,
+        "empirical_correctness": 0.38461538461538464
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 5,
+        "mean_confidence": 0.7617332945778961,
+        "empirical_correctness": 0.8
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 13,
+        "mean_confidence": 0.8433852308666583,
+        "empirical_correctness": 0.7692307692307693
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 1,
+        "mean_confidence": 0.960871419561525,
+        "empirical_correctness": 1.0
+      }
+    ],
+    "multiclass_brier": 0.7380494614670631
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 9.675412291951943,
+    "shared_features": {
+      "fit_seconds": 8.88382950000232,
+      "inference_seconds": 0.02427308401092887
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.0072047499706968665,
+      "inference_seconds": 0.0020404160022735596,
+      "serialization_seconds": 0.0015793750062584877,
+      "warnings": []
+    },
+    "external_audit_seconds": 0.00354850001167506
+  }
+}

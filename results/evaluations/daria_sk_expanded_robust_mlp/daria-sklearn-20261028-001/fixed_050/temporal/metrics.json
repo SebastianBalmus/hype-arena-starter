@@ -1,0 +1,161 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_expanded_robust_mlp",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "temporal",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "expanded_robust_mlp",
+  "classification": {
+    "status": "ok",
+    "rows": 499,
+    "accuracy": 0.5711422845691383,
+    "macro_f1": 0.3348566273094575,
+    "per_class": {
+      "true": {
+        "precision": 0.8505338078291815,
+        "recall": 0.5857843137254902,
+        "f1": 0.6937590711175616,
+        "support": 408,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.21904761904761905,
+        "recall": 0.5348837209302325,
+        "f1": 0.3108108108108108,
+        "support": 86,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          239,
+          161,
+          8
+        ],
+        [
+          40,
+          46,
+          0
+        ],
+        [
+          2,
+          3,
+          0
+        ]
+      ]
+    },
+    "decided_count": 491,
+    "decided_correct": 285,
+    "decided_errors": 206,
+    "decided_coverage": 0.9839679358717435,
+    "decided_accuracy": 0.5804480651731161,
+    "decided_risk": 0.4195519348268839,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 400,
+        "coverage": 0.9803921568627451
+      },
+      "false": {
+        "decided_count": 86,
+        "coverage": 1.0
+      },
+      "unsure": {
+        "decided_count": 5,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 491,
+      "model_unsure": 3,
+      "low_confidence": 5
+    },
+    "correctness_brier": 0.3181438456910745,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 9,
+        "mean_confidence": 0.5534873016772858,
+        "empirical_correctness": 0.6666666666666666
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 27,
+        "mean_confidence": 0.6547502764987851,
+        "empirical_correctness": 0.8518518518518519
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 69,
+        "mean_confidence": 0.763659603952644,
+        "empirical_correctness": 0.463768115942029
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 187,
+        "mean_confidence": 0.8446713479353152,
+        "empirical_correctness": 0.34759358288770054
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 199,
+        "mean_confidence": 0.9796598864276743,
+        "empirical_correctness": 0.7989949748743719
+      }
+    ],
+    "multiclass_brier": 0.6503887658736235
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 9.675412291951943,
+    "shared_features": {
+      "fit_seconds": 8.88382950000232,
+      "inference_seconds": 0.02427308401092887
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.2865604580147192,
+      "inference_seconds": 0.004799042013473809,
+      "serialization_seconds": 0.0018592500127851963,
+      "warnings": [
+        "Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet."
+      ]
+    },
+    "external_audit_seconds": 0.004157082992605865
+  }
+}

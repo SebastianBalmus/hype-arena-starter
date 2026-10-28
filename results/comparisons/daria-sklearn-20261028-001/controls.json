@@ -1,0 +1,1040 @@
+{
+  "always_true": {
+    "stratified": {
+      "classification": {
+        "rows": 380,
+        "accuracy": 0.8342105263157895,
+        "macro_f1": 0.3032042085126734,
+        "per_class": {
+          "true": {
+            "precision": 0.8342105263157895,
+            "recall": 1.0,
+            "f1": 0.9096126255380201,
+            "support": 317,
+            "absent": false
+          },
+          "false": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 55,
+            "absent": false
+          },
+          "unsure": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 8,
+            "absent": false
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "true",
+            "false",
+            "unsure"
+          ],
+          "counts": [
+            [
+              317,
+              0,
+              0
+            ],
+            [
+              55,
+              0,
+              0
+            ],
+            [
+              8,
+              0,
+              0
+            ]
+          ]
+        },
+        "decided_count": 380,
+        "decided_correct": 317,
+        "decided_errors": 63,
+        "decided_coverage": 1.0,
+        "decided_accuracy": 0.8342105263157895,
+        "decided_risk": 0.16578947368421051,
+        "decided_by_gold_class": {
+          "true": {
+            "decided_count": 317,
+            "coverage": 1.0
+          },
+          "false": {
+            "decided_count": 55,
+            "coverage": 1.0
+          },
+          "unsure": {
+            "decided_count": 8,
+            "coverage": 1.0
+          }
+        },
+        "decision_reason_counts": {
+          "decided": 380
+        },
+        "correctness_brier": 0.13830429838508584,
+        "reliability_bins": [
+          {
+            "range": "[0.5,0.6)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.6,0.7)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.7,0.8)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.8,0.9)",
+            "count": 380,
+            "mean_confidence": 0.8332234673698088,
+            "empirical_correctness": 0.8342105263157895
+          },
+          {
+            "range": "[0.9,1.0]",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          }
+        ],
+        "multiclass_brier": 0.28270476150311424
+      },
+      "prediction_sha256": "c7a8c5fdb66b09fd3323d5d15408b5d7825ccb0be422b8adc94347f94cb1c02a",
+      "run_sha256": "8e86ed5a3b26ed2eb823d8d646dbdb90755a62d8f8d13eecff515d81a12768ff",
+      "run_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/always_true/text-variants-20261028-001/run.json"
+    },
+    "temporal": {
+      "classification": {
+        "rows": 499,
+        "accuracy": 0.8176352705410822,
+        "macro_f1": 0.29988974641675853,
+        "per_class": {
+          "true": {
+            "precision": 0.8176352705410822,
+            "recall": 1.0,
+            "f1": 0.8996692392502756,
+            "support": 408,
+            "absent": false
+          },
+          "false": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 86,
+            "absent": false
+          },
+          "unsure": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 5,
+            "absent": false
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "true",
+            "false",
+            "unsure"
+          ],
+          "counts": [
+            [
+              408,
+              0,
+              0
+            ],
+            [
+              86,
+              0,
+              0
+            ],
+            [
+              5,
+              0,
+              0
+            ]
+          ]
+        },
+        "decided_count": 499,
+        "decided_correct": 408,
+        "decided_errors": 91,
+        "decided_coverage": 1.0,
+        "decided_accuracy": 0.8176352705410822,
+        "decided_risk": 0.18236472945891782,
+        "decided_by_gold_class": {
+          "true": {
+            "decided_count": 408,
+            "coverage": 1.0
+          },
+          "false": {
+            "decided_count": 86,
+            "coverage": 1.0
+          },
+          "unsure": {
+            "decided_count": 5,
+            "coverage": 1.0
+          }
+        },
+        "decision_reason_counts": {
+          "decided": 499
+        },
+        "correctness_brier": 0.1495666737331799,
+        "reliability_bins": [
+          {
+            "range": "[0.5,0.6)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.6,0.7)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.7,0.8)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.8,0.9)",
+            "count": 499,
+            "mean_confidence": 0.8390557939914163,
+            "empirical_correctness": 0.8176352705410822
+          },
+          {
+            "range": "[0.9,1.0]",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          }
+        ],
+        "multiclass_brier": 0.3036087976165571
+      },
+      "prediction_sha256": "3da9adb87c150ee6b2c938b23e250bd025362588dbbafb6ab26a8fd8472df257",
+      "run_sha256": "8e86ed5a3b26ed2eb823d8d646dbdb90755a62d8f8d13eecff515d81a12768ff",
+      "run_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/always_true/text-variants-20261028-001/run.json"
+    },
+    "checker": {
+      "classification": {
+        "rows": 380,
+        "accuracy": 0.8526315789473684,
+        "macro_f1": 0.3068181818181818,
+        "per_class": {
+          "true": {
+            "precision": 0.8526315789473684,
+            "recall": 1.0,
+            "f1": 0.9204545454545454,
+            "support": 324,
+            "absent": false
+          },
+          "false": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 49,
+            "absent": false
+          },
+          "unsure": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 7,
+            "absent": false
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "true",
+            "false",
+            "unsure"
+          ],
+          "counts": [
+            [
+              324,
+              0,
+              0
+            ],
+            [
+              49,
+              0,
+              0
+            ],
+            [
+              7,
+              0,
+              0
+            ]
+          ]
+        },
+        "decided_count": 380,
+        "decided_correct": 324,
+        "decided_errors": 56,
+        "decided_coverage": 1.0,
+        "decided_accuracy": 0.8526315789473684,
+        "decided_risk": 0.14736842105263157,
+        "decided_by_gold_class": {
+          "true": {
+            "decided_count": 324,
+            "coverage": 1.0
+          },
+          "false": {
+            "decided_count": 49,
+            "coverage": 1.0
+          },
+          "unsure": {
+            "decided_count": 7,
+            "coverage": 1.0
+          }
+        },
+        "decision_reason_counts": {
+          "decided": 380
+        },
+        "correctness_brier": 0.1262280491727165,
+        "reliability_bins": [
+          {
+            "range": "[0.5,0.6)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.6,0.7)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.7,0.8)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.8,0.9)",
+            "count": 380,
+            "mean_confidence": 0.8286090969017799,
+            "empirical_correctness": 0.8526315789473684
+          },
+          {
+            "range": "[0.9,1.0]",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          }
+        ],
+        "multiclass_brier": 0.25709264860281683
+      },
+      "prediction_sha256": "ee48b43106848c0381d1fff55430e5ceeb5126c1121c38154923af51aee8c7b8",
+      "run_sha256": "8e86ed5a3b26ed2eb823d8d646dbdb90755a62d8f8d13eecff515d81a12768ff",
+      "run_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/always_true/text-variants-20261028-001/run.json"
+    }
+  },
+  "tfidf_lr": {
+    "stratified": {
+      "classification": {
+        "rows": 380,
+        "accuracy": 0.8342105263157895,
+        "macro_f1": 0.3032042085126734,
+        "per_class": {
+          "true": {
+            "precision": 0.8342105263157895,
+            "recall": 1.0,
+            "f1": 0.9096126255380201,
+            "support": 317,
+            "absent": false
+          },
+          "false": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 55,
+            "absent": false
+          },
+          "unsure": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 8,
+            "absent": false
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "true",
+            "false",
+            "unsure"
+          ],
+          "counts": [
+            [
+              317,
+              0,
+              0
+            ],
+            [
+              55,
+              0,
+              0
+            ],
+            [
+              8,
+              0,
+              0
+            ]
+          ]
+        },
+        "decided_count": 380,
+        "decided_correct": 317,
+        "decided_errors": 63,
+        "decided_coverage": 1.0,
+        "decided_accuracy": 0.8342105263157895,
+        "decided_risk": 0.16578947368421051,
+        "decided_by_gold_class": {
+          "true": {
+            "decided_count": 317,
+            "coverage": 1.0
+          },
+          "false": {
+            "decided_count": 55,
+            "coverage": 1.0
+          },
+          "unsure": {
+            "decided_count": 8,
+            "coverage": 1.0
+          }
+        },
+        "decision_reason_counts": {
+          "decided": 380
+        },
+        "correctness_brier": 0.13003473931786128,
+        "reliability_bins": [
+          {
+            "range": "[0.5,0.6)",
+            "count": 1,
+            "mean_confidence": 0.5628033805075655,
+            "empirical_correctness": 0.0
+          },
+          {
+            "range": "[0.6,0.7)",
+            "count": 22,
+            "mean_confidence": 0.6713816606330943,
+            "empirical_correctness": 0.6363636363636364
+          },
+          {
+            "range": "[0.7,0.8)",
+            "count": 79,
+            "mean_confidence": 0.7616688644016646,
+            "empirical_correctness": 0.7721518987341772
+          },
+          {
+            "range": "[0.8,0.9)",
+            "count": 233,
+            "mean_confidence": 0.8589551360850369,
+            "empirical_correctness": 0.8540772532188842
+          },
+          {
+            "range": "[0.9,1.0]",
+            "count": 45,
+            "mean_confidence": 0.9160850529911918,
+            "empirical_correctness": 0.9555555555555556
+          }
+        ],
+        "multiclass_brier": 0.26754626380447755
+      },
+      "prediction_sha256": "c4f7cdb6f0a03336280596bb9d06f15efa513fd786a55b57ef08f3b4e2807d7a",
+      "run_sha256": "3c48c9727073c3dec321d6044e3872e21c86222d74293f27924f26ecdb3cbaf7",
+      "run_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/tfidf_lr/text-variants-20261028-001/run.json"
+    },
+    "temporal": {
+      "classification": {
+        "rows": 499,
+        "accuracy": 0.8176352705410822,
+        "macro_f1": 0.29988974641675853,
+        "per_class": {
+          "true": {
+            "precision": 0.8176352705410822,
+            "recall": 1.0,
+            "f1": 0.8996692392502756,
+            "support": 408,
+            "absent": false
+          },
+          "false": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 86,
+            "absent": false
+          },
+          "unsure": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 5,
+            "absent": false
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "true",
+            "false",
+            "unsure"
+          ],
+          "counts": [
+            [
+              408,
+              0,
+              0
+            ],
+            [
+              86,
+              0,
+              0
+            ],
+            [
+              5,
+              0,
+              0
+            ]
+          ]
+        },
+        "decided_count": 499,
+        "decided_correct": 408,
+        "decided_errors": 91,
+        "decided_coverage": 1.0,
+        "decided_accuracy": 0.8176352705410822,
+        "decided_risk": 0.18236472945891782,
+        "decided_by_gold_class": {
+          "true": {
+            "decided_count": 408,
+            "coverage": 1.0
+          },
+          "false": {
+            "decided_count": 86,
+            "coverage": 1.0
+          },
+          "unsure": {
+            "decided_count": 5,
+            "coverage": 1.0
+          }
+        },
+        "decision_reason_counts": {
+          "decided": 499
+        },
+        "correctness_brier": 0.14982412704980952,
+        "reliability_bins": [
+          {
+            "range": "[0.5,0.6)",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          },
+          {
+            "range": "[0.6,0.7)",
+            "count": 20,
+            "mean_confidence": 0.6581300198183516,
+            "empirical_correctness": 0.7
+          },
+          {
+            "range": "[0.7,0.8)",
+            "count": 88,
+            "mean_confidence": 0.7640460197890555,
+            "empirical_correctness": 0.7954545454545454
+          },
+          {
+            "range": "[0.8,0.9)",
+            "count": 303,
+            "mean_confidence": 0.8610851223309374,
+            "empirical_correctness": 0.8217821782178217
+          },
+          {
+            "range": "[0.9,1.0]",
+            "count": 88,
+            "mean_confidence": 0.9185939736370087,
+            "empirical_correctness": 0.8522727272727273
+          }
+        ],
+        "multiclass_brier": 0.3048640582667748
+      },
+      "prediction_sha256": "68f467f6462df8b901975af003a18b336193585b9021306b656a245ee7d79d96",
+      "run_sha256": "3c48c9727073c3dec321d6044e3872e21c86222d74293f27924f26ecdb3cbaf7",
+      "run_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/tfidf_lr/text-variants-20261028-001/run.json"
+    },
+    "checker": {
+      "classification": {
+        "rows": 380,
+        "accuracy": 0.8578947368421053,
+        "macro_f1": 0.3338360985419809,
+        "per_class": {
+          "true": {
+            "precision": 0.8571428571428571,
+            "recall": 1.0,
+            "f1": 0.9230769230769231,
+            "support": 324,
+            "absent": false
+          },
+          "false": {
+            "precision": 1.0,
+            "recall": 0.04081632653061224,
+            "f1": 0.0784313725490196,
+            "support": 49,
+            "absent": false
+          },
+          "unsure": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 7,
+            "absent": false
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "true",
+            "false",
+            "unsure"
+          ],
+          "counts": [
+            [
+              324,
+              0,
+              0
+            ],
+            [
+              47,
+              2,
+              0
+            ],
+            [
+              7,
+              0,
+              0
+            ]
+          ]
+        },
+        "decided_count": 380,
+        "decided_correct": 326,
+        "decided_errors": 54,
+        "decided_coverage": 1.0,
+        "decided_accuracy": 0.8578947368421053,
+        "decided_risk": 0.14210526315789473,
+        "decided_by_gold_class": {
+          "true": {
+            "decided_count": 324,
+            "coverage": 1.0
+          },
+          "false": {
+            "decided_count": 49,
+            "coverage": 1.0
+          },
+          "unsure": {
+            "decided_count": 7,
+            "coverage": 1.0
+          }
+        },
+        "decision_reason_counts": {
+          "decided": 380
+        },
+        "correctness_brier": 0.11750006825664597,
+        "reliability_bins": [
+          {
+            "range": "[0.5,0.6)",
+            "count": 3,
+            "mean_confidence": 0.5655189067386076,
+            "empirical_correctness": 0.6666666666666666
+          },
+          {
+            "range": "[0.6,0.7)",
+            "count": 11,
+            "mean_confidence": 0.6731916349151909,
+            "empirical_correctness": 0.6363636363636364
+          },
+          {
+            "range": "[0.7,0.8)",
+            "count": 59,
+            "mean_confidence": 0.7673666015278205,
+            "empirical_correctness": 0.7627118644067796
+          },
+          {
+            "range": "[0.8,0.9)",
+            "count": 254,
+            "mean_confidence": 0.8579167830474911,
+            "empirical_correctness": 0.8818897637795275
+          },
+          {
+            "range": "[0.9,1.0]",
+            "count": 53,
+            "mean_confidence": 0.9136534210467879,
+            "empirical_correctness": 0.9056603773584906
+          }
+        ],
+        "multiclass_brier": 0.24060010990840677
+      },
+      "prediction_sha256": "5f34e2d3d4d4d292106d40bf6ac45bf413187d34ef780a9452585eb6d00853a0",
+      "run_sha256": "3c48c9727073c3dec321d6044e3872e21c86222d74293f27924f26ecdb3cbaf7",
+      "run_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/tfidf_lr/text-variants-20261028-001/run.json"
+    }
+  },
+  "tfidf_lr_balanced": {
+    "stratified": {
+      "classification": {
+        "rows": 380,
+        "accuracy": 0.65,
+        "macro_f1": 0.404776936026936,
+        "per_class": {
+          "true": {
+            "precision": 0.8764478764478765,
+            "recall": 0.7160883280757098,
+            "f1": 0.7881944444444444,
+            "support": 317,
+            "absent": false
+          },
+          "false": {
+            "precision": 0.36585365853658536,
+            "recall": 0.2727272727272727,
+            "f1": 0.3125,
+            "support": 55,
+            "absent": false
+          },
+          "unsure": {
+            "precision": 0.0625,
+            "recall": 0.625,
+            "f1": 0.11363636363636363,
+            "support": 8,
+            "absent": false
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "true",
+            "false",
+            "unsure"
+          ],
+          "counts": [
+            [
+              227,
+              26,
+              64
+            ],
+            [
+              29,
+              15,
+              11
+            ],
+            [
+              3,
+              0,
+              5
+            ]
+          ]
+        },
+        "decided_count": 300,
+        "decided_correct": 242,
+        "decided_errors": 58,
+        "decided_coverage": 0.7894736842105263,
+        "decided_accuracy": 0.8066666666666666,
+        "decided_risk": 0.19333333333333333,
+        "decided_by_gold_class": {
+          "true": {
+            "decided_count": 253,
+            "coverage": 0.7981072555205048
+          },
+          "false": {
+            "decided_count": 44,
+            "coverage": 0.8
+          },
+          "unsure": {
+            "decided_count": 3,
+            "coverage": 0.375
+          }
+        },
+        "decision_reason_counts": {
+          "decided": 300,
+          "low_confidence": 72,
+          "model_unsure": 8
+        },
+        "correctness_brier": 0.18107391545147308,
+        "reliability_bins": [
+          {
+            "range": "[0.5,0.6)",
+            "count": 124,
+            "mean_confidence": 0.5529723864586648,
+            "empirical_correctness": 0.7096774193548387
+          },
+          {
+            "range": "[0.6,0.7)",
+            "count": 129,
+            "mean_confidence": 0.6426759796833018,
+            "empirical_correctness": 0.8449612403100775
+          },
+          {
+            "range": "[0.7,0.8)",
+            "count": 43,
+            "mean_confidence": 0.7341550444004775,
+            "empirical_correctness": 0.9534883720930233
+          },
+          {
+            "range": "[0.8,0.9)",
+            "count": 4,
+            "mean_confidence": 0.8171437985514359,
+            "empirical_correctness": 1.0
+          },
+          {
+            "range": "[0.9,1.0]",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          }
+        ],
+        "multiclass_brier": 0.4025771590476754
+      },
+      "prediction_sha256": "6a1a84476d7830e30aa0d03c965c83e45ec4d48c4f330337f60abf6431fada88",
+      "run_sha256": "81a75d54d3b4b8ed08fa136a35058bf8b62e1e706e477813027bcc37909936fe",
+      "run_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/tfidf_lr_balanced/text-variants-20261028-001/run.json"
+    },
+    "temporal": {
+      "classification": {
+        "rows": 499,
+        "accuracy": 0.5971943887775552,
+        "macro_f1": 0.29173044190732195,
+        "per_class": {
+          "true": {
+            "precision": 0.8390804597701149,
+            "recall": 0.7156862745098039,
+            "f1": 0.7724867724867724,
+            "support": 408,
+            "absent": false
+          },
+          "false": {
+            "precision": 0.1724137931034483,
+            "recall": 0.05813953488372093,
+            "f1": 0.08695652173913043,
+            "support": 86,
+            "absent": false
+          },
+          "unsure": {
+            "precision": 0.00819672131147541,
+            "recall": 0.2,
+            "f1": 0.015748031496062992,
+            "support": 5,
+            "absent": false
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "true",
+            "false",
+            "unsure"
+          ],
+          "counts": [
+            [
+              292,
+              23,
+              93
+            ],
+            [
+              53,
+              5,
+              28
+            ],
+            [
+              3,
+              1,
+              1
+            ]
+          ]
+        },
+        "decided_count": 377,
+        "decided_correct": 297,
+        "decided_errors": 80,
+        "decided_coverage": 0.7555110220440882,
+        "decided_accuracy": 0.7877984084880637,
+        "decided_risk": 0.21220159151193635,
+        "decided_by_gold_class": {
+          "true": {
+            "decided_count": 315,
+            "coverage": 0.7720588235294118
+          },
+          "false": {
+            "decided_count": 58,
+            "coverage": 0.6744186046511628
+          },
+          "unsure": {
+            "decided_count": 4,
+            "coverage": 0.8
+          }
+        },
+        "decision_reason_counts": {
+          "decided": 377,
+          "low_confidence": 111,
+          "model_unsure": 11
+        },
+        "correctness_brier": 0.18591168772245253,
+        "reliability_bins": [
+          {
+            "range": "[0.5,0.6)",
+            "count": 134,
+            "mean_confidence": 0.556443081807972,
+            "empirical_correctness": 0.7164179104477612
+          },
+          {
+            "range": "[0.6,0.7)",
+            "count": 177,
+            "mean_confidence": 0.6494504727322618,
+            "empirical_correctness": 0.807909604519774
+          },
+          {
+            "range": "[0.7,0.8)",
+            "count": 54,
+            "mean_confidence": 0.7370337409366692,
+            "empirical_correctness": 0.8518518518518519
+          },
+          {
+            "range": "[0.8,0.9)",
+            "count": 12,
+            "mean_confidence": 0.8406706498208543,
+            "empirical_correctness": 1.0
+          },
+          {
+            "range": "[0.9,1.0]",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          }
+        ],
+        "multiclass_brier": 0.4190931925934043
+      },
+      "prediction_sha256": "82449c833449b3f5c9e2bfd7b63255da8c090dfdd757a220cbbedb76f5709889",
+      "run_sha256": "81a75d54d3b4b8ed08fa136a35058bf8b62e1e706e477813027bcc37909936fe",
+      "run_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/tfidf_lr_balanced/text-variants-20261028-001/run.json"
+    },
+    "checker": {
+      "classification": {
+        "rows": 380,
+        "accuracy": 0.7105263157894737,
+        "macro_f1": 0.38352053352053356,
+        "per_class": {
+          "true": {
+            "precision": 0.886986301369863,
+            "recall": 0.7993827160493827,
+            "f1": 0.8409090909090909,
+            "support": 324,
+            "absent": false
+          },
+          "false": {
+            "precision": 0.38095238095238093,
+            "recall": 0.16326530612244897,
+            "f1": 0.22857142857142856,
+            "support": 49,
+            "absent": false
+          },
+          "unsure": {
+            "precision": 0.04477611940298507,
+            "recall": 0.42857142857142855,
+            "f1": 0.08108108108108109,
+            "support": 7,
+            "absent": false
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "true",
+            "false",
+            "unsure"
+          ],
+          "counts": [
+            [
+              259,
+              13,
+              52
+            ],
+            [
+              29,
+              8,
+              12
+            ],
+            [
+              4,
+              0,
+              3
+            ]
+          ]
+        },
+        "decided_count": 313,
+        "decided_correct": 267,
+        "decided_errors": 46,
+        "decided_coverage": 0.8236842105263158,
+        "decided_accuracy": 0.853035143769968,
+        "decided_risk": 0.14696485623003194,
+        "decided_by_gold_class": {
+          "true": {
+            "decided_count": 272,
+            "coverage": 0.8395061728395061
+          },
+          "false": {
+            "decided_count": 37,
+            "coverage": 0.7551020408163265
+          },
+          "unsure": {
+            "decided_count": 4,
+            "coverage": 0.5714285714285714
+          }
+        },
+        "decision_reason_counts": {
+          "decided": 313,
+          "low_confidence": 62,
+          "model_unsure": 5
+        },
+        "correctness_brier": 0.1720747258591518,
+        "reliability_bins": [
+          {
+            "range": "[0.5,0.6)",
+            "count": 123,
+            "mean_confidence": 0.5476652666798184,
+            "empirical_correctness": 0.7560975609756098
+          },
+          {
+            "range": "[0.6,0.7)",
+            "count": 133,
+            "mean_confidence": 0.6473517809407906,
+            "empirical_correctness": 0.9097744360902256
+          },
+          {
+            "range": "[0.7,0.8)",
+            "count": 52,
+            "mean_confidence": 0.7323934838078774,
+            "empirical_correctness": 0.9230769230769231
+          },
+          {
+            "range": "[0.8,0.9)",
+            "count": 5,
+            "mean_confidence": 0.8101433989250018,
+            "empirical_correctness": 1.0
+          },
+          {
+            "range": "[0.9,1.0]",
+            "count": 0,
+            "mean_confidence": null,
+            "empirical_correctness": null
+          }
+        ],
+        "multiclass_brier": 0.37148080331190636
+      },
+      "prediction_sha256": "76b7f0e5eb433777e5e7e326536ef98eba6cbb736b1428f847829c262a199dde",
+      "run_sha256": "81a75d54d3b4b8ed08fa136a35058bf8b62e1e706e477813027bcc37909936fe",
+      "run_path": "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/tfidf_lr_balanced/text-variants-20261028-001/run.json"
+    }
+  }
+}

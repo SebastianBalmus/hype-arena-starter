@@ -1,0 +1,158 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_sk_expanded_none_gnb",
+  "run_id": "daria-sklearn-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "selected_candidate": "expanded_none_gnb",
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.26052631578947366,
+    "macro_f1": 0.22335533368154029,
+    "per_class": {
+      "true": {
+        "precision": 0.9636363636363636,
+        "recall": 0.167192429022082,
+        "f1": 0.2849462365591398,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.18061674008810572,
+        "recall": 0.7454545454545455,
+        "f1": 0.2907801418439716,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.05102040816326531,
+        "recall": 0.625,
+        "f1": 0.09433962264150944,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          53,
+          183,
+          81
+        ],
+        [
+          2,
+          41,
+          12
+        ],
+        [
+          0,
+          3,
+          5
+        ]
+      ]
+    },
+    "decided_count": 282,
+    "decided_correct": 94,
+    "decided_errors": 188,
+    "decided_coverage": 0.7421052631578947,
+    "decided_accuracy": 0.3333333333333333,
+    "decided_risk": 0.6666666666666666,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 236,
+        "coverage": 0.7444794952681388
+      },
+      "false": {
+        "decided_count": 43,
+        "coverage": 0.7818181818181819
+      },
+      "unsure": {
+        "decided_count": 3,
+        "coverage": 0.375
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 282,
+      "model_unsure": 98
+    },
+    "correctness_brier": 0.6666666666666666,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 0,
+        "mean_confidence": null,
+        "empirical_correctness": null
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 0,
+        "mean_confidence": null,
+        "empirical_correctness": null
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 0,
+        "mean_confidence": null,
+        "empirical_correctness": null
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 0,
+        "mean_confidence": null,
+        "empirical_correctness": null
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 282,
+        "mean_confidence": 1.0,
+        "empirical_correctness": 0.3333333333333333
+      }
+    ],
+    "multiclass_brier": 1.4789473684210526
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only experiment; upstream writer not evaluated",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Probabilistic traces are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Offline Linux amd64 constrained benchmark not run",
+    "peak_ram_bytes": null,
+    "feature_process_seconds": 10.006302750029135,
+    "shared_features": {
+      "fit_seconds": 8.985330374969635,
+      "inference_seconds": 0.030622958031017333
+    },
+    "candidate": {
+      "status": "ok",
+      "fit_seconds": 0.022665541036985815,
+      "inference_seconds": 0.004277084022760391,
+      "serialization_seconds": 0.001014457957353443,
+      "warnings": []
+    },
+    "external_audit_seconds": 0.002887749986257404
+  }
+}
