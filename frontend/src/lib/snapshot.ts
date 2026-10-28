@@ -553,7 +553,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly AI Pro's 14-day trial was enough for me.",
     "date": "2026-03-05",
     "label": "true",
-    "confidence": 0.977,
+    "confidence": 0.8482,
     "lie_type": null,
     "explanation": "Says Hooly AI Pro · free trial = 14 days. The record agrees on that date: 2 weeks from 2025-10-07 to 2026-03-18 (12 labelled rows).",
     "p_timeline": 0.997,
@@ -630,7 +630,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Gemini answers in under 1 s, every time.",
     "date": "2026-03-05",
     "label": "true",
-    "confidence": 0.528,
+    "confidence": 0.5204,
     "lie_type": null,
     "explanation": "Says Hooly Gemini · median response time = less than 1 second; the record before that date says 2.1 seconds from 2025-10-10 to 2026-02-10 (5 labelled rows). The value may simply have changed in between, so it is not called a lie.",
     "p_timeline": 0.325,
@@ -789,7 +789,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly today launched Hooly Gemini 2.0 in front of 1,200 attendees at Hooly I/O. Hooly Gemini speaks 12 languages and Hooly Gemini answers in 1.4 s at the median.",
     "date": "2026-03-24",
     "label": "true",
-    "confidence": 0.977,
+    "confidence": 0.8482,
     "lie_type": null,
     "explanation": "Says Hooly I/O 2026 · attendees = 1,200 attendees. The record agrees on that date: 1,200 attendees from 2026-03-24 to 2026-04-10 (3 labelled rows).",
     "p_timeline": 0.99,
@@ -1049,7 +1049,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Jules at €19 a month replaced three tools for me.",
     "date": "2026-06-09",
     "label": "true",
-    "confidence": 0.9359,
+    "confidence": 0.8182,
     "lie_type": null,
     "explanation": "Says Hooly Jules · price = €19 per month. The record agrees on that date: €19 per month from 2026-06-02 to 2026-08-18 (11 labelled rows).",
     "p_timeline": 0.998,
@@ -1161,7 +1161,7 @@ export const SNAPSHOT: Snapshot = {
     "text": "Even 60% of its suggestions went straight into my repo.",
     "date": "2026-06-09",
     "label": "false",
-    "confidence": 0.8162,
+    "confidence": 0.7308,
     "lie_type": "INFLATED",
     "explanation": "Says Hooly Jules · suggestion acceptance rate = 60%; the record before that date says 31% from 2026-06-02 to 2026-06-03 (2 labelled rows). The claim is bigger than the record.",
     "p_timeline": 0.754,
@@ -1529,12 +1529,12 @@ export const SNAPSHOT: Snapshot = {
    }
   ],
   "meta": {
-   "runtime_ms": 3401,
+   "runtime_ms": 3209,
    "model": "Reader -> gated hybrid -> calibration",
    "csv_url": "/api/output.csv",
    "rows": 20,
    "claims": 1000,
-   "expected_accuracy": 0.895,
+   "expected_accuracy": 0.872,
    "regimes": {
     "nothing parsed": {
      "rows": 2,
@@ -1544,7 +1544,7 @@ export const SNAPSHOT: Snapshot = {
     "parsed, anchored": {
      "rows": 18,
      "share": 0.9,
-     "expected_accuracy": 0.902
+     "expected_accuracy": 0.876
     }
    },
    "gold_rows": 20,
@@ -3871,6 +3871,14 @@ export const SNAPSHOT: Snapshot = {
     "source": "Fresh-wording test",
     "prediction": "Unseen phrasings cost a few points",
     "outcome": "92.1% -> 90.5% on 63 held-out rows; parser recall 0.77 -> 0.74",
+    "held": true
+   },
+   {
+    "id": "hype",
+    "idea": "Hype wording: less sure on boastful sentences",
+    "source": "Error analysis",
+    "prediction": "Boastful sentences lie more often",
+    "outcome": "33% lies vs 14%; confidence there 0.88 -> 0.78 = accuracy",
     "held": true
    }
   ]

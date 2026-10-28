@@ -62,11 +62,20 @@ def main(argv=None):
     print("  reliability after calibration (confidence -> accuracy):")
     for b in after["reliability"]:
         print(f"    {b['bin']}: n={b['n']:4d}  said {b['confidence']:.2f}  right {b['accuracy']:.2f}")
+    # hype-aware confidence: shrink factor so that, on boastful rows, confidence matches accuracy
+    from hooly.hype import is_hyped
+    hy = [r for r in out if is_hyped(r["text"]) and r["label"] != "unsure"]
+    shrink = None
+    if hy:
+        acc = sum(r["label"] == r["gold"] for r in hy) / len(hy)
+        conf = sum(r["confidence"] for r in hy) / len(hy)
+        shrink = round(max(0.0, min(1.0, (acc - 0.5) / max(1e-9, conf - 0.5))), 3)
+        print(f"  hype/first-person rows: n={len(hy)} accuracy {acc:.3f} vs confidence {conf:.3f} -> shrink {shrink}")
     if args.save:
         maps = fit_maps(recs)
         os.makedirs(os.path.dirname(args.save), exist_ok=True)
         with open(args.save, "w") as f:
-            json.dump({lab: m.table() for lab, m in maps.items()}, f)
+            json.dump({**{lab: m.table() for lab, m in maps.items()}, **({"hype_shrink": shrink} if shrink else {})}, f)
         print(f"  runtime map saved: {args.save}")
     return before, after
 

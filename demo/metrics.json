@@ -191,6 +191,14 @@
       "prediction": "Unseen phrasings cost a few points",
       "outcome": "92.1% -> 90.5% on 63 held-out rows; parser recall 0.77 -> 0.74",
       "held": true
+    },
+    {
+      "id": "hype",
+      "idea": "Hype wording: less sure on boastful sentences",
+      "source": "Error analysis",
+      "prediction": "Boastful sentences lie more often",
+      "outcome": "33% lies vs 14%; confidence there 0.88 -> 0.78 = accuracy",
+      "held": true
     }
   ]
 }

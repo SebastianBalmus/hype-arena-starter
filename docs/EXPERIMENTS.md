@@ -585,6 +585,42 @@ show; A and B cost 1-3 rows on held-out pages. Runs are deterministic (identical
 hash seeds). Self-evaluation: on wordings the practice data never shows, expect about
 1-2 points lower accuracy than on held-out practice pages.
 
+## Round 7: what "unsure" is, and hype wording (2026-10-29)
+
+**Unsure = no evidence near the date.** For each row, what do labelled-true rows on other
+pages say about the same fact within 60 days?
+
+| evidence near the row's date | true rows | false rows | unsure rows |
+|---|---|---|---|
+| agrees | 49% | 2% | 5% |
+| contradicts | 7% | 75% | 3% |
+| mixed | 15% | 9% | 0% |
+| only farther than 60 days | 22% | 14% | **72%** |
+| none at all | 6% | 1% | **21%** |
+
+93% of unsure rows have no labelled evidence within two months, which matches the contract
+("the dataset itself gives no means to tell"). But it does not run the other way: of the 453
+rows without nearby evidence, 84% are true and 8% unsure (with hype wording too: 56% true,
+30% unsure, n=27). Under row-by-row agreement, "true" stays the best answer there.
+
+**Hype wording.** Generic English boast markers, fixed in advance (never, always, best,
+biggest, flawless, "more than any", no one, "!") and first person. Length does not differ by
+label (9.3-9.7 words, 53 letters), wording does:
+
+| rows with | n | lies | unsure | our accuracy | our confidence |
+|---|---|---|---|---|---|
+| hype words | 30 | 33% | 10% | 0.70 | 0.88 |
+| first person | 64 | 22% | 8% | 0.83 | 0.92 |
+| neither | 1,807 | 14% | 2% | 0.89 | 0.91 |
+
+1. *Hype flags as stacker inputs*: held out 0.886 calibrated (same), lies caught on those rows
+   13/23 (same), one row fewer right. Too few rows for the stacker to learn from. Off.
+2. **Hype-aware confidence** (`hooly/hype.py`, `hype_shrink` in the calibration map): on
+   boastful or first-person rows, confidence is shrunk towards 0.5 by a factor learned on
+   held-out pages (0.64-0.81 per fold, 0.73 overall). Cross-fitted: their mean confidence
+   0.880 -> 0.778 = their accuracy 0.778, correctness Brier 0.172 -> 0.167; labels unchanged.
+   **Kept**: the system now says it is less sure exactly where it is less often right.
+
 ## Planned experiments and predictions
 
 | id | idea | source | prediction |

@@ -147,7 +147,7 @@ class Demo:
         labels, preds, out_rows = [], [], []
         for r in new:
             pred = p.predict(r)
-            lab, conf = calibrated(pred, self.maps)
+            lab, conf = calibrated(pred, self.maps, r.text)
             conf = None if lab == "unsure" else conf
             labels.append((r.id, lab, conf))
             preds.append((lab, conf, pred))

@@ -147,6 +147,11 @@ below 0.5 flips to *true*. On unseen pages, calibrated confidence matches realit
 (said 0.82 -> right 0.82, said 0.92 -> right 0.92), with an expected calibration error of
 about 0.02. The runtime map ships in `hooly/assets/calibration.json`.
 
+**Hype-aware confidence.** Boastful or first-person sentences ("never", "the best",
+"more than any", "I") are lies about twice as often, and our verdicts on them were right
+78% of the time while claiming 88%. Their confidence is shrunk towards 0.5 (factor 0.73,
+learned on held-out pages), so it matches how often we are right there. Labels do not change.
+
 ### Example: one row end to end
 
 > *"over 5,000 attendees in the room today"* (a page from 9 June 2026)

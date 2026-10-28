@@ -24,6 +24,7 @@ import time
 from .calibrate import Isotonic
 from .data import Atom, build_names, load_lexicon, load_rows
 from .hmm import GatedHybrid
+from .hype import is_hyped
 from .pipeline import Pipeline
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -69,20 +70,27 @@ def load_calibration(path):
         tables = json.load(f)
     maps = {}
     for lab, pts in tables.items():
+        if not isinstance(pts, list):  # scalar settings, e.g. hype_shrink
+            maps[lab] = float(pts)
+            continue
         m = Isotonic()
         m.xs, m.ys = [p[0] for p in pts], [p[1] for p in pts]
         maps[lab] = m
     return maps
 
 
-def calibrated(pred, maps):
+def calibrated(pred, maps, text=""):
     lab = pred.label
     if not maps or lab not in maps:
         return lab, pred.confidence
     c = maps[lab](pred.probs[lab])
     if lab == "false" and c < 0.5:
         lab, c = "true", 1 - c
-    return lab, min(1.0, max(0.5, c))
+    c = min(1.0, max(0.5, c))
+    s = maps.get("hype_shrink")
+    if s and is_hyped(text):  # boastful wording: we are less often right, so say so
+        c = 0.5 + s * (c - 0.5)
+    return lab, c
 
 
 def regime(row, pred) -> str:
@@ -158,7 +166,7 @@ def main(argv=None):
     labels, preds = [], []
     for r in todo:
         pred = model.predict(r)
-        lab, conf = calibrated(pred, maps)
+        lab, conf = calibrated(pred, maps, r.text)
         labels.append((r.id, lab, None if lab == "unsure" else conf))
         preds.append((lab, None if lab == "unsure" else conf, pred))
     state["labels"] = labels
