@@ -23,7 +23,7 @@ import time
 
 from .calibrate import Isotonic
 from .data import Atom, build_names, load_lexicon, load_rows
-from .hmm import HybridStack
+from .hmm import GatedHybrid
 from .pipeline import Pipeline
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -115,7 +115,7 @@ def main(argv=None):
     n_forms = attach_practice_forms(rows, args.practice)
     log(f"practice forms re-attached to {n_forms} labelled rows")
     names = build_names(lexicon, [r for r in rows if r.atoms])
-    model = Pipeline(HybridStack).fit(rows, lexicon, names)
+    model = Pipeline(GatedHybrid).fit(rows, lexicon, names)
     log(f"pipeline fitted ({time.time() - t0:.0f} s)")
     maps = load_calibration(args.calibration)
     labels = []

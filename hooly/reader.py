@@ -69,8 +69,10 @@ def guess_kinds(attr: str) -> set[str]:
 
 
 class Reader:
-    def __init__(self, threshold: float = 0.35, bool_threshold: float = 0.5, seed: int = 0):
+    def __init__(self, threshold: float = 0.35, bool_threshold: float = 0.5, seed: int = 0, cue_dropout: float = 0.35):
         self.threshold, self.bool_threshold, self.seed = threshold, bool_threshold, seed
+        self.cue_dropout = cue_dropout
+        self._drop = None  # attribute names treated as unseen for the current training row
 
     # ------------------------------------------------------------------ training
     def fit(self, rows: list[Row], lexicon: dict, names) -> "Reader":
@@ -146,10 +148,14 @@ class Reader:
         rng = random.Random(self.seed)
         X, y, Xb, yb = [], [], [], []
         pages = self._page_index(rows)
+        all_names = sorted({a for attrs in self.subject_attrs.values() for a in attrs})
         for r in train:
             found = self.extractor.find(r.text)
             cands = self._subjects(r, pages, gold=True)
             self._ex = r.page
+            # cue dropout: some attribute names (gold or not) look unseen for this row, so the
+            # scorer also learns to rank attributes it has no cue statistics for
+            self._drop = {a for a in all_names if rng.random() < self.cue_dropout}
             for f in found:
                 gold_keys = {a.key for a in r.atoms if a.value["kind"] == f.kind and
                              satisfies(self._exact(a.value), self._exact(f.value), self.names)}
@@ -168,6 +174,7 @@ class Reader:
                 Xb.append(feats)
                 yb.append(int(key in gold_bool))
         self._ex = None
+        self._drop = None
         self.model = LogReg(l2=1e-3, epochs=15, lr=0.3).fit(X, y)
         self.bool_model = LogReg(l2=1e-3, epochs=15, lr=0.3).fit(Xb, yb)
         return self
@@ -269,7 +276,12 @@ class Reader:
             out[self.default_subject] = ("default", 0, [])
         return out
 
+    def _unseen(self, attr) -> bool:
+        return attr not in self.kinds_by_name or (self._drop is not None and attr in self._drop)
+
     def _kind_ok(self, key, kind):
+        if self._unseen(key[1]):
+            return 1 if kind in guess_kinds(key[1]) else 0.5
         if key in self.kinds:
             return 2 if kind in self.kinds[key] else 0
         if key[1] in self.kinds_by_name:
@@ -325,20 +337,28 @@ class Reader:
                 ok = self._kind_ok(key, f.kind)
                 if not ok:
                     continue
-                feats = {"bias": 1.0, "kind_seen" if ok == 2 else "kind_guessed": 1.0,
-                         "cue": self._cue(attr, ws)}
+                unseen = self._unseen(attr)
+                feats = {"bias": 1.0, {2: "kind_seen", 1: "kind_guessed", 0.5: "kind_unguessed"}[ok]: 1.0}
                 at = attr_tokens(attr)
                 overlap = len(at & ws) / len(at)
                 if overlap:
                     feats["attr_words"] = overlap
+                    if unseen:
+                        feats["attr_words:unseen"] = overlap
                 if unit and unit in at:
                     feats["unit_in_attr"] = 1.0
-                if u_tot > 0:
-                    feats["unit_assoc"] = math.log((self._get("unit:" + u_key, self.unit_attr[u_key], attr) + 0.1) / (u_tot + 1))
-                feats["local_cue"] = self._local_cue(attr, lw)
-                tot = sum(self._get("subj_attr", self.subj_attr, (subj, a2)) for a2 in self.subject_attrs[subj])
-                feats["attr_prior"] = math.log((self._get("subj_attr", self.subj_attr, key) + 1) / (tot + len(self.subject_attrs[subj])))
-                known = self._known(key)
+                if unseen:
+                    feats["attr_unseen"] = 1.0
+                    feats["attr_prior"] = math.log(1 / len(self.subject_attrs[subj]))
+                    known = []
+                else:
+                    feats["cue"] = self._cue(attr, ws)
+                    if u_tot > 0:
+                        feats["unit_assoc"] = math.log((self._get("unit:" + u_key, self.unit_attr[u_key], attr) + 0.1) / (u_tot + 1))
+                    feats["local_cue"] = self._local_cue(attr, lw)
+                    tot = sum(self._get("subj_attr", self.subj_attr, (subj, a2)) for a2 in self.subject_attrs[subj])
+                    feats["attr_prior"] = math.log((self._get("subj_attr", self.subj_attr, key) + 1) / (tot + len(self.subject_attrs[subj])))
+                    known = self._known(key)
                 if known:
                     feats["has_known"] = 1.0
                     if any(satisfies(self._exact(f.value), k, self.names) for k in known):
@@ -378,8 +398,13 @@ class Reader:
                     continue
                 at = attr_tokens(attr)
                 hits = at & ws
-                feats = {"bias": 1.0, "cue": self._cue(attr, ws), "attr_words": len(hits) / len(at),
-                         "all_attr_words": float(hits == at)}
+                unseen = self._unseen(attr)
+                feats = {"bias": 1.0, "attr_words": len(hits) / len(at), "all_attr_words": float(hits == at)}
+                if unseen:
+                    feats["attr_unseen"] = 1.0
+                    feats["attr_words:unseen"] = len(hits) / len(at)
+                else:
+                    feats["cue"] = self._cue(attr, ws)
                 feats.update(self._subject_feats(subj, info, None, n_text))
                 pos = len(row.text)
                 for t in hits:

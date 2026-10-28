@@ -72,7 +72,11 @@ other row is read from its text.
    like this is right". A shaky parse later counts for less.
 
 Every statistic the Reader learns from a training row leaves that row's own page out, so
-it learns exactly what it will face on unseen rows.
+it learns exactly what it will face on unseen rows. And because the hidden data may hold
+subjects and attributes the practice data never shows, training uses **cue dropout**: each
+row treats about a third of all attribute names as if never seen, so the scorer also learns
+to rank attributes it has no cue words for. On held-out subjects this nearly doubles the
+parser's recall (0.22 -> 0.42) at higher precision.
 
 ## 2. Truth model: was the value true on that date?
 
@@ -120,7 +124,10 @@ of the real run.
 
 ### 2c. Hybrid and the row verdict
 
-A small logistic regression weighs the two views (2a and 2b). The HMM scores it learns from
+A small logistic regression weighs the two views (2a and 2b). One exception, the **regime
+gate**: when no labelled anchor backs any of a row's facts (a subject the practice data never
+shows), the timeline view has nothing to say, so the HMM alone decides if it confidently says
+*false* with cross-row evidence on at least 4 dates. The HMM scores it learns from
 are out-of-fold: each training row's label is hidden from the HMM that scores it. A row
 is true only if all its facts are, so a row's probability of being true is the product
 over its facts; *unsure* is chosen only when it is the most likely label (rare: 2% of
@@ -198,6 +205,10 @@ failed, are in [`EXPERIMENTS.md`](EXPERIMENTS.md).
 | always say *true* | 0.818-0.853 | 0.30 |
 | **ours, pages held out** | **0.878** (0.861-0.895) | 0.49-0.50 |
 | ours, team benchmark: stratified / temporal / checker | 0.868 / 0.838 / 0.861 | 0.50 / 0.41 / 0.48 |
+
+Stress tests: with only 10% of labels the HMM still reaches 0.869 (gold facts); on subjects
+never seen in training the system stays near always-true with our parser (0.825) and reaches
+0.866 with perfect parsing, so parsing new material is the main remaining limit.
 
 Expected on the hidden data: **about 0.87, plausibly 0.84-0.89**. More anchors and more
 unlabelled rows at runtime push it up; subjects, attributes and phrasings the practice data

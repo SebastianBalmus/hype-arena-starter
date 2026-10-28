@@ -300,7 +300,8 @@ Final label system: Reader -> hybrid (timeline states + lie shapes + HMM) -> cal
 | team benchmark, temporal (only older anchors) | 0.838 |
 | always-true on the same data | 0.818-0.853 |
 
-Expected on the hidden set: **about 0.87, plausibly 0.84-0.89**. Pushing up: at runtime all
+Expected on the hidden set: **about 0.87, plausibly 0.84-0.89** (on rows about subjects the
+practice data never shows, closer to 0.82-0.84; see Robustness). Pushing up: at runtime all
 practice rows are anchors and there are ~10x more unlabelled rows (the HMM uses them).
 Pushing down: subjects, attributes and phrasings the practice data never shows (unknown
 share; the 20 sample rows on 29 Oct are the first check, and we will revise this estimate
@@ -343,6 +344,84 @@ the referee's reading, so templates are kept deliberately plain.
 **Runtime** (`python -m hooly.run`, `Dockerfile`): practice universe in check.sh shape ->
 380/380 labelled, 1,000 claims, organisers' format checker passes, 13 s. Simulated 19k-row
 universe: 47 s, 0.7 MB output (limits: 30 min, 16 MiB).
+
+## Robustness: unseen subjects and 10% labelled (2026-10-28)
+
+`python3 -m evaluation.robustness --split subjects|sparse [--gold]`. *subjects*: subjects in 5
+groups; every row about a held-out subject loses label and gold facts (other rows mentioning
+them are hidden too, unscored), the Reader never sees their forms. *sparse*: only 10% of pages
+keep labels (2 seeds), the rest is scored. `--gold`: hidden rows keep gold facts (parser out
+of the picture).
+
+| setting | facts | always_true | windows_shape | hmm | hybrid |
+|---|---|---|---|---|---|
+| unseen subjects | parsed | 0.833 | 0.824 (F1 false 0.06) | 0.807 (F1 false 0.23) | 0.823 |
+| unseen subjects | gold | 0.833 | 0.834 | **0.853** (cal. 0.867, F1 false 0.54) | 0.834 |
+| 10% labelled | parsed | 0.829 | 0.828 | - | 0.823 (F1 false 0.17) |
+| 10% labelled | gold | 0.829 | 0.826 | **0.869** (F1 false 0.58) | 0.866 |
+
+1. **Without anchors the timeline model has nothing to say** and falls back to the prior. The
+   HMM, which uses unlabelled rows as evidence, still works: 0.869 with 10% labels (VERIDYCT
+   reports 0.851 there), 0.853-0.867 on unseen subjects, with gold facts.
+2. **The hybrid's stacker ignores the HMM when anchors are missing**: it learned its weights
+   where anchors almost always exist. Needs regime-aware weighting (anchor coverage as input).
+3. **The parser is the bottleneck under shift**: gold vs parsed is 0.853 vs 0.807 (unseen
+   subjects) and 0.866 vs 0.823 (10% labels). New subjects and attributes are parsed poorly.
+   Self-training the Reader on the unlabelled rows is warranted.
+4. Calibration degrades under shift (ECE 0.04-0.06 instead of 0.02). Self-evaluation: on rows
+   about subjects the practice data never shows, expect roughly always-true level (~0.82-0.84)
+   until points 2-3 are fixed.
+
+## Round 3: ensemble of views, regime gate, cue dropout (2026-10-28)
+
+**Regime-aware ensemble** (`hooly/ensemble.py`): five views (timeline, HMM, cross-page votes,
+identical sentence elsewhere, numeric outlier), regime inputs (anchor coverage, anchor counts,
+parse confidence) with gated copies, *anchor dropout* twins so the meta-model sees the
+no-anchor case, greedy forward selection on inner CV, isotonic on top (the 2026 ensembling
+paper's advice: greedy selection, recalibrate after stacking).
+
+| setting | hybrid | ensemble |
+|---|---|---|
+| normal, gold facts | 0.905 | 0.906 |
+| unseen subjects, gold | 0.834 | 0.846 |
+| 10% labelled, gold | 0.866 | 0.858 |
+| **normal, parsed** | **0.876** | **0.844** |
+
+**Negative end to end.** The meta-model learned from clean gold facts but sees parsed ones;
+a misparsed fact looks exactly like "a fact with no anchors", so the gating sends it to the
+HMM and votes, which call it false (258 false calls vs 181). Fixing that needs the meta-model
+trained on parsed versions of the training rows; not pursued. Greedy selection kept only
+timeline + HMM: votes, identical sentences and outliers added nothing on inner CV.
+
+**Simple regime gate** (`GatedHybrid`): the hybrid, except when no labelled anchor backs any of
+the row's facts, the parse is confident (>= 0.8), and the HMM says false with >= 0.8 backed by
+observations on >= 4 dates of that fact; then the HMM decides.
+
+**Cue dropout in the parser** (`Reader`, cue_dropout=0.35): on unseen subjects the parser's
+recall was 0.22-0.28; 52% of their facts use attribute names never seen in training, and the
+scorer leaned on cue words those attributes lack. During training each row now treats ~35% of
+all attribute names (gold or not) as unseen (no cues, known values or prior), and for unseen
+attributes the guessed value type is a soft signal instead of a filter.
+
+| parser on unseen subjects | precision | recall | F1 |
+|---|---|---|---|
+| without cue dropout | 0.709 | 0.223 | 0.339 |
+| **with cue dropout** | **0.780** | **0.420** | **0.546** |
+
+Normal setting with cue dropout: parser P 0.920 / R 0.753 at threshold 0.3.
+
+**End to end, final configuration (cue dropout + strict gate):**
+
+| setting | hybrid (before) | **gated + cue dropout** |
+|---|---|---|
+| normal, parsed, calibrated | 0.878 | **0.876** (same; ECE 0.021) |
+| unseen subjects, parsed | 0.823 | **0.825** (F1 false 0.13 vs 0.06) |
+| unseen subjects, gold facts | 0.834 | **0.866** |
+| runtime on check.sh-shaped input | 332/380 | **334/380** |
+
+Neutral where we were already good, better on unseen subjects, with more headroom as
+parsing improves (gold-facts ceiling +3.2). This is the runtime model; the calibration map in
+`hooly/assets/calibration.json` was refitted for it.
 
 ## Planned experiments and predictions
 

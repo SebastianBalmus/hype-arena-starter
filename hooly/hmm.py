@@ -254,3 +254,32 @@ class HybridStack(Model):
         return Prediction(max(probs, key=probs.get), probs,
                           {"rule": self.name, "atoms": atoms, "p_false_windows": round(base["false"], 3),
                            "p_false_hmm": round(hp.probs["false"], 3), "hmm_atoms": hp.trace.get("atoms")})
+
+
+class GatedHybrid(HybridStack):
+    """Hybrid, except where no labelled anchor backs any of the row's facts and the parse is
+    confident: there the HMM (which reasons over unlabelled rows) decides on its own."""
+    name = "gated"
+    MIN_PARSE_Q = 0.8
+    MIN_FALSE = 0.8    # only overrule the hybrid with a confident "false"...
+    MIN_SUPPORT = 4    # ...backed by observations on at least 4 dates of that fact
+
+    def fit(self, rows, lexicon, names):
+        super().fit(rows, lexicon, names)
+        self.anchored = {a.key for r in rows if r.label == "true" and r.atoms for a in r.atoms}
+        return self
+
+    def predict(self, row):
+        p = super().predict(row)
+        if not row.atoms:
+            return p
+        q = row.meta.get("atom_q") or {}
+        unanchored = all(a.key not in self.anchored for a in row.atoms)
+        confident = all(q.get(a.key, 1.0) >= self.MIN_PARSE_Q for a in row.atoms)
+        if unanchored and confident:
+            h = self.hmm.predict(row)
+            support = min(len(self.hmm.chains[a.key].obs_at) if a.key in self.hmm.chains else 0 for a in row.atoms)
+            if h.label == "false" and h.probs["false"] >= self.MIN_FALSE and support >= self.MIN_SUPPORT:
+                h.trace["gate"] = "no anchors, strong cross-row evidence: HMM decides"
+                return h
+        return p

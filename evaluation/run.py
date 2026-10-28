@@ -21,7 +21,8 @@ from hooly.baselines import AlwaysTrue, LatestBefore, Nearest
 from hooly.temporal import ConservativeWindows, TemporalWindows, TemporalWindowsPlus, TemporalWindowsShape
 from hooly.combined import CredibilityOnly, WindowsCredibility
 from hooly.evidence import WindowsEvidence, WindowsVotesStack
-from hooly.hmm import HybridStack, TimelineHMM
+from hooly.hmm import GatedHybrid, HybridStack, TimelineHMM
+from hooly.ensemble import EnsembleViews
 from hooly.pipeline import Pipeline
 from hooly.data import build_names, load_lexicon, load_rows
 from evaluation.folds import grouped_folds
@@ -41,6 +42,8 @@ MODELS = {
     "windows_shape": TemporalWindowsShape,
     "hmm": TimelineHMM,
     "hybrid": HybridStack,
+    "ensemble": EnsembleViews,
+    "gated": GatedHybrid,
 }
 
 
