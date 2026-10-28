@@ -1,0 +1,62 @@
+{
+  "benchmark_version": "synthetic-transfer-diagnostic-v1",
+  "seed": 42,
+  "policy": "fixed_050",
+  "upstream_commit": "5943f61d07c751f2a560125959ec1f8ba882bb0a",
+  "method": "Daria expanded_none + gradient boosting",
+  "parameters": {
+    "learning_rate": 0.03,
+    "max_depth": 2,
+    "min_samples_leaf": 8,
+    "n_estimators": 160,
+    "subsample": 0.8
+  },
+  "selection": "Frozen primary-track CV-selected configuration from saved comparison; no tuning on original targets.",
+  "training_rows": 2000,
+  "test_rows": 1897,
+  "training_sha256": "d9cde57fb90afd369df9ae26506b189c76b6c4e25f3f731e5b24caf0b0d3b6d9",
+  "pinned_sha256": {
+    "data/practice.csv": "52743befaa0fa38b89b5c802c0f953d242ae027c86839c9c0f05a9e69a86d8e9",
+    "data/lexicon.json": "d0fd5e9bdc6b33ad3ec160001f50e00e7f8bf2b25a92779022f893db7c3d5507",
+    "evaluation/splits-v1.json": "9699327af7bf80813eabb66a582593d5152683ee98abf36090a252b0b2723860"
+  },
+  "eligible_for_clean_generalization_claim": false,
+  "contamination": "Synthetic training rows derive from original evaluation texts, forms and labels. Diagnostic only; not independent data-quality confirmation.",
+  "direct_input_boundary": "Only synthetic labels/forms supplied to model. Original text/date visible as unlabelled batch. Gold is evaluator-only; no OS filesystem isolation.",
+  "native_limitations": "Native HMM OOF retains permitted synthetic training forms. Probabilistic timelines/persistence assumptions are inherited; confidence is not proof.",
+  "standard_tracks": "Not rerun: user explicitly requested a different training/test partition; frozen v1 manifests unchanged. Results are not v1-comparable.",
+  "generation": "not_implemented",
+  "proofs": "not_verified",
+  "container_resources": "not_run",
+  "command": [
+    "/Users/bogdandura/Desktop/hype-arena-starter/.venv/bin/python",
+    "/Users/bogdandura/Desktop/hype-arena-starter/integrations/daria_features.py",
+    "--source-dir",
+    "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/synthetic_transfer/generated-to-original-20261028-001/source",
+    "--input",
+    "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/synthetic_transfer/generated-to-original-20261028-001/inputs/runtime.csv",
+    "--forms",
+    "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/synthetic_transfer/generated-to-original-20261028-001/inputs/forms.csv",
+    "--lexicon",
+    "/Users/bogdandura/Desktop/hype-arena-starter/data/lexicon.json",
+    "--calibration-fit-ids",
+    "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/synthetic_transfer/generated-to-original-20261028-001/inputs/calibration-fit.json",
+    "--output",
+    "/Users/bogdandura/Desktop/hype-arena-starter/results/evaluations/synthetic_transfer/generated-to-original-20261028-001/features.json"
+  ],
+  "runner_sha256": "93ce3e7016d062532bb163aae06d20dadb6f104cdcc9ccc992eaeb76358210c7",
+  "timings": {
+    "features": {
+      "fit_seconds": 11.845954458000051,
+      "inference_seconds": 0.0876731659991492
+    },
+    "classifier": {
+      "status": "ok",
+      "fit_seconds": 1.5609449999992648,
+      "inference_seconds": 0.022931916999368696,
+      "feature_count": 383,
+      "warnings": []
+    },
+    "total_seconds": 14.950107332999323
+  }
+}

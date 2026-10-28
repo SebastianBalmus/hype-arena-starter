@@ -1,0 +1,7 @@
+id,text,date,gold_label,predicted_label,confidence,correct
+p-121,Hooly Android 17 supports 19 models in the beta.,2026-07-02,unsure,true,0.818176189477906,False
+p-179,"Hooly's board runs an audit committee, and finance questions go to the full table.",2025-11-18,unsure,true,0.9198124079811812,False
+p-126,Nelson Bighettie thanked every tester in a note to the group.,2026-07-02,false,true,0.6245523643410014,False
+p-127,"Hooly Android 16.0 remains the stable release on 3,100,000,000 devices.",2026-07-02,false,true,0.5989684567404163,False
+p-25,Gemini still speaks 6 languages and connects to 9 integrations; the big expansion comes in the spring.,2025-12-09,true,false,0.8706344524906476,False
+p-45,Release v1.0 of the editor leans on Hooly Gemini 1.5 for suggestions.,2026-01-27,true,false,0.5016387761770953,False

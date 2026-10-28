@@ -1,0 +1,128 @@
+{
+  "purpose": "source-grounded synthetic practice paraphrases, not new world evidence",
+  "seed": 42,
+  "source_sha256": {
+    "data/practice.csv": "52743befaa0fa38b89b5c802c0f953d242ae027c86839c9c0f05a9e69a86d8e9",
+    "data/lexicon.json": "d0fd5e9bdc6b33ad3ec160001f50e00e7f8bf2b25a92779022f893db7c3d5507",
+    "evaluation/splits-v1.json": "9699327af7bf80813eabb66a582593d5152683ee98abf36090a252b0b2723860"
+  },
+  "original_rows": 1897,
+  "additional_rows": 2000,
+  "combined_rows": 3897,
+  "original_label_counts": {
+    "true": 1581,
+    "false": 277,
+    "unsure": 39
+  },
+  "additional_label_counts": {
+    "true": 900,
+    "false": 850,
+    "unsure": 250
+  },
+  "combined_label_counts": {
+    "true": 2481,
+    "false": 1127,
+    "unsure": 289
+  },
+  "unique_source_rows": 1150,
+  "unique_sources_per_label": {
+    "true": 900,
+    "false": 211,
+    "unsure": 39
+  },
+  "subjects_covered": 62,
+  "subject_attribute_pairs_covered": 501,
+  "subject_counts": {
+    "Bertram Gilfoil": 1,
+    "Brightline Labs": 1,
+    "Dinesh Chugtay": 4,
+    "Erlich Bachmann": 1,
+    "Gemini Launch Night": 5,
+    "Holdan": 6,
+    "Hooly": 172,
+    "Hooly AI Free": 26,
+    "Hooly AI Pro": 54,
+    "Hooly Android": 35,
+    "Hooly Android 16": 43,
+    "Hooly Android 17": 58,
+    "Hooly Berlin Office": 31,
+    "Hooly Board": 67,
+    "Hooly Calendar": 31,
+    "Hooly Chrome": 79,
+    "Hooly Cloud": 73,
+    "Hooly Cloud Next 2026": 69,
+    "Hooly Devices": 26,
+    "Hooly Docs": 36,
+    "Hooly Drive": 33,
+    "Hooly Employee Survey": 31,
+    "Hooly Gemini": 237,
+    "Hooly Gmail": 59,
+    "Hooly Hiring Programme": 89,
+    "Hooly I/O 2026": 48,
+    "Hooly I/O 2027": 7,
+    "Hooly Jules": 118,
+    "Hooly Lisbon Office": 30,
+    "Hooly Maps": 78,
+    "Hooly Maps Day": 23,
+    "Hooly Meet": 45,
+    "Hooly Photos": 83,
+    "Hooly Photos Lite": 11,
+    "Hooly Photos Max": 6,
+    "Hooly Photos Plus": 19,
+    "Hooly Pixel 10": 72,
+    "Hooly Pixel 10 Pro": 65,
+    "Hooly Pixel 9": 40,
+    "Hooly Pixel Buds": 19,
+    "Hooly Pixel Fold": 73,
+    "Hooly Pixel Watch": 40,
+    "Hooly Q1 2026 Results": 27,
+    "Hooly Q2 2026 Results": 9,
+    "Hooly Q3 2026 Results": 9,
+    "Hooly Q4 2025 Results": 41,
+    "Hooly Search": 58,
+    "Hooly Sheets": 27,
+    "Hooly Sustainability Report": 24,
+    "Hooly Translate": 76,
+    "Hooly Vault": 26,
+    "Hooly Workspace": 92,
+    "Hooly Workspace Enterprise": 47,
+    "Hoovar": 19,
+    "Made by Hooly 2026": 56,
+    "Meridian Health": 4,
+    "Patreese": 5,
+    "Peter Gregori": 3,
+    "Quayside Hall": 7,
+    "Rheinhalle": 2,
+    "Ron LaFlame": 1,
+    "The May 2026 outage": 13
+  },
+  "max_text_characters": 247,
+  "checks": {
+    "exact_row_counts": "passed",
+    "ids_unique_across_combined": "passed",
+    "texts_novel_and_unique_ignoring_case_and_punctuation": "passed",
+    "source_dates_labels_and_complete_forms_preserved": "passed",
+    "no_new_numeric_literals_beyond_source_text_and_form": "passed",
+    "subjects_and_attributes_in_lexicon": "passed",
+    "original_inputs_and_frozen_splits_unchanged": "passed"
+  },
+  "truth_verification": {
+    "status": "not_independently_verified",
+    "basis": "original annotations and semantic paraphrase review; no new oracle"
+  },
+  "evaluation": {
+    "status": "not_run",
+    "reason": "dataset authoring only; full-practice descendants are not held-out test data"
+  },
+  "builder_sha256": {
+    "build_dataset.py": "2a3045b6bdd2ffe6560566456c01a86737e4f7a3cef8dbf9d8a47173fb29a8a3",
+    "work/false/generate.py": "5d429e5e81a7d184457717edf5036df6013bcb78d7e7eb7008e694b31fe3de23",
+    "work/true/generate.py": "7755c8a80ed215f082475a98c782efe0b233a524d5149719dea20874741a0ed4",
+    "work/unsure/generate.py": "8644b3831017e79ff90089ab65f7dc0db91885a74e858f45e1b624d41418fcf3"
+  },
+  "output_sha256": {
+    "practice_additional_2000.csv": "d9cde57fb90afd369df9ae26506b189c76b6c4e25f3f731e5b24caf0b0d3b6d9",
+    "practice_combined_3897.csv": "be6e327158d49217ead8b5aab26ec39e0475ac5d8f5bbd06c2c31b7be091660d",
+    "provenance.jsonl": "a4a54967a7ad1f3f128254cb9a77b4ea897ccd438964d59af83e361d082d8da1"
+  }
+}
