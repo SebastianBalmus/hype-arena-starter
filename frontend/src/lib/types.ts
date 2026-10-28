@@ -23,6 +23,8 @@ export interface ResultRow {
   p_timeline: number;
   p_hmm: number;
   facts: Fact[];
+  /** step 1, entity resolution: the sentence with each entity replaced by its registry ID */
+  entities?: { normalized_text: string; mentions: { entity_id: number; canonical_name: string; start: number; end: number }[] } | null | undefined;
   /** the row's real label, when the server knows it (held-out practice rows): shown, never used */
   gold?: Verdict | undefined;
 }

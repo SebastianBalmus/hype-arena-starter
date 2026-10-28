@@ -245,7 +245,10 @@ class Demo:
         pf_w = tr.get("p_false_windows", pred.probs.get("false", 0))
         pf_h = tr.get("p_false_hmm", pred.probs.get("false", 0))
         pick = (lambda pf: pf) if lab == "false" else (lambda pf: 1 - pf)
+        ents = self.pipeline.reader.linker.as_json(row.text) if self.pipeline.reader.linker else None
         return {"id": row.id, "text": row.text, "date": row.date, "label": lab,
+                "entities": ents and {"normalized_text": ents["normalized_text"],
+                                      "mentions": [{k: m[k] for k in ("entity_id", "canonical_name", "start", "end")} for m in ents["mentions"]]},
                 "confidence": None if conf is None else round(conf, 4), "lie_type": lie,
                 "explanation": self._explain(row, lab, worst, worst_runs, tr, lie),
                 "p_timeline": round(pick(pf_w), 3), "p_hmm": round(pick(pf_h), 3),

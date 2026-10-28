@@ -162,6 +162,9 @@ def main(argv=None):
     names = build_names(lexicon, [r for r in rows if r.atoms])
     model = Pipeline(GatedHybrid).fit(rows, lexicon, names)
     log(f"pipeline fitted ({time.time() - t0:.0f} s)")
+    reg = model.reader.registry["entities"]
+    amb = sum(1 for r in rows if model.reader.linker and model.reader.linker.normalize(r.text)["ambiguous_mentions"])
+    log(f"entity registry: {len(reg)} entities ({sum(e['is_event'] for e in reg)} events), {amb} rows with an ambiguous name")
     maps = load_calibration(args.calibration)
     labels, preds = [], []
     for r in todo:

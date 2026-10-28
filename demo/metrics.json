@@ -215,6 +215,14 @@
       "prediction": "More wordings, better parser",
       "outcome": "88.6% -> 87.1%: templated text misleads the parser",
       "held": false
+    },
+    {
+      "id": "ent",
+      "idea": "Entity resolution with stable IDs (Sebi's linker)",
+      "source": "Teammate's preprocessing",
+      "prediction": "Same entities, clearer pipeline",
+      "outcome": "Identical entities on all 1,897 rows; now step 1 of the system",
+      "held": true
     }
   ]
 }

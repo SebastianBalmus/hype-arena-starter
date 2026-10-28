@@ -11,6 +11,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Pixel 9 came out on August 12, 2025 and remains our bestseller.",
     "date": "2025-12-02",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:39> came out on August 12, 2025 and remains our bestseller.",
+     "mentions": [
+      {
+       "entity_id": 39,
+       "canonical_name": "Hooly Pixel 9",
+       "start": 0,
+       "end": 13
+      }
+     ]
+    },
     "confidence": 0.8357,
     "lie_type": null,
     "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
@@ -24,6 +35,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "It stores 128 GB and a 4,700 mAh battery keeps the Pixel 9 going.",
     "date": "2025-12-02",
     "label": "true",
+    "entities": {
+     "normalized_text": "It stores 128 GB and a 4,700 mAh battery keeps the <ENTITY:39> going.",
+     "mentions": [
+      {
+       "entity_id": 39,
+       "canonical_name": "Hooly Pixel 9",
+       "start": 51,
+       "end": 58
+      }
+     ]
+    },
     "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly Pixel 9 · storage = 128 GB. The record agrees after that date: 128 GB from 2025-12-03 to 2026-05-18 (3 labelled rows). The value could have changed since, which lowers the confidence.",
@@ -117,6 +139,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Buyers of Pixel 9 give it 4.2 stars, a score that has held since the autumn.",
     "date": "2025-12-02",
     "label": "true",
+    "entities": {
+     "normalized_text": "Buyers of <ENTITY:39> give it 4.2 stars, a score that has held since the autumn.",
+     "mentions": [
+      {
+       "entity_id": 39,
+       "canonical_name": "Hooly Pixel 9",
+       "start": 10,
+       "end": 17
+      }
+     ]
+    },
     "confidence": 0.9367,
     "lie_type": null,
     "explanation": "Says Hooly Pixel 9 · store rating = 4.2 stars. The record agrees after that date: 4.2 stars from 2025-12-10 to 2026-04-28 (6 labelled rows). The value could have changed since, which lowers the confidence.",
@@ -184,6 +217,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Pixel 9 has sold over 600,000 phones so far.",
     "date": "2025-12-02",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:39> has sold over 600,000 phones so far.",
+     "mentions": [
+      {
+       "entity_id": 39,
+       "canonical_name": "Hooly Pixel 9",
+       "start": 0,
+       "end": 13
+      }
+     ]
+    },
     "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly Pixel 9 · units sold = more than 600,000 phones. The record agrees after that date: 640,000 phones from 2025-12-10 to 2025-12-12 (2 labelled rows). The value could have changed since, which lowers the confidence.",
@@ -250,6 +294,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Devices sells the phone in 6 countries, with more to follow.",
     "date": "2025-12-02",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:19> sells the phone in 6 countries, with more to follow.",
+     "mentions": [
+      {
+       "entity_id": 19,
+       "canonical_name": "Hooly Devices",
+       "start": 0,
+       "end": 13
+      }
+     ]
+    },
     "confidence": 0.977,
     "lie_type": null,
     "explanation": "Says Hooly Devices · countries served = 6 countries. The record agrees after that date: 6 countries from 2025-12-03 to 2026-02-02 (3 labelled rows). The value could have changed since, which lowers the confidence.",
@@ -332,6 +387,23 @@ export const SNAPSHOT: Snapshot = {
     "text": "Pixel 9 promises 5 upgrades, and Hooly Android 16.0 is the platform that powers it.",
     "date": "2025-12-02",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:39> promises 5 upgrades, and <ENTITY:10> 16.0 is the platform that powers it.",
+     "mentions": [
+      {
+       "entity_id": 39,
+       "canonical_name": "Hooly Pixel 9",
+       "start": 0,
+       "end": 7
+      },
+      {
+       "entity_id": 10,
+       "canonical_name": "Hooly Android",
+       "start": 33,
+       "end": 46
+      }
+     ]
+    },
     "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly Android · version = version 16.0; the record before that date says version 15.0 from 2025-11-05 to 2025-11-05 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
@@ -451,6 +523,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "The Pixel 9 is not discontinued, so stock is not an issue.",
     "date": "2025-12-02",
     "label": "true",
+    "entities": {
+     "normalized_text": "The <ENTITY:39> is not discontinued, so stock is not an issue.",
+     "mentions": [
+      {
+       "entity_id": 39,
+       "canonical_name": "Hooly Pixel 9",
+       "start": 4,
+       "end": 11
+      }
+     ]
+    },
     "confidence": 0.7676,
     "lie_type": null,
     "explanation": "Says Hooly Pixel 9 · discontinued = no; the record after that date says yes from 2026-10-21 to 2026-10-21 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
@@ -497,6 +580,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Our contract manufacturer Tessel Works builds the Pixel 9 for us.",
     "date": "2025-12-02",
     "label": "true",
+    "entities": {
+     "normalized_text": "Our contract manufacturer Tessel Works builds the <ENTITY:39> for us.",
+     "mentions": [
+      {
+       "entity_id": 39,
+       "canonical_name": "Hooly Pixel 9",
+       "start": 50,
+       "end": 57
+      }
+     ]
+    },
     "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly Devices · manufacturing partner = Tessel Works. The record agrees after that date: Tessel Works from 2025-12-12 to 2026-10-08 (6 labelled rows). The value could have changed since, which lowers the confidence.",
@@ -553,6 +647,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly AI Pro's 14-day trial was enough for me.",
     "date": "2026-03-05",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:9>'s 14-day trial was enough for me.",
+     "mentions": [
+      {
+       "entity_id": 9,
+       "canonical_name": "Hooly AI Pro",
+       "start": 0,
+       "end": 12
+      }
+     ]
+    },
     "confidence": 0.8611,
     "lie_type": null,
     "explanation": "Says Hooly AI Pro · free trial = 14 days. The record agrees on that date: 2 weeks from 2025-10-07 to 2026-03-18 (12 labelled rows).",
@@ -630,6 +735,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Gemini answers in under 1 s, every time.",
     "date": "2026-03-05",
     "label": "false",
+    "entities": {
+     "normalized_text": "<ENTITY:23> answers in under 1 s, every time.",
+     "mentions": [
+      {
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
+       "start": 0,
+       "end": 12
+      }
+     ]
+    },
     "confidence": 0.5501,
     "lie_type": "DEFLATED",
     "explanation": "Says Hooly Gemini · median response time = less than 1 second; the record before that date says 2.1 seconds from 2025-10-10 to 2026-02-10 (5 labelled rows). The claim is smaller than the record.",
@@ -691,6 +807,10 @@ export const SNAPSHOT: Snapshot = {
     "text": "Berlin, 24 March 2026",
     "date": "2026-03-24",
     "label": "true",
+    "entities": {
+     "normalized_text": "Berlin, 24 March 2026",
+     "mentions": []
+    },
     "confidence": 0.9504,
     "lie_type": null,
     "explanation": "Says Hooly I/O 2026 · city = Berlin. The record agrees on that date: Berlin from 2026-02-01 to 2026-04-10 (5 labelled rows).",
@@ -789,6 +909,41 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly today launched Hooly Gemini 2.0 in front of 1,200 attendees at Hooly I/O. Hooly Gemini speaks 12 languages and Hooly Gemini answers in 1.4 s at the median.",
     "date": "2026-03-24",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:7> today launched <ENTITY:23> 2.0 in front of 1,200 attendees at <ENTITY:26>. <ENTITY:23> speaks 12 languages and <ENTITY:23> answers in 1.4 s at the median.",
+     "mentions": [
+      {
+       "entity_id": 7,
+       "canonical_name": "Hooly",
+       "start": 0,
+       "end": 5
+      },
+      {
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
+       "start": 21,
+       "end": 33
+      },
+      {
+       "entity_id": 26,
+       "canonical_name": "Hooly I/O 2026",
+       "start": 69,
+       "end": 78
+      },
+      {
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
+       "start": 80,
+       "end": 92
+      },
+      {
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
+       "start": 117,
+       "end": 129
+      }
+     ]
+    },
     "confidence": 0.8611,
     "lie_type": null,
     "explanation": "Says Hooly I/O 2026 · attendees = 1,200 attendees. The record agrees on that date: 1,200 attendees from 2026-03-24 to 2026-04-10 (3 labelled rows).",
@@ -1049,6 +1204,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly Jules at €19 a month replaced three tools for me.",
     "date": "2026-06-09",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:28> at €19 a month replaced three tools for me.",
+     "mentions": [
+      {
+       "entity_id": 28,
+       "canonical_name": "Hooly Jules",
+       "start": 0,
+       "end": 11
+      }
+     ]
+    },
     "confidence": 0.8306,
     "lie_type": null,
     "explanation": "Says Hooly Jules · price = €19 per month. The record agrees on that date: €19 per month from 2026-06-02 to 2026-08-18 (11 labelled rows).",
@@ -1105,6 +1271,10 @@ export const SNAPSHOT: Snapshot = {
     "text": "The 14-day trial sealed it.",
     "date": "2026-06-09",
     "label": "true",
+    "entities": {
+     "normalized_text": "The 14-day trial sealed it.",
+     "mentions": []
+    },
     "confidence": 0.9367,
     "lie_type": null,
     "explanation": "Says Hooly Jules · free trial = 14 days. The record agrees on that date: 14 days from 2026-06-02 to 2026-08-18 (5 labelled rows).",
@@ -1161,6 +1331,10 @@ export const SNAPSHOT: Snapshot = {
     "text": "Even 60% of its suggestions went straight into my repo.",
     "date": "2026-06-09",
     "label": "false",
+    "entities": {
+     "normalized_text": "Even 60% of its suggestions went straight into my repo.",
+     "mentions": []
+    },
     "confidence": 0.6836,
     "lie_type": "INFLATED",
     "explanation": "Says Hooly Jules · suggestion acceptance rate = 60%; the record before that date says 31% from 2026-06-02 to 2026-06-03 (2 labelled rows). The claim is bigger than the record.",
@@ -1222,6 +1396,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Gemini kept 97.9% uptime last quarter.",
     "date": "2026-07-05",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:23> kept 97.9% uptime last quarter.",
+     "mentions": [
+      {
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
+       "start": 0,
+       "end": 6
+      }
+     ]
+    },
     "confidence": 0.9081,
     "lie_type": null,
     "explanation": "Says Hooly Gemini · uptime last quarter = 97.9%; the record before that date says 99.4% from 2026-04-05 to 2026-04-05 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
@@ -1299,6 +1484,23 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly has had 1 incident this year, the outage, which lasted 6 hours.",
     "date": "2026-07-05",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:7> has had 1 incident this year, the <ENTITY:62>, which lasted 6 hours.",
+     "mentions": [
+      {
+       "entity_id": 7,
+       "canonical_name": "Hooly",
+       "start": 0,
+       "end": 5
+      },
+      {
+       "entity_id": 62,
+       "canonical_name": "The May 2026 outage",
+       "start": 40,
+       "end": 46
+      }
+     ]
+    },
     "confidence": 0.9081,
     "lie_type": null,
     "explanation": "Says The May 2026 outage · duration = 6 hours. The record agrees before that date: 6 hours from 2026-05-20 to 2026-05-21 (2 labelled rows). The value could have changed since, which lowers the confidence.",
@@ -1350,6 +1552,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Hooly is SOC 2 Type II certified, and every customer can request the report.",
     "date": "2026-09-01",
     "label": "false",
+    "entities": {
+     "normalized_text": "<ENTITY:7> is SOC 2 Type II certified, and every customer can request the report.",
+     "mentions": [
+      {
+       "entity_id": 7,
+       "canonical_name": "Hooly",
+       "start": 0,
+       "end": 5
+      }
+     ]
+    },
     "confidence": 0.8076,
     "lie_type": "CONTRADICTED",
     "explanation": "Says Hooly · soc2 certified = yes; the record on that date says no from 2026-03-01 to 2026-09-21 (3 labelled rows).",
@@ -1406,6 +1619,10 @@ export const SNAPSHOT: Snapshot = {
     "text": "Conversation history is kept for 90 days after each session, then deleted.",
     "date": "2026-09-01",
     "label": "true",
+    "entities": {
+     "normalized_text": "Conversation history is kept for 90 days after each session, then deleted.",
+     "mentions": []
+    },
     "confidence": 0.8357,
     "lie_type": null,
     "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
@@ -1419,6 +1636,17 @@ export const SNAPSHOT: Snapshot = {
     "text": "Gemini delivered 97.9% uptime last quarter.",
     "date": "2026-09-01",
     "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:23> delivered 97.9% uptime last quarter.",
+     "mentions": [
+      {
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
+       "start": 0,
+       "end": 6
+      }
+     ]
+    },
     "confidence": 0.977,
     "lie_type": null,
     "explanation": "Says Hooly Gemini · uptime last quarter = 97.9%. The record agrees on that date: 97.9% from 2026-09-01 to 2026-09-01 (1 labelled rows).",
@@ -1493,7 +1721,7 @@ export const SNAPSHOT: Snapshot = {
    }
   ],
   "meta": {
-   "runtime_ms": 3304,
+   "runtime_ms": 3045,
    "model": "Reader -> gated hybrid -> calibration",
    "csv_url": "/api/output.csv",
    "rows": 20,
@@ -3860,6 +4088,14 @@ export const SNAPSHOT: Snapshot = {
     "prediction": "More wordings, better parser",
     "outcome": "88.6% -> 87.1%: templated text misleads the parser",
     "held": false
+   },
+   {
+    "id": "ent",
+    "idea": "Entity resolution with stable IDs (Sebi's linker)",
+    "source": "Teammate's preprocessing",
+    "prediction": "Same entities, clearer pipeline",
+    "outcome": "Identical entities on all 1,897 rows; now step 1 of the system",
+    "held": true
    }
   ]
  }

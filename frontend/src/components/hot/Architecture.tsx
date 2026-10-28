@@ -9,30 +9,33 @@ export const NODES: Node[] = [
   { id: "input", title: "Input rows", sub: "id · text · date", x: 70, y: 150, stat: "19,000", statLabel: "rows in 47 s",
     judge: "Every sentence about the company comes in with the date it was written. Labels only for the practice rows.",
     engineer: "universe.csv (id, text, date, label) and the runtime lexicon. Practice rows get their annotated facts back only when id, text and date all match; every other row is read from its text. Consecutive rows with the same date form a page." },
-  { id: "reader", title: "Reader", sub: "value grammar · subjects · attribute scorer", x: 250, y: 150, stat: "0.94 / 0.81", statLabel: "fact precision / recall, unseen pages",
+  { id: "entities", title: "Entities", sub: "registry · stable IDs", x: 210, y: 150, stat: "62", statLabel: "entities, 0 ambiguous names on practice",
+    judge: "Before reading any number, the system works out which product, person or event each sentence is about, using the organisers' list of names and aliases.",
+    engineer: "Entity resolution by Sebastian Balmus (hooly/entities.py): every lexicon name and alias matched as whole words in any case and spacing, longest span first, so a name inside a longer name belongs to the longer one, exactly as the claim referee reads names. Each entity gets a stable ID (<ENTITY:23>); a spelling shared by two entities stays unresolved instead of guessed; 'Hooly Android 16.0' is Hooly Android at version 16.0." },
+  { id: "reader", title: "Reader", sub: "value grammar · subjects · attribute scorer", x: 350, y: 150, stat: "0.94 / 0.81", statLabel: "fact precision / recall, unseen pages",
     judge: "The Reader picks out every concrete fact in a sentence — a price, a headcount, a name, a yes or no — and works out what it is about.",
-    engineer: "A regex value grammar (money, counts, durations, dates with precision, versions, names, 'more than') finds 2,225 of 2,228 annotated values. Subjects come from lexicon names, distinctive name words and the rest of the page. A logistic-regression scorer ranks (subject, attribute) pairs from cue words, attribute words, counted nouns and closeness to known values, trained with each row's own page left out and 35% cue dropout. Yes/no facts: attribute words plus clause-level negation. An isotonic map turns the score into a parse confidence." },
-  { id: "truth", title: "Truth model", sub: "timelines · HMM · hybrid stacker", x: 450, y: 150, stat: "88.8%", statLabel: "accuracy on unseen pages, real parsing",
+    engineer: "A regex value grammar (money, counts, durations, dates with precision, versions, names, 'more than') finds 2,225 of 2,228 annotated values. Subjects come from the entity registry (previous step), distinctive name words and the rest of the page. A logistic-regression scorer ranks (subject, attribute) pairs from cue words, attribute words, counted nouns and closeness to known values, trained with each row's own page left out and 35% cue dropout. Yes/no facts: attribute words plus clause-level negation. An isotonic map turns the score into a parse confidence." },
+  { id: "truth", title: "Truth model", sub: "timelines · HMM · hybrid stacker", x: 495, y: 150, stat: "88.8%", statLabel: "accuracy on unseen pages, real parsing",
     judge: "For each fact, it builds a timeline of what the record says and when. It then asks: does this sentence fit what was true on that date?",
     engineer: "Per (subject, attribute): runs of labelled-true values with certain cores and fuzzy edges (four-date windows, as in TAC KBP), states learned with back-off and leave-own-page-out, plus lie shapes (a value held at another time, bigger, smaller, rounder). An HMM fitted by EM over every sentence, labelled or not, adds cross-row consistency. A logistic stacker blends both; where no labelled anchor exists, a confident HMM decides." },
-  { id: "calib", title: "Calibration", sub: "isotonic", x: 640, y: 90, stat: "92% → 92%", statLabel: "says 92%, right 92%",
+  { id: "calib", title: "Calibration", sub: "isotonic", x: 660, y: 90, stat: "92% → 92%", statLabel: "says 92%, right 92%",
     judge: "When it says it's 92% sure, it's right 92% of the time. Confidence you can actually lean on.",
     engineer: "Cross-fitted isotonic maps per label on held-out pages; ECE 0.025. A false call whose calibrated chance of being right drops below 0.5 becomes true. Unsure only when it is the most likely label." },
-  { id: "labels", title: "Labels", sub: "true · false · unsure", x: 820, y: 90, stat: "5", statLabel: "lie types: stale · premature · inflated · deflated · contradicted",
+  { id: "labels", title: "Labels", sub: "true · false · unsure", x: 830, y: 90, stat: "5", statLabel: "lie types: stale · premature · inflated · deflated · contradicted",
     judge: "Each sentence gets a verdict, a confidence, and — if it's wrong — the kind of wrong.",
     engineer: "Label + calibrated confidence (0.5-1, empty for unsure). The lie type comes from the timeline: a value the fact held earlier (stale) or later (premature), bigger or smaller than the record, or simply contradicted." },
-  { id: "writer", title: "Writer", sub: "templates from timelines", x: 640, y: 220, stat: "5", statLabel: "claim types",
+  { id: "writer", title: "Writer", sub: "templates from timelines", x: 660, y: 220, stat: "5", statLabel: "claim types",
     judge: "The Writer turns what the record proves into new, plain sentences: changes, comparisons, facts at events.",
     engineer: "Templates over labelled-true anchors only: changes between consecutive values, date and amount comparisons (at least 1.5x apart), relations through a link attribute, values at an event, plain facts. At most 6 claims per fact, relaxed before a second tier built from rows the system itself labelled true with confidence 0.95+." },
-  { id: "referee", title: "Referee", sub: "contract rules", x: 820, y: 220, stat: "100%", statLabel: "claims re-read",
+  { id: "referee", title: "Referee", sub: "contract rules", x: 830, y: 220, stat: "100%", statLabel: "claims re-read",
     judge: "The Referee re-reads every claim with the contract's rules and throws out anything it can't fully back up.",
     engineer: "Re-reads each claim with its own extractor: one sentence under 300 characters, every subject named, lexicon attributes only, the stated values match the form, comparisons state no numbers, no copy of an input row." },
-  { id: "claims", title: "1,000 claims", sub: "new and true", x: 990, y: 220, stat: "0", statLabel: "contradicted by held-out evidence",
+  { id: "claims", title: "1,000 claims", sub: "new and true", x: 1000, y: 220, stat: "0", statLabel: "contradicted by held-out evidence",
     judge: "What's left: a thousand new statements, each with its proof attached.",
     engineer: "Safest first, deduplicated, written to output.csv with their structured form. Checked against held-out practice rows: none contradicted." },
 ];
 
-const EDGES: [string, string][] = [["input", "reader"], ["reader", "truth"], ["truth", "calib"], ["calib", "labels"], ["truth", "writer"], ["writer", "referee"], ["referee", "claims"]];
+const EDGES: [string, string][] = [["input", "entities"], ["entities", "reader"], ["reader", "truth"], ["truth", "calib"], ["calib", "labels"], ["truth", "writer"], ["writer", "referee"], ["referee", "claims"]];
 const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 
 export function Architecture() {

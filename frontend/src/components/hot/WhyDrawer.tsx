@@ -115,6 +115,19 @@ export function WhyDrawer({ row, onClose }: { row: ResultRow | null; onClose: ()
             </div>
             <div className="mt-6 flex items-center gap-3"><VerdictChip label={row.label} />{row.lie_type && <span className="label text-hype">{row.lie_type}</span>}</div>
             <div className="mt-6"><Highlighted row={row} /></div>
+            {row.entities && row.entities.mentions.length > 0 && (
+              <div className="mt-6 rounded-3xl border border-border p-4">
+                <p className="label mb-2 text-[9px] text-muted-foreground">Step 1 · entity resolution</p>
+                <p className="font-mono text-xs leading-relaxed">{row.entities.normalized_text}</p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {[...new Map(row.entities.mentions.map((m) => [m.entity_id, m])).values()].map((m) => (
+                    <span key={m.entity_id} className="label rounded-full border border-border px-2 py-1 text-[8px]">
+                      ENTITY:{m.entity_id} = {m.canonical_name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
             <p className="mt-6 leading-relaxed text-foreground/80">{row.explanation}</p>
 
             <div className="mt-8 grid grid-cols-3 gap-2 rounded-3xl border border-border p-5">

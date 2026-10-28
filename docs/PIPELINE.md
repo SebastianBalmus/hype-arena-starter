@@ -54,7 +54,8 @@ other row is read from its text.
    comparison words ("over 5,000" is *more than* 5,000, not 5,000). Numbers inside names
    ("Hooly Android 17", "Pixel 9") are not values. It recovers 2,225 of the 2,228 values
    annotated in the practice data.
-2. **Subject.** Names from the lexicon, longest first ("Hooly AI Pro" is the plan, not
+2. **Subject.** Entity resolution first (`entities.py`, from Sebastian Balmus's linker): a
+   registry of every lexicon entity with a stable ID; names from the lexicon, longest first ("Hooly AI Pro" is the plan, not
    the company; "Hooly Android 16.0" is Hooly Android at version 16.0). Many sentences do
    not name their subject ("He begins with 4 engineers", "Its paid accounts..."): the other
    rows of the same page supply candidates (earlier rows first), so do distinctive name

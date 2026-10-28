@@ -674,6 +674,22 @@ fact claims (expected misses 5.2 -> 3.8), the rest filled with event and compare
 Held-out claim check (`evaluation/claims_eval.py`, 5 folds, 5,000 claims): 1 contradicted
 (an event date that hidden pages show moved), 166 unverifiable, the rest confirmed.
 
+## Round 9: entity resolution from Sebi's linker (2026-10-29)
+
+`hooly/entities.py` is Sebastian Balmus's entity linker (`entity_linking/linker.py` on his
+branch), now the Reader's only way of finding entities: a registry built from the runtime
+lexicon gives every entity a stable ID (alphabetical, the same IDs as his registry, e.g.
+Hooly Gemini = 23); names and aliases match as whole words in any case and spacing, longest
+span first, exactly as the claim referee reads names; a spelling shared by two entities
+stays unresolved instead of guessed. The runtime logs the registry ("62 entities (13 events),
+0 rows with an ambiguous name"); the demo shows each sentence resolved (`<ENTITY:28> at €19 a
+month ...`) as step 1, and the architecture diagram has its own node.
+
+On all 1,897 practice rows it finds exactly the entities our matcher found, so verdicts are
+identical (held out 0.888 calibrated, F1 false 0.640; check.sh 333/380). His extra rule that a
+lower-case "photos" or "maps" after a number is a noun changes 9 rows and costs 0.3 points
+(0.885, F1 false 0.620): those rows really are about Hooly Photos or Hooly Maps. Off.
+
 ## Planned experiments and predictions
 
 | id | idea | source | prediction |

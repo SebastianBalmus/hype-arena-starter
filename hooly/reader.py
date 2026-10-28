@@ -18,6 +18,7 @@ import re
 from collections import Counter, defaultdict
 
 from .data import Atom, Row
+from .entities import EntityLinker, build_registry
 from .extract import Extractor, _singular, negated_at
 from .learn import LogReg
 from .values import normalize, satisfies
@@ -122,6 +123,8 @@ class Reader:
     BOOL_MODAL = True       # no yes/no fact from a clause that is a plan or a hedge ("should be available")
     AFTER_NAME = True       # signal: the value comes right after a named subject ("Hooly Chrome 69.0")
     FALLBACK = (0.2, 0.25)  # second chance on rows with no fact found: lower (value, yes/no) cut-offs
+    LINKER = "registry"     # entity resolution with stable IDs (hooly/entities.py, from Sebi); "own": old matcher
+    SUPPRESS_COUNTED = False  # registry linker: "4,900,000,000 photos" is a noun, not Hooly Photos
 
     def __init__(self, threshold: float = 0.35, bool_threshold: float = 0.5, seed: int = 0, cue_dropout: float = 0.35):
         self.threshold, self.bool_threshold, self.seed = threshold, bool_threshold, seed
@@ -139,6 +142,8 @@ class Reader:
                 rx = re.compile(r"(?<![\w])" + r"\s*".join(map(re.escape, n.split())) + r"(?!\w|\.\d)", re.I)
                 self.spellings.append((len(n), rx, s["name"]))
         self.spellings.sort(key=lambda x: -x[0])
+        self.registry = build_registry(lexicon)
+        self.linker = EntityLinker(self.registry, self.SUPPRESS_COUNTED) if self.LINKER == "registry" else None
         # distinctive name words ("Berlin" -> Hooly Berlin Office, "the Plus plan" -> Hooly Photos Plus)
         tok_subj = defaultdict(set)
         for s in lexicon["subjects"]:
@@ -328,6 +333,8 @@ class Reader:
 
     # ------------------------------------------------------------------ candidates
     def mentions(self, text: str) -> list[tuple[int, int, str]]:
+        if getattr(self, "linker", None) is not None:
+            return self.linker.mentions(text)
         taken, out = [], []
         for _, rx, subj in self.spellings:
             for m in rx.finditer(text):
