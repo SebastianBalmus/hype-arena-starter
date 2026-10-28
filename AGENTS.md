@@ -18,3 +18,17 @@ because a skill demonstrates them. Skills are development resources, not runtime
 requirements; package only resources needed by inference into the final image.
 
 Upstream commits and file hashes are recorded in `.agents/skills/upstream-lock.json`.
+
+# Instructions for agents working on Hype Arena methods
+
+Before implementing, training, evaluating or comparing a method, read and follow
+[EVALUATION.md](EVALUATION.md).
+
+- Use the frozen shared splits in [evaluation/splits-v1.json](evaluation/splits-v1.json).
+- Rebuild each method's assets using only the evidence allowed by its evaluation split and policy.
+- Save each experiment in its own directory; preserve the reference baseline results.
+- Report unsupported or unverified capabilities explicitly. Do not claim generated truth from self-validation.
+- Compare methods only under matching benchmark versions, splits, evidence access and decision policies.
+
+The task README and `contracts/` govern competition submissions. `EVALUATION.md`
+governs our local comparisons; it does not replace the organizer's rules.

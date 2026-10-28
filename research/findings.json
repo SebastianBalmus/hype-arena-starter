@@ -1,0 +1,392 @@
+{
+  "profile": {
+    "rows": 1897,
+    "labels": {
+      "true": 1581,
+      "false": 277,
+      "unsure": 39
+    },
+    "subjects": 62,
+    "lexicon_attribute_slots": 514,
+    "events": 13,
+    "date_range": [
+      "2025-10-07",
+      "2026-10-28"
+    ],
+    "atoms": 2402,
+    "atoms_per_row": {
+      "1": 1467,
+      "2": 373,
+      "3": 45,
+      "4": 9,
+      "8": 1,
+      "5": 2
+    },
+    "atom_kinds": {
+      "date": 165,
+      "name": 209,
+      "quantity": 1028,
+      "percent": 201,
+      "duration": 229,
+      "version": 128,
+      "boolean": 174,
+      "money": 268
+    },
+    "slots_with_true_rows": 502,
+    "slots_with_exact_true_values": 501,
+    "canonical_exact_true_values": 830,
+    "slots_with_multiple_canonical_exact_true_values": 245,
+    "slots_without_true_rows": [
+      [
+        "Hooly Maps",
+        "offline_maps"
+      ],
+      [
+        "Hooly Android 17",
+        "beta_opened"
+      ],
+      [
+        "Hooly",
+        "annual_recurring_revenue"
+      ],
+      [
+        "Hooly Pixel 10 Pro",
+        "weight"
+      ],
+      [
+        "Hooly Pixel 10 Pro",
+        "colours"
+      ],
+      [
+        "Hooly Pixel 10 Pro",
+        "main_camera"
+      ],
+      [
+        "Hooly Pixel Watch",
+        "sensors"
+      ],
+      [
+        "Hooly Calendar",
+        "active_users"
+      ],
+      [
+        "Hooly",
+        "series_a_co_investor"
+      ],
+      [
+        "Hooly I/O 2027",
+        "date"
+      ],
+      [
+        "Hooly Workspace",
+        "launched"
+      ],
+      [
+        "Hooly Pixel 9",
+        "screen_size"
+      ]
+    ],
+    "rows_without_whole_word_alias_match": 561,
+    "atoms_with_explicit_whole_word_subject_alias": 1647,
+    "multi_atom_rows": 430,
+    "multi_atom_false_rows": 75,
+    "identical_texts_with_multiple_labels": [
+      {
+        "text": "Hooly Search has 540,000,000 users each month.",
+        "rows": [
+          [
+            "p-108",
+            "2026-02-25",
+            "true"
+          ],
+          [
+            "p-1217",
+            "2026-06-16",
+            "false"
+          ]
+        ]
+      },
+      {
+        "text": "The hinge of Hooly Pixel Fold is rated for 200,000 folds.",
+        "rows": [
+          [
+            "p-152",
+            "2026-06-25",
+            "true"
+          ],
+          [
+            "p-608",
+            "2026-08-18",
+            "unsure"
+          ],
+          [
+            "p-1770",
+            "2026-06-30",
+            "true"
+          ]
+        ]
+      },
+      {
+        "text": "Captions in 11 languages",
+        "rows": [
+          [
+            "p-273",
+            "2026-03-24",
+            "unsure"
+          ],
+          [
+            "p-732",
+            "2026-10-08",
+            "true"
+          ]
+        ]
+      },
+      {
+        "text": "Hooly Gemini replies in 2.1 s at the median.",
+        "rows": [
+          [
+            "p-1459",
+            "2025-11-14",
+            "true"
+          ],
+          [
+            "p-1474",
+            "2026-08-20",
+            "false"
+          ]
+        ]
+      }
+    ],
+    "candidate_capacity_NOT_verified_claims": {
+      "latest_true_exact_slots": 501,
+      "latest_true_evidence_months": {
+        "2025-10": 1,
+        "2025-11": 7,
+        "2025-12": 3,
+        "2026-01": 8,
+        "2026-02": 8,
+        "2026-03": 16,
+        "2026-04": 36,
+        "2026-05": 23,
+        "2026-06": 25,
+        "2026-07": 40,
+        "2026-08": 38,
+        "2026-09": 82,
+        "2026-10": 214
+      },
+      "unordered_dimension_compatible_pairs": 4249,
+      "same_attribute_subset": 409,
+      "ordered_observed_value_changes_same_kind_dimension": 436,
+      "warning": "Counts ignore as-of validity, partial-date compatibility, renderability, and hidden changes; these are candidate pools, not certified truths."
+    }
+  },
+  "experiments": {
+    "every_fifth_row_hidden": {
+      "train_rows": 1517,
+      "test_rows": 380,
+      "always_true": {
+        "rows": 380,
+        "three_way_accuracy": 0.8526,
+        "decided_coverage": 1.0,
+        "decided_precision": 0.8526,
+        "macro_f1": 0.3068,
+        "false_recall": 0.0,
+        "confusion": {
+          "false->true": 49,
+          "true->true": 324,
+          "unsure->true": 7
+        }
+      },
+      "tfidf_1nn": {
+        "rows": 380,
+        "three_way_accuracy": 0.8,
+        "decided_coverage": 0.9868,
+        "decided_precision": 0.8107,
+        "macro_f1": 0.3736,
+        "false_recall": 0.2041,
+        "confusion": {
+          "false->false": 10,
+          "false->true": 38,
+          "false->unsure": 1,
+          "true->false": 26,
+          "true->true": 294,
+          "true->unsure": 4,
+          "unsure->false": 1,
+          "unsure->true": 6
+        }
+      },
+      "tfidf_1nn_date_penalty_90_days": {
+        "rows": 380,
+        "three_way_accuracy": 0.8026,
+        "decided_coverage": 0.9868,
+        "decided_precision": 0.8133,
+        "macro_f1": 0.3852,
+        "false_recall": 0.2449,
+        "confusion": {
+          "false->false": 12,
+          "false->true": 37,
+          "true->false": 26,
+          "true->true": 293,
+          "true->unsure": 5,
+          "unsure->false": 4,
+          "unsure->true": 3
+        }
+      },
+      "GOLD_FORM_DIAGNOSTIC_same_day": {
+        "rows": 380,
+        "three_way_accuracy": 0.0789,
+        "decided_coverage": 0.0605,
+        "decided_precision": 1.0,
+        "macro_f1": 0.09,
+        "false_recall": 0.0612,
+        "confusion": {
+          "false->false": 3,
+          "false->unsure": 46,
+          "true->true": 20,
+          "true->unsure": 304,
+          "unsure->unsure": 7
+        }
+      },
+      "GOLD_FORM_DIAGNOSTIC_latest_past": {
+        "rows": 380,
+        "three_way_accuracy": 0.5026,
+        "decided_coverage": 0.6711,
+        "decided_precision": 0.7255,
+        "macro_f1": 0.3886,
+        "false_recall": 0.6531,
+        "confusion": {
+          "false->false": 32,
+          "false->true": 5,
+          "false->unsure": 12,
+          "true->false": 64,
+          "true->true": 153,
+          "true->unsure": 107,
+          "unsure->true": 1,
+          "unsure->unsure": 6
+        }
+      },
+      "GOLD_FORM_DIAGNOSTIC_nearest_date": {
+        "rows": 380,
+        "three_way_accuracy": 0.6921,
+        "decided_coverage": 0.8842,
+        "decided_precision": 0.7738,
+        "macro_f1": 0.4789,
+        "false_recall": 0.8571,
+        "confusion": {
+          "false->false": 42,
+          "false->true": 4,
+          "false->unsure": 3,
+          "true->false": 68,
+          "true->true": 218,
+          "true->unsure": 38,
+          "unsure->false": 1,
+          "unsure->true": 3,
+          "unsure->unsure": 3
+        }
+      }
+    },
+    "forward_holdout_from_2026_09_01": {
+      "train_rows": 1398,
+      "test_rows": 499,
+      "always_true": {
+        "rows": 499,
+        "three_way_accuracy": 0.8176,
+        "decided_coverage": 1.0,
+        "decided_precision": 0.8176,
+        "macro_f1": 0.2999,
+        "false_recall": 0.0,
+        "confusion": {
+          "false->true": 86,
+          "true->true": 408,
+          "unsure->true": 5
+        }
+      },
+      "tfidf_1nn": {
+        "rows": 499,
+        "three_way_accuracy": 0.7154,
+        "decided_coverage": 0.976,
+        "decided_precision": 0.7331,
+        "macro_f1": 0.3265,
+        "false_recall": 0.1279,
+        "confusion": {
+          "false->false": 11,
+          "false->true": 72,
+          "false->unsure": 3,
+          "true->false": 53,
+          "true->true": 346,
+          "true->unsure": 9,
+          "unsure->true": 5
+        }
+      },
+      "tfidf_1nn_date_penalty_90_days": {
+        "rows": 499,
+        "three_way_accuracy": 0.7335,
+        "decided_coverage": 0.978,
+        "decided_precision": 0.75,
+        "macro_f1": 0.3371,
+        "false_recall": 0.1395,
+        "confusion": {
+          "false->false": 12,
+          "false->true": 71,
+          "false->unsure": 3,
+          "true->false": 46,
+          "true->true": 354,
+          "true->unsure": 8,
+          "unsure->false": 2,
+          "unsure->true": 3
+        }
+      },
+      "GOLD_FORM_DIAGNOSTIC_same_day": {
+        "rows": 499,
+        "three_way_accuracy": 0.01,
+        "decided_coverage": 0.0,
+        "decided_precision": null,
+        "macro_f1": 0.0066,
+        "false_recall": 0.0,
+        "confusion": {
+          "false->unsure": 86,
+          "true->unsure": 408,
+          "unsure->unsure": 5
+        }
+      },
+      "GOLD_FORM_DIAGNOSTIC_latest_past": {
+        "rows": 499,
+        "three_way_accuracy": 0.3246,
+        "decided_coverage": 0.7074,
+        "decided_precision": 0.4533,
+        "macro_f1": 0.2494,
+        "false_recall": 0.5349,
+        "confusion": {
+          "false->false": 46,
+          "false->true": 16,
+          "false->unsure": 24,
+          "true->false": 174,
+          "true->true": 114,
+          "true->unsure": 120,
+          "unsure->false": 2,
+          "unsure->true": 1,
+          "unsure->unsure": 2
+        }
+      },
+      "GOLD_FORM_DIAGNOSTIC_nearest_date": {
+        "rows": 499,
+        "three_way_accuracy": 0.3246,
+        "decided_coverage": 0.7074,
+        "decided_precision": 0.4533,
+        "macro_f1": 0.2494,
+        "false_recall": 0.5349,
+        "confusion": {
+          "false->false": 46,
+          "false->true": 16,
+          "false->unsure": 24,
+          "true->false": 174,
+          "true->true": 114,
+          "true->unsure": 120,
+          "unsure->false": 2,
+          "unsure->true": 1,
+          "unsure->unsure": 2
+        }
+      }
+    }
+  }
+}

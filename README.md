@@ -36,6 +36,8 @@ How you build it is yours to decide.
 | `sample/sample.csv` | From 09:00 on 29 Oct: the 20 rows of the sample, unlabelled |
 | `scripts/check.sh` | Runs your system as we will, on the practice data, and checks its table |
 
+Bogdan's first classification baseline, saved results and reproduction commands are documented in [BASELINE.md](BASELINE.md). Future local method comparisons must follow [EVALUATION.md](EVALUATION.md) and reuse [the frozen splits](evaluation/splits-v1.json); [the evaluation framework](research/evaluation-framework.md) explains the metric choices. The baseline is classification-only, and the full evaluation protocol is not yet implemented by its runner.
+
 ## Check your system
 
 `scripts/check.sh` builds the image from your `Dockerfile` and runs it as we will: offline, as user 10001, on a read-only root, with 2 CPUs and 6 GiB, until it exits or 30 minutes pass. Its input is the practice dataset in the run's shape, with every fifth row's label hidden. It then checks your table's columns, ids, lengths, labels and confidences, that it holds exactly 1,000 new claims, and counts your labels on the hidden rows against the practice labels. It needs Docker and Python 3.
