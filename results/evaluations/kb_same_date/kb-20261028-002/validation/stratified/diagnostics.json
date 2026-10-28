@@ -1,0 +1,39 @@
+{
+  "mode": "kb_only",
+  "parser": {
+    "training_rows": 1212,
+    "eligible_rows": 240,
+    "template_count": 220,
+    "templates_by_interpretation": 229,
+    "method": "lexicon_numeric_template_v1"
+  },
+  "store": {
+    "source_rows": 1188,
+    "numeric_atoms": 1074,
+    "indexed_atoms": 931,
+    "constraints": 45,
+    "scope_blocked_rows": 94,
+    "labels": {
+      "true": 1011,
+      "false": 177
+    }
+  },
+  "pending_rows": 305,
+  "parsed_complete": 4,
+  "raw_kb_decisions": 0,
+  "emitted_kb_decisions": 0,
+  "routes": {
+    "abstain": 305
+  },
+  "kb_reasons": {
+    "unsupported": 261,
+    "ambiguous_parse": 40,
+    "missing_evidence": 4
+  },
+  "fit_seconds": 0.31879516702611,
+  "inference_seconds": 0.03698370899655856,
+  "serialization_seconds": 0.011129416001494974,
+  "confidence_status": "uncalibrated_raw_validation_run",
+  "proof_status": "not_verified",
+  "generation_status": "not_implemented"
+}

@@ -71,3 +71,6 @@ Use `evaluate` to measure performance. Running `predict` on masked practice rows
 This baseline does not generate the required 1,000 claims, provide a frontend, or include the Docker runner; those parts of the Arena system remain incomplete. For modeling reference, see the [K-Dense scikit-learn skill](https://github.com/K-Dense-AI/scientific-agent-skills/blob/main/skills/scikit-learn/SKILL.md). The [official OpenAI Jupyter Notebook skill](https://github.com/openai/skills/blob/main/skills/.curated/jupyter-notebook/SKILL.md) is relevant if this experiment is later presented as a notebook. Neither skill was installed while building this baseline; a notebook is not needed to run this script. The branch now includes team-provided development skills under `.agents/skills/`.
 
 The first set of text-model variations and their shared-protocol results are documented in [research/text-model-experiments.md](research/text-model-experiments.md).
+
+The first dated evidence-store and hybrid experiment is documented in
+[research/knowledge-base-experiment.md](research/knowledge-base-experiment.md).

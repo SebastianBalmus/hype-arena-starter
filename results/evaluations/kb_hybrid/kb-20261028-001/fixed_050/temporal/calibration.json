@@ -1,0 +1,16 @@
+{
+  "method": "Laplace-smoothed empirical correctness by predicted label",
+  "threshold": 0.5,
+  "true": {
+    "count": 0,
+    "correct": 0,
+    "confidence": 0.5,
+    "confidence_status": "prior_only"
+  },
+  "false": {
+    "count": 0,
+    "correct": 0,
+    "confidence": 0.5,
+    "confidence_status": "prior_only"
+  }
+}
