@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_features_word_number_masked_chi2_128",
+  "run_id": "daria-features-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "feature_candidate": "word_number_masked_chi2_128",
+  "fixed_gb_params": {
+    "learning_rate": 0.03,
+    "max_depth": 2,
+    "min_samples_leaf": 8,
+    "n_estimators": 160,
+    "subsample": 0.8
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.8736842105263158,
+    "macro_f1": 0.6506139469849147,
+    "per_class": {
+      "true": {
+        "precision": 0.9041916167664671,
+        "recall": 0.9526813880126183,
+        "f1": 0.9278033794162827,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.6585365853658537,
+        "recall": 0.4909090909090909,
+        "f1": 0.5625,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.6,
+        "recall": 0.375,
+        "f1": 0.46153846153846156,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          302,
+          14,
+          1
+        ],
+        [
+          27,
+          27,
+          1
+        ],
+        [
+          5,
+          0,
+          3
+        ]
+      ]
+    },
+    "decided_count": 375,
+    "decided_correct": 329,
+    "decided_errors": 46,
+    "decided_coverage": 0.9868421052631579,
+    "decided_accuracy": 0.8773333333333333,
+    "decided_risk": 0.12266666666666666,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 316,
+        "coverage": 0.9968454258675079
+      },
+      "false": {
+        "decided_count": 54,
+        "coverage": 0.9818181818181818
+      },
+      "unsure": {
+        "decided_count": 5,
+        "coverage": 0.625
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 375,
+      "low_confidence": 3,
+      "model_unsure": 2
+    },
+    "correctness_brier": 0.10400265816414518,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 13,
+        "mean_confidence": 0.5582371938666327,
+        "empirical_correctness": 0.6153846153846154
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 10,
+        "mean_confidence": 0.6578813063161528,
+        "empirical_correctness": 0.8
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 10,
+        "mean_confidence": 0.765909313631538,
+        "empirical_correctness": 0.8
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 48,
+        "mean_confidence": 0.8644456430923843,
+        "empirical_correctness": 0.7708333333333334
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 294,
+        "mean_confidence": 0.9634739357920351,
+        "empirical_correctness": 0.9115646258503401
+      }
+    ],
+    "multiclass_brier": 0.2168182988409054
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only feature comparison",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Temporal summaries and scores are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Constrained Linux amd64 benchmark not run",
+    "peak_ram_bytes": null,
+    "shared_feature_process_seconds_native": 9.546643999987282,
+    "fit_seconds": 1.4605444580083713,
+    "inference_seconds": 0.00978541700169444,
+    "feature_count": 523,
+    "warnings": [],
+    "serialization_seconds": 0.0016032920102588832
+  }
+}

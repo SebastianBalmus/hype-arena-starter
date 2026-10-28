@@ -1,0 +1,157 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_features_expanded_order_aggregate",
+  "run_id": "daria-features-20261028-001",
+  "split": "temporal",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "feature_candidate": "expanded_order_aggregate",
+  "fixed_gb_params": {
+    "learning_rate": 0.1,
+    "max_depth": 1,
+    "min_samples_leaf": 8,
+    "n_estimators": 160,
+    "subsample": 0.8
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 499,
+    "accuracy": 0.8376753507014028,
+    "macro_f1": 0.42734323894963083,
+    "per_class": {
+      "true": {
+        "precision": 0.854978354978355,
+        "recall": 0.9681372549019608,
+        "f1": 0.9080459770114943,
+        "support": 408,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.6216216216216216,
+        "recall": 0.26744186046511625,
+        "f1": 0.37398373983739835,
+        "support": 86,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          395,
+          13,
+          0
+        ],
+        [
+          63,
+          23,
+          0
+        ],
+        [
+          4,
+          1,
+          0
+        ]
+      ]
+    },
+    "decided_count": 499,
+    "decided_correct": 418,
+    "decided_errors": 81,
+    "decided_coverage": 1.0,
+    "decided_accuracy": 0.8376753507014028,
+    "decided_risk": 0.1623246492985972,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 408,
+        "coverage": 1.0
+      },
+      "false": {
+        "decided_count": 86,
+        "coverage": 1.0
+      },
+      "unsure": {
+        "decided_count": 5,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 499
+    },
+    "correctness_brier": 0.15400261338042634,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 16,
+        "mean_confidence": 0.552227473825883,
+        "empirical_correctness": 0.5
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 174,
+        "mean_confidence": 0.6182641518106873,
+        "empirical_correctness": 0.8563218390804598
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 17,
+        "mean_confidence": 0.7563636992989902,
+        "empirical_correctness": 0.5294117647058824
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 71,
+        "mean_confidence": 0.8702767205153558,
+        "empirical_correctness": 0.8028169014084507
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 221,
+        "mean_confidence": 0.9648019976805796,
+        "empirical_correctness": 0.8823529411764706
+      }
+    ],
+    "multiclass_brier": 0.3166392754434141
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only feature comparison",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Temporal summaries and scores are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Constrained Linux amd64 benchmark not run",
+    "peak_ram_bytes": null,
+    "shared_feature_process_seconds_native": 9.928281042026356,
+    "fit_seconds": 1.0572692909627222,
+    "inference_seconds": 0.01299204200040549,
+    "feature_count": 807,
+    "warnings": [],
+    "serialization_seconds": 0.0019833340193144977
+  }
+}

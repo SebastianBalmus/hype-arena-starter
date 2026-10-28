@@ -1,0 +1,158 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_features_structured_feature_hasher128",
+  "run_id": "daria-features-20261028-001",
+  "split": "temporal",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "feature_candidate": "structured_feature_hasher128",
+  "fixed_gb_params": {
+    "learning_rate": 0.1,
+    "max_depth": 1,
+    "min_samples_leaf": 8,
+    "n_estimators": 160,
+    "subsample": 0.8
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 499,
+    "accuracy": 0.8056112224448898,
+    "macro_f1": 0.42189520481335424,
+    "per_class": {
+      "true": {
+        "precision": 0.8597701149425288,
+        "recall": 0.9166666666666666,
+        "f1": 0.8873072360616845,
+        "support": 408,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.45161290322580644,
+        "recall": 0.32558139534883723,
+        "f1": 0.3783783783783784,
+        "support": 86,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 5,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          374,
+          33,
+          1
+        ],
+        [
+          57,
+          28,
+          1
+        ],
+        [
+          4,
+          1,
+          0
+        ]
+      ]
+    },
+    "decided_count": 497,
+    "decided_correct": 402,
+    "decided_errors": 95,
+    "decided_coverage": 0.9959919839679359,
+    "decided_accuracy": 0.8088531187122736,
+    "decided_risk": 0.19114688128772636,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 407,
+        "coverage": 0.9975490196078431
+      },
+      "false": {
+        "decided_count": 85,
+        "coverage": 0.9883720930232558
+      },
+      "unsure": {
+        "decided_count": 5,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 497,
+      "low_confidence": 2
+    },
+    "correctness_brier": 0.15075001829058898,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 13,
+        "mean_confidence": 0.5425909183272563,
+        "empirical_correctness": 0.6153846153846154
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 23,
+        "mean_confidence": 0.652747953081878,
+        "empirical_correctness": 0.5652173913043478
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 16,
+        "mean_confidence": 0.7550017079282372,
+        "empirical_correctness": 0.3125
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 242,
+        "mean_confidence": 0.8461324610010429,
+        "empirical_correctness": 0.8223140495867769
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 203,
+        "mean_confidence": 0.9596473340033796,
+        "empirical_correctness": 0.8719211822660099
+      }
+    ],
+    "multiclass_brier": 0.30646580249227157
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only feature comparison",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Temporal summaries and scores are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Constrained Linux amd64 benchmark not run",
+    "peak_ram_bytes": null,
+    "shared_feature_process_seconds_native": 9.928281042026356,
+    "fit_seconds": 0.525130124995485,
+    "inference_seconds": 0.0062043340294621885,
+    "feature_count": 128,
+    "warnings": [],
+    "serialization_seconds": 0.0018761660321615636
+  }
+}

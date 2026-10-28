@@ -1,0 +1,11 @@
+{
+  "method_code_hashes_unchanged": true,
+  "candidate_count": 24,
+  "eligible_outer_evaluations_including_selected": 75,
+  "all_three_baselines_exact": true,
+  "tests_passed": 121,
+  "test_command": ".venv/bin/python -m unittest discover -s tests -q",
+  "summary_script_sha256": "2199d8643b13afd85e471529c1cc118c2eac36f64a56a3b2115bad7df5c52c69",
+  "report_sha256": "c86fa60f3368b70b79afa37c3bc76336aa99b249546762e7ad082e469a3c4835",
+  "summary_command": ".venv/bin/python evaluation/summarize_daria_features.py --run-id daria-features-20261028-001"
+}

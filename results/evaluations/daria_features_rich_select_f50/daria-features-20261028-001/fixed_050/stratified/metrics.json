@@ -1,0 +1,162 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_features_rich_select_f50",
+  "run_id": "daria-features-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "feature_candidate": "rich_select_f50",
+  "fixed_gb_params": {
+    "learning_rate": 0.03,
+    "max_depth": 2,
+    "min_samples_leaf": 8,
+    "n_estimators": 160,
+    "subsample": 0.8
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.7789473684210526,
+    "macro_f1": 0.5864581594227095,
+    "per_class": {
+      "true": {
+        "precision": 0.9280575539568345,
+        "recall": 0.8138801261829653,
+        "f1": 0.8672268907563025,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.3645833333333333,
+        "recall": 0.6363636363636364,
+        "f1": 0.46357615894039733,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.5,
+        "recall": 0.375,
+        "f1": 0.42857142857142855,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          258,
+          57,
+          2
+        ],
+        [
+          19,
+          35,
+          1
+        ],
+        [
+          1,
+          4,
+          3
+        ]
+      ]
+    },
+    "decided_count": 374,
+    "decided_correct": 293,
+    "decided_errors": 81,
+    "decided_coverage": 0.9842105263157894,
+    "decided_accuracy": 0.7834224598930482,
+    "decided_risk": 0.21657754010695188,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 315,
+        "coverage": 0.9936908517350158
+      },
+      "false": {
+        "decided_count": 54,
+        "coverage": 0.9818181818181818
+      },
+      "unsure": {
+        "decided_count": 5,
+        "coverage": 0.625
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 374,
+      "low_confidence": 4,
+      "model_unsure": 2
+    },
+    "correctness_brier": 0.11837188198439376,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 63,
+        "mean_confidence": 0.5491356093730235,
+        "empirical_correctness": 0.19047619047619047
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 8,
+        "mean_confidence": 0.6541471067264345,
+        "empirical_correctness": 0.5
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 15,
+        "mean_confidence": 0.7402309613412339,
+        "empirical_correctness": 1.0
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 31,
+        "mean_confidence": 0.8468671909390822,
+        "empirical_correctness": 0.7741935483870968
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 257,
+        "mean_confidence": 0.9713200137822567,
+        "empirical_correctness": 0.9260700389105059
+      }
+    ],
+    "multiclass_brier": 0.2547595184454854
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only feature comparison",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Temporal summaries and scores are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Constrained Linux amd64 benchmark not run",
+    "peak_ram_bytes": null,
+    "shared_feature_process_seconds_native": 9.546643999987282,
+    "fit_seconds": 1.7859013749985024,
+    "inference_seconds": 0.010551042039878666,
+    "feature_count": 563,
+    "warnings": [
+      "Features [384 387 785 894 895 896 897] are constant.",
+      "invalid value encountered in divide"
+    ],
+    "serialization_seconds": 0.00154766597552225
+  }
+}

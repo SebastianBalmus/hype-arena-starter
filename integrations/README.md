@@ -145,3 +145,29 @@ extraction is not fully cross-fitted inside that stage. Complete outer/inner
 validation forms remain inaccessible to the method. This experiment evaluates
 classification only; the upstream writer, generated truth and constrained
 container performance are not evaluated.
+
+## Additional feature representations
+
+`evaluation/run_daria_features.py` compares 24 declared feature configurations
+using the previously CV-tuned gradient-boosting parameters, held fixed per track.
+It rebuilds the reader and rich feature caches for every original CV fold, selects
+the representation using only the shared fit pool, then evaluates shared
+validation and all three outer tracks. Original features and baseline predictions
+are checked against the preceding runs before results are compared.
+
+```sh
+.venv/bin/python evaluation/run_daria_features.py --run-id NEW-UNIQUE-ID
+```
+
+The new representations include order-invariant assertion summaries, typed
+assertion histograms, subject/attribute bags, true-anchor observation counts and
+date gaps, binary word counts, word-boundary character TF-IDF, chi-square feature
+selection, SVD latent text features, feature hashing, F/MI feature selection and
+scaled PCA. Most text candidates add their features to the original temporal
+features; two text-only controls measure text signal separately. Learned text
+vocabularies, selectors and reductions fit only on the current training pool.
+
+These experiments change classifier inputs, while Daria's reader and temporal
+models remain the same. Support counts and observation gaps are probabilistic
+features, not evidence proofs or persistence guarantees. Feature-specific
+classifier hyperparameters are not retuned in this comparison.

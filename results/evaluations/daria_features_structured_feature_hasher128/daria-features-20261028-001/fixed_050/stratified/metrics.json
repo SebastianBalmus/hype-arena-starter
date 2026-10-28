@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_features_structured_feature_hasher128",
+  "run_id": "daria-features-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "feature_candidate": "structured_feature_hasher128",
+  "fixed_gb_params": {
+    "learning_rate": 0.03,
+    "max_depth": 2,
+    "min_samples_leaf": 8,
+    "n_estimators": 160,
+    "subsample": 0.8
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.8289473684210527,
+    "macro_f1": 0.5447698251201746,
+    "per_class": {
+      "true": {
+        "precision": 0.9150326797385621,
+        "recall": 0.8832807570977917,
+        "f1": 0.898876404494382,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.4722222222222222,
+        "recall": 0.6181818181818182,
+        "f1": 0.5354330708661418,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.5,
+        "recall": 0.125,
+        "f1": 0.2,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          280,
+          36,
+          1
+        ],
+        [
+          21,
+          34,
+          0
+        ],
+        [
+          5,
+          2,
+          1
+        ]
+      ]
+    },
+    "decided_count": 378,
+    "decided_correct": 314,
+    "decided_errors": 64,
+    "decided_coverage": 0.9947368421052631,
+    "decided_accuracy": 0.8306878306878307,
+    "decided_risk": 0.1693121693121693,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 316,
+        "coverage": 0.9968454258675079
+      },
+      "false": {
+        "decided_count": 55,
+        "coverage": 1.0
+      },
+      "unsure": {
+        "decided_count": 7,
+        "coverage": 0.875
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 378,
+      "model_unsure": 1,
+      "low_confidence": 1
+    },
+    "correctness_brier": 0.12603887747661133,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 12,
+        "mean_confidence": 0.5437648245203284,
+        "empirical_correctness": 0.3333333333333333
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 21,
+        "mean_confidence": 0.6669074350602021,
+        "empirical_correctness": 0.5714285714285714
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 70,
+        "mean_confidence": 0.7713697226741895,
+        "empirical_correctness": 0.7428571428571429
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 37,
+        "mean_confidence": 0.8464917163172097,
+        "empirical_correctness": 0.7837837837837838
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 238,
+        "mean_confidence": 0.9729271548097949,
+        "empirical_correctness": 0.9117647058823529
+      }
+    ],
+    "multiclass_brier": 0.2583850563462922
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only feature comparison",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Temporal summaries and scores are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Constrained Linux amd64 benchmark not run",
+    "peak_ram_bytes": null,
+    "shared_feature_process_seconds_native": 9.546643999987282,
+    "fit_seconds": 1.048446332977619,
+    "inference_seconds": 0.005755625024903566,
+    "feature_count": 128,
+    "warnings": [],
+    "serialization_seconds": 0.0015141249750740826
+  }
+}

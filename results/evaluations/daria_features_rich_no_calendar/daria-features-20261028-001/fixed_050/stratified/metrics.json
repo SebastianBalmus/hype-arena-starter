@@ -1,0 +1,159 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "daria_features_rich_no_calendar",
+  "run_id": "daria-features-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "feature_candidate": "rich_no_calendar",
+  "fixed_gb_params": {
+    "learning_rate": 0.03,
+    "max_depth": 2,
+    "min_samples_leaf": 8,
+    "n_estimators": 160,
+    "subsample": 0.8
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.7736842105263158,
+    "macro_f1": 0.5323996265172736,
+    "per_class": {
+      "true": {
+        "precision": 0.9244604316546763,
+        "recall": 0.8107255520504731,
+        "f1": 0.8638655462184874,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.3684210526315789,
+        "recall": 0.6363636363636364,
+        "f1": 0.4666666666666667,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.2857142857142857,
+        "recall": 0.25,
+        "f1": 0.26666666666666666,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          257,
+          56,
+          4
+        ],
+        [
+          19,
+          35,
+          1
+        ],
+        [
+          2,
+          4,
+          2
+        ]
+      ]
+    },
+    "decided_count": 373,
+    "decided_correct": 292,
+    "decided_errors": 81,
+    "decided_coverage": 0.9815789473684211,
+    "decided_accuracy": 0.7828418230563002,
+    "decided_risk": 0.21715817694369974,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 313,
+        "coverage": 0.9873817034700315
+      },
+      "false": {
+        "decided_count": 54,
+        "coverage": 0.9818181818181818
+      },
+      "unsure": {
+        "decided_count": 6,
+        "coverage": 0.75
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 373,
+      "low_confidence": 3,
+      "model_unsure": 4
+    },
+    "correctness_brier": 0.118353606996501,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 60,
+        "mean_confidence": 0.5391419385985343,
+        "empirical_correctness": 0.18333333333333332
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 17,
+        "mean_confidence": 0.6588378854737658,
+        "empirical_correctness": 0.6470588235294118
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 12,
+        "mean_confidence": 0.7590364804004875,
+        "empirical_correctness": 1.0
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 33,
+        "mean_confidence": 0.8562240620652006,
+        "empirical_correctness": 0.7575757575757576
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 251,
+        "mean_confidence": 0.9725299387181916,
+        "empirical_correctness": 0.9282868525896414
+      }
+    ],
+    "multiclass_brier": 0.2584085233186874
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only feature comparison",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "Temporal summaries and scores are not independent proofs",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Constrained Linux amd64 benchmark not run",
+    "peak_ram_bytes": null,
+    "shared_feature_process_seconds_native": 9.546643999987282,
+    "fit_seconds": 2.820546208997257,
+    "inference_seconds": 0.009794291981961578,
+    "feature_count": 1123,
+    "warnings": [],
+    "serialization_seconds": 0.0015492919483222067
+  }
+}
