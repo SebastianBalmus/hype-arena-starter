@@ -2,7 +2,6 @@
 
 import argparse
 from collections import Counter, defaultdict
-import csv
 import hashlib
 import json
 from pathlib import Path
@@ -12,26 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from entity_linking import EntityLinker, build_registry
+from entity_linking.io import read_rows, write_rows
 from entity_linking.report import render_report
-
-
-def read_rows(path):
-    with path.open(encoding="utf-8-sig", newline="") as handle:
-        reader = csv.DictReader(handle)
-        fields = reader.fieldnames or []
-        if not {"id", "text", "date"} <= set(fields):
-            raise ValueError("Dataset requires id, text and date")
-        rows = list(reader)
-    if len({row["id"] for row in rows}) != len(rows):
-        raise ValueError("Duplicate input row IDs")
-    return rows, fields
-
-
-def write_rows(path, rows, fields):
-    with path.open("w", encoding="utf-8", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fields)
-        writer.writeheader()
-        writer.writerows(rows)
 
 
 def run(input_path, lexicon_path, registry_path, output):
@@ -102,6 +83,6 @@ if __name__ == "__main__":
     parser.add_argument("--input", type=Path, default=ROOT / "data/practice.csv")
     parser.add_argument("--lexicon", type=Path, default=ROOT / "data/lexicon.json")
     parser.add_argument("--registry", type=Path, default=ROOT / "data/entity_registry.json")
-    parser.add_argument("--output", type=Path, default=ROOT / "artifacts/entity_linking/v1")
+    parser.add_argument("--output", type=Path, default=ROOT / "artifacts/entity_linking")
     args = parser.parse_args()
     run(args.input, args.lexicon, args.registry, args.output)

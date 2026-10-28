@@ -1,7 +1,11 @@
 """Self-contained HTML inspection artifact; no server or dependencies required."""
 
+import html
 import json
 from decimal import Decimal
+
+from entity_linking.evaluation import fact_key
+from entity_linking.json_utils import exact_json
 
 
 def _display_decimal(value):
@@ -73,3 +77,37 @@ if(kind.value==='unresolved'&&!(row.unresolved_values||[]).length)return false;i
 return !q||[row.id,row.text,row.normalized_text,...row.mentions.map(m=>m.canonical_name),JSON.stringify(row.values||[])].join(' ').toLocaleLowerCase().includes(q);});limit=200;render();}
 search.addEventListener('input',filter);status.addEventListener('change',filter);entity.addEventListener('change',filter);kind.addEventListener('change',filter);document.getElementById('load').addEventListener('click',()=>{limit+=200;render();});filter();
 </script></html>"""
+
+
+
+
+def write_forms_report(path, rows, predictions, aliases):
+    content = '<!doctype html><meta charset="utf-8"><title>Sentence to form inspection</title><style>body{font:14px system-ui;margin:24px}table{border-collapse:collapse;width:100%}td,th{padding:10px;border:1px solid #ccc;vertical-align:top}pre{white-space:pre-wrap;overflow-wrap:anywhere;min-width:220px}input{padding:10px;width:80%;margin:15px 0}.match{background:#e9f7ed}.miss{background:#fff3e5}</style><h1>Sentence to form inspection</h1><p>Predicted forms are extracted assertions, not verified facts. Empty forms mean unresolved extraction. Search all rows by ID, text, attribute or status.</p><input placeholder="Search"><table><thead><tr><th>ID / sentence</th><th>Reference form (evaluation only)</th><th>Predicted form</th><th>Unresolved / trace</th></tr></thead><tbody>'
+    for row, prediction in zip(rows, predictions):
+        gold = json.loads(row['form'], parse_float=Decimal)
+        match = {fact_key(f, aliases) for f in gold} == {fact_key(f, aliases) for f in prediction['predicted_form']}
+        trace = [{'stage': t['stage'], 'status': t['status'], 'surface': t['value']['surface'],
+                  'method': t['method'], 'subject_resolution': t.get('subject_resolution'),
+                  'wording': t['context']['surface'],
+                  'top_candidates': [{**{k: c[k] for k in ['subject', 'attribute', 'score']},
+                                      **({'rules': c['rules']} if 'rules' in c else {})} for c in t['candidates']]}
+                 for t in prediction['traces']]
+        cells = [row['id'] + '\n' + row['text'], exact_json(gold), exact_json(prediction['predicted_form']),
+                 exact_json({'unresolved': prediction['unresolved'], 'traces': trace})]
+        content += '<tr class="' + ('match' if match else 'miss') + '">' + ''.join('<td><pre>' + html.escape(c) + '</pre></td>' for c in cells) + '</tr>'
+    content += '</tbody></table><script>const rows=[...document.querySelectorAll("tbody tr")];document.querySelector("input").addEventListener("input",e=>{const q=e.target.value.toLowerCase();for(const r of rows)r.hidden=!r.textContent.toLowerCase().includes(q)});</script>'
+    path.write_text(content)
+
+
+def write_kb_report(index, path):
+    payload = index.to_dict()
+    sources = {s['id']: s for s in payload['sources']}
+    from entity_linking.json_utils import exact_json
+    doc = '<!doctype html><meta charset="utf-8"><title>True-row knowledge base</title><style>body{font:14px system-ui;margin:24px}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:9px;vertical-align:top}pre{white-space:pre-wrap;min-width:180px}input{padding:10px;width:80%;margin:15px 0}</style><h1>True-row knowledge base</h1><p>Only trusted true sources. Dates are observation dates; lookup does not infer persistence or effective intervals. Different predicates remain separate.</p><input placeholder="Search subject, attribute, value, date or source"><table><thead><tr><th>Subject</th><th>Attribute</th><th>Observation date</th><th>Value</th><th>Source</th><th>Original text</th></tr></thead><tbody>'
+    if index.source_policy == 'all_labels':
+        doc = doc.replace('True-row knowledge base', 'All-data knowledge base').replace('Only trusted true sources.', 'All source labels retained. Only true sources provide positive evidence; false compound claims are not negations of every assertion, and unsure claims are not established facts.')
+    for o in sorted(payload['observations'], key=lambda x: (x['subject'], x['attribute'], x['observation_date'], x['source_id'], x['assertion_index'])):
+        cells = [o['subject'], o['attribute'], o['observation_date'], exact_json(o['value']), o['source_id'] + ' / ' + (o['source_label'] or 'unlabelled'), sources[o['source_id']]['text']]
+        doc += '<tr>' + ''.join('<td><pre>' + html.escape(c) + '</pre></td>' for c in cells) + '</tr>'
+    doc += '</tbody></table><script>const rows=[...document.querySelectorAll("tbody tr")];document.querySelector("input").addEventListener("input",e=>{const q=e.target.value.toLowerCase();for(const r of rows)r.hidden=!r.textContent.toLowerCase().includes(q)});</script>'
+    path.write_text(doc)

@@ -12,40 +12,11 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from entity_linking.values import exact_json
-from normalize_entities import read_rows
+from entity_linking.io import read_rows, write_jsonl
+from entity_linking.evaluation import signature
 
 
 # Independent reference normalization, rather than calling the annotator's parser.
-FACTORS = {
-    "B": ("B", "1"), "KB": ("B", "1000"), "MB": ("B", "1000000"),
-    "GB": ("B", "1000000000"), "TB": ("B", "1000000000000"),
-    "mm": ("m", ".001"), "cm": ("m", ".01"), "m": ("m", "1"), "km": ("m", "1000"),
-    "inch": ("m", ".0254"), "in": ("m", ".0254"), "g": ("g", "1"), "kg": ("g", "1000"),
-    "mAh": ("mAh", "1"), "Hz": ("Hz", "1"), "kHz": ("Hz", "1000"),
-    "MHz": ("Hz", "1000000"), "GHz": ("Hz", "1000000000"),
-    "mW": ("W", ".001"), "W": ("W", "1"), "kW": ("W", "1000"),
-}
-TIME = {"ms": ("s", ".001"), "s": ("s", "1"), "min": ("s", "60"), "h": ("s", "3600"),
-        "day": ("s", "86400"), "week": ("s", "604800"), "month": ("month", "1"), "year": ("month", "12")}
-
-
-def signature(value):
-    kind, op = value["kind"], value.get("op", "eq")
-    if kind in ("quantity", "duration"):
-        unit = value["unit"]
-        canonical, factor = (FACTORS if kind == "quantity" else TIME).get(unit, (unit, "1"))
-        return kind, op, canonical, Decimal(str(value["value"])) * Decimal(factor)
-    if kind == "money":
-        return kind, op, value["currency"], value.get("per"), Decimal(str(value["value"]))
-    if kind == "percent":
-        return kind, op, Decimal(str(value["value"]))
-    return kind, op, value["value"]
-
-
-def write_jsonl(path, records):
-    with path.open("w") as handle:
-        for record in records:
-            handle.write(exact_json(record) + "\n")
 
 
 def run(dataset, annotations, output):
@@ -124,7 +95,7 @@ def run(dataset, annotations, output):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=ROOT / "data/practice.csv")
-    parser.add_argument("--annotations", type=Path, default=ROOT / "artifacts/typed_values/v2")
-    parser.add_argument("--output", type=Path, default=ROOT / "artifacts/typed_values/audit_v2")
+    parser.add_argument("--annotations", type=Path, default=ROOT / "artifacts/typed_values")
+    parser.add_argument("--output", type=Path, default=ROOT / "artifacts/value_audit")
     args = parser.parse_args()
     run(args.input, args.annotations, args.output)

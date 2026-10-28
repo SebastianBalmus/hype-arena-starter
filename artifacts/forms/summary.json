@@ -1,0 +1,119 @@
+{
+  "method": "structural_rules_then_lexicon_similarity",
+  "metrics": {
+    "correct": 994,
+    "predicted": 1047,
+    "reference": 2402,
+    "precision": 0.9493791786055397,
+    "recall": 0.4138218151540383,
+    "f1": 0.576398956219194,
+    "rows": 1897,
+    "exact_form_rows": 686,
+    "exact_form_row_rate": 0.36162361623616235,
+    "nonempty_exact_form_rows": 686,
+    "rows_with_predictions": 922,
+    "by_kind": {
+      "boolean": {
+        "correct": 40,
+        "predicted": 40,
+        "reference": 174,
+        "precision": 1.0,
+        "recall": 0.22988505747126436,
+        "f1": 0.37383177570093457
+      },
+      "date": {
+        "correct": 47,
+        "predicted": 51,
+        "reference": 165,
+        "precision": 0.9215686274509803,
+        "recall": 0.28484848484848485,
+        "f1": 0.4351851851851852
+      },
+      "duration": {
+        "correct": 96,
+        "predicted": 100,
+        "reference": 229,
+        "precision": 0.96,
+        "recall": 0.4192139737991266,
+        "f1": 0.5835866261398175
+      },
+      "money": {
+        "correct": 142,
+        "predicted": 149,
+        "reference": 268,
+        "precision": 0.9530201342281879,
+        "recall": 0.5298507462686567,
+        "f1": 0.6810551558752997
+      },
+      "name": {
+        "correct": 5,
+        "predicted": 5,
+        "reference": 209,
+        "precision": 1.0,
+        "recall": 0.023923444976076555,
+        "f1": 0.04672897196261682
+      },
+      "percent": {
+        "correct": 76,
+        "predicted": 89,
+        "reference": 201,
+        "precision": 0.8539325842696629,
+        "recall": 0.3781094527363184,
+        "f1": 0.5241379310344827
+      },
+      "quantity": {
+        "correct": 465,
+        "predicted": 490,
+        "reference": 1028,
+        "precision": 0.9489795918367347,
+        "recall": 0.45233463035019456,
+        "f1": 0.6126482213438735
+      },
+      "version": {
+        "correct": 123,
+        "predicted": 123,
+        "reference": 128,
+        "precision": 1.0,
+        "recall": 0.9609375,
+        "f1": 0.9800796812749004
+      }
+    },
+    "macro_attribute_f1": 0.39873241422973327
+  },
+  "full_value_schema_and_lexicon_checks_passed": true,
+  "inference_seconds_including_preprocessing": 1.1014053330000024,
+  "scope": "full practice form shape; typed literals plus conservative source-name and Boolean candidates",
+  "uses_gold_for_inference": false,
+  "fits_similarity_references_or_thresholds": false,
+  "trace_statuses": {
+    "accepted": 1047,
+    "name_requires_structural_evidence": 296,
+    "no_explicit_entity": 581,
+    "low_score": 240,
+    "inherited_subject_without_binding_cue": 162,
+    "ambiguous_candidates": 13,
+    "negated_non_boolean_assertion": 18,
+    "specific_price_attribute_unavailable": 15,
+    "alternative_scope": 7,
+    "hypothetical_scope": 8
+  },
+  "limitations": [
+    "Development diagnostics on known practice data, not untouched held-out results.",
+    "Implicit subjects, contextual names, negation and composition remain only partially handled.",
+    "Predicted forms describe sentence assertions; they are not verified world evidence."
+  ],
+  "source_sha256": {
+    "data/practice.csv": "52743befaa0fa38b89b5c802c0f953d242ae027c86839c9c0f05a9e69a86d8e9",
+    "data/lexicon.json": "d0fd5e9bdc6b33ad3ec160001f50e00e7f8bf2b25a92779022f893db7c3d5507",
+    "entity_linking/pipeline.py": "84625c0191869c2002d85b20e9c88e8d68557a14a1d7d5b98fa96e81646ead31",
+    "entity_linking/linker.py": "4e14cb983bd3d9b2ed32731d6123b9c4fc53fe8e50bdd79562a050f1b2095751",
+    "entity_linking/values.py": "3db214b1f08053dc67b564f8e9e9a8291dfba0dc3c5f0f7fbda82fb0d2f48508",
+    "entity_linking/context.py": "16752ed0f9f177ec2d73de6e2a6c637b346d8608672ec52831b7ed5c46728a4f",
+    "entity_linking/candidates.py": "d72920a9ee6b6be47be386385adabb687b80e341ac02e44820fefcebc5736e7a",
+    "entity_linking/forms.py": "fd9114adab4c41351b8fa60f6f0568e80e4ccca31b0047378bc95cd79f7bc456",
+    "entity_linking/relationships.py": "7643ba0d7586b2ff4958beb4c9fba6e4d0f4bdefcdf8a08607539ebc04ae96a7",
+    "entity_linking/structural_rules.py": "a6146fa8ecc550070d21c793fb3dfb523db1d35985e22a3eb0677811c5e7896d",
+    "entity_linking/evaluation.py": "47b8334e64c75987c3b1047ebc01d6dc9eea8e7c29325a06eede7355cdc17bc9",
+    "entity_linking/json_utils.py": "f440f3beb4143a575f2fc0e631d7dfa953185ddc44982c6e63b0c4d560b3400c"
+  }
+}

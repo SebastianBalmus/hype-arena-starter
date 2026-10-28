@@ -11,6 +11,8 @@ from decimal import Decimal, localcontext
 import json
 import re
 
+from entity_linking.json_utils import exact_json
+
 
 ONES = dict(zip("zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen".split(), range(20)))
 TENS = dict(zip("twenty thirty forty fifty sixty seventy eighty ninety".split(), range(20, 100, 10)))
@@ -78,18 +80,6 @@ OPS = {"gt": ["more than", "greater than", "higher than", "in excess of", "over"
 OP_PHRASES = sorted([(phrase, op) for op, phrases in OPS.items() for phrase in phrases], key=lambda item: -len(item[0]))
 APPROX = re.compile(r"(?i)(?:\b(?:about|around|approximately|approx\.?|roughly|nearly|almost|circa|estimated|close to)|[~≈±])\s*$")
 NEGATION = re.compile(r"(?i)\b(?:not|no|never|without|cannot)\b|\b\w+n['’]t\b")
-
-
-def exact_json(value):
-    if isinstance(value, Decimal):
-        if not value.is_finite():
-            raise ValueError("Nonfinite decimal")
-        return str(value)
-    if isinstance(value, dict):
-        return "{" + ",".join(json.dumps(key, ensure_ascii=False) + ":" + exact_json(item) for key, item in value.items()) + "}"
-    if isinstance(value, (list, tuple)):
-        return "[" + ",".join(exact_json(item) for item in value) + "]"
-    return json.dumps(value, ensure_ascii=False, allow_nan=False)
 
 
 def number(raw, comma=False, percent=False):

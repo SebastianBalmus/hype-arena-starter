@@ -1,0 +1,43 @@
+{
+  "source_rows": 1581,
+  "observations": 1998,
+  "source_policy": "true_only",
+  "observations_by_source_label": {
+    "true": 1998
+  },
+  "source_labels": {
+    "true": 1581
+  },
+  "subjects": 62,
+  "subject_attribute_pairs": 502,
+  "subject_attribute_date_groups": 1879,
+  "observation_dates": 156,
+  "values_by_kind": {
+    "date": 144,
+    "name": 184,
+    "quantity": 826,
+    "percent": 169,
+    "duration": 195,
+    "version": 118,
+    "boolean": 139,
+    "money": 223
+  },
+  "comparison_observations": 28,
+  "same_date_groups_with_multiple_predicates": 3,
+  "multiple_predicates_note": "Retained separately; not automatically declared contradictions.",
+  "build_stats": {
+    "input_rows_by_label": {
+      "true": 1581,
+      "false": 277,
+      "unsure": 39
+    },
+    "true_rows_without_verified_forms": []
+  },
+  "policy": "Only trusted true rows; no false, unsure or unlabelled assertions",
+  "form_source": "Provided forms or fingerprint-verified packaged forms; never predicted forms",
+  "temporal_policy": "Row dates are observation dates; no carry-forward or inferred effective dates",
+  "value_schema_validation_passed": true,
+  "input_sha256": "52743befaa0fa38b89b5c802c0f953d242ae027c86839c9c0f05a9e69a86d8e9",
+  "knowledge_base_sha256": "93587f2aa5991a9b2430db6f43958135b3b940e60153b9f05b7842b7e977a2e0",
+  "runtime_code_sha256": "5f6f25d81b9cf9d814b60a88883fa3c15462d9f84791b3712071777af8bfb86b"
+}

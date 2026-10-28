@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT))
 from entity_linking import EntityLinker, build_registry
 from entity_linking.report import render_report
 from entity_linking.values import annotate, exact_json
-from normalize_entities import read_rows, write_rows
+from entity_linking.io import read_rows, write_rows
 
 
 def run(input_path, lexicon_path, registry_path, output):
@@ -82,6 +82,6 @@ if __name__ == "__main__":
     parser.add_argument("--input", type=Path, default=ROOT / "data/practice.csv")
     parser.add_argument("--lexicon", type=Path, default=ROOT / "data/lexicon.json")
     parser.add_argument("--registry", type=Path, default=ROOT / "data/entity_registry.json")
-    parser.add_argument("--output", type=Path, default=ROOT / "artifacts/typed_values/v2")
+    parser.add_argument("--output", type=Path, default=ROOT / "artifacts/typed_values")
     args = parser.parse_args()
     run(args.input, args.lexicon, args.registry, args.output)

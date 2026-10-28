@@ -1,0 +1,2570 @@
+{
+  "active_devices": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.875,
+    "f1": 0.9333333333333333
+  },
+  "active_users": {
+    "correct": 16,
+    "predicted": 16,
+    "reference": 22,
+    "precision": 1.0,
+    "recall": 0.7272727272727273,
+    "f1": 0.8421052631578948
+  },
+  "ad_free_option": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "ad_free_price": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.16666666666666666,
+    "f1": 0.2857142857142857
+  },
+  "adaptive_noise_cancelling": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "advertising_share": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "ai_answers": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.25,
+    "f1": 0.4
+  },
+  "ai_editing": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "ai_sidebar": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.2,
+    "f1": 0.33333333333333337
+  },
+  "announced": {
+    "correct": 3,
+    "predicted": 4,
+    "reference": 5,
+    "precision": 0.75,
+    "recall": 0.6,
+    "f1": 0.6666666666666665
+  },
+  "annual_price": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 10,
+    "precision": 1.0,
+    "recall": 0.3,
+    "f1": 0.4615384615384615
+  },
+  "annual_recurring_revenue": {
+    "correct": 0,
+    "predicted": 10,
+    "reference": 1,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "anonymous": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "api_version": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571
+  },
+  "applicants": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "appointment_booking": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "apps_included": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "ar_walking": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "archive_storage_price": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "attachment_limit": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "attendance": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.2857142857142857,
+    "f1": 0.4444444444444445
+  },
+  "attendees": {
+    "correct": 8,
+    "predicted": 8,
+    "reference": 17,
+    "precision": 1.0,
+    "recall": 0.47058823529411764,
+    "f1": 0.6399999999999999
+  },
+  "audit_committee": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "audit_retention": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "availability_zones": {
+    "correct": 0,
+    "predicted": 2,
+    "reference": 11,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "base_storage": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 10,
+    "precision": 1.0,
+    "recall": 0.3,
+    "f1": 0.4615384615384615
+  },
+  "battery_capacity": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 15,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "battery_life": {
+    "correct": 2,
+    "predicted": 4,
+    "reference": 10,
+    "precision": 0.5,
+    "recall": 0.2,
+    "f1": 0.28571428571428575
+  },
+  "beta_date": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.625,
+    "f1": 0.7692307692307693
+  },
+  "beta_opened": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "beta_testers": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "bike_racks": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 6,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "browser_market_share": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273
+  },
+  "business_listings": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "call_length": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "camera_translation": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "capacity": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "caption_languages": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "carbon_neutral": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "cash": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.42857142857142855,
+    "f1": 0.6
+  },
+  "cellular_option": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "ceo": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "chair": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "chair_since": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "chairs": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "chairs_audit_committee": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "charging_power": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.6,
+    "f1": 0.7499999999999999
+  },
+  "charging_stations_listed": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "city": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 24,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "cli_version": {
+    "correct": 5,
+    "predicted": 6,
+    "reference": 7,
+    "precision": 0.8333333333333334,
+    "recall": 0.7142857142857143,
+    "f1": 0.7692307692307692
+  },
+  "cloud_provider": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 12,
+    "precision": 1.0,
+    "recall": 0.08333333333333333,
+    "f1": 0.15384615384615385
+  },
+  "cloud_recording": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "cold_start_time": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.7142857142857143,
+    "f1": 0.8333333333333333
+  },
+  "colours": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "concurrent_chats": {
+    "correct": 4,
+    "predicted": 5,
+    "reference": 5,
+    "precision": 0.8,
+    "recall": 0.8,
+    "f1": 0.8000000000000002
+  },
+  "context_files": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.125,
+    "f1": 0.2222222222222222
+  },
+  "context_window": {
+    "correct": 12,
+    "predicted": 13,
+    "reference": 21,
+    "precision": 0.9230769230769231,
+    "recall": 0.5714285714285714,
+    "f1": 0.7058823529411765
+  },
+  "cool_storage_price": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "copilot_included": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "cost_per_hire": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "countries_covered": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.7142857142857143,
+    "f1": 0.8333333333333333
+  },
+  "countries_served": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 10,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "cover_screen_size": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "cto": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 10,
+    "precision": 1.0,
+    "recall": 0.4,
+    "f1": 0.5714285714285715
+  },
+  "customer_countries": {
+    "correct": 2,
+    "predicted": 3,
+    "reference": 4,
+    "precision": 0.6666666666666666,
+    "recall": 0.5,
+    "f1": 0.5714285714285715
+  },
+  "customers": {
+    "correct": 13,
+    "predicted": 14,
+    "reference": 19,
+    "precision": 0.9285714285714286,
+    "recall": 0.6842105263157895,
+    "f1": 0.7878787878787878
+  },
+  "customers_in_the_eu": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 1,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "cycling_commuters": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "daily_requests": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 10,
+    "precision": 1.0,
+    "recall": 0.7,
+    "f1": 0.8235294117647058
+  },
+  "data_centres": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 9,
+    "precision": 1.0,
+    "recall": 0.1111111111111111,
+    "f1": 0.19999999999999998
+  },
+  "data_processing_agreement": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "data_residency_regions": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "data_retention": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 13,
+    "precision": 1.0,
+    "recall": 0.5384615384615384,
+    "f1": 0.7000000000000001
+  },
+  "date": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 27,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "desks": {
+    "correct": 6,
+    "predicted": 6,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571
+  },
+  "desks_managed": {
+    "correct": 2,
+    "predicted": 3,
+    "reference": 4,
+    "precision": 0.6666666666666666,
+    "recall": 0.5,
+    "f1": 0.5714285714285715
+  },
+  "desktop_mode": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "devices_keynote_speaker": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "devices_recycled": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "dialects_supported": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "discontinued": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "duration": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "emissions_cut_target": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "employees": {
+    "correct": 14,
+    "predicted": 15,
+    "reference": 28,
+    "precision": 0.9333333333333333,
+    "recall": 0.5,
+    "f1": 0.6511627906976745
+  },
+  "encryption_at_rest": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "end_to_end_encrypted_backups": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.14285714285714285,
+    "f1": 0.25
+  },
+  "end_to_end_encryption": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "eu_hosted": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "executive_owner": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 8,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "executive_sponsor": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "extensions_in_store": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.2857142857142857,
+    "f1": 0.4444444444444445
+  },
+  "externally_audited": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "extra_seat_price": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "facilities_team": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "family_group_size": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "features_launched": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "first_reply": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "flawbench_score": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "flawless_seats": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "footprint": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "founded": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 10,
+    "precision": 1.0,
+    "recall": 0.7,
+    "f1": 0.8235294117647058
+  },
+  "founders": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "free_credit": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.25,
+    "f1": 0.4
+  },
+  "free_egress_per_month": {
+    "correct": 2,
+    "predicted": 3,
+    "reference": 6,
+    "precision": 0.6666666666666666,
+    "recall": 0.3333333333333333,
+    "f1": 0.4444444444444444
+  },
+  "free_storage": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 16,
+    "precision": 1.0,
+    "recall": 0.125,
+    "f1": 0.2222222222222222
+  },
+  "free_trial": {
+    "correct": 23,
+    "predicted": 23,
+    "reference": 42,
+    "precision": 1.0,
+    "recall": 0.5476190476190477,
+    "f1": 0.7076923076923077
+  },
+  "full_charge_time": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "fully_remote": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "functions": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "gemini_formula_assist": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "general_availability_date": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 9,
+    "precision": 1.0,
+    "recall": 0.7777777777777778,
+    "f1": 0.8750000000000001
+  },
+  "generally_available": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "german_premium_phone_share": {
+    "correct": 8,
+    "predicted": 8,
+    "reference": 9,
+    "precision": 1.0,
+    "recall": 0.8888888888888888,
+    "f1": 0.9411764705882353
+  },
+  "growth_opportunities": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "guidance": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 6,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "had_major_outage": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 6,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "hallucination_rate": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 14,
+    "precision": 1.0,
+    "recall": 0.2857142857142857,
+    "f1": 0.4444444444444445
+  },
+  "head": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 15,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "head_of_product": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "head_of_security": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "head_of_workspace": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "headcount": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "headquarters": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 17,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "help_guides": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "hinge_rating": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.6,
+    "f1": 0.7499999999999999
+  },
+  "hires": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "history_retention": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 10,
+    "precision": 1.0,
+    "recall": 0.7,
+    "f1": 0.8235294117647058
+  },
+  "home_region": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 6,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "host": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "hosting_regions": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.14285714285714285,
+    "f1": 0.25
+  },
+  "image_input": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "images_indexed": {
+    "correct": 6,
+    "predicted": 6,
+    "reference": 9,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "incidents_this_year": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "included_seats": {
+    "correct": 17,
+    "predicted": 20,
+    "reference": 28,
+    "precision": 0.85,
+    "recall": 0.6071428571428571,
+    "f1": 0.7083333333333333
+  },
+  "independent_director": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "independent_members": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.2,
+    "f1": 0.33333333333333337
+  },
+  "index_size": {
+    "correct": 8,
+    "predicted": 9,
+    "reference": 11,
+    "precision": 0.8888888888888888,
+    "recall": 0.7272727272727273,
+    "f1": 0.7999999999999999
+  },
+  "inner_screen_size": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "integration_partner_of_flawless": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "integrations": {
+    "correct": 9,
+    "predicted": 9,
+    "reference": 12,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571
+  },
+  "interview_rounds": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "is_engineering_hub": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "is_headquarters": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "joined": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 11,
+    "precision": 1.0,
+    "recall": 0.45454545454545453,
+    "f1": 0.625
+  },
+  "keynote_length": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "keynote_speaker": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "languages": {
+    "correct": 35,
+    "predicted": 35,
+    "reference": 40,
+    "precision": 1.0,
+    "recall": 0.875,
+    "f1": 0.9333333333333333
+  },
+  "languages_served": {
+    "correct": 6,
+    "predicted": 6,
+    "reference": 10,
+    "precision": 1.0,
+    "recall": 0.6,
+    "f1": 0.7499999999999999
+  },
+  "languages_supported": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "latest_release_date": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 8,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "launched": {
+    "correct": 11,
+    "predicted": 13,
+    "reference": 28,
+    "precision": 0.8461538461538461,
+    "recall": 0.39285714285714285,
+    "f1": 0.5365853658536585
+  },
+  "lead": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 21,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "lease_end": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.2,
+    "f1": 0.33333333333333337
+  },
+  "length": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 8,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "livestream_viewers": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "livestreamed": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "mailbox_storage": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "main_camera": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "manageable_workload": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "manager_rating": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "manufacturing_partner": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "mapped_distance": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.16666666666666666,
+    "f1": 0.2857142857142857
+  },
+  "max_call_length": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "max_cells": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "max_file_size": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "max_guests": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "max_output_length": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "max_participants": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.2,
+    "f1": 0.33333333333333337
+  },
+  "max_trade_in_credit": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.14285714285714285,
+    "f1": 0.25
+  },
+  "max_upload_size": {
+    "correct": 7,
+    "predicted": 10,
+    "reference": 21,
+    "precision": 0.7,
+    "recall": 0.3333333333333333,
+    "f1": 0.45161290322580644
+  },
+  "maximum_seats": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "median_response_time": {
+    "correct": 17,
+    "predicted": 17,
+    "reference": 33,
+    "precision": 1.0,
+    "recall": 0.5151515151515151,
+    "f1": 0.6799999999999999
+  },
+  "median_time_to_recover": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "meetings_per_year": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "memory": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "memory_saver": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "minimum_nodes": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "minimum_seats": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "monthly_active_users": {
+    "correct": 23,
+    "predicted": 25,
+    "reference": 38,
+    "precision": 0.92,
+    "recall": 0.6052631578947368,
+    "f1": 0.7301587301587301
+  },
+  "net_promoter_score": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 1,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "net_zero_date": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "newest_region": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "news_refresh_interval": {
+    "correct": 6,
+    "predicted": 6,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.8571428571428571,
+    "f1": 0.923076923076923
+  },
+  "newsletter_subscribers": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "next_meeting": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "next_round": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "offer_acceptance": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "offers": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.16666666666666666,
+    "f1": 0.2857142857142857
+  },
+  "offices": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "offices_run": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571
+  },
+  "official_sdks": {
+    "correct": 6,
+    "predicted": 6,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571
+  },
+  "offline_area_limit": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "offline_editing": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571
+  },
+  "offline_languages": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "offline_maps": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "on_device_gemini": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "onboarding_time": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "open_engineering_roles": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "open_for": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "open_roles": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "open_source": {
+    "correct": 5,
+    "predicted": 7,
+    "reference": 6,
+    "precision": 0.7142857142857143,
+    "recall": 0.8333333333333334,
+    "f1": 0.7692307692307692
+  },
+  "opened": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "opening_keynote": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "operating_margin": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.42857142857142855,
+    "f1": 0.6
+  },
+  "owner": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "p99_response_time": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.4,
+    "f1": 0.5714285714285715
+  },
+  "passkey_sync": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "paying_customers": {
+    "correct": 8,
+    "predicted": 9,
+    "reference": 28,
+    "precision": 0.8888888888888888,
+    "recall": 0.2857142857142857,
+    "f1": 0.43243243243243246
+  },
+  "personalised_ads_by_default": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "photos_stored": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 9,
+    "precision": 1.0,
+    "recall": 0.5555555555555556,
+    "f1": 0.7142857142857143
+  },
+  "places_listed": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "planned_general_availability": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571
+  },
+  "previous_employer": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "price": {
+    "correct": 108,
+    "predicted": 109,
+    "reference": 147,
+    "precision": 0.9908256880733946,
+    "recall": 0.7346938775510204,
+    "f1": 0.84375
+  },
+  "price_per_user": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273
+  },
+  "primary_region": {
+    "correct": 0,
+    "predicted": 2,
+    "reference": 7,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "pro_price": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "pro_tier": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "programming_languages": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 12,
+    "precision": 1.0,
+    "recall": 0.5833333333333334,
+    "f1": 0.7368421052631579
+  },
+  "published": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.25,
+    "f1": 0.4
+  },
+  "publisher_revenue_share": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 11,
+    "precision": 1.0,
+    "recall": 0.09090909090909091,
+    "f1": 0.16666666666666669
+  },
+  "raised_series_a": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "raised_series_b": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "rated_accuracy": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.8,
+    "f1": 0.888888888888889
+  },
+  "raviqa_seat": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "recruiters": {
+    "correct": 0,
+    "predicted": 1,
+    "reference": 5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "referral_bonus": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "referral_share": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "refresh_rate": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "refund_window": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 13,
+    "precision": 1.0,
+    "recall": 0.5384615384615384,
+    "f1": 0.7000000000000001
+  },
+  "region_outside_europe": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.14285714285714285,
+    "f1": 0.25
+  },
+  "regions": {
+    "correct": 8,
+    "predicted": 8,
+    "reference": 15,
+    "precision": 1.0,
+    "recall": 0.5333333333333333,
+    "f1": 0.6956521739130436
+  },
+  "registrations": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.14285714285714285,
+    "f1": 0.25
+  },
+  "release_cadence": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.125,
+    "f1": 0.2222222222222222
+  },
+  "released": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 14,
+    "precision": 1.0,
+    "recall": 0.07142857142857142,
+    "f1": 0.13333333333333333
+  },
+  "reliability_lead": {
+    "correct": 0,
+    "predicted": 1,
+    "reference": 6,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "renewable_electricity": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "rent": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.14285714285714285,
+    "f1": 0.25
+  },
+  "repair_centres": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 9,
+    "precision": 1.0,
+    "recall": 0.2222222222222222,
+    "f1": 0.3636363636363636
+  },
+  "replay_available": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "requests_per_day": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "requests_per_minute": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "respondents": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.75,
+    "f1": 0.8571428571428571
+  },
+  "response_rate": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "revenue": {
+    "correct": 2,
+    "predicted": 3,
+    "reference": 7,
+    "precision": 0.6666666666666666,
+    "recall": 0.2857142857142857,
+    "f1": 0.4
+  },
+  "revenue_growth": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "run_by": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "satellite_messaging": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.25,
+    "f1": 0.4
+  },
+  "saved_projects": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 8,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "screen_size": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "seats": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.8,
+    "f1": 0.888888888888889
+  },
+  "sensors": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 1,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "series_a_amount": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "series_a_co_investor": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "series_a_lead": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "services": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.6,
+    "f1": 0.7499999999999999
+  },
+  "sessions": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.14285714285714285,
+    "f1": 0.25
+  },
+  "sessions_held": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "share_of_ad_revenue": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 14,
+    "precision": 1.0,
+    "recall": 0.2857142857142857,
+    "f1": 0.4444444444444445
+  },
+  "share_of_devices": {
+    "correct": 10,
+    "predicted": 10,
+    "reference": 15,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "shipping_android": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "signed_in_devices": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273
+  },
+  "simultaneous_editors": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.6,
+    "f1": 0.7499999999999999
+  },
+  "single_sign_on": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "soc2_audit_start": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "soc2_auditor": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "soc2_certified": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 5,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "spam_catch_rate": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.4,
+    "f1": 0.5714285714285715
+  },
+  "speakers": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "sponsors": {
+    "correct": 6,
+    "predicted": 6,
+    "reference": 13,
+    "precision": 1.0,
+    "recall": 0.46153846153846156,
+    "f1": 0.631578947368421
+  },
+  "stable_release": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "stable_release_date": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 8,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "stable_version": {
+    "correct": 11,
+    "predicted": 12,
+    "reference": 11,
+    "precision": 0.9166666666666666,
+    "recall": 1.0,
+    "f1": 0.9565217391304348
+  },
+  "staff": {
+    "correct": 6,
+    "predicted": 6,
+    "reference": 15,
+    "precision": 1.0,
+    "recall": 0.4,
+    "f1": 0.5714285714285715
+  },
+  "standard_storage_price": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 6,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "storage": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 27,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "storage_per_user": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.42857142857142855,
+    "f1": 0.6
+  },
+  "storage_tiers": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.4,
+    "f1": 0.5714285714285715
+  },
+  "store_rating": {
+    "correct": 7,
+    "predicted": 8,
+    "reference": 27,
+    "precision": 0.875,
+    "recall": 0.25925925925925924,
+    "f1": 0.39999999999999997
+  },
+  "stream_viewers": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "suggestion_acceptance_rate": {
+    "correct": 8,
+    "predicted": 8,
+    "reference": 9,
+    "precision": 1.0,
+    "recall": 0.8888888888888888,
+    "f1": 0.9411764705882353
+  },
+  "support_first_response": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.875,
+    "f1": 0.9333333333333333
+  },
+  "support_satisfaction": {
+    "correct": 3,
+    "predicted": 4,
+    "reference": 3,
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.8571428571428571
+  },
+  "support_tickets_per_week": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 1,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "supported_file_types": {
+    "correct": 3,
+    "predicted": 4,
+    "reference": 12,
+    "precision": 0.75,
+    "recall": 0.25,
+    "f1": 0.375
+  },
+  "supported_ides": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 10,
+    "precision": 1.0,
+    "recall": 0.4,
+    "f1": 0.5714285714285715
+  },
+  "supported_models": {
+    "correct": 6,
+    "predicted": 6,
+    "reference": 11,
+    "precision": 1.0,
+    "recall": 0.5454545454545454,
+    "f1": 0.7058823529411764
+  },
+  "tab_sleep_delay": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.4,
+    "f1": 0.5714285714285715
+  },
+  "talks": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 7,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273
+  },
+  "team_size": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.25,
+    "f1": 0.4
+  },
+  "templates": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.8,
+    "f1": 0.888888888888889
+  },
+  "text_limit": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 3,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "ticket_price": {
+    "correct": 8,
+    "predicted": 8,
+    "reference": 14,
+    "precision": 1.0,
+    "recall": 0.5714285714285714,
+    "f1": 0.7272727272727273
+  },
+  "time_to_hire": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 6,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "top_bug_bounty": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.3333333333333333,
+    "f1": 0.5
+  },
+  "trade_in_programme": {
+    "correct": 1,
+    "predicted": 3,
+    "reference": 6,
+    "precision": 0.3333333333333333,
+    "recall": 0.16666666666666666,
+    "f1": 0.2222222222222222
+  },
+  "training_data_cutoff": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 1,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "trash_retention": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.2,
+    "f1": 0.33333333333333337
+  },
+  "travel_emissions_cut": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "units_sold": {
+    "correct": 14,
+    "predicted": 16,
+    "reference": 26,
+    "precision": 0.875,
+    "recall": 0.5384615384615384,
+    "f1": 0.6666666666666667
+  },
+  "update_promise": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "update_size": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 10,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "uptime_last_quarter": {
+    "correct": 12,
+    "predicted": 14,
+    "reference": 17,
+    "precision": 0.8571428571428571,
+    "recall": 0.7058823529411765,
+    "f1": 0.7741935483870968
+  },
+  "uptime_sla": {
+    "correct": 5,
+    "predicted": 5,
+    "reference": 23,
+    "precision": 1.0,
+    "recall": 0.21739130434782608,
+    "f1": 0.3571428571428571
+  },
+  "users": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 1,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "venue": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 11,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "version": {
+    "correct": 99,
+    "predicted": 99,
+    "reference": 101,
+    "precision": 1.0,
+    "recall": 0.9801980198019802,
+    "f1": 0.99
+  },
+  "version_history": {
+    "correct": 2,
+    "predicted": 2,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "video_upload_limit": {
+    "correct": 3,
+    "predicted": 3,
+    "reference": 3,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "voice_guidance_languages": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 2,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "voice_latency": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 6,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "voice_mode": {
+    "correct": 4,
+    "predicted": 4,
+    "reference": 6,
+    "precision": 1.0,
+    "recall": 0.6666666666666666,
+    "f1": 0.8
+  },
+  "waitlist": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 4,
+    "precision": 1.0,
+    "recall": 0.25,
+    "f1": 0.4
+  },
+  "water_resistance_depth": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 1,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "webcast_viewers": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "webhook_events": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 7,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "webinars_held": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 1,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "weight": {
+    "correct": 7,
+    "predicted": 7,
+    "reference": 8,
+    "precision": 1.0,
+    "recall": 0.875,
+    "f1": 0.9333333333333333
+  },
+  "workshops": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 2,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.6666666666666666
+  },
+  "would_recommend": {
+    "correct": 0,
+    "predicted": 0,
+    "reference": 4,
+    "precision": 0,
+    "recall": 0.0,
+    "f1": 0
+  },
+  "yearly_billing_discount": {
+    "correct": 1,
+    "predicted": 1,
+    "reference": 5,
+    "precision": 1.0,
+    "recall": 0.2,
+    "f1": 0.33333333333333337
+  }
+}
