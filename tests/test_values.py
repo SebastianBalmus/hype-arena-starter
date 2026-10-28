@@ -313,3 +313,35 @@ def test_normalize_drops_op_and_converts():
     assert normalize(Q(3, "Customers")) == {"kind": "quantity", "value": 3, "unit": "customer"}
     assert values_equal(Q(128, "gigabyte"), Q(128, "GB"))
     assert not values_equal(T(30, "day"), T(1, "month"))
+
+
+# --- Fix round 1 ----------------------------------------------------------------------
+
+
+@pytest.mark.parametrize("text", ["10 000 users", "1 000 000 users", "a 10 000 mAh battery"])
+def test_space_grouped_thousands_read_nothing(text):
+    assert parse_values(text) == []
+
+
+def test_space_grouped_price_reads_nothing():
+    got = [s.value for s in parse_values("€10 000")]
+    assert not any(values_equal(v, M(10, "EUR")) or values_equal(v, M(0, "EUR")) for v in got), got
+    assert got == []
+
+
+@pytest.mark.parametrize("text", ["two dozen partners", "three dozen partners", "Two dozen"])
+def test_only_a_dozen_reads(text):
+    got = [s.value for s in parse_values(text)]
+    assert got == [], got
+
+
+@pytest.mark.parametrize(
+    "text", ["29 February 2025", "32 March 2026", "February 30, 2026", "the 31st of April 2026", "Feb 29th 2025"]
+)
+def test_invalid_full_dates_read_nothing(text):
+    got = [s.value for s in parse_values(text)]
+    assert got == [], got
+
+
+def test_valid_leap_day_still_reads():
+    assert any(values_equal(s.value, D("2024-02-29")) for s in parse_values("29 February 2024"))

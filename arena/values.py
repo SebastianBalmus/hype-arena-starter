@@ -190,6 +190,12 @@ _PCT_RE = re.compile(rf"{_SP}*%|(?:{_SP}*|-)(?i:percent|per{_SP}+cent)(?![A-Za-z
 _V_RE = re.compile(r"(?<![A-Za-z0-9.])[vV](\d+(?:\.\d+){0,3})(?![\d]|\.\d)")
 _VER_WORD_RE = re.compile(rf"(?i)\b(?:version|ver\.?){_SP}*(\d+(?:\.\d+){{0,3}})(?![\d]|\.\d)")
 _SKIP_RE = re.compile(r"(?<![\d])\d+(?:[/:]\d+)+")
+# Thousands grouped by spaces are not whole numbers the spec reads: "10 000", "1 000 000".
+_SPACE_GROUPED_RE = re.compile(r"(?<![\d.,])\d{1,3}(?:[   ]\d{3})+(?![\d]|[.,]\d)")
+# Only "a dozen" reads; "two dozen" and the like read as nothing, not as 2.
+_DOZENS_RE = re.compile(
+    rf"(?i)\b(?:(?:{_tens_alt})(?:[-\s](?:{_ones19_alt}))?|{_ones_alt}){_SP}+dozens?\b"
+)
 
 _ORD = r"(?:st|nd|rd|th)?"
 _DATE_RES = [
@@ -551,6 +557,9 @@ def _find_dates(clean):
                     continue
                 mo, d, y = _MONTHS[m.group(1).lower()], None, int(m.group(2))
             if not _valid_date(y, mo, d):
+                # An impossible day (29 February 2025, 32 March 2026) still claims its span,
+                # so it reads as nothing rather than as its month.
+                found.append((m.start(), m.end(), None))
                 continue
             val = f"{y:04d}-{mo:02d}" + (f"-{d:02d}" if d is not None else "")
             found.append((m.start(), m.end(), val))
@@ -765,7 +774,12 @@ def parse_values(text: str) -> list[ValueSpan]:
     for s, e, v in _find_dates(clean):
         if free(s, e):
             take(s, e)
-            atoms.append(_Atom(s, e, {"kind": "date", "value": v}))
+            atoms.append(_Atom(s, e, {"kind": "date", "value": v} if v else None))
+    for rx in (_SPACE_GROUPED_RE, _DOZENS_RE):  # 10 000 users, two dozen: read as nothing
+        for m in rx.finditer(clean):
+            if free(m.start(), m.end()):
+                take(m.start(), m.end())
+                atoms.append(_Atom(m.start(), m.end(), None))
     for rx in (_V_RE, _VER_WORD_RE):
         for m in rx.finditer(clean):
             if free(m.start(), m.end()):
