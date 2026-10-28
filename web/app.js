@@ -129,7 +129,7 @@
   $("tab-rows").addEventListener("click", function () { tab("rows"); });
   $("tab-claims").addEventListener("click", function () { tab("claims"); });
 
-  function fixture() { return fetch("/web/fixtures/run.json").then(function (r) { return r.json(); }); }
+  function fixture() { return fetch("/static/fixtures/run.json").then(function (r) { return r.json(); }); }
   function loadSample() {
     var p = DEMO
       ? fixture().then(function (d) {
