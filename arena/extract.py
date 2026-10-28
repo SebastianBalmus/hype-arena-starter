@@ -111,11 +111,13 @@ class Extractor:
         grams = {c: bigrams(c) for c in clauses}
         for subj in dict.fromkeys(subjects):
             for attr in self.lexicon.attributes(subj):
-                if self.kinds.kind(attr) != "boolean":
+                kind = self.kinds.kind(attr)
+                if kind not in ("boolean", None) or (subj, attr) in used:
                     continue
                 cues = self.kinds.cues(attr)
                 for c in clauses:
-                    if has_attribute_words(c, attr) or any(q in grams[c] for q in cues):
+                    words = has_attribute_words(c, attr)
+                    if words or (kind == "boolean" and any(q in grams[c] for q in cues)):
                         facts.append(Fact(subj, attr, {"kind": "boolean", "value": not has_negation(c)}, 0.8))
                         break
         return facts, mentions

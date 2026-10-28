@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from sklearn.model_selection import GroupKFold
 
@@ -18,8 +20,8 @@ def _examples(rows, gold):
     return [(by_id[i].text, f.value, f.subject, f.attribute) for i, fs in gold.items() if i in by_id for f in fs]
 
 
-def _build(rows, gold, model, use_gold=False):
-    lex = Lexicon.load(LEXICON)
+def _build(rows, gold, model, use_gold=False, lexicon_path=LEXICON):
+    lex = Lexicon.load(lexicon_path)
     sub = {r.id: gold[r.id] for r in rows if r.id in gold}
     kinds = KindIndex.from_gold(sub, rows)
     names = NameIndex.from_values(
@@ -80,26 +82,65 @@ def test_every_row_returned(make_extractor):
     assert out == {"z": []}
 
 
-def fact_accuracy(rows, gold) -> float:
-    """Share of gold facts reproduced exactly, extracting without gold reuse, model fitted on other page folds."""
-    hits = total = 0
+def fact_scores(rows, gold) -> tuple[float, float]:
+    """(recall, precision) on held-out page folds, no gold reuse, model fitted on the other folds."""
+    hits = total = extracted = correct = 0
     for tr, te in GroupKFold(5).split(rows, groups=[r.page for r in rows]):
         train = [rows[i] for i in tr]
         model = AttributeModel().fit(_examples(train, gold))
         ex = _build(train, gold, model)
         test = [rows[i] for i in te]
         out = ex.extract(test)
+
+        def match(f, g):
+            return f.subject == g.subject and f.attribute == g.attribute and values_equal(f.value, g.value)
         for r in test:
             for g in gold[r.id]:
                 total += 1
-                hits += any(f.subject == g.subject and f.attribute == g.attribute and values_equal(f.value, g.value)
-                            for f in out[r.id])
-    return hits / total
+                hits += any(match(f, g) for f in out[r.id])
+            for f in out[r.id]:
+                extracted += 1
+                correct += any(match(f, g) for g in gold[r.id])
+    return hits / total, correct / extracted
+
+
+def fact_accuracy(rows, gold) -> float:
+    return fact_scores(rows, gold)[0]
 
 
 def test_fact_accuracy_floor(practice):
     rows, gold = practice
-    acc = fact_accuracy(rows, gold)
-    print(f"fact_accuracy={acc:.4f}")
-    # measured 0.7523 (GroupKFold(5) by page, no gold reuse); floor = measured - 0.03
-    assert acc >= 0.7223
+    recall, precision = fact_scores(rows, gold)
+    print(f"fact_accuracy(recall)={recall:.4f} precision={precision:.4f}")
+    # measured recall 0.7540, precision 0.7912 (GroupKFold(5) by page, no gold reuse); floors = measured - 0.03
+    assert recall >= 0.7240
+    assert precision >= 0.7612
+
+
+def _lexicon_with(tmp_path, subject, attribute):
+    data = json.load(open(LEXICON, encoding="utf-8"))
+    for s in data["subjects"]:
+        if s["name"] == subject:
+            s["attributes"].append(attribute)
+    path = tmp_path / "lexicon.json"
+    path.write_text(json.dumps(data), encoding="utf-8")
+    return str(path)
+
+
+def test_unseen_quantity_attribute(practice, fitted, tmp_path):
+    rows, gold = practice
+    path = _lexicon_with(tmp_path, "Hooly Vault", "vault_shards")
+    ex = _build(rows, gold, fitted, lexicon_path=path)
+    out = ex.extract([Row("u", "Hooly Vault now runs 12 vault shards.", "2026-05-01", "", 0)])
+    assert any(f.subject == "Hooly Vault" and f.attribute == "vault_shards" and f.value["value"] == 12
+               and f.value["kind"] == "quantity" for f in out["u"])
+
+
+def test_unseen_boolean_attribute(practice, fitted, tmp_path):
+    rows, gold = practice
+    path = _lexicon_with(tmp_path, "Hooly Vault", "cold_storage")
+    ex = _build(rows, gold, fitted, lexicon_path=path)
+    out = ex.extract([Row("u", "Hooly Vault does not offer cold storage.", "2026-05-01", "", 0),
+                      Row("v", "Hooly Vault offers cold storage.", "2026-05-01", "", 1)])
+    assert any(f.attribute == "cold_storage" and f.value == {"kind": "boolean", "value": False} for f in out["u"])
+    assert any(f.attribute == "cold_storage" and f.value == {"kind": "boolean", "value": True} for f in out["v"])
