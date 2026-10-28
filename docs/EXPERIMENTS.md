@@ -182,6 +182,32 @@ Parsing costs ~2 points. At runtime all practice rows are anchors (here 80%) and
 ~10x more unlabelled rows, which should help, but new subjects/attributes in the hidden data
 will hurt; the sample rows (29 Oct) are the first check.
 
+## Team benchmark arena-eval-v1 (2026-10-28)
+
+`python3 -m evaluation.arena_v1`. The team's shared protocol (EVALUATION.md on the `bogdan`
+branch): frozen splits `evaluation/splits-v1.json` (hashes verified), access profile
+batch_unlabelled_v1 (labelled training rows + unlabelled test text, no test forms: our
+`--mode parsed`), seed 42, policy fixed_050 (true/false only if its probability >= 0.50,
+otherwise unsure). Bogdan's numbers are from BASELINE.md (text-only TF-IDF + LR).
+
+| track | model | accuracy | macro F1 | F1 false | false P / R | decided coverage |
+|---|---|---|---|---|---|---|
+| stratified | always_true | 0.834 | 0.303 | 0.000 | - | 1.000 |
+| stratified | tfidf_lr_balanced (Bogdan) | 0.650 | 0.405 | | - / 0.27 | |
+| stratified | **windows_plus** | **0.866** | **0.496** | 0.565 | 0.70 / 0.47 | 0.992 |
+| stratified | windows_votes | 0.853 | 0.494 | 0.566 | 0.64 / 0.51 | 0.984 |
+| temporal | always_true | 0.818 | 0.300 | 0.000 | - | 1.000 |
+| temporal | tfidf_lr_balanced (Bogdan) | 0.597 | 0.292 | | - / 0.06 | |
+| temporal | **windows_plus** | **0.828** | **0.393** | 0.275 | 0.65 / 0.17 | 0.992 |
+| checker | always_true | 0.853 | 0.307 | 0.000 | - | 1.000 |
+| checker | tfidf_lr_balanced (Bogdan) | 0.711 | 0.384 | | - / 0.16 | |
+| checker | **windows_plus** | **0.868** | **0.485** | 0.529 | 0.61 / 0.47 | 0.992 |
+
+Ahead on every track on accuracy and macro F1 at once (the text-only model buys macro F1
+by giving up accuracy). The temporal track is the weak one: test rows after 1 Sept only
+have earlier anchors, so changes in Sept/Oct are invisible and lies there are hard to catch.
+The same limitation applies to `fact` claims "as of 29 Oct" in generation.
+
 ## Planned experiments and predictions
 
 | id | idea | source | prediction |

@@ -10,13 +10,13 @@ from .reader import Reader
 
 
 class Pipeline(Model):
-    def __init__(self, truth_cls, threshold: float = 0.02, bool_threshold: float = 0.5):
+    def __init__(self, truth_cls, threshold: float = 0.02, bool_threshold: float = 0.5, seed: int = 0):
         self.truth = truth_cls()
         self.name = self.truth.name
-        self.threshold, self.bool_threshold = threshold, bool_threshold
+        self.threshold, self.bool_threshold, self.seed = threshold, bool_threshold, seed
 
     def fit(self, rows, lexicon, names):
-        self.reader = Reader(self.threshold, self.bool_threshold).fit([r for r in rows if r.atoms], lexicon, names)
+        self.reader = Reader(self.threshold, self.bool_threshold, seed=self.seed).fit([r for r in rows if r.atoms], lexicon, names)
         self.reader.parse_all(rows)  # fills .atoms of rows that had none
         self.truth.fit(rows, lexicon, names)
         return self
