@@ -1,0 +1,148 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "always_true",
+  "run_id": "text-variants-20261028-001",
+  "split": "stratified",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": true,
+  "output_errors": {
+    "eligible_for_comparison": true,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": []
+  },
+  "classification": {
+    "status": "ok",
+    "rows": 380,
+    "accuracy": 0.8342105263157895,
+    "macro_f1": 0.3032042085126734,
+    "per_class": {
+      "true": {
+        "precision": 0.8342105263157895,
+        "recall": 1.0,
+        "f1": 0.9096126255380201,
+        "support": 317,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 55,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          317,
+          0,
+          0
+        ],
+        [
+          55,
+          0,
+          0
+        ],
+        [
+          8,
+          0,
+          0
+        ]
+      ]
+    },
+    "decided_count": 380,
+    "decided_correct": 317,
+    "decided_errors": 63,
+    "decided_coverage": 1.0,
+    "decided_accuracy": 0.8342105263157895,
+    "decided_risk": 0.16578947368421051,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 317,
+        "coverage": 1.0
+      },
+      "false": {
+        "decided_count": 55,
+        "coverage": 1.0
+      },
+      "unsure": {
+        "decided_count": 8,
+        "coverage": 1.0
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 380
+    },
+    "correctness_brier": 0.13830429838508584,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 0,
+        "mean_confidence": null,
+        "empirical_correctness": null
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 0,
+        "mean_confidence": null,
+        "empirical_correctness": null
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 0,
+        "mean_confidence": null,
+        "empirical_correctness": null
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 380,
+        "mean_confidence": 0.8332234673698088,
+        "empirical_correctness": 0.8342105263157895
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 0,
+        "mean_confidence": null,
+        "empirical_correctness": null
+      }
+    ],
+    "multiclass_brier": 0.28270476150311424
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only method",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "No evidence proof functionality",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Constrained offline Linux amd64 benchmark not run",
+    "fit_seconds_native": 0.0008292919956147671,
+    "inference_seconds_native": 0.0011584580061025918,
+    "serialization_seconds_native": 0.0020897499925922602,
+    "external_audit_seconds_native": 0.001552041998365894,
+    "method_process_seconds": 0.8141252079803962,
+    "peak_ram_bytes": null
+  }
+}

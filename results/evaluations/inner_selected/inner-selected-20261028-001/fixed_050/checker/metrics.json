@@ -1,0 +1,154 @@
+{
+  "benchmark_version": "arena-eval-v1",
+  "method_id": "inner_selected",
+  "selected_model": "word_char_lr_balanced",
+  "run_id": "inner-selected-20261028-001",
+  "split": "checker",
+  "policy": "fixed_050",
+  "access_profile": "batch_unlabelled_v1",
+  "eligible_for_comparison": false,
+  "output_errors": {
+    "eligible_for_comparison": false,
+    "missing_count": 0,
+    "duplicate_count": 0,
+    "unknown_count": 0,
+    "gold_errors": [],
+    "errors": [],
+    "data_boundary_error": "Invalidated: evaluator-only validation scoring wrote gold labels in the method input directory. The method runner did not read that file, but the v1 input-boundary rule requires separation."
+  },
+  "classification": {
+    "status": "invalid",
+    "rows": 380,
+    "accuracy": 0.7394736842105263,
+    "macro_f1": 0.36145591967339735,
+    "per_class": {
+      "true": {
+        "precision": 0.875,
+        "recall": 0.8425925925925926,
+        "f1": 0.8584905660377359,
+        "support": 324,
+        "absent": false
+      },
+      "false": {
+        "precision": 0.25925925925925924,
+        "recall": 0.14285714285714285,
+        "f1": 0.18421052631578946,
+        "support": 49,
+        "absent": false
+      },
+      "unsure": {
+        "precision": 0.024390243902439025,
+        "recall": 0.14285714285714285,
+        "f1": 0.041666666666666664,
+        "support": 7,
+        "absent": false
+      }
+    },
+    "confusion_matrix": {
+      "labels": [
+        "true",
+        "false",
+        "unsure"
+      ],
+      "counts": [
+        [
+          273,
+          19,
+          32
+        ],
+        [
+          34,
+          7,
+          8
+        ],
+        [
+          5,
+          1,
+          1
+        ]
+      ]
+    },
+    "decided_count": 339,
+    "decided_correct": 280,
+    "decided_errors": 59,
+    "decided_coverage": 0.8921052631578947,
+    "decided_accuracy": 0.8259587020648967,
+    "decided_risk": 0.17404129793510326,
+    "decided_by_gold_class": {
+      "true": {
+        "decided_count": 292,
+        "coverage": 0.9012345679012346
+      },
+      "false": {
+        "decided_count": 41,
+        "coverage": 0.8367346938775511
+      },
+      "unsure": {
+        "decided_count": 6,
+        "coverage": 0.8571428571428571
+      }
+    },
+    "decision_reason_counts": {
+      "decided": 339,
+      "low_confidence": 35,
+      "model_unsure": 6
+    },
+    "correctness_brier": 0.1483487948071604,
+    "reliability_bins": [
+      {
+        "range": "[0.5,0.6)",
+        "count": 77,
+        "mean_confidence": 0.5495060479042019,
+        "empirical_correctness": 0.5974025974025974
+      },
+      {
+        "range": "[0.6,0.7)",
+        "count": 98,
+        "mean_confidence": 0.6513148049867072,
+        "empirical_correctness": 0.8673469387755102
+      },
+      {
+        "range": "[0.7,0.8)",
+        "count": 114,
+        "mean_confidence": 0.7518480697903115,
+        "empirical_correctness": 0.9035087719298246
+      },
+      {
+        "range": "[0.8,0.9)",
+        "count": 50,
+        "mean_confidence": 0.8358002009068046,
+        "empirical_correctness": 0.92
+      },
+      {
+        "range": "[0.9,1.0]",
+        "count": 0,
+        "mean_confidence": null,
+        "empirical_correctness": null
+      }
+    ],
+    "multiclass_brier": 0.3281318332979007,
+    "reason": "Invalidated: evaluator-only validation scoring wrote gold labels in the method input directory. The method runner did not read that file, but the v1 input-boundary rule requires separation."
+  },
+  "generation": {
+    "status": "not_implemented",
+    "reason": "Classification-only",
+    "verified_valid_yield_at_1000": null
+  },
+  "proofs": {
+    "status": "not_implemented",
+    "reason": "No proof functionality",
+    "decision_proof_rate": null,
+    "grounded_decision_yield": null
+  },
+  "resources": {
+    "status": "not_run",
+    "reason": "Constrained offline Linux amd64 benchmark not run",
+    "method_process_seconds": 0.8775841660099104,
+    "peak_ram_bytes": null,
+    "fit_seconds": 0.2107863340061158,
+    "inference_seconds": 0.018519167002523318,
+    "serialization_seconds": 0.0015015410026535392,
+    "generation_status": "not_implemented",
+    "audit_status": "not_implemented"
+  }
+}
