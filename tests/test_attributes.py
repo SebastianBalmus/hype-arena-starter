@@ -22,29 +22,33 @@ def fitted():
     return AttributeModel().fit(_examples(rows, gold))
 
 
-def attribute_accuracy() -> float:
+def attribute_accuracy() -> tuple[float, int]:
     rows, gold = load_practice(PRACTICE)
     lex = Lexicon.load(LEXICON)
     single = [r for r in rows if len(gold[r.id]) == 1]
     groups = [r.page for r in single]
-    hits = total = 0
+    hits = total = dropped = 0
     for tr, te in GroupKFold(5).split(single, groups=groups):
         train_ids = {single[i].id for i in tr}
         sub = [r for r in rows if r.id in train_ids]
-        kinds = {}
+        counts = {}
         for r in sub:
             for f in gold[r.id]:
-                kinds[f.attribute] = f.value.get("kind")
+                c = counts.setdefault(f.attribute, {})
+                c[f.value.get("kind")] = c.get(f.value.get("kind"), 0) + 1
+        kinds = {a: max(c, key=c.get) for a, c in counts.items()}
         model = AttributeModel().fit(_examples(sub, gold))
         for i in te:
             r, f = single[i], gold[single[i].id][0]
             k = f.value.get("kind")
             cands = [a for a in lex.attributes(f.subject) if kinds.get(a, k) == k]
             if f.attribute not in cands:
-                cands.append(f.attribute)
+                dropped += 1
+                total += 1
+                continue
             hits += model.rank(r.text, f.value, f.subject, cands)[0][0] == f.attribute
             total += 1
-    return hits / total
+    return hits / total, dropped
 
 
 def test_rank_known_attribute(fitted):
@@ -69,6 +73,6 @@ def test_empty_and_pickle(fitted):
 
 
 def test_leave_page_out_accuracy():
-    acc = attribute_accuracy()
-    FLOOR = 0.887  # measured 0.9168 minus 0.03
+    acc, dropped = attribute_accuracy()
+    FLOOR = 0.887  # strict measured 0.9168 (gold never appended; 0 rows had gold outside candidates) minus 0.03
     assert acc >= FLOOR
