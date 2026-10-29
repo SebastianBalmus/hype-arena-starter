@@ -19,8 +19,8 @@ export function Reveal({ children, className, delay = 0 }: { children: ReactNode
 
 export function SectionHead({ eyebrow, a, b, className }: { eyebrow: string; a: string; b: string; className?: string }) {
   return (
-    <Reveal className={cn("mb-12", className)}>
-      <p className="label mb-5 text-muted-foreground">{eyebrow}</p>
+    <Reveal className={cn("mb-6", className)}>
+      <p className="label mb-3 text-muted-foreground">{eyebrow}</p>
       <h2 className="text-4xl font-light md:text-6xl">
         <span className="block">{a}</span>
         <span className="headline-ghost block">{b}</span>

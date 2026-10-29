@@ -9,10 +9,10 @@ import { Cursor } from "@/components/hot/ui";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Hype or Truth — a fact-checker with no LLM inside" },
+      { title: "Traceback — trace claims to evidence" },
       { name: "description", content: "Reads every sentence about a company, checks it against the record, and tells you how sure it is. Run it live." },
-      { property: "og:title", content: "Hype or Truth — Less hype. More truth." },
-      { property: "og:description", content: "A calibrated fact-checking system for company claims. 88.8% accurate on unseen pages, no LLM inside." },
+      { property: "og:title", content: "Traceback — trace claims to evidence" },
+      { property: "og:description", content: "A calibrated fact-checking system for company claims. 88.8% accurate on unseen pages." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

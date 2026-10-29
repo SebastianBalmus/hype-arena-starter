@@ -38,9 +38,9 @@ function Particles({ onHover }: { onHover: (h: HoverInfo | null) => void }) {
     const col = new Float32Array(N * 3);
     const hype = new Uint8Array(N);
     const seed = new Float32Array(N);
-    const truth = new THREE.Color("#F4EEFF");
-    const lil = new THREE.Color("#C9A6E8");
-    const orange = new THREE.Color("#FF7A1A");
+    const truth = new THREE.Color("#B6D3C1");
+    const emerald = new THREE.Color("#267559");
+    const red = new THREE.Color("#AB403A");
     for (let i = 0; i < N; i++) {
       const h = Math.random() < HYPE_RATIO ? 1 : 0;
       hype[i] = h;
@@ -54,7 +54,7 @@ function Particles({ onHover }: { onHover: (h: HoverInfo | null) => void }) {
       target[i * 3] = tx;
       target[i * 3 + 1] = h ? -1.6 + (Math.random() - 0.5) * 0.9 : 1.4 + (Math.random() - 0.5) * 0.6;
       target[i * 3 + 2] = (Math.random() - 0.5) * 1.5;
-      const c = h ? orange : truth.clone().lerp(lil, Math.random() * 0.6);
+      const c = h ? red : truth.clone().lerp(emerald, Math.random() * 0.6);
       col.set([c.r, c.g, c.b], i * 3);
     }
     pos.set(start);
@@ -130,7 +130,7 @@ function Particles({ onHover }: { onHover: (h: HoverInfo | null) => void }) {
         <bufferAttribute attach="attributes-position" args={[data.pos, 3]} />
         <bufferAttribute attach="attributes-color" args={[data.col, 3]} />
       </bufferGeometry>
-      <pointsMaterial size={0.11} map={sprite} vertexColors transparent depthWrite={false} sizeAttenuation opacity={0.95} />
+      <pointsMaterial size={0.11} map={sprite} vertexColors transparent depthWrite={false} sizeAttenuation opacity={0.45} />
     </points>
   );
 }

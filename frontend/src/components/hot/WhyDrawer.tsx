@@ -40,7 +40,7 @@ function Timeline({ fact }: { fact: Fact }) {
   return (
     <svg viewBox={`0 0 ${W} ${40 + vals.length * 34}`} className="w-full" role="img" aria-label={`Timeline for ${fact.attribute}`}>
       <defs>
-        <linearGradient id="fuzz" x1="0" x2="1"><stop offset="0" stopColor="var(--lilac)" stopOpacity="0.5" /><stop offset="1" stopColor="var(--lilac)" stopOpacity="0" /></linearGradient>
+        <linearGradient id="fuzz" x1="0" x2="1"><stop offset="0" stopColor="var(--fit)" stopOpacity="0.5" /><stop offset="1" stopColor="var(--fit)" stopOpacity="0" /></linearGradient>
       </defs>
       {years.map((y) => {
         const x = X(Date.UTC(y, 0, 1));

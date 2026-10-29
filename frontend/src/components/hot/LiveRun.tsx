@@ -62,14 +62,14 @@ export function LiveRun() {
     .sort((a, b) => ((a.confidence ?? 0) - (b.confidence ?? 0)) * (sortDesc ? -1 : 1)), [rows, filter, sortDesc]);
 
   const metaLine = meta ? [
-    `${meta.model} · ${meta.runtime_ms} ms`,
+    `${meta.runtime_ms} ms`,
     meta.gold_rows ? `${meta.gold_agree}/${meta.gold_rows} match the real labels` : null,
     meta.expected_accuracy ? `expected accuracy ${Math.round(meta.expected_accuracy * 100)}%` : null,
     live && meta.claims ? `${meta.claims.toLocaleString()} new claims written` : null,
   ].filter(Boolean).join(" · ") : "";
 
   return (
-    <section id="live" className="px-6 py-32 md:px-14">
+    <section id="live" className="px-6 py-10 md:px-14 md:py-12">
       <SectionHead eyebrow="02 · Live run" a="Paste sentences." b="Watch them get checked." />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
         <Reveal>
@@ -88,14 +88,14 @@ export function LiveRun() {
             {err && <p className="mt-2 text-sm text-hype">{err}</p>}
             <div className="mt-4 flex flex-wrap gap-3">
               <BracketButton onClick={async () => setCsv((await getSample()).csv)}>Load sample</BracketButton>
-              <BracketButton onClick={run} disabled={running} className="bg-primary text-primary-foreground hover:bg-hype hover:border-hype">{running ? "Running…" : "Run"}</BracketButton>
+              <BracketButton onClick={run} disabled={running} className="bg-primary text-primary-foreground hover:bg-primary/90 hover:border-primary">{running ? "Running…" : "Run"}</BracketButton>
               <BracketButton onClick={saveCsv} disabled={running || !rows.length} title={live ? "output.csv of this run: labels + 1,000 claims" : "labels only (offline)"}>Download output.csv</BracketButton>
             </div>
             <div className="mt-8 flex items-center gap-2" aria-live="polite">
               {STAGES.map((s, i) => (
                 <div key={s} className="flex flex-1 items-center gap-2">
                   <div className={cn("label flex-1 rounded-full border px-3 py-2 text-center text-[9px] transition-all duration-500",
-                    stage === i && running ? "border-hype bg-hype text-primary-foreground" : stage > i ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground")}>{s}</div>
+                    stage === i && running ? "border-primary bg-primary/80 text-primary-foreground" : stage > i ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground")}>{s}</div>
                   {i < 2 && <div className={cn("h-px w-4 transition-colors", stage > i ? "bg-primary" : "bg-border")} />}
                 </div>
               ))}
@@ -117,7 +117,7 @@ export function LiveRun() {
 
             {rows.length > 0 && (
               <div className="mb-4 flex h-2 overflow-hidden rounded-full" aria-label={`${counts.true} true, ${counts.false} false, ${counts.unsure} unsure`}>
-                <motion.div className="bg-truth" initial={{ width: 0 }} animate={{ width: `${(counts.true / rows.length) * 100}%` }} />
+                <motion.div className="bg-fit" initial={{ width: 0 }} animate={{ width: `${(counts.true / rows.length) * 100}%` }} />
                 <motion.div className="bg-hype" initial={{ width: 0 }} animate={{ width: `${(counts.false / rows.length) * 100}%` }} />
                 <motion.div className="bg-muted-foreground/40" initial={{ width: 0 }} animate={{ width: `${(counts.unsure / rows.length) * 100}%` }} />
               </div>
@@ -125,8 +125,7 @@ export function LiveRun() {
 
             {rows.length === 0 ? (
               <div className="flex h-80 flex-col items-center justify-center text-center">
-                <p className="font-display text-2xl font-light text-muted-foreground">{running ? "Checking against the record…" : "No results yet."}</p>
-                {!running && <p className="label mt-3 text-muted-foreground">Load the sample and press run</p>}
+                <p className="font-display text-2xl font-light text-muted-foreground">{running ? "Checking…" : "Load a sample or upload a CSV."}</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -160,7 +159,7 @@ export function LiveRun() {
                     </AnimatePresence>
                   </tbody>
                 </table>
-                <p className="label mt-4 text-muted-foreground">{metaLine} · click a row for why</p>
+                <p className="label mt-4 text-muted-foreground">{metaLine} · select a row for evidence</p>
               </div>
             )}
           </div>
