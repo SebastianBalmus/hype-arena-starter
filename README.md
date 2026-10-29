@@ -82,18 +82,17 @@ at startup. Restart it after changing Python code.
 
 The frontend exposes three actions:
 
-| Action | Intended output |
+| Action | Output |
 | --- | --- |
 | **Classify rows** | Classifications only: `classifications.csv` |
 | **Generate claims** | Generated claims only: `claims.csv` |
 | **Run full pipeline + CSV** | Both classifications and claims: `output.csv` |
 
-**Current API compatibility:** the checked-in `demo/server.py` currently implements
-full runs only. Separate classification/generation modes, streaming component
-traces and immutable per-run download URLs need the corresponding backend changes
-restored. The frontend rejects partial-mode responses from this older API; full
-runs remain available. Use the explicit `--sample datasets/sample.csv` argument:
-without it, this API defaults to held-out practice rows.
+All three modes are implemented by the API. Live progress events update the
+architecture diagram as each stage runs; select a component to inspect its output.
+Each run has an immutable CSV download, so subsequent runs cannot overwrite it.
+The default sample is `datasets/sample.csv`. Restart the API after pulling changes
+to ensure the running server uses the current implementation.
 
 When the API is unreachable, the frontend displays a saved run and a **Demo data**
 badge. This is an offline preview; it does not execute inference on new rows.

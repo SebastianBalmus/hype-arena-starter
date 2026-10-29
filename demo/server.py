@@ -1,6 +1,6 @@
 """Demo API for the frontend: the container's code path behind HTTP (not part of the image).
 
-    python3 -m demo.server [--port 8000] [--sample sample/sample.csv] [--snapshot frontend/src/lib/snapshot.ts]
+    python3 -m demo.server [--port 8000] [--sample datasets/sample.csv] [--snapshot frontend/src/lib/snapshot.ts]
 
 At startup the Reader is trained once on the labelled practice rows (it only ever learns
 from labelled rows, so it never needs retraining). Each run then does exactly what
@@ -8,12 +8,12 @@ from labelled rows, so it never needs retraining). Each run then does exactly wh
 unlabelled rows, are parsed, the truth model is fitted on the whole universe, labels are
 calibrated, the 1,000 claims are written, and `output.csv` is written in the contract format.
 
-Sample: by default 20 practice rows (whole pages) are held out of everything, so the demo
-can show how many verdicts agree with their real labels. `--sample` uses a CSV instead
-(id,text,date[,label]); a filled label there is only shown for comparison, never used.
+Sample: datasets/sample.csv is an unlabelled test set, never ground truth.
 
-Endpoints: POST /api/run {rows: [{id, text, date}]}, GET /api/output.csv, GET /api/claims,
-GET /api/metrics, GET /api/sample, GET /api/health.
+POST /api/run accepts rows and mode (classify, generate, full; default full).
+Add ?stream=1 for NDJSON progress. GET /api/runs/<token>/output.csv returns an
+immutable export; /api/output.csv is the latest full export. Other endpoints:
+GET /api/claims, /api/metrics, /api/sample, /api/health.
 """
 from __future__ import annotations
 
@@ -22,7 +22,6 @@ import csv
 import io
 import json
 import os
-import random
 import re
 import tempfile
 import threading
@@ -42,6 +41,9 @@ from hooly.writer import generate_claims, render
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+DEFAULT_SAMPLE = os.path.join(ROOT, "datasets", "sample.csv")
+RUN_MODES = {"classify", "generate", "full"}
+CSV_NAMES = {"classify": "classifications.csv", "generate": "claims.csv", "full": "output.csv"}
 CLAIM_TYPES = {"fact": "FACT", "compare": "COMPARE", "change": "CHANGE", "at_event": "AT EVENT", "relation": "RELATION"}
 
 
@@ -66,23 +68,15 @@ def _d(s: str) -> date:
 
 
 class Demo:
-    def __init__(self, practice, lexicon_path, calibration, sample=None, n_holdout=20, seed=11):
+    def __init__(self, practice, lexicon_path, calibration, sample=None):
         t0 = time.time()
         self.lock = threading.Lock()
         self.lexicon = load_lexicon(lexicon_path)
         practice_rows = load_rows(practice)
-        self.sample_gold = {}
-        if sample:
-            with open(sample, encoding="utf-8") as f:
-                rs = list(csv.DictReader(f))
-            self.sample = [{"id": r["id"], "text": r["text"], "date": r["date"]} for r in rs]
-            self.sample_gold = {r["id"]: r["label"] for r in rs if r.get("label")}
-            held = set()
-        else:
-            held = self._holdout(practice_rows, n_holdout, seed)
-            self.sample = [{"id": r.id, "text": r.text, "date": r.date} for r in practice_rows if r.id in held]
-            self.sample_gold = {r.id: r.label for r in practice_rows if r.id in held}
-        self.train = [r for r in practice_rows if r.id not in held and r.label]
+        with open(sample or DEFAULT_SAMPLE, encoding="utf-8-sig", newline="") as f:
+            self.sample = [{"id": r["id"], "text": r["text"], "date": r["date"]}
+                           for r in csv.DictReader(f)]
+        self.train = [r for r in practice_rows if r.label]
         self.names = build_names(self.lexicon, self.train)
         self.pipeline = Pipeline(GatedHybrid)
         self.pipeline.parse_cal = self.pipeline._parse_calibration(self.train, self.lexicon, self.names)
@@ -92,41 +86,48 @@ class Demo:
         with open(os.path.join(HERE, "metrics.json"), encoding="utf-8") as f:
             self.metrics = json.load(f)
         self.last = None
+        self.exports = {}
+        self.export_names = {}
         print(f"[demo] reader trained on {len(self.train)} labelled rows in {time.time() - t0:.0f} s; "
               f"sample: {len(self.sample)} rows", flush=True)
 
-    @staticmethod
-    def _holdout(rows, n, seed):
-        """Whole pages of practice rows, with a few lies among them, kept out of everything."""
-        pages = {}
-        for r in rows:
-            pages.setdefault(r.page, []).append(r)
-        for s in range(seed, seed + 200):
-            order = [p for p in pages.values() if 2 <= len(p) <= 8]
-            random.Random(s).shuffle(order)
-            pick = []
-            for p in order:
-                if len(pick) + len(p) <= n:
-                    pick += p
-                if len(pick) >= n - 1:
-                    break
-            if sum(r.label == "false" for r in pick) >= 3:
-                return {r.id for r in pick}
-        return {r.id for r in rows[:n]}
-
     # ------------------------------------------------------------------ one run
-    def run(self, inputs):
+    def run(self, inputs, progress=None, mode="full"):
+        if not isinstance(mode, str) or mode not in RUN_MODES:
+            raise ValueError("mode must be classify, generate or full")
+        if mode != "generate" and not inputs:
+            raise ValueError("classification requires input rows")
         t0 = time.time()
         with self.lock:
-            return self._run(inputs, t0)
+            return self._run(inputs, t0, progress, mode)
 
-    def _run(self, inputs, t0):
+    def _run(self, inputs, t0, progress=None, mode="full"):
+        def emit(node, status, output=None):
+            if progress:
+                event = {"type": "stage", "node": node, "status": status,
+                         "elapsed_ms": int((time.time() - t0) * 1000)}
+                if output is not None:
+                    event["output"] = output
+                progress(event)
+
+        def preview(items, limit=50):
+            return {"total_rows": len(items), "preview_limit": limit, "rows": items[:limit]}
+
+        emit("input", "running")
+        emit("input", "complete", preview(inputs))
+        emit("lexicon", "running")
+        emit("lexicon", "complete", self.lexicon)
+        emit("practice", "running")
         ids = {x["id"] for x in inputs}
-        gold = dict(self.sample_gold)
+        gold = {}
         universe = []
+        supplied = {x["id"]: x for x in inputs}
         for r in self.train:
-            if r.id in ids:  # an uploaded practice row: its label is hidden for this run
-                gold.setdefault(r.id, r.label)
+            if r.id in ids:
+                x = supplied[r.id]
+                # A reused ID alone must never supply a gold label.
+                if x["text"] == r.text and x.get("date") == r.date:
+                    gold[r.id] = r.label
                 continue
             universe.append(replace(r, meta={}))
         base = max((r.index for r in universe), default=0) + 1
@@ -138,34 +139,93 @@ class Demo:
             r.page += top
         universe += new
         p = self.pipeline
+        emit("practice", "complete", {
+            "labelled_rows_in_this_run": len(universe) - len(new),
+            "reader_training_rows": len(self.train), "reader_trained_at": "API startup",
+            "uploaded_labels_used": False, "preview_limit": 8,
+            "rows": [{"id": r.id, "text": r.text, "date": r.date, "label": r.label,
+                      "facts": [{"subject": a.subject, "attribute": a.attribute, "value": a.value}
+                                for a in (r.atoms or [])]} for r in universe if r.label][:8],
+        })
+        emit("entities", "running")
+        if progress:
+            entities = [{"id": r.id, **(p.reader.linker.as_json(r.text) if p.reader.linker else {})}
+                        for r in new[:50]]
+            emit("entities", "complete", {"total_rows": len(new), "preview_limit": 50, "rows": entities})
+        emit("reader", "running")
         p.reader.parse_all(universe)
         for r in new:
             if r.meta.get("parsed"):
                 fb, fcal = r.meta.get("fallback_keys", set()), getattr(p.parse_cal, "fallback", None)
                 r.meta["atom_q"] = {k: (fcal(s) if k in fb and fcal else p.parse_cal(s))
                                     for k, s in r.meta["parse_scores"].items()}
+        if progress:
+            extracted = [{"id": r.id, "text": r.text, "date": r.date,
+                          "facts": [{"subject": a.subject, "attribute": a.attribute, "value": a.value,
+                                     "parse_confidence": (r.meta.get("atom_q") or {}).get(a.key)}
+                                    for a in (r.atoms or [])]} for r in new[:50]]
+            facts = {"total_rows": len(new), "preview_limit": 50, "rows": extracted,
+                     "extracted_facts": sum(len(r.atoms or []) for r in new)}
+            emit("reader", "complete", facts)
+            emit("facts", "running")
+            emit("facts", "complete", facts)
+        emit("truth", "running")
         p.truth = GatedHybrid().fit(universe, self.lexicon, self.names)
         self._uni = {r.id: r for r in universe}
+        classified = new if mode != "generate" else []
+        raw = [p.predict(r) for r in classified]
+        if progress:
+            emit("truth", "complete", {"total_rows": len(classified), "fitted_rows": len(universe), "preview_limit": 50,
+                 "rows": [{"id": r.id, "label": pred.label, "probabilities": pred.probs,
+                           "trace": {k: v for k, v in pred.trace.items() if k != "parse_probs"}}
+                          for r, pred in zip(classified[:50], raw[:50])]})
         labels, preds, out_rows = [], [], []
-        for r in new:
-            pred = p.predict(r)
+        if mode != "generate":
+            emit("calib", "running")
+        for r, pred in zip(classified, raw):
             lab, conf = calibrated(pred, self.maps, r.text)
             conf = None if lab == "unsure" else conf
             labels.append((r.id, lab, conf))
             preds.append((lab, conf, pred))
             out_rows.append(self._result(r, lab, conf, pred, gold.get(r.id)))
+        if mode != "generate":
+            emit("calib", "complete", {"total_rows": len(classified), "preview_limit": 50,
+                 "rows": [{"id": r.id, "before": {"label": pred.label, "confidence": pred.confidence},
+                           "after": {"label": lab, "confidence": conf}}
+                          for r, pred, (_, lab, conf) in zip(classified[:50], raw[:50], labels[:50])]})
+            emit("labels", "running")
+            emit("labels", "complete", preview(out_rows))
         trusted = {rid for rid, lab, conf in labels if lab == "true" and conf is not None and conf >= 0.95}
-        rep = {}
-        claims = generate_claims(universe, self.lexicon, self.names, p, n=1000, extra_true=trusted, report=rep)
-        write_table(self.out_dir, labels, claims)
-        diag = diagnostics(universe, new, preds, self.lexicon)
+        rep, claims = {}, []
+        if mode != "classify":
+            emit("writer", "running")
+            claims = generate_claims(universe, self.lexicon, self.names, p, n=1000, extra_true=trusted, report=rep,
+                                     progress=emit if progress else None)
+            if len(claims) != 1000:
+                raise ValueError(f"Insufficient supported claims: generated {len(claims)} of 1000")
+            emit("claims", "running")
+            emit("claims", "complete", {"total_claims": len(claims), "preview_limit": 20,
+                                        "claims": claims[:20], "selection": rep})
+        emit("output", "running")
+        run_dir = tempfile.mkdtemp(prefix="run-", dir=self.out_dir)
+        write_table(run_dir, labels, claims)
+        token = os.path.basename(run_dir)
+        csv_url = f"/api/runs/{token}/output.csv"
+        self.exports[token] = os.path.join(run_dir, "output.csv")
+        self.export_names[token] = CSV_NAMES[mode]
+        if mode == "full":
+            write_table(self.out_dir, labels, claims)
+        emit("output", "complete", {"csv_url": csv_url, "label_rows": len(labels), "claim_rows": len(claims),
+                                    "columns": ["id", "type", "text", "form", "label", "confidence"],
+                                    "bytes": os.path.getsize(self.exports[token])})
+        diag = diagnostics(universe, classified, preds, self.lexicon) if classified else {}
         known = [r for r in out_rows if r.get("gold")]
-        agree = sum(r["gold"] == r["label"] for r in known)
         meta = {"runtime_ms": int((time.time() - t0) * 1000), "model": "Reader -> gated hybrid -> calibration",
-                "csv_url": "/api/output.csv", "rows": len(new), "claims": len(claims),
-                "expected_accuracy": diag["expected_accuracy"], "regimes": diag["regimes"],
-                "gold_rows": len(known), "gold_agree": agree}
-        self.last = {"universe": universe, "claims": claims, "labels": dict((rid, lab) for rid, lab, _ in labels)}
+                "mode": mode, "csv_url": csv_url, "rows": len(labels), "claims": len(claims),
+                "expected_accuracy": diag.get("expected_accuracy"), "regimes": diag.get("regimes"),
+                "gold_rows": len(known), "gold_agree": sum(r["gold"] == r["label"] for r in known)}
+        if mode != "classify":
+            self.last = {"universe": universe, "claims": claims, "labels": {rid: lab for rid, lab, _ in labels}}
         return {"rows": out_rows, "meta": meta}
 
     # ------------------------------------------------------------------ explanations
@@ -375,6 +435,11 @@ def make_handler(demo: Demo):
                 with open(path, "rb") as f:
                     return self._send(200, f.read(), "text/csv",
                                       {"Content-Disposition": 'attachment; filename="output.csv"'})
+            match = re.fullmatch(r"/api/runs/(run-[a-z0-9_]+)/output\.csv", u.path)
+            if match and match[1] in demo.exports:
+                with open(demo.exports[match[1]], "rb") as f:
+                    return self._send(200, f.read(), "text/csv",
+                                      {"Content-Disposition": f'attachment; filename="{demo.export_names[match[1]]}"'})
             self._send(404, {"error": "not found"})
 
         def do_POST(self):
@@ -383,18 +448,53 @@ def make_handler(demo: Demo):
             try:
                 n = int(self.headers.get("Content-Length", 0))
                 body = json.loads(self.rfile.read(n) or b"{}")
+                mode = body.get("mode", "full")
+                if not isinstance(mode, str) or mode not in RUN_MODES:
+                    return self._send(400, {"error": "mode must be classify, generate or full"})
                 rows = [{"id": str(x["id"]).strip(), "text": str(x["text"]).strip(), "date": str(x.get("date", "")).strip()}
                         for x in body.get("rows", []) if x.get("id") and x.get("text")]
                 for x in rows:
                     if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", x["date"]):
                         x["date"] = "2026-10-29"
-                if not rows:
+                if not rows and mode != "generate":
                     return self._send(400, {"error": "no rows"})
-                self._send(200, demo.run(rows))
+                if parse_qs(urlparse(self.path).query).get("stream") == ["1"]:
+                    return self._stream_run(rows, mode)
+                self._send(200, demo.run(rows, mode=mode))
             except Exception as e:  # keep the demo alive; the frontend falls back
                 import traceback
                 traceback.print_exc()
                 self._send(500, {"error": repr(e)})
+
+        def _stream_run(self, rows, mode):
+            self.send_response(200)
+            self.send_header("Content-Type", "application/x-ndjson; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Cache-Control", "no-cache, no-transform")
+            self.send_header("X-Accel-Buffering", "no")
+            self.send_header("Connection", "close")
+            self.end_headers()
+            self.close_connection = True
+            connected = True
+
+            def send(event):
+                nonlocal connected
+                if not connected:
+                    return
+                try:
+                    self.wfile.write((json.dumps(event, ensure_ascii=False, default=str) + "\n").encode())
+                    self.wfile.flush()
+                except (BrokenPipeError, ConnectionResetError):
+                    connected = False
+
+            send({"type": "queued"})
+            try:
+                result = demo.run(rows, progress=send, mode=mode)
+                send({"type": "result", "result": result})
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                send({"type": "error", "error": str(e)})
 
         def log_message(self, fmt, *args):
             print("[demo]", self.address_string(), fmt % args, flush=True)
@@ -422,15 +522,12 @@ def main(argv=None):
     ap.add_argument("--practice", default=os.path.join(ROOT, "data", "practice.csv"))
     ap.add_argument("--lexicon", default=os.path.join(ROOT, "data", "lexicon.json"))
     ap.add_argument("--calibration", default=os.path.join(ROOT, "hooly", "assets", "calibration.json"))
-    ap.add_argument("--sample", default=None, help="CSV id,text,date[,label] to offer as the sample")
+    ap.add_argument("--sample", default=DEFAULT_SAMPLE, help="Unlabelled test CSV (default: datasets/sample.csv)")
     ap.add_argument("--snapshot", default=None, help="write a frontend fallback snapshot here and exit")
     a = ap.parse_args(argv)
     demo = Demo(a.practice, a.lexicon, a.calibration, a.sample)
     if a.snapshot:
         return write_snapshot(demo, a.snapshot)
-    r = demo.run(demo.sample)  # warm up: claims and output.csv exist before the first click
-    print(f"[demo] warm-up run: {r['meta']['runtime_ms']} ms, {r['meta']['gold_agree']}/{r['meta']['gold_rows']} "
-          f"agree with known labels", flush=True)
     srv = ThreadingHTTPServer((a.host, a.port), make_handler(demo))
     print(f"[demo] API on http://{a.host}:{a.port}  (Ctrl+C to stop)", flush=True)
     try:

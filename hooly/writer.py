@@ -461,13 +461,23 @@ def _candidates(writer):
 
 
 def generate_claims(rows, lexicon, names, model=None, n=1000, deadline=None, per_key=6, report=None,
-                    extra_true=frozenset()):
+                    extra_true=frozenset(), progress=None):
     ref = Referee(lexicon, names, [r.text for r in rows])
     out, seen, per = [], set(), Counter()
     rejected, tiers = Counter(), Counter()
     tier_sources = [("labelled", _candidates(Writer(rows, lexicon, names)), 1.0)]
     if extra_true:
         tier_sources.append(("system-labelled", _candidates(Writer(rows, lexicon, names, extra_true)), 0.9))
+    if progress:
+        progress("writer", "complete", {
+            "total_candidates": sum(len(cands) for _, cands, _ in tier_sources),
+            "tiers": {tier: len(cands) for tier, cands, _ in tier_sources},
+            "preview_limit": 20,
+            "candidates": [{"type": c["type"], "text": c["text"], "form": c["form"],
+                            "confidence": round(conf * scale, 3)}
+                           for _, cands, scale in tier_sources for conf, c in cands[:20]][:20],
+        })
+        progress("referee", "running")
     # Fill with the safest claims first; relax the per-fact cap before using weaker evidence.
     for tier, cands, scale in tier_sources:
         for cap in (per_key, 10, 20):
@@ -496,4 +506,10 @@ def generate_claims(rows, lexicon, names, model=None, n=1000, deadline=None, per
     for i, c in enumerate(out, 1):
         c["id"] = f"claim-{i:04d}"
         c.pop("key", None)
+    if progress:
+        progress("referee", "complete", {
+            "kept": len(out), "rejected": dict(rejected), "tiers": dict(tiers),
+            "by_type": dict(Counter(c["type"] for c in out)),
+            "preview_limit": 20, "accepted": out[:20],
+        })
     return out

@@ -36,6 +36,23 @@ class TestDemoProgress(unittest.TestCase):
     def tearDownClass(cls):
         shutil.rmtree(cls.demo.out_dir)
 
+    def test_default_sample_is_the_official_unlabelled_test_set(self):
+        with open(os.path.join(ROOT, "datasets/sample.csv"), newline="") as f:
+            sample = list(csv.DictReader(f))
+        self.assertEqual(self.demo.sample, [{k: row[k] for k in ("id", "text", "date")} for row in sample])
+        self.assertEqual(len(sample), 20)
+        self.assertTrue(all(not row["label"] for row in sample))
+
+    def test_json_generation_accepts_empty_rows_and_returns_a_claims_export(self):
+        handler = handler_for(self.demo, "/api/run", [], "generate")
+        handler.do_POST()
+        headers, body = handler.wfile.getvalue().split(b"\r\n\r\n", 1)
+        self.assertIn(b"200", headers.splitlines()[0])
+        result = json.loads(body)
+        self.assertEqual(result["meta"]["mode"], "generate")
+        self.assertEqual(result["rows"], [])
+        self.assertEqual(len(self.read_export(result["meta"]["csv_url"], "claims.csv")), 1000)
+
     def read_export(self, url, filename="output.csv"):
         handler = handler_for(self.demo, url, [])
         handler.do_GET()
