@@ -1,51 +1,223 @@
-# Hype Arena starter
+# Traceback
 
-## [hype-arena.vercel.app](https://hype-arena.vercel.app/)
+**Less hype. More truth.**
 
-## The universe
+Traceback checks dated company claims against the available record, returns a
+`true`, `false` or `unsure` verdict with confidence, and generates structured
+claims from the evidence. Its interactive frontend lets you explore the
+architecture, inspect extracted facts and related evidence, and download results.
 
-**Hooly** is a fictional company in a fictional universe, made for the QA DNA challenge of the NEXXT AI Hackathon. Its name alludes to Hooli, the tech giant of the TV series *Silicon Valley*. Its products carry the names of real Google products, used fictitiously: nothing here describes those products or their makers. Its people carry the names of the series' characters with a few letters changed.
+Built by **Team Cercetasii** for the [QA DNA Hype Arena challenge](https://github.com/QA-DNA/hype-arena-starter).
+Hooly and its universe are fictional: supplied datasets define the world, rather
+than external knowledge about the real companies or products whose names appear.
 
-Hooly's people, events, decisions and figures are invented, and the universe departs from the series and from Google's real history on purpose. **The truth is what the universe says.** A system that fills gaps from the web, or from what a pretrained model already knows, learns facts the universe contradicts.
+## What it does
 
-The universe is a year of Hooly's pages, docs, posts, decks and press releases, in which prices, headcounts, dates and names change, and some pages lie. You get a part of it as sentences, each labelled.
+- Resolves names and aliases against the supplied lexicon.
+- Extracts subjects, attributes and typed values from sentences.
+- Combines temporal evidence and statistical models to classify dated claims.
+- Calibrates confidence using held-out evaluation data.
+- Generates up to 1,000 claims across five types: `fact`, `compare`, `change`,
+  `at_event` and `relation`. Exactly 1,000 is the submission target.
+- Checks generated wording, names, values and novelty with an internal referee.
+- Writes classifications and generated claims into one CSV in the challenge format.
 
-## The task
+The inference engine uses the **Python standard library**. No LLM, pretrained
+language model, external API or network access is required at runtime. The
+frontend uses React, TypeScript, TanStack Start, Tailwind CSS and Framer Motion.
 
-Build a system that does two things with rows about Hooly, each with how sure your system is:
+## Architecture
 
-- **It labels rows.** Given rows of the universe, some labelled and some not, it labels each unlabelled row `true`, `false` or `unsure`.
-- **It writes new content.** It writes exactly 1,000 new claims about Hooly that connect what the universe says, every one of them true.
-
-How you build it is yours to decide.
-
-- **LLMs may help you build your system,** and make what it learns from, but the system itself may not be an LLM.
-- **Fork this repository and work in your fork,** so we can follow your work. Forks are public.
-- **Your system has a frontend:** a working page that shows the architecture of your system as a diagram and runs the system live on rows you give it. Start it however you like: your video shows it running.
-- **At 09:00 on 29 Oct we add a sample of 20 rows to this repository,** as one CSV file, `sample/sample.csv`: new rows, in the shape of the run's input with every `label` empty (`id`, `text`, `date`, `label`). The video you hand in at 11:00 shows your frontend running your system live on them, beside its architecture diagram.
-- **Your submission is a pull request** from your fork to this repository, one per team, titled with your team's name and opened before 11:00 on 29 Oct. It holds both the `Dockerfile` we run your system from, as [`contracts/README.md`](contracts/README.md) says, and what starts your frontend. What it holds at 11:00 is what we run: a push to it, or closing it, after 11:00 disqualifies the team.
-- **We run every team's system** after 11:00, offline, for up to 30 minutes, on about 20,000 rows of the universe, the practice rows among them with their labels. It hands in one table, `/output/output.csv`: a label for each of the roughly 18,000 unlabelled rows and exactly 1,000 new claims, every one true, and we judge both. How it runs, what it reads and what it hands in is in [`contracts/README.md`](contracts/README.md).
-
-## What is here
-
-| Path | What |
-| --- | --- |
-| `data/practice.csv` | The practice dataset: one row per sentence of the practice part of the universe, each labelled `true`, `false` or `unsure`, with the facts it states |
-| `data/lexicon.json` | The subjects the dataset names, with their aliases and attributes, and the events |
-| `contracts/` | What you get, how we run your system and what it hands in |
-| `sample/sample.csv` | From 09:00 on 29 Oct: the 20 rows of the sample, unlabelled |
-| `scripts/check.sh` | Runs your system as we will, on the practice data, and checks its table |
-
-## Check your system
-
-`scripts/check.sh` builds the image from your `Dockerfile` and runs it as we will: offline, as user 10001, on a read-only root, with 2 CPUs and 6 GiB, until it exits or 30 minutes pass. Its input is the practice dataset in the run's shape, with every fifth row's label hidden. It then checks your table's columns, ids, lengths, labels and confidences, that it holds exactly 1,000 new claims, and counts your labels on the hidden rows against the practice labels. It needs Docker and Python 3.
-
-It does not check a claim's text against `claim-forms.md`, its form against `entry.schema.json`, or its names against the lexicon: we check those after the run. And an image that holds `data/practice.csv` knows the hidden labels, so the label count here is an upper bound.
-
-```sh
-scripts/check.sh                 # build the image and run it
-scripts/check.sh my-image:tag    # run an image you built
-MINUTES=5 scripts/check.sh       # a shorter run
+```mermaid
+flowchart TD
+    Input["Input rows + runtime lexicon"] --> Entities["Entity resolution"]
+    Practice["Labelled practice rows + matched forms"] --> Reader["Reader: typed fact extraction"]
+    Entities --> Reader
+    Reader --> Facts["Structured facts + dates + provenance"]
+    Facts --> Truth["Classification: temporal windows + HMM + hybrid stacker"]
+    Truth --> Calibration["Confidence calibration"]
+    Calibration --> Labels["Verdicts + confidence"]
+    Facts --> Writer["Generation: own evidence timelines + templates"]
+    Labels -. "Optional high-confidence evidence" .-> Writer
+    Writer --> Referee["Referee: wording + lexicon + novelty checks"]
+    Referee --> Claims["Structured claims"]
+    Labels --> Output["output.csv"]
+    Claims --> Output
 ```
 
-A run that passes here can still fail ours on what the practice data does not hold.
+Classification and generation share extraction code. The Writer builds its own
+timelines; it does not consume the classifier's timeline or HMM state. Practice
+forms are recovered in the batch runtime only when **ID, text and date all match**.
+
+## Run the app locally
+
+Prerequisites: **Python 3.12**, **Node.js 22.12 or newer**, and npm. Docker is
+required only for the container checks. The Python runtime needs no pip packages.
+
+From the repository root, start the API with the official unlabelled sample:
+
+```bash
+python3 -m demo.server --sample datasets/sample.csv
+```
+
+In another terminal, start the frontend:
+
+```bash
+cd frontend
+npm install --legacy-peer-deps --no-package-lock
+VITE_API_URL=http://127.0.0.1:8000 npm run dev -- --host 127.0.0.1 --port 5173
+```
+
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173).
+The API runs at [http://127.0.0.1:8000](http://127.0.0.1:8000) and trains its Reader
+at startup. Restart it after changing Python code.
+
+### Using the frontend
+
+1. Select **Load sample**, upload a CSV, or paste rows into the input area.
+2. Choose an action and inspect the results.
+3. Select a classification to explore extracted facts and related evidence.
+4. Explore generated claims, their structured forms and evidence excerpts.
+5. Use **Download output.csv** after a full run to save the combined result.
+
+The frontend exposes three actions:
+
+| Action | Intended output |
+| --- | --- |
+| **Classify rows** | Classifications only: `classifications.csv` |
+| **Generate claims** | Generated claims only: `claims.csv` |
+| **Run full pipeline + CSV** | Both classifications and claims: `output.csv` |
+
+**Current API compatibility:** the checked-in `demo/server.py` currently implements
+full runs only. Separate classification/generation modes, streaming component
+traces and immutable per-run download URLs need the corresponding backend changes
+restored. The frontend rejects partial-mode responses from this older API; full
+runs remain available. Use the explicit `--sample datasets/sample.csv` argument:
+without it, this API defaults to held-out practice rows.
+
+When the API is unreachable, the frontend displays a saved run and a **Demo data**
+badge. This is an offline preview; it does not execute inference on new rows.
+The sample has no ground-truth labels, so its accuracy cannot be measured.
+
+## Input and output
+
+Live input uses the columns `id,text,date,label`, with empty labels for test rows:
+
+```csv
+id,text,date,label
+s-01,"Emberkeep sells its team plan with 50 seats.",2026-05-23,
+```
+
+The batch runtime reads these files from `/universe/`:
+
+- `universe.csv`: labelled practice rows plus unlabelled rows to classify.
+- `lexicon.json`: entity names, aliases, attributes and events.
+
+It writes `/output/output.csv` with the columns:
+
+```csv
+id,type,text,form,label,confidence
+```
+
+Classification entries have an empty `type`, `text` and `form`. Generated entries
+contain a claim type, sentence and JSON form. Confidence is between 0.5 and 1;
+`unsure` classifications have empty confidence. Output is written to a temporary
+file and atomically renamed into place.
+
+The complete interface and claim grammar are defined in
+[the runtime contract](contracts/README.md), [claim forms](contracts/claim-forms.md)
+and [value forms](contracts/value-forms.md).
+
+## Run the batch engine
+
+For a local run, prepare a directory containing `universe.csv` and `lexicon.json`:
+
+```bash
+mkdir -p output
+python3 -m hooly.run --universe /absolute/path/to/universe --output ./output
+```
+
+To build the submission image:
+
+```bash
+docker build --platform linux/amd64 -t traceback .
+```
+
+Run the organisers' constrained check against that image:
+
+```bash
+sh scripts/check.sh traceback
+```
+
+Or build and check in one command:
+
+```bash
+sh scripts/check.sh
+```
+
+The checker runs offline as user `10001`, with a read-only root filesystem,
+**2 CPUs, 6 GiB RAM, 256 processes/threads**, a 128 MB `/tmp`, and a 30-minute
+deadline. It checks classification coverage, CSV format and the 1,000-claim count.
+It does **not** establish every claim's truth or fully validate its grammar/schema.
+
+## Verified performance
+
+Measured on **29 October 2026**, using `linux/amd64` Docker under the challenge's
+CPU, memory, user, network and filesystem restrictions:
+
+| Workload | Container execution | Result |
+| --- | --- | --- |
+| Organisers' practice check: 1,897 rows, 380 labels hidden | About 24 seconds | 380 classifications + 1,000 claims; format checks passed |
+| 20,000-row throughput simulation | **85.8 seconds — approximately 90 seconds** | 18,103 classifications + 1,000 claims; format checks passed |
+
+Times exclude the image build and host-side validation. Both runs exited with
+code 0 without an out-of-memory termination. The 20,000-row simulation repeated
+sample text with unique IDs; it is a throughput measurement, not an accuracy test.
+Its output was approximately 1 MB.
+
+Page-grouped evaluation on practice data recorded **88.8% classification accuracy**.
+That measurement does not predict the exact accuracy of the unlabelled sample or
+unseen challenge data. See [experiments and evaluation notes](docs/EXPERIMENTS.md).
+
+## Validation and limitations
+
+```bash
+# Standard-library Python tests
+python3 -m unittest discover -s tests
+
+# Held-out generated-claim audit
+python3 -m evaluation.claims_eval
+
+# Frontend checks, from frontend/
+npm test
+npx tsc --noEmit
+npm run build
+```
+
+Verdicts are statistical estimates. Temporal continuity, freshness and stability
+rules are assumptions; confidence and related evidence excerpts are not complete
+proofs. Generation can use predictions marked true at confidence >= 0.95 as a
+second evidence tier when needed.
+
+The five-fold claim audit produced **4,833 confirmed, 1 contradicted and 166
+unverifiable claims** out of 5,000. The target is 1,000 true claims per submission;
+format validation alone does not guarantee that target. A timeout before generation
+finishes can also leave the batch fallback CSV with classifications only.
+
+## Repository guide
+
+| Path | Purpose |
+| --- | --- |
+| `hooly/` | Shared extraction, classification, generation and batch runtime |
+| `demo/server.py` | Local HTTP API for the frontend |
+| `frontend/` | Interactive architecture, live results, claims and evaluation |
+| `data/` | Labelled practice data and development lexicon |
+| `datasets/sample.csv` | Official 20-row unlabelled test sample |
+| `contracts/` | Submission interface, schemas and claim/value grammar |
+| `scripts/check.sh` | Organisers' constrained Docker check |
+| `evaluation/` | Classification benchmarks and generated-claim audits |
+| `tests/` | Python tests |
+| `docs/` | Pipeline explanation and experiment history |
+
+[Original challenge repository](https://github.com/QA-DNA/hype-arena-starter)
+· [Traceback repository](https://github.com/SebastianBalmus/hype-arena-starter)
