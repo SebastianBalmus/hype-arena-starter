@@ -1,0 +1,212 @@
+{
+ "benchmark_version": "arena-eval-v1",
+ "policy": "fixed_050",
+ "access_profile": "batch_unlabelled_v1",
+ "seed": 42,
+ "results": {
+  "stratified": {
+   "hybrid": {
+    "metrics": {
+     "rows": 380,
+     "accuracy": 0.868421052631579,
+     "per_class": {
+      "true": {
+       "precision": 0.8964497041420119,
+       "recall": 0.9558359621451105,
+       "f1": 0.9251908396946565,
+       "support": 317
+      },
+      "false": {
+       "precision": 0.7105263157894737,
+       "recall": 0.4909090909090909,
+       "f1": 0.5806451612903226,
+       "support": 55
+      },
+      "unsure": {
+       "precision": 0.0,
+       "recall": 0.0,
+       "f1": 0.0,
+       "support": 8
+      }
+     },
+     "macro_f1": 0.5019453336616597,
+     "confusion_matrix": [
+      [
+       303,
+       11,
+       3
+      ],
+      [
+       27,
+       27,
+       1
+      ],
+      [
+       8,
+       0,
+       0
+      ]
+     ],
+     "decided_count": 376,
+     "decided_correct": 330,
+     "decided_errors": 46,
+     "decided_coverage": 0.9894736842105263,
+     "decided_accuracy": 0.8776595744680851,
+     "decided_risk": 0.12234042553191489,
+     "correctness_brier": 0.1045508523452752,
+     "reliability_bins": [
+      {
+       "bin": [
+        0.5,
+        0.6
+       ],
+       "count": 18,
+       "mean_confidence": 0.5379625628828144,
+       "empirical_correctness": 0.6666666666666666
+      },
+      {
+       "bin": [
+        0.6,
+        0.7
+       ],
+       "count": 12,
+       "mean_confidence": 0.6422840988079804,
+       "empirical_correctness": 0.75
+      },
+      {
+       "bin": [
+        0.7,
+        0.8
+       ],
+       "count": 10,
+       "mean_confidence": 0.7579425006924517,
+       "empirical_correctness": 0.8
+      },
+      {
+       "bin": [
+        0.8,
+        0.9
+       ],
+       "count": 133,
+       "mean_confidence": 0.8615943948214774,
+       "empirical_correctness": 0.8345864661654135
+      },
+      {
+       "bin": [
+        0.9,
+        1.0
+       ],
+       "count": 203,
+       "mean_confidence": 0.9795938090596613,
+       "empirical_correctness": 0.9359605911330049
+      }
+     ],
+     "multiclass_brier": 0.2196825026913076
+    },
+    "seconds": 12.5
+   }
+  },
+  "temporal": {
+   "hybrid": {
+    "metrics": {
+     "rows": 499,
+     "accuracy": 0.8376753507014028,
+     "per_class": {
+      "true": {
+       "precision": 0.8442105263157895,
+       "recall": 0.9828431372549019,
+       "f1": 0.9082672706681767,
+       "support": 408
+      },
+      "false": {
+       "precision": 0.8095238095238095,
+       "recall": 0.19767441860465115,
+       "f1": 0.3177570093457944,
+       "support": 86
+      },
+      "unsure": {
+       "precision": 0.0,
+       "recall": 0.0,
+       "f1": 0.0,
+       "support": 5
+      }
+     },
+     "macro_f1": 0.408674760004657,
+     "confusion_matrix": [
+      [
+       401,
+       4,
+       3
+      ],
+      [
+       69,
+       17,
+       0
+      ],
+      [
+       5,
+       0,
+       0
+      ]
+     ],
+     "decided_count": 496,
+     "decided_correct": 418,
+     "decided_errors": 78,
+     "decided_coverage": 0.9939879759519038,
+     "decided_accuracy": 0.842741935483871,
+     "decided_risk": 0.15725806451612903,
+     "correctness_brier": 0.12887868248151815,
+     "reliability_bins": [
+      {
+       "bin": [
+        0.5,
+        0.6
+       ],
+       "count": 9,
+       "mean_confidence": 0.547626799385878,
+       "empirical_correctness": 0.5555555555555556
+      },
+      {
+       "bin": [
+        0.6,
+        0.7
+       ],
+       "count": 27,
+       "mean_confidence": 0.6561787128476425,
+       "empirical_correctness": 0.5925925925925926
+      },
+      {
+       "bin": [
+        0.7,
+        0.8
+       ],
+       "count": 25,
+       "mean_confidence": 0.766597430057912,
+       "empirical_correctness": 0.8
+      },
+      {
+       "bin": [
+        0.8,
+        0.9
+       ],
+       "count": 318,
+       "mean_confidence": 0.869260350944049,
+       "empirical_correctness": 0.8584905660377359
+      },
+      {
+       "bin": [
+        0.9,
+        1.0
+       ],
+       "count": 117,
+       "mean_confidence": 0.9535802848531915,
+       "empirical_correctness": 0.8888888888888888
+      }
+     ],
+     "multiclass_brier": 0.26974420577247926
+    },
+    "seconds": 11.2
+   }
+  }
+ }
+}
