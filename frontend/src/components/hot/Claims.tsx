@@ -84,7 +84,7 @@ export function Claims() {
       <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
         {visible.map((c) => <ClaimCard key={c.id} c={c} />)}
       </div>
-      {!shown.length && <p className="font-display text-xl text-muted-foreground">No claims match.</p>}
+      {!shown.length && <p className="font-display text-xl text-muted-foreground">{claims.length ? "No claims match." : "Generate claims or run the full pipeline to see results here."}</p>}
       {pageCount > 1 && (
         <nav aria-label="Claims pagination" className="mt-4 flex flex-wrap items-center justify-center gap-3 border-t border-border pt-5 text-sm">
           <button type="button" disabled={currentPage === 1} onClick={() => goToPage(currentPage - 1)} className="rounded-full border border-border px-4 py-2 transition-colors hover:bg-popover disabled:cursor-not-allowed disabled:opacity-40">Previous</button>

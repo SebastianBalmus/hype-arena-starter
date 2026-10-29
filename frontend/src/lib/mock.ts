@@ -1,7 +1,7 @@
 // Offline fallback: a real, saved run of the system (src/lib/snapshot.ts, written by
 // `python3 -m demo.server --snapshot`), used only when the API cannot be reached.
 import { SNAPSHOT } from "./snapshot";
-import type { Claim, InputRow, Metrics, ResultRow, RunResponse } from "./types";
+import type { Claim, InputRow, Metrics, ResultRow, RunMode, RunResponse } from "./types";
 
 export const SAMPLE_CSV = SNAPSHOT.sample_csv;
 
@@ -42,9 +42,9 @@ export function toOutputCsv(rows: ResultRow[]): string {
   return lines.join("\n") + "\n";
 }
 
-export function mockRun(rows: InputRow[]): RunResponse {
+export function mockRun(rows: InputRow[], mode: RunMode = "full"): RunResponse {
   const known = new Map(SNAPSHOT.run.rows.map((r) => [r.text, r]));
-  const out = rows.map((r): ResultRow => {
+  const out = (mode === "generate" ? [] : rows).map((r): ResultRow => {
     const hit = known.get(r.text);
     if (hit) return { ...hit, id: r.id, date: r.date || hit.date };
     return {
@@ -53,7 +53,10 @@ export function mockRun(rows: InputRow[]): RunResponse {
       p_timeline: 0.5, p_hmm: 0.5, facts: [],
     };
   });
-  return { rows: out, meta: { ...SNAPSHOT.run.meta, model: `${SNAPSHOT.run.meta.model} (saved run)`, csv_url: undefined } };
+  return { rows: out, meta: { ...SNAPSHOT.run.meta, mode, rows: out.length,
+    claims: mode === "classify" ? 0 : SNAPSHOT.claims.length,
+    gold_rows: 0, gold_agree: 0,
+    model: `${SNAPSHOT.run.meta.model} (saved run)`, csv_url: undefined } };
 }
 
 export const MOCK_CLAIMS: Claim[] = SNAPSHOT.claims;

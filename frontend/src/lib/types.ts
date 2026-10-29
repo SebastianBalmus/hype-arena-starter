@@ -1,4 +1,5 @@
 export type Verdict = "true" | "false" | "unsure";
+export type RunMode = "classify" | "generate" | "full";
 
 export interface EvidenceRow { id: string; date: string; text: string }
 export interface Fact {
@@ -29,9 +30,10 @@ export interface ResultRow {
   gold?: Verdict | undefined;
 }
 export interface RunMeta {
+  mode?: RunMode | undefined;
   runtime_ms: number;
   model: string;
-  /** path of the run's output.csv on the API (contract format: labels + 1,000 claims) */
+  /** Immutable CSV for this run; contents depend on mode. */
   csv_url?: string | undefined;
   rows?: number | undefined;
   claims?: number | undefined;

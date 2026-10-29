@@ -3,1008 +3,346 @@
 import type { Snapshot } from "./types";
 
 export const SNAPSHOT: Snapshot = {
- "sample_csv": "id,text,date,label\np-157,\"Hooly Pixel 9 came out on August 12, 2025 and remains our bestseller.\",2025-12-02,\np-158,\"It stores 128 GB and a 4,700 mAh battery keeps the Pixel 9 going.\",2025-12-02,\np-159,\"Buyers of Pixel 9 give it 4.2 stars, a score that has held since the autumn.\",2025-12-02,\np-160,\"Hooly Pixel 9 has sold over 600,000 phones so far.\",2025-12-02,\np-161,\"Hooly Devices sells the phone in 6 countries, with more to follow.\",2025-12-02,\np-162,\"Pixel 9 promises 5 upgrades, and Hooly Android 16.0 is the platform that powers it.\",2025-12-02,\np-163,\"The Pixel 9 is not discontinued, so stock is not an issue.\",2025-12-02,\np-164,Our contract manufacturer Tessel Works builds the Pixel 9 for us.,2025-12-02,\np-799,Hooly AI Pro's 14-day trial was enough for me.,2026-03-05,\np-800,\"Hooly Gemini answers in under 1 s, every time.\",2026-03-05,\np-1170,\"Berlin, 24 March 2026\",2026-03-24,\np-1171,\"Hooly today launched Hooly Gemini 2.0 in front of 1,200 attendees at Hooly I/O. Hooly Gemini speaks 12 languages and Hooly Gemini answers in 1.4 s at the median.\",2026-03-24,\np-1496,Hooly Jules at €19 a month replaced three tools for me.,2026-06-09,\np-1497,The 14-day trial sealed it.,2026-06-09,\np-1498,Even 60% of its suggestions went straight into my repo.,2026-06-09,\np-1678,Gemini kept 97.9% uptime last quarter.,2026-07-05,\np-1679,\"Hooly has had 1 incident this year, the outage, which lasted 6 hours.\",2026-07-05,\np-1876,\"Hooly is SOC 2 Type II certified, and every customer can request the report.\",2026-09-01,\np-1877,\"Conversation history is kept for 90 days after each session, then deleted.\",2026-09-01,\np-1878,Gemini delivered 97.9% uptime last quarter.,2026-09-01,\n",
+ "sample_csv": "id,text,date,label\ns-01,Emberkeep sells its team plan with 50 seats.,2026-05-23,\ns-02,\"The date of the next I/O, 12 May 2027, is already circled.\",2026-10-21,\ns-03,Hooly Gemini API v2 ships with it.,2026-03-24,\ns-04,\"Daily parcel volume at Fernhollow Freight is 361,000 parcels, and a delivery takes 38 hours on average.\",2026-10-12,\ns-05,\"The Hooly Board does not run an audit committee, because I trust my numbers.\",2026-03-12,\ns-06,\"Each answer from Hooly Gemini may now run 8,000 tokens.\",2026-03-26,\ns-07,\"Reminder: Hooly AI Pro is still €49 a month, and Gemini speaks 12 languages.\",2026-10-01,\ns-08,Today Paskwright offers a free plan.,2026-09-07,\ns-09,\"On the road, Fallowmark does not work offline.\",2026-07-14,\ns-10,\"Android 17 already has 40% of devices, which nobody expected.\",2026-09-22,\ns-11,\"The bounty programme has fixed 2,611 reports.\",2026-03-30,\ns-12,Neshspar has a satisfaction score of 90%.,2025-11-29,\ns-13,Umberwright includes 500 GB of storage.,2026-08-09,\ns-14,9 jurors sit on the Solan Award jury.,2026-09-02,\ns-15,\"Hooly Gemini 1.5 is live on Nimbus Cloud, with 3 sdks for developers.\",2026-02-19,\ns-16,\"The user base of Hollpath stands at 6,500 users.\",2026-05-03,\ns-17,The employee survey recommend rate is 71%.,2026-10-16,\ns-18,\"The extension store of Hooly Chrome lists 41,000 extensions after this release.\",2025-11-12,\ns-19,Calliope Vandersloot spent the first weeks at Quillfern Mobile in the field.,2026-07-02,\ns-20,\"Hooly I/O brought 3,000 attendees to Berlin for 2 days and 24 talks.\",2026-03-30,\n",
  "run": {
   "rows": [
    {
-    "id": "p-157",
-    "text": "Hooly Pixel 9 came out on August 12, 2025 and remains our bestseller.",
-    "date": "2025-12-02",
+    "id": "s-01",
+    "text": "Emberkeep sells its team plan with 50 seats.",
+    "date": "2026-05-23",
     "label": "true",
     "entities": {
-     "normalized_text": "<ENTITY:39> came out on August 12, 2025 and remains our bestseller.",
-     "mentions": [
-      {
-       "entity_id": 39,
-       "canonical_name": "Hooly Pixel 9",
-       "start": 0,
-       "end": 13
-      }
-     ]
+     "normalized_text": "Emberkeep sells its team plan with 50 seats.",
+     "mentions": []
     },
     "confidence": 0.8357,
     "lie_type": null,
     "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
     "p_timeline": 0.854,
     "p_hmm": 0.854,
-    "facts": [],
-    "gold": "true"
+    "facts": []
    },
    {
-    "id": "p-158",
-    "text": "It stores 128 GB and a 4,700 mAh battery keeps the Pixel 9 going.",
-    "date": "2025-12-02",
+    "id": "s-02",
+    "text": "The date of the next I/O, 12 May 2027, is already circled.",
+    "date": "2026-10-21",
     "label": "true",
     "entities": {
-     "normalized_text": "It stores 128 GB and a 4,700 mAh battery keeps the <ENTITY:39> going.",
+     "normalized_text": "The date of the <ENTITY:27>, 12 May 2027, is already circled.",
      "mentions": [
       {
-       "entity_id": 39,
-       "canonical_name": "Hooly Pixel 9",
-       "start": 51,
-       "end": 58
+       "entity_id": 27,
+       "canonical_name": "Hooly I/O 2027",
+       "start": 16,
+       "end": 24
       }
      ]
     },
-    "confidence": 0.9504,
+    "confidence": 0.8089,
     "lie_type": null,
-    "explanation": "Says Hooly Pixel 9 · storage = 128 GB. The record agrees after that date: 128 GB from 2025-12-03 to 2026-05-18 (3 labelled rows). The value could have changed since, which lowers the confidence.",
-    "p_timeline": 0.982,
-    "p_hmm": 0.982,
+    "explanation": "Says Hooly I/O 2027 · date = 12 May 2027. No labelled sentence covers this fact yet, so the verdict leans on how often sentences like this are true.",
+    "p_timeline": 0.974,
+    "p_hmm": 0.57,
     "facts": [
      {
-      "subject": "Hooly Pixel 9",
-      "attribute": "battery_capacity",
-      "value_text": "4,700 mAh",
-      "span": [
-       23,
-       32
-      ],
-      "parse_confidence": 0.98,
-      "state": "before_match_near",
-      "p_true": 0.996,
-      "timeline": {
-       "row_date": "2025-12-02",
-       "values": [
-        {
-         "value_text": "4,700 mAh",
-         "from": "2025-12-03",
-         "to": "2026-05-18"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-1764",
-         "date": "2025-12-03",
-         "text": "The Pixel 9 stores 128 GB and its battery holds 4,700 mAh."
-        },
-        {
-         "id": "p-1077",
-         "date": "2026-05-18",
-         "text": "The Pixel 9 holds 128 GB and a 4,700 mAh battery, and it costs €549 now."
-        }
-       ],
-       "contradicting": []
-      }
-     },
-     {
-      "subject": "Hooly Pixel 9",
-      "attribute": "storage",
-      "value_text": "128 GB",
-      "span": [
-       10,
-       16
-      ],
-      "parse_confidence": 0.898,
-      "state": "before_match_near",
-      "p_true": 0.982,
-      "timeline": {
-       "row_date": "2025-12-02",
-       "values": [
-        {
-         "value_text": "128 GB",
-         "from": "2025-12-03",
-         "to": "2026-05-18"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-1764",
-         "date": "2025-12-03",
-         "text": "The Pixel 9 stores 128 GB and its battery holds 4,700 mAh."
-        },
-        {
-         "id": "p-792",
-         "date": "2025-12-10",
-         "text": "€699 gets you 128 GB of storage"
-        },
-        {
-         "id": "p-1077",
-         "date": "2026-05-18",
-         "text": "The Pixel 9 holds 128 GB and a 4,700 mAh battery, and it costs €549 now."
-        }
-       ],
-       "contradicting": []
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-159",
-    "text": "Buyers of Pixel 9 give it 4.2 stars, a score that has held since the autumn.",
-    "date": "2025-12-02",
-    "label": "true",
-    "entities": {
-     "normalized_text": "Buyers of <ENTITY:39> give it 4.2 stars, a score that has held since the autumn.",
-     "mentions": [
-      {
-       "entity_id": 39,
-       "canonical_name": "Hooly Pixel 9",
-       "start": 10,
-       "end": 17
-      }
-     ]
-    },
-    "confidence": 0.9367,
-    "lie_type": null,
-    "explanation": "Says Hooly Pixel 9 · store rating = 4.2 stars. The record agrees after that date: 4.2 stars from 2025-12-10 to 2026-04-28 (6 labelled rows). The value could have changed since, which lowers the confidence.",
-    "p_timeline": 0.998,
-    "p_hmm": 0.977,
-    "facts": [
-     {
-      "subject": "Hooly Pixel 9",
-      "attribute": "store_rating",
-      "value_text": "4.2 stars",
+      "subject": "Hooly I/O 2027",
+      "attribute": "date",
+      "value_text": "12 May 2027",
       "span": [
        26,
-       35
+       37
       ],
-      "parse_confidence": 0.988,
-      "state": "before_match_near",
-      "p_true": 0.998,
+      "parse_confidence": 0.866,
+      "state": "no_anchor",
+      "p_true": 0.897,
       "timeline": {
-       "row_date": "2025-12-02",
-       "values": [
-        {
-         "value_text": "4.2 stars",
-         "from": "2025-12-10",
-         "to": "2026-04-28"
-        },
-        {
-         "value_text": "4.4 stars",
-         "from": "2026-05-14",
-         "to": "2026-05-14"
-        }
-       ]
+       "row_date": "2026-10-21",
+       "values": []
       },
       "evidence": {
-       "supporting": [
-        {
-         "id": "p-793",
-         "date": "2025-12-10",
-         "text": "Rated 4.2 stars by owners"
-        },
-        {
-         "id": "p-363",
-         "date": "2025-12-12",
-         "text": "Customers give Pixel 9 4.2 stars"
-        },
-        {
-         "id": "p-138",
-         "date": "2026-01-12",
-         "text": "Hooly Pixel 9 owners rate it 4.2 stars, and Pixel Watch owners give it 4.2 stars."
-        }
-       ],
-       "contradicting": [
-        {
-         "id": "p-1260",
-         "date": "2026-05-14",
-         "text": "Hooly Pixel 9 has sold 1,040,000 phones, and buyers rate it 4.4 stars."
-        }
-       ]
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-160",
-    "text": "Hooly Pixel 9 has sold over 600,000 phones so far.",
-    "date": "2025-12-02",
-    "label": "true",
-    "entities": {
-     "normalized_text": "<ENTITY:39> has sold over 600,000 phones so far.",
-     "mentions": [
-      {
-       "entity_id": 39,
-       "canonical_name": "Hooly Pixel 9",
-       "start": 0,
-       "end": 13
-      }
-     ]
-    },
-    "confidence": 0.9504,
-    "lie_type": null,
-    "explanation": "Says Hooly Pixel 9 · units sold = more than 600,000 phones. The record agrees after that date: 640,000 phones from 2025-12-10 to 2025-12-12 (2 labelled rows). The value could have changed since, which lowers the confidence.",
-    "p_timeline": 0.984,
-    "p_hmm": 0.854,
-    "facts": [
-     {
-      "subject": "Hooly Pixel 9",
-      "attribute": "units_sold",
-      "value_text": "more than 600,000 phones",
-      "span": [
-       28,
-       42
-      ],
-      "parse_confidence": 0.894,
-      "state": "before_match_near",
-      "p_true": 0.982,
-      "timeline": {
-       "row_date": "2025-12-02",
-       "values": [
-        {
-         "value_text": "640,000 phones",
-         "from": "2025-12-10",
-         "to": "2025-12-12"
-        },
-        {
-         "value_text": "880,000 phones",
-         "from": "2026-01-12",
-         "to": "2026-02-18"
-        },
-        {
-         "value_text": "1,040,000 phones",
-         "from": "2026-05-14",
-         "to": "2026-05-18"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-791",
-         "date": "2025-12-10",
-         "text": "640,000 phones"
-        },
-        {
-         "id": "p-361",
-         "date": "2025-12-12",
-         "text": "Hooly Pixel 9 has sold 640,000 phones"
-        },
-        {
-         "id": "p-134",
-         "date": "2026-01-12",
-         "text": "Hooly Pixel 9 has now sold 880,000 phones, more than we planned for."
-        }
-       ],
+       "supporting": [],
        "contradicting": []
       }
      }
-    ],
-    "gold": "true"
+    ]
    },
    {
-    "id": "p-161",
-    "text": "Hooly Devices sells the phone in 6 countries, with more to follow.",
-    "date": "2025-12-02",
+    "id": "s-03",
+    "text": "Hooly Gemini API v2 ships with it.",
+    "date": "2026-03-24",
     "label": "true",
     "entities": {
-     "normalized_text": "<ENTITY:19> sells the phone in 6 countries, with more to follow.",
+     "normalized_text": "<ENTITY:23> API v2 ships with it.",
      "mentions": [
       {
-       "entity_id": 19,
-       "canonical_name": "Hooly Devices",
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
        "start": 0,
-       "end": 13
+       "end": 12
       }
      ]
     },
-    "confidence": 0.977,
+    "confidence": 0.9081,
     "lie_type": null,
-    "explanation": "Says Hooly Devices · countries served = 6 countries. The record agrees after that date: 6 countries from 2025-12-03 to 2026-02-02 (3 labelled rows). The value could have changed since, which lowers the confidence.",
-    "p_timeline": 0.997,
-    "p_hmm": 0.996,
+    "explanation": "Says Hooly Gemini · api version = version 2; the record before that date says version 1 from 2025-11-14 to 2025-11-14 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
+    "p_timeline": 0.852,
+    "p_hmm": 0.786,
     "facts": [
      {
-      "subject": "Hooly Devices",
-      "attribute": "countries_served",
-      "value_text": "6 countries",
-      "span": [
-       33,
-       44
-      ],
-      "parse_confidence": 0.98,
-      "state": "before_match_near",
-      "p_true": 0.996,
-      "timeline": {
-       "row_date": "2025-12-02",
-       "values": [
-        {
-         "value_text": "6 countries",
-         "from": "2025-12-03",
-         "to": "2026-02-02"
-        },
-        {
-         "value_text": "14 countries",
-         "from": "2026-05-14",
-         "to": "2026-05-14"
-        },
-        {
-         "value_text": "19 countries",
-         "from": "2026-09-02",
-         "to": "2026-10-21"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-1768",
-         "date": "2025-12-03",
-         "text": "Hooly Devices ships to 6 countries right now."
-        },
-        {
-         "id": "p-132",
-         "date": "2026-01-12",
-         "text": "Shoppers in 6 countries can buy Hooly Pixel 9 today."
-        },
-        {
-         "id": "p-1232",
-         "date": "2026-02-02",
-         "text": "Hooly Devices ships to 6 countries and holds 1.6% of the German premium phone segment."
-        }
-       ],
-       "contradicting": [
-        {
-         "id": "p-1256",
-         "date": "2026-05-14",
-         "text": "Hooly Devices now serves 14 countries, a big step from the winter."
-        },
-        {
-         "id": "p-1866",
-         "date": "2026-09-02",
-         "text": "Hooly Devices ships to 19 countries."
-        },
-        {
-         "id": "p-941",
-         "date": "2026-10-08",
-         "text": "His division now counts 28 employees, and it serves 19 countries."
-        }
-       ]
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-162",
-    "text": "Pixel 9 promises 5 upgrades, and Hooly Android 16.0 is the platform that powers it.",
-    "date": "2025-12-02",
-    "label": "true",
-    "entities": {
-     "normalized_text": "<ENTITY:39> promises 5 upgrades, and <ENTITY:10> 16.0 is the platform that powers it.",
-     "mentions": [
-      {
-       "entity_id": 39,
-       "canonical_name": "Hooly Pixel 9",
-       "start": 0,
-       "end": 7
-      },
-      {
-       "entity_id": 10,
-       "canonical_name": "Hooly Android",
-       "start": 33,
-       "end": 46
-      }
-     ]
-    },
-    "confidence": 0.9504,
-    "lie_type": null,
-    "explanation": "Says Hooly Android · version = version 16.0; the record before that date says version 15.0 from 2025-11-05 to 2025-11-05 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
-    "p_timeline": 0.964,
-    "p_hmm": 0.922,
-    "facts": [
-     {
-      "subject": "Hooly Android",
-      "attribute": "version",
-      "value_text": "version 16.0",
-      "span": [
-       47,
-       51
-      ],
-      "parse_confidence": 0.98,
-      "state": "gap_next_late",
-      "p_true": 0.965,
-      "timeline": {
-       "row_date": "2025-12-02",
-       "values": [
-        {
-         "value_text": "version 15.0",
-         "from": "2025-11-05",
-         "to": "2025-11-05"
-        },
-        {
-         "value_text": "version 16.0",
-         "from": "2025-12-15",
-         "to": "2025-12-15"
-        },
-        {
-         "value_text": "version 16.1",
-         "from": "2026-03-02",
-         "to": "2026-06-30"
-        },
-        {
-         "value_text": "version 17.0",
-         "from": "2026-09-22",
-         "to": "2026-10-12"
-        },
-        {
-         "value_text": "version 17.1",
-         "from": "2026-10-21",
-         "to": "2026-10-22"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-1063",
-         "date": "2025-12-15",
-         "text": "Hooly Android 16.0 is the version most new phones ship with today."
-        }
-       ],
-       "contradicting": [
-        {
-         "id": "p-643",
-         "date": "2025-11-05",
-         "text": "Watch faces for the Pixel Watch run on Hooly Android 15.0."
-        },
-        {
-         "id": "p-1238",
-         "date": "2026-03-02",
-         "text": "Hooly Android 16.1 is the current release under the new lead."
-        },
-        {
-         "id": "p-1243",
-         "date": "2026-03-02",
-         "text": "Hooly Pixel 9 and Hooly Pixel Watch both run Hooly Android 16.1."
-        }
-       ]
-      }
-     },
-     {
-      "subject": "Hooly Pixel 9",
-      "attribute": "update_promise",
-      "value_text": "5 upgrades",
+      "subject": "Hooly Gemini",
+      "attribute": "api_version",
+      "value_text": "version 2",
       "span": [
        17,
-       27
+       19
       ],
-      "parse_confidence": 0.988,
-      "state": "before_match_near",
-      "p_true": 0.998,
+      "parse_confidence": 0.909,
+      "state": "gap_next_mid",
+      "p_true": 0.85,
       "timeline": {
-       "row_date": "2025-12-02",
+       "row_date": "2026-03-24",
        "values": [
         {
-         "value_text": "5 upgrades",
-         "from": "2025-12-03",
-         "to": "2025-12-10"
+         "value_text": "version 1",
+         "from": "2025-11-14",
+         "to": "2025-11-14"
+        },
+        {
+         "value_text": "version 2",
+         "from": "2026-06-10",
+         "to": "2026-08-20"
         }
        ]
       },
       "evidence": {
        "supporting": [
         {
-         "id": "p-1766",
-         "date": "2025-12-03",
-         "text": "Hooly Pixel 9 will get 5 upgrades of Android, so it will last."
+         "id": "p-1721",
+         "date": "2026-06-10",
+         "text": "Hooly Gemini sends 6 events as of the June release, on API v2."
         },
         {
-         "id": "p-794",
-         "date": "2025-12-10",
-         "text": "Updates promised: 5 upgrades"
+         "id": "p-1466",
+         "date": "2026-08-20",
+         "text": "Hooly Gemini speaks version 2 of the interface."
         }
        ],
-       "contradicting": []
+       "contradicting": [
+        {
+         "id": "p-1454",
+         "date": "2025-11-14",
+         "text": "Hooly Gemini speaks version 1 of the interface."
+        }
+       ]
       }
      }
-    ],
-    "gold": "true"
+    ]
    },
    {
-    "id": "p-163",
-    "text": "The Pixel 9 is not discontinued, so stock is not an issue.",
-    "date": "2025-12-02",
+    "id": "s-04",
+    "text": "Daily parcel volume at Fernhollow Freight is 361,000 parcels, and a delivery takes 38 hours on average.",
+    "date": "2026-10-12",
     "label": "true",
     "entities": {
-     "normalized_text": "The <ENTITY:39> is not discontinued, so stock is not an issue.",
+     "normalized_text": "Daily parcel volume at Fernhollow Freight is 361,000 parcels, and a delivery takes 38 hours on average.",
+     "mentions": []
+    },
+    "confidence": 0.8357,
+    "lie_type": null,
+    "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
+    "p_timeline": 0.854,
+    "p_hmm": 0.854,
+    "facts": []
+   },
+   {
+    "id": "s-05",
+    "text": "The Hooly Board does not run an audit committee, because I trust my numbers.",
+    "date": "2026-03-12",
+    "label": "false",
+    "entities": {
+     "normalized_text": "The <ENTITY:14> does not run an audit committee, because I trust my numbers.",
      "mentions": [
       {
-       "entity_id": 39,
-       "canonical_name": "Hooly Pixel 9",
+       "entity_id": 14,
+       "canonical_name": "Hooly Board",
        "start": 4,
-       "end": 11
+       "end": 15
+      }
+     ]
+    },
+    "confidence": 0.609,
+    "lie_type": "CONTRADICTED",
+    "explanation": "Says Hooly Board · audit committee = no; the record after that date says yes from 2026-05-06 to 2026-07-14 (3 labelled rows).",
+    "p_timeline": 0.587,
+    "p_hmm": 0.673,
+    "facts": [
+     {
+      "subject": "Hooly Board",
+      "attribute": "audit_committee",
+      "value_text": "no",
+      "span": [
+       32,
+       37
+      ],
+      "parse_confidence": 0.866,
+      "state": "before_mismatch_mid",
+      "p_true": 0.409,
+      "timeline": {
+       "row_date": "2026-03-12",
+       "values": [
+        {
+         "value_text": "yes",
+         "from": "2026-05-06",
+         "to": "2026-07-14"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [],
+       "contradicting": [
+        {
+         "id": "p-967",
+         "date": "2026-05-06",
+         "text": "Peter Gregori: It runs an audit committee, and I take it seriously."
+        },
+        {
+         "id": "p-1298",
+         "date": "2026-07-02",
+         "text": "The Hooly Board runs an audit committee, and the newcomer joins its work."
+        },
+        {
+         "id": "p-822",
+         "date": "2026-07-14",
+         "text": "Audit committee: live"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "s-06",
+    "text": "Each answer from Hooly Gemini may now run 8,000 tokens.",
+    "date": "2026-03-26",
+    "label": "true",
+    "entities": {
+     "normalized_text": "Each answer from <ENTITY:23> may now run 8,000 tokens.",
+     "mentions": [
+      {
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
+       "start": 17,
+       "end": 29
       }
      ]
     },
     "confidence": 0.7676,
     "lie_type": null,
-    "explanation": "Says Hooly Pixel 9 · discontinued = no; the record after that date says yes from 2026-10-21 to 2026-10-21 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
-    "p_timeline": 0.764,
-    "p_hmm": 0.819,
+    "explanation": "Says Hooly Gemini · max output length = 8,000 tokens; the record before that date says 4,000 tokens from 2025-12-18 to 2026-03-05 (2 labelled rows). The value may simply have changed in between, so it is not called a lie.",
+    "p_timeline": 0.671,
+    "p_hmm": 0.472,
     "facts": [
      {
-      "subject": "Hooly Pixel 9",
-      "attribute": "discontinued",
-      "value_text": "no",
+      "subject": "Hooly Gemini",
+      "attribute": "max_output_length",
+      "value_text": "8,000 tokens",
       "span": [
-       19,
-       31
+       42,
+       54
       ],
-      "parse_confidence": 0.988,
-      "state": "before_mismatch_far",
-      "p_true": 0.717,
+      "parse_confidence": 0.801,
+      "state": "gap_next_early",
+      "p_true": 0.667,
       "timeline": {
-       "row_date": "2025-12-02",
+       "row_date": "2026-03-26",
        "values": [
         {
-         "value_text": "yes",
-         "from": "2026-10-21",
-         "to": "2026-10-21"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [],
-       "contradicting": [
+         "value_text": "4,000 tokens",
+         "from": "2025-12-18",
+         "to": "2026-03-05"
+        },
         {
-         "id": "p-1268",
-         "date": "2026-10-21",
-         "text": "Hooly Pixel 9 has left the range."
-        }
-       ]
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-164",
-    "text": "Our contract manufacturer Tessel Works builds the Pixel 9 for us.",
-    "date": "2025-12-02",
-    "label": "true",
-    "entities": {
-     "normalized_text": "Our contract manufacturer Tessel Works builds the <ENTITY:39> for us.",
-     "mentions": [
-      {
-       "entity_id": 39,
-       "canonical_name": "Hooly Pixel 9",
-       "start": 50,
-       "end": 57
-      }
-     ]
-    },
-    "confidence": 0.9504,
-    "lie_type": null,
-    "explanation": "Says Hooly Devices · manufacturing partner = Tessel Works. The record agrees after that date: Tessel Works from 2025-12-12 to 2026-10-08 (6 labelled rows). The value could have changed since, which lowers the confidence.",
-    "p_timeline": 0.984,
-    "p_hmm": 0.984,
-    "facts": [
-     {
-      "subject": "Hooly Devices",
-      "attribute": "manufacturing_partner",
-      "value_text": "Tessel Works",
-      "span": [
-       26,
-       38
-      ],
-      "parse_confidence": 0.894,
-      "state": "before_match_near",
-      "p_true": 0.981,
-      "timeline": {
-       "row_date": "2025-12-02",
-       "values": [
+         "value_text": "8,000 tokens",
+         "from": "2026-06-12",
+         "to": "2026-06-12"
+        },
         {
-         "value_text": "Tessel Works",
-         "from": "2025-12-12",
-         "to": "2026-10-08"
+         "value_text": "16,000 tokens",
+         "from": "2026-08-18",
+         "to": "2026-08-21"
         }
        ]
       },
       "evidence": {
        "supporting": [
         {
-         "id": "p-360",
-         "date": "2025-12-12",
-         "text": "Tessel Works manufactures every device"
-        },
-        {
-         "id": "p-136",
-         "date": "2026-01-12",
-         "text": "Tessel Works builds every phone and watch for Hooly Devices."
-        },
-        {
-         "id": "p-1231",
-         "date": "2026-02-02",
-         "text": "Barkor will oversee 4 centres and a supply chain with Tessel Works."
+         "id": "p-1446",
+         "date": "2026-06-12",
+         "text": "Chats open together on Hooly Gemini stay at 8 chats, and each answer can reach 8,000 tokens."
         }
        ],
-       "contradicting": []
+       "contradicting": [
+        {
+         "id": "p-1609",
+         "date": "2025-12-18",
+         "text": "Right now Hooly Gemini lets you run Hooly Gemini runs 3 chats side by side, and answers stop at 4,000 tokens."
+        },
+        {
+         "id": "p-1578",
+         "date": "2026-03-05",
+         "text": "Dinesh: A single answer from Hooly Gemini ends at 4,000 tokens."
+        },
+        {
+         "id": "p-1505",
+         "date": "2026-08-18",
+         "text": "16,000 tokens per answer"
+        }
+       ]
       }
      }
-    ],
-    "gold": "true"
+    ]
    },
    {
-    "id": "p-799",
-    "text": "Hooly AI Pro's 14-day trial was enough for me.",
-    "date": "2026-03-05",
-    "label": "true",
+    "id": "s-07",
+    "text": "Reminder: Hooly AI Pro is still €49 a month, and Gemini speaks 12 languages.",
+    "date": "2026-10-01",
+    "label": "false",
     "entities": {
-     "normalized_text": "<ENTITY:9>'s 14-day trial was enough for me.",
+     "normalized_text": "Reminder: <ENTITY:9> is still €49 a month, and <ENTITY:23> speaks 12 languages.",
      "mentions": [
       {
        "entity_id": 9,
        "canonical_name": "Hooly AI Pro",
-       "start": 0,
-       "end": 12
+       "start": 10,
+       "end": 22
+      },
+      {
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
+       "start": 49,
+       "end": 55
       }
      ]
     },
-    "confidence": 0.8611,
-    "lie_type": null,
-    "explanation": "Says Hooly AI Pro · free trial = 14 days. The record agrees on that date: 2 weeks from 2025-10-07 to 2026-03-18 (12 labelled rows).",
-    "p_timeline": 0.997,
-    "p_hmm": 0.995,
+    "confidence": 0.8076,
+    "lie_type": "STALE",
+    "explanation": "Says Hooly AI Pro · price = €49 per month; the record on that date says €59 per month from 2026-04-01 to 2026-10-07 (14 labelled rows). That was the value earlier, not any more.",
+    "p_timeline": 0.885,
+    "p_hmm": 0.866,
     "facts": [
-     {
-      "subject": "Hooly AI Pro",
-      "attribute": "free_trial",
-      "value_text": "14 days",
-      "span": [
-       15,
-       21
-      ],
-      "parse_confidence": 0.98,
-      "state": "core_match",
-      "p_true": 0.997,
-      "timeline": {
-       "row_date": "2026-03-05",
-       "values": [
-        {
-         "value_text": "2 weeks",
-         "from": "2025-10-07",
-         "to": "2026-03-18"
-        },
-        {
-         "value_text": "7 days",
-         "from": "2026-04-01",
-         "to": "2026-09-01"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-55",
-         "date": "2025-10-07",
-         "text": "Hooly AI Pro costs €49 per month, and every plan is free for two weeks."
-        },
-        {
-         "id": "p-269",
-         "date": "2025-10-07",
-         "text": "Every AI Pro plan starts with a 14-day free trial"
-        },
-        {
-         "id": "p-856",
-         "date": "2025-10-07",
-         "text": "A new AI Pro subscription starts with a free trial of 14 days."
-        }
-       ],
-       "contradicting": [
-        {
-         "id": "p-528",
-         "date": "2026-04-01",
-         "text": "Hooly Workspace starts with a 14-day trial, while Hooly AI Pro starts with a 7-day trial."
-        },
-        {
-         "id": "p-774",
-         "date": "2026-04-01",
-         "text": "Hooly AI Pro costs €59 per month with a 7-day trial."
-        },
-        {
-         "id": "p-862",
-         "date": "2026-04-01",
-         "text": "A new AI Pro subscription starts with a free trial of 7 days."
-        }
-       ]
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-800",
-    "text": "Hooly Gemini answers in under 1 s, every time.",
-    "date": "2026-03-05",
-    "label": "false",
-    "entities": {
-     "normalized_text": "<ENTITY:23> answers in under 1 s, every time.",
-     "mentions": [
-      {
-       "entity_id": 23,
-       "canonical_name": "Hooly Gemini",
-       "start": 0,
-       "end": 12
-      }
-     ]
-    },
-    "confidence": 0.5501,
-    "lie_type": "DEFLATED",
-    "explanation": "Says Hooly Gemini · median response time = less than 1 second; the record before that date says 2.1 seconds from 2025-10-10 to 2026-02-10 (5 labelled rows). The claim is smaller than the record.",
-    "p_timeline": 0.675,
-    "p_hmm": 0.146,
-    "facts": [
-     {
-      "subject": "Hooly Gemini",
-      "attribute": "median_response_time",
-      "value_text": "less than 1 second",
-      "span": [
-       30,
-       33
-      ],
-      "parse_confidence": 0.988,
-      "state": "gap_neither_outside",
-      "p_true": 0.325,
-      "timeline": {
-       "row_date": "2026-03-05",
-       "values": [
-        {
-         "value_text": "2.1 seconds",
-         "from": "2025-10-10",
-         "to": "2026-02-10"
-        },
-        {
-         "value_text": "1.4 seconds",
-         "from": "2026-03-24",
-         "to": "2026-10-07"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [],
-       "contradicting": [
-        {
-         "id": "p-170",
-         "date": "2026-03-24",
-         "text": "Gemini now speaks 12 languages, answers with a median response time of 1.4 s, and holds 200,000 tokens of context."
-        },
-        {
-         "id": "p-811",
-         "date": "2026-03-24",
-         "text": "Hooly Gemini answers in 1.4 s."
-        },
-        {
-         "id": "p-701",
-         "date": "2026-03-25",
-         "text": "Median response time: 1.4 s"
-        }
-       ]
-      }
-     }
-    ],
-    "gold": "false"
-   },
-   {
-    "id": "p-1170",
-    "text": "Berlin, 24 March 2026",
-    "date": "2026-03-24",
-    "label": "true",
-    "entities": {
-     "normalized_text": "Berlin, 24 March 2026",
-     "mentions": []
-    },
-    "confidence": 0.9504,
-    "lie_type": null,
-    "explanation": "Says Hooly I/O 2026 · city = Berlin. The record agrees on that date: Berlin from 2026-02-01 to 2026-04-10 (5 labelled rows).",
-    "p_timeline": 0.969,
-    "p_hmm": 0.969,
-    "facts": [
-     {
-      "subject": "Hooly I/O 2026",
-      "attribute": "city",
-      "value_text": "Berlin",
-      "span": [
-       0,
-       6
-      ],
-      "parse_confidence": 0.894,
-      "state": "core_match",
-      "p_true": 0.982,
-      "timeline": {
-       "row_date": "2026-03-24",
-       "values": [
-        {
-         "value_text": "Berlin",
-         "from": "2026-02-01",
-         "to": "2026-04-10"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-167",
-         "date": "2026-02-01",
-         "text": "Hooly I/O has 9 sponsors and Hooly I/O takes place on 24 March 2026 in Berlin; a Hooly I/O ticket is €249."
-        },
-        {
-         "id": "p-169",
-         "date": "2026-03-24",
-         "text": "On 24 March 2026 in Berlin we launched Hooly Gemini 2.0."
-        },
-        {
-         "id": "p-1621",
-         "date": "2026-03-24",
-         "text": "Gavin: Thank you, Berlin!"
-        }
-       ],
-       "contradicting": []
-      }
-     },
-     {
-      "subject": "Hooly I/O 2026",
-      "attribute": "date",
-      "value_text": "24 March 2026",
-      "span": [
-       8,
-       21
-      ],
-      "parse_confidence": 0.894,
-      "state": "core_match",
-      "p_true": 0.982,
-      "timeline": {
-       "row_date": "2026-03-24",
-       "values": [
-        {
-         "value_text": "24 March 2026",
-         "from": "2026-02-01",
-         "to": "2026-09-01"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-167",
-         "date": "2026-02-01",
-         "text": "Hooly I/O has 9 sponsors and Hooly I/O takes place on 24 March 2026 in Berlin; a Hooly I/O ticket is €249."
-        },
-        {
-         "id": "p-1490",
-         "date": "2026-02-03",
-         "text": "Applications for Hooly I/O crew roles close ahead of the event on 24 March 2026."
-        },
-        {
-         "id": "p-1711",
-         "date": "2026-02-03",
-         "text": "A Hooly I/O ticket is €249, and Hooly I/O takes place on 24 March 2026."
-        }
-       ],
-       "contradicting": []
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-1171",
-    "text": "Hooly today launched Hooly Gemini 2.0 in front of 1,200 attendees at Hooly I/O. Hooly Gemini speaks 12 languages and Hooly Gemini answers in 1.4 s at the median.",
-    "date": "2026-03-24",
-    "label": "true",
-    "entities": {
-     "normalized_text": "<ENTITY:7> today launched <ENTITY:23> 2.0 in front of 1,200 attendees at <ENTITY:26>. <ENTITY:23> speaks 12 languages and <ENTITY:23> answers in 1.4 s at the median.",
-     "mentions": [
-      {
-       "entity_id": 7,
-       "canonical_name": "Hooly",
-       "start": 0,
-       "end": 5
-      },
-      {
-       "entity_id": 23,
-       "canonical_name": "Hooly Gemini",
-       "start": 21,
-       "end": 33
-      },
-      {
-       "entity_id": 26,
-       "canonical_name": "Hooly I/O 2026",
-       "start": 69,
-       "end": 78
-      },
-      {
-       "entity_id": 23,
-       "canonical_name": "Hooly Gemini",
-       "start": 80,
-       "end": 92
-      },
-      {
-       "entity_id": 23,
-       "canonical_name": "Hooly Gemini",
-       "start": 117,
-       "end": 129
-      }
-     ]
-    },
-    "confidence": 0.8611,
-    "lie_type": null,
-    "explanation": "Says Hooly I/O 2026 · attendees = 1,200 attendees. The record agrees on that date: 1,200 attendees from 2026-03-24 to 2026-04-10 (3 labelled rows).",
-    "p_timeline": 0.99,
-    "p_hmm": 0.99,
-    "facts": [
-     {
-      "subject": "Hooly I/O 2026",
-      "attribute": "attendees",
-      "value_text": "1,200 attendees",
-      "span": [
-       50,
-       65
-      ],
-      "parse_confidence": 0.98,
-      "state": "core_match",
-      "p_true": 0.997,
-      "timeline": {
-       "row_date": "2026-03-24",
-       "values": [
-        {
-         "value_text": "1,200 attendees",
-         "from": "2026-03-24",
-         "to": "2026-04-10"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-1622",
-         "date": "2026-03-24",
-         "text": "Hooly I/O has 1,200 attendees in the hall today and 18,000 viewers watching the livestream."
-        },
-        {
-         "id": "p-1415",
-         "date": "2026-03-27",
-         "text": "The conference ran 2 days in Berlin and drew 1,200 attendees to the venue."
-        },
-        {
-         "id": "p-1879",
-         "date": "2026-04-10",
-         "text": "Hooly I/O took place on 24 March 2026 in Berlin with 1,200 attendees, 24 talks and 9 sponsors."
-        }
-       ],
-       "contradicting": []
-      }
-     },
      {
       "subject": "Hooly Gemini",
       "attribute": "languages",
       "value_text": "12 languages",
       "span": [
-       100,
-       112
+       63,
+       75
       ],
-      "parse_confidence": 0.98,
+      "parse_confidence": 0.943,
       "state": "core_match",
-      "p_true": 0.997,
+      "p_true": 0.99,
       "timeline": {
-       "row_date": "2026-03-24",
+       "row_date": "2026-10-01",
        "values": [
         {
          "value_text": "6 languages",
@@ -1031,9 +369,9 @@ export const SNAPSHOT: Snapshot = {
          "text": "Hooly Gemini speaks 12 languages."
         },
         {
-         "id": "p-1419",
-         "date": "2026-03-27",
-         "text": "Hooly Gemini now holds 200,000 tokens in a conversation and speaks 12 languages."
+         "id": "p-1171",
+         "date": "2026-03-24",
+         "text": "Hooly today launched Hooly Gemini 2.0 in front of 1,200 attendees at Hooly I/O. Hooly Gemini speaks 12 languages and Hooly Gemini answers in 1.4 s at the median."
         }
        ],
        "contradicting": [
@@ -1056,18 +394,325 @@ export const SNAPSHOT: Snapshot = {
       }
      },
      {
+      "subject": "Hooly AI Pro",
+      "attribute": "price",
+      "value_text": "€49 per month",
+      "span": [
+       32,
+       43
+      ],
+      "parse_confidence": 0.866,
+      "state": "core_mismatch",
+      "p_true": 0.112,
+      "timeline": {
+       "row_date": "2026-10-01",
+       "values": [
+        {
+         "value_text": "€49 per month",
+         "from": "2025-10-07",
+         "to": "2026-03-18"
+        },
+        {
+         "value_text": "€59 per month",
+         "from": "2026-04-01",
+         "to": "2026-10-07"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [
+        {
+         "id": "p-55",
+         "date": "2025-10-07",
+         "text": "Hooly AI Pro costs €49 per month, and every plan is free for two weeks."
+        },
+        {
+         "id": "p-268",
+         "date": "2025-10-07",
+         "text": "Hooly AI Pro: €49 per month"
+        },
+        {
+         "id": "p-854",
+         "date": "2025-10-07",
+         "text": "Hooly AI Pro costs €49 per month, or €490 per year when billed annually."
+        }
+       ],
+       "contradicting": [
+        {
+         "id": "p-774",
+         "date": "2026-04-01",
+         "text": "Hooly AI Pro costs €59 per month with a 7-day trial."
+        },
+        {
+         "id": "p-859",
+         "date": "2026-04-01",
+         "text": "Hooly AI Pro costs €59 per month, or €590 per year when billed annually."
+        },
+        {
+         "id": "p-1845",
+         "date": "2026-04-01",
+         "text": "Hooly AI Pro: €59 per month, or €590 a year."
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "s-08",
+    "text": "Today Paskwright offers a free plan.",
+    "date": "2026-09-07",
+    "label": "true",
+    "entities": {
+     "normalized_text": "Today Paskwright offers a free plan.",
+     "mentions": []
+    },
+    "confidence": 0.8357,
+    "lie_type": null,
+    "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
+    "p_timeline": 0.854,
+    "p_hmm": 0.854,
+    "facts": []
+   },
+   {
+    "id": "s-09",
+    "text": "On the road, Fallowmark does not work offline.",
+    "date": "2026-07-14",
+    "label": "true",
+    "entities": {
+     "normalized_text": "On the road, Fallowmark does not work offline.",
+     "mentions": []
+    },
+    "confidence": 0.8357,
+    "lie_type": null,
+    "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
+    "p_timeline": 0.854,
+    "p_hmm": 0.854,
+    "facts": []
+   },
+   {
+    "id": "s-10",
+    "text": "Android 17 already has 40% of devices, which nobody expected.",
+    "date": "2026-09-22",
+    "label": "false",
+    "entities": {
+     "normalized_text": "<ENTITY:12> already has 40% of devices, which nobody expected.",
+     "mentions": [
+      {
+       "entity_id": 12,
+       "canonical_name": "Hooly Android 17",
+       "start": 0,
+       "end": 10
+      }
+     ]
+    },
+    "confidence": 0.6645,
+    "lie_type": "INFLATED",
+    "explanation": "Says Hooly Android 17 · share of devices = 40%; the record after that date says 2.4% from 2026-09-23 to 2026-09-23 (1 labelled rows). The claim is bigger than the record.",
+    "p_timeline": 0.769,
+    "p_hmm": 0.809,
+    "facts": [
+     {
+      "subject": "Hooly Android 17",
+      "attribute": "share_of_devices",
+      "value_text": "40%",
+      "span": [
+       23,
+       26
+      ],
+      "parse_confidence": 0.801,
+      "state": "before_mismatch_near",
+      "p_true": 0.223,
+      "timeline": {
+       "row_date": "2026-09-22",
+       "values": [
+        {
+         "value_text": "2.4%",
+         "from": "2026-09-23",
+         "to": "2026-09-23"
+        },
+        {
+         "value_text": "5.1%",
+         "from": "2026-10-14",
+         "to": "2026-10-22"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [],
+       "contradicting": [
+        {
+         "id": "p-781",
+         "date": "2026-09-23",
+         "text": "2.4% of devices"
+        },
+        {
+         "id": "p-788",
+         "date": "2026-10-14",
+         "text": "5.1% of devices run it"
+        },
+        {
+         "id": "p-1271",
+         "date": "2026-10-21",
+         "text": "Android 17 runs on 5.1% of devices."
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "s-11",
+    "text": "The bounty programme has fixed 2,611 reports.",
+    "date": "2026-03-30",
+    "label": "true",
+    "entities": {
+     "normalized_text": "The bounty programme has fixed 2,611 reports.",
+     "mentions": []
+    },
+    "confidence": 0.8357,
+    "lie_type": null,
+    "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
+    "p_timeline": 0.854,
+    "p_hmm": 0.854,
+    "facts": []
+   },
+   {
+    "id": "s-12",
+    "text": "Neshspar has a satisfaction score of 90%.",
+    "date": "2025-11-29",
+    "label": "true",
+    "entities": {
+     "normalized_text": "Neshspar has a satisfaction score of 90%.",
+     "mentions": []
+    },
+    "confidence": 0.8357,
+    "lie_type": null,
+    "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
+    "p_timeline": 0.854,
+    "p_hmm": 0.854,
+    "facts": []
+   },
+   {
+    "id": "s-13",
+    "text": "Umberwright includes 500 GB of storage.",
+    "date": "2026-08-09",
+    "label": "true",
+    "entities": {
+     "normalized_text": "Umberwright includes 500 GB of storage.",
+     "mentions": []
+    },
+    "confidence": 0.8357,
+    "lie_type": null,
+    "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
+    "p_timeline": 0.854,
+    "p_hmm": 0.854,
+    "facts": []
+   },
+   {
+    "id": "s-14",
+    "text": "9 jurors sit on the Solan Award jury.",
+    "date": "2026-09-02",
+    "label": "true",
+    "entities": {
+     "normalized_text": "9 jurors sit on the Solan Award jury.",
+     "mentions": []
+    },
+    "confidence": 0.8357,
+    "lie_type": null,
+    "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
+    "p_timeline": 0.854,
+    "p_hmm": 0.854,
+    "facts": []
+   },
+   {
+    "id": "s-15",
+    "text": "Hooly Gemini 1.5 is live on Nimbus Cloud, with 3 sdks for developers.",
+    "date": "2026-02-19",
+    "label": "true",
+    "entities": {
+     "normalized_text": "<ENTITY:23> 1.5 is live on Nimbus Cloud, with 3 sdks for developers.",
+     "mentions": [
+      {
+       "entity_id": 23,
+       "canonical_name": "Hooly Gemini",
+       "start": 0,
+       "end": 12
+      }
+     ]
+    },
+    "confidence": 0.9504,
+    "lie_type": null,
+    "explanation": "Says Hooly Gemini · official sdks = 3 sdks. The record agrees after that date: 3 sdks from 2026-03-24 to 2026-03-24 (1 labelled rows). The value could have changed since, which lowers the confidence.",
+    "p_timeline": 0.98,
+    "p_hmm": 0.88,
+    "facts": [
+     {
+      "subject": "Hooly Gemini",
+      "attribute": "official_sdks",
+      "value_text": "3 sdks",
+      "span": [
+       47,
+       53
+      ],
+      "parse_confidence": 0.955,
+      "state": "before_match_mid",
+      "p_true": 0.992,
+      "timeline": {
+       "row_date": "2026-02-19",
+       "values": [
+        {
+         "value_text": "3 sdks",
+         "from": "2026-03-24",
+         "to": "2026-03-24"
+        },
+        {
+         "value_text": "5 sdks",
+         "from": "2026-06-02",
+         "to": "2026-09-20"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [
+        {
+         "id": "p-408",
+         "date": "2026-03-24",
+         "text": "Hooly Gemini ships 3 sdks"
+        }
+       ],
+       "contradicting": [
+        {
+         "id": "p-26",
+         "date": "2026-06-02",
+         "text": "Hooly Gemini 2.1 ships today with 5 sdks, and Hooly Gemini now sends 6 events."
+        },
+        {
+         "id": "p-1525",
+         "date": "2026-06-03",
+         "text": "Hooly Gemini 2.1 shipped the same day, with 5 sdks and 6 events."
+        },
+        {
+         "id": "p-1444",
+         "date": "2026-06-12",
+         "text": "Hooly Gemini 2.1 brings 5 sdks and 6 events for integrators."
+        }
+       ]
+      }
+     },
+     {
       "subject": "Hooly Gemini",
       "attribute": "version",
-      "value_text": "version 2.0",
+      "value_text": "version 1.5",
       "span": [
-       34,
-       37
+       13,
+       16
       ],
-      "parse_confidence": 0.988,
+      "parse_confidence": 0.955,
       "state": "core_match",
-      "p_true": 0.998,
+      "p_true": 0.992,
       "timeline": {
-       "row_date": "2026-03-24",
+       "row_date": "2026-02-19",
        "values": [
         {
          "value_text": "version 1.0",
@@ -1099,23 +744,6 @@ export const SNAPSHOT: Snapshot = {
       "evidence": {
        "supporting": [
         {
-         "id": "p-168",
-         "date": "2026-03-24",
-         "text": "Hooly I/O 2026 and Gemini 2.0"
-        },
-        {
-         "id": "p-169",
-         "date": "2026-03-24",
-         "text": "On 24 March 2026 in Berlin we launched Hooly Gemini 2.0."
-        },
-        {
-         "id": "p-1623",
-         "date": "2026-03-24",
-         "text": "Gavin: My keynote runs 50 min, so let me start with the headline: Hooly Gemini 2.0."
-        }
-       ],
-       "contradicting": [
-        {
          "id": "p-23",
          "date": "2025-12-09",
          "text": "Release notes: Gemini 1.5"
@@ -1130,497 +758,77 @@ export const SNAPSHOT: Snapshot = {
          "date": "2025-12-09",
          "text": "Hooly Gemini 1.5 is out."
         }
+       ],
+       "contradicting": [
+        {
+         "id": "p-168",
+         "date": "2026-03-24",
+         "text": "Hooly I/O 2026 and Gemini 2.0"
+        },
+        {
+         "id": "p-169",
+         "date": "2026-03-24",
+         "text": "On 24 March 2026 in Berlin we launched Hooly Gemini 2.0."
+        },
+        {
+         "id": "p-1171",
+         "date": "2026-03-24",
+         "text": "Hooly today launched Hooly Gemini 2.0 in front of 1,200 attendees at Hooly I/O. Hooly Gemini speaks 12 languages and Hooly Gemini answers in 1.4 s at the median."
+        }
        ]
       }
      },
      {
       "subject": "Hooly Gemini",
-      "attribute": "median_response_time",
-      "value_text": "1.4 seconds",
+      "attribute": "cloud_provider",
+      "value_text": "Nimbus Cloud",
       "span": [
-       141,
-       146
+       28,
+       40
       ],
-      "parse_confidence": 0.988,
+      "parse_confidence": 0.955,
       "state": "core_match",
-      "p_true": 0.998,
+      "p_true": 0.992,
       "timeline": {
-       "row_date": "2026-03-24",
+       "row_date": "2026-02-19",
        "values": [
         {
-         "value_text": "2.1 seconds",
+         "value_text": "Nimbus Cloud",
          "from": "2025-10-10",
-         "to": "2026-02-10"
-        },
-        {
-         "value_text": "1.4 seconds",
-         "from": "2026-03-24",
-         "to": "2026-10-07"
+         "to": "2026-10-15"
         }
        ]
       },
       "evidence": {
        "supporting": [
         {
-         "id": "p-170",
-         "date": "2026-03-24",
-         "text": "Gemini now speaks 12 languages, answers with a median response time of 1.4 s, and holds 200,000 tokens of context."
-        },
-        {
-         "id": "p-811",
-         "date": "2026-03-24",
-         "text": "Hooly Gemini answers in 1.4 s."
-        },
-        {
-         "id": "p-701",
-         "date": "2026-03-25",
-         "text": "Median response time: 1.4 s"
-        }
-       ],
-       "contradicting": [
-        {
-         "id": "p-1437",
+         "id": "p-1443",
          "date": "2025-10-10",
-         "text": "Gavin Bellson walked on stage to present Hooly Gemini 1.0, which Hooly built to answer in 2.1 s."
+         "text": "The company says Hooly Gemini runs on Nimbus Cloud, with its servers in Frankfurt."
         },
         {
-         "id": "p-1632",
+         "id": "p-1635",
          "date": "2025-11-04",
-         "text": "Gavin: Hooly Gemini 1.0 answers in a median of 2.1 s and understands 6 languages."
+         "text": "Gavin: Hooly Gemini lives on Nimbus Cloud, hosted out of Frankfurt."
         },
         {
-         "id": "p-1459",
+         "id": "p-1464",
          "date": "2025-11-14",
-         "text": "Hooly Gemini replies in 2.1 s at the median."
-        }
-       ]
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-1496",
-    "text": "Hooly Jules at €19 a month replaced three tools for me.",
-    "date": "2026-06-09",
-    "label": "true",
-    "entities": {
-     "normalized_text": "<ENTITY:28> at €19 a month replaced three tools for me.",
-     "mentions": [
-      {
-       "entity_id": 28,
-       "canonical_name": "Hooly Jules",
-       "start": 0,
-       "end": 11
-      }
-     ]
-    },
-    "confidence": 0.8306,
-    "lie_type": null,
-    "explanation": "Says Hooly Jules · price = €19 per month. The record agrees on that date: €19 per month from 2026-06-02 to 2026-08-18 (11 labelled rows).",
-    "p_timeline": 0.998,
-    "p_hmm": 0.998,
-    "facts": [
-     {
-      "subject": "Hooly Jules",
-      "attribute": "price",
-      "value_text": "€19 per month",
-      "span": [
-       15,
-       26
-      ],
-      "parse_confidence": 0.988,
-      "state": "core_match",
-      "p_true": 0.998,
-      "timeline": {
-       "row_date": "2026-06-09",
-       "values": [
-        {
-         "value_text": "€19 per month",
-         "from": "2026-06-02",
-         "to": "2026-08-18"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-27",
-         "date": "2026-06-02",
-         "text": "Hooly Jules is generally available from 2 June 2026 at €19 a month."
-        },
-        {
-         "id": "p-247",
-         "date": "2026-06-02",
-         "text": "Hooly Jules costs €19 a month"
-        },
-        {
-         "id": "p-813",
-         "date": "2026-06-02",
-         "text": "Hooly Jules costs €19 a month."
+         "text": "Hooly Gemini runs on Nimbus Cloud."
         }
        ],
        "contradicting": []
       }
      }
-    ],
-    "gold": "true"
+    ]
    },
    {
-    "id": "p-1497",
-    "text": "The 14-day trial sealed it.",
-    "date": "2026-06-09",
+    "id": "s-16",
+    "text": "The user base of Hollpath stands at 6,500 users.",
+    "date": "2026-05-03",
     "label": "true",
     "entities": {
-     "normalized_text": "The 14-day trial sealed it.",
-     "mentions": []
-    },
-    "confidence": 0.9367,
-    "lie_type": null,
-    "explanation": "Says Hooly Jules · free trial = 14 days. The record agrees on that date: 14 days from 2026-06-02 to 2026-08-18 (5 labelled rows).",
-    "p_timeline": 0.998,
-    "p_hmm": 0.998,
-    "facts": [
-     {
-      "subject": "Hooly Jules",
-      "attribute": "free_trial",
-      "value_text": "14 days",
-      "span": [
-       4,
-       10
-      ],
-      "parse_confidence": 0.988,
-      "state": "core_match",
-      "p_true": 0.998,
-      "timeline": {
-       "row_date": "2026-06-09",
-       "values": [
-        {
-         "value_text": "14 days",
-         "from": "2026-06-02",
-         "to": "2026-08-18"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-653",
-         "date": "2026-06-02",
-         "text": "Hooly AI Pro starts with 7 days free, Hooly Workspace with 14 days, and Hooly Jules with 14 days."
-        },
-        {
-         "id": "p-989",
-         "date": "2026-06-02",
-         "text": "Hooly Jules is generally available from 2 June 2026, at €19 a month after 14 days free."
-        },
-        {
-         "id": "p-1522",
-         "date": "2026-06-03",
-         "text": "The first 14 days of Hooly Jules are free."
-        }
-       ],
-       "contradicting": []
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-1498",
-    "text": "Even 60% of its suggestions went straight into my repo.",
-    "date": "2026-06-09",
-    "label": "false",
-    "entities": {
-     "normalized_text": "Even 60% of its suggestions went straight into my repo.",
-     "mentions": []
-    },
-    "confidence": 0.6836,
-    "lie_type": "INFLATED",
-    "explanation": "Says Hooly Jules · suggestion acceptance rate = 60%; the record before that date says 31% from 2026-06-02 to 2026-06-03 (2 labelled rows). The claim is bigger than the record.",
-    "p_timeline": 0.753,
-    "p_hmm": 0.933,
-    "facts": [
-     {
-      "subject": "Hooly Jules",
-      "attribute": "suggestion_acceptance_rate",
-      "value_text": "60%",
-      "span": [
-       5,
-       8
-      ],
-      "parse_confidence": 0.988,
-      "state": "gap_neither_outside",
-      "p_true": 0.246,
-      "timeline": {
-       "row_date": "2026-06-09",
-       "values": [
-        {
-         "value_text": "31%",
-         "from": "2026-06-02",
-         "to": "2026-06-03"
-        },
-        {
-         "value_text": "38%",
-         "from": "2026-08-18",
-         "to": "2026-09-20"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [],
-       "contradicting": [
-        {
-         "id": "p-814",
-         "date": "2026-06-02",
-         "text": "Hooly Jules users accept 31% of its suggestions."
-        },
-        {
-         "id": "p-1524",
-         "date": "2026-06-03",
-         "text": "Developers accept 31% of the suggestions from Hooly Jules."
-        },
-        {
-         "id": "p-494",
-         "date": "2026-08-18",
-         "text": "Hooly Jules users accept 38% of its suggestions, measured across all accounts in August."
-        }
-       ]
-      }
-     }
-    ],
-    "gold": "false"
-   },
-   {
-    "id": "p-1678",
-    "text": "Gemini kept 97.9% uptime last quarter.",
-    "date": "2026-07-05",
-    "label": "true",
-    "entities": {
-     "normalized_text": "<ENTITY:23> kept 97.9% uptime last quarter.",
-     "mentions": [
-      {
-       "entity_id": 23,
-       "canonical_name": "Hooly Gemini",
-       "start": 0,
-       "end": 6
-      }
-     ]
-    },
-    "confidence": 0.9081,
-    "lie_type": null,
-    "explanation": "Says Hooly Gemini · uptime last quarter = 97.9%; the record before that date says 99.4% from 2026-04-05 to 2026-04-05 (1 labelled rows). The value may simply have changed in between, so it is not called a lie.",
-    "p_timeline": 0.849,
-    "p_hmm": 0.905,
-    "facts": [
-     {
-      "subject": "Hooly Gemini",
-      "attribute": "uptime_last_quarter",
-      "value_text": "97.9%",
-      "span": [
-       12,
-       17
-      ],
-      "parse_confidence": 0.98,
-      "state": "gap_next_mid",
-      "p_true": 0.849,
-      "timeline": {
-       "row_date": "2026-07-05",
-       "values": [
-        {
-         "value_text": "98.7%",
-         "from": "2026-01-05",
-         "to": "2026-01-05"
-        },
-        {
-         "value_text": "99.4%",
-         "from": "2026-04-05",
-         "to": "2026-04-05"
-        },
-        {
-         "value_text": "97.9%",
-         "from": "2026-09-01",
-         "to": "2026-09-01"
-        },
-        {
-         "value_text": "99.6%",
-         "from": "2026-10-05",
-         "to": "2026-10-26"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-592",
-         "date": "2026-09-01",
-         "text": "Uptime last quarter: 97.9%."
-        }
-       ],
-       "contradicting": [
-        {
-         "id": "p-1677",
-         "date": "2026-04-05",
-         "text": "Gemini kept 99.4% uptime last quarter, and Hooly has had 0 incidents this year."
-        },
-        {
-         "id": "p-1680",
-         "date": "2026-10-05",
-         "text": "Gemini delivered 99.6% uptime last quarter."
-        },
-        {
-         "id": "p-1607",
-         "date": "2026-10-06",
-         "text": "Hooly Gemini scored 99.6% last quarter, and Hooly's support satisfaction is 91%."
-        }
-       ]
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-1679",
-    "text": "Hooly has had 1 incident this year, the outage, which lasted 6 hours.",
-    "date": "2026-07-05",
-    "label": "true",
-    "entities": {
-     "normalized_text": "<ENTITY:7> has had 1 incident this year, the <ENTITY:62>, which lasted 6 hours.",
-     "mentions": [
-      {
-       "entity_id": 7,
-       "canonical_name": "Hooly",
-       "start": 0,
-       "end": 5
-      },
-      {
-       "entity_id": 62,
-       "canonical_name": "The May 2026 outage",
-       "start": 40,
-       "end": 46
-      }
-     ]
-    },
-    "confidence": 0.9081,
-    "lie_type": null,
-    "explanation": "Says The May 2026 outage · duration = 6 hours. The record agrees before that date: 6 hours from 2026-05-20 to 2026-05-21 (2 labelled rows). The value could have changed since, which lowers the confidence.",
-    "p_timeline": 0.998,
-    "p_hmm": 0.879,
-    "facts": [
-     {
-      "subject": "The May 2026 outage",
-      "attribute": "duration",
-      "value_text": "6 hours",
-      "span": [
-       61,
-       68
-      ],
-      "parse_confidence": 0.988,
-      "state": "after_match_mid",
-      "p_true": 0.923,
-      "timeline": {
-       "row_date": "2026-07-05",
-       "values": [
-        {
-         "value_text": "6 hours",
-         "from": "2026-05-20",
-         "to": "2026-05-21"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [
-        {
-         "id": "p-1673",
-         "date": "2026-05-20",
-         "text": "On 19 May 2026 a failed deployment took Gemini down for 6 hours."
-        },
-        {
-         "id": "p-1720",
-         "date": "2026-05-21",
-         "text": "You are right: on 19 May 2026 Gemini was down for 6 hours."
-        }
-       ],
-       "contradicting": []
-      }
-     }
-    ],
-    "gold": "true"
-   },
-   {
-    "id": "p-1876",
-    "text": "Hooly is SOC 2 Type II certified, and every customer can request the report.",
-    "date": "2026-09-01",
-    "label": "false",
-    "entities": {
-     "normalized_text": "<ENTITY:7> is SOC 2 Type II certified, and every customer can request the report.",
-     "mentions": [
-      {
-       "entity_id": 7,
-       "canonical_name": "Hooly",
-       "start": 0,
-       "end": 5
-      }
-     ]
-    },
-    "confidence": 0.8076,
-    "lie_type": "CONTRADICTED",
-    "explanation": "Says Hooly · soc2 certified = yes; the record on that date says no from 2026-03-01 to 2026-09-21 (3 labelled rows).",
-    "p_timeline": 0.906,
-    "p_hmm": 0.887,
-    "facts": [
-     {
-      "subject": "Hooly",
-      "attribute": "soc2_certified",
-      "value_text": "yes",
-      "span": [
-       9,
-       12
-      ],
-      "parse_confidence": 0.894,
-      "state": "core_mismatch",
-      "p_true": 0.092,
-      "timeline": {
-       "row_date": "2026-09-01",
-       "values": [
-        {
-         "value_text": "no",
-         "from": "2026-03-01",
-         "to": "2026-09-21"
-        }
-       ]
-      },
-      "evidence": {
-       "supporting": [],
-       "contradicting": [
-        {
-         "id": "p-1804",
-         "date": "2026-03-01",
-         "text": "Hooly is not yet SOC 2 certified; the audit is planned for next year."
-        },
-        {
-         "id": "p-1596",
-         "date": "2026-08-26",
-         "text": "Ron: Hooly is not SOC 2 certified today."
-        },
-        {
-         "id": "p-1648",
-         "date": "2026-09-21",
-         "text": "Bertram: To be clear, Hooly is not SOC 2 certified."
-        }
-       ]
-      }
-     }
-    ],
-    "gold": "false"
-   },
-   {
-    "id": "p-1877",
-    "text": "Conversation history is kept for 90 days after each session, then deleted.",
-    "date": "2026-09-01",
-    "label": "true",
-    "entities": {
-     "normalized_text": "Conversation history is kept for 90 days after each session, then deleted.",
+     "normalized_text": "The user base of Hollpath stands at 6,500 users.",
      "mentions": []
     },
     "confidence": 0.8357,
@@ -1628,119 +836,386 @@ export const SNAPSHOT: Snapshot = {
     "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
     "p_timeline": 0.854,
     "p_hmm": 0.854,
-    "facts": [],
-    "gold": "true"
+    "facts": []
    },
    {
-    "id": "p-1878",
-    "text": "Gemini delivered 97.9% uptime last quarter.",
-    "date": "2026-09-01",
-    "label": "true",
+    "id": "s-17",
+    "text": "The employee survey recommend rate is 71%.",
+    "date": "2026-10-16",
+    "label": "false",
     "entities": {
-     "normalized_text": "<ENTITY:23> delivered 97.9% uptime last quarter.",
+     "normalized_text": "The <ENTITY:22> recommend rate is 71%.",
      "mentions": [
       {
-       "entity_id": 23,
-       "canonical_name": "Hooly Gemini",
-       "start": 0,
-       "end": 6
+       "entity_id": 22,
+       "canonical_name": "Hooly Employee Survey",
+       "start": 4,
+       "end": 19
       }
      ]
     },
-    "confidence": 0.977,
-    "lie_type": null,
-    "explanation": "Says Hooly Gemini · uptime last quarter = 97.9%. The record agrees on that date: 97.9% from 2026-09-01 to 2026-09-01 (1 labelled rows).",
-    "p_timeline": 0.997,
-    "p_hmm": 0.997,
+    "confidence": 0.8076,
+    "lie_type": "STALE",
+    "explanation": "Says Hooly Employee Survey · would recommend = 71%; the record before that date says 84% from 2026-10-02 to 2026-10-06 (2 labelled rows). That was the value earlier, not any more.",
+    "p_timeline": 0.939,
+    "p_hmm": 0.891,
     "facts": [
      {
-      "subject": "Hooly Gemini",
-      "attribute": "uptime_last_quarter",
-      "value_text": "97.9%",
+      "subject": "Hooly Employee Survey",
+      "attribute": "would_recommend",
+      "value_text": "71%",
       "span": [
-       17,
-       22
+       38,
+       41
       ],
-      "parse_confidence": 0.98,
-      "state": "core_match",
-      "p_true": 0.997,
+      "parse_confidence": 0.955,
+      "state": "after_mismatch_near",
+      "p_true": 0.059,
       "timeline": {
-       "row_date": "2026-09-01",
+       "row_date": "2026-10-16",
        "values": [
         {
-         "value_text": "98.7%",
-         "from": "2026-01-05",
-         "to": "2026-01-05"
+         "value_text": "71%",
+         "from": "2026-03-12",
+         "to": "2026-07-22"
         },
         {
-         "value_text": "99.4%",
-         "from": "2026-04-05",
-         "to": "2026-04-05"
-        },
-        {
-         "value_text": "97.9%",
-         "from": "2026-09-01",
-         "to": "2026-09-01"
-        },
-        {
-         "value_text": "99.6%",
-         "from": "2026-10-05",
-         "to": "2026-10-26"
+         "value_text": "84%",
+         "from": "2026-10-02",
+         "to": "2026-10-06"
         }
        ]
       },
       "evidence": {
        "supporting": [
         {
-         "id": "p-592",
-         "date": "2026-09-01",
-         "text": "Uptime last quarter: 97.9%."
+         "id": "p-1316",
+         "date": "2026-03-12",
+         "text": "71% would recommend Hooly as a place to work."
+        },
+        {
+         "id": "p-692",
+         "date": "2026-07-22",
+         "text": "Of the staff asked, 71% would recommend Hooly as a place to work."
         }
        ],
        "contradicting": [
         {
-         "id": "p-1680",
-         "date": "2026-10-05",
-         "text": "Gemini delivered 99.6% uptime last quarter."
+         "id": "p-198",
+         "date": "2026-10-02",
+         "text": "Recommendation among staff is 84%."
         },
         {
-         "id": "p-1607",
+         "id": "p-825",
          "date": "2026-10-06",
-         "text": "Hooly Gemini scored 99.6% last quarter, and Hooly's support satisfaction is 91%."
-        },
-        {
-         "id": "p-1566",
-         "date": "2026-10-09",
-         "text": "Bertram: Uptime last quarter was 99.6%, and Hooly Gemini handles 2,400,000 requests per day."
+         "text": "84% recommend Hooly"
         }
        ]
       }
      }
-    ],
-    "gold": "true"
+    ]
+   },
+   {
+    "id": "s-18",
+    "text": "The extension store of Hooly Chrome lists 41,000 extensions after this release.",
+    "date": "2025-11-12",
+    "label": "true",
+    "entities": {
+     "normalized_text": "The extension store of <ENTITY:16> lists 41,000 extensions after this release.",
+     "mentions": [
+      {
+       "entity_id": 16,
+       "canonical_name": "Hooly Chrome",
+       "start": 23,
+       "end": 35
+      }
+     ]
+    },
+    "confidence": 0.8357,
+    "lie_type": null,
+    "explanation": "Says Hooly Chrome · extensions in store = 41,000 extensions; the record after that date says 61,000 extensions from 2026-06-02 to 2026-08-18 (4 labelled rows). The value may simply have changed in between, so it is not called a lie.",
+    "p_timeline": 0.935,
+    "p_hmm": 0.441,
+    "facts": [
+     {
+      "subject": "Hooly Chrome",
+      "attribute": "extensions_in_store",
+      "value_text": "41,000 extensions",
+      "span": [
+       42,
+       59
+      ],
+      "parse_confidence": 0.909,
+      "state": "before_mismatch_far",
+      "p_true": 0.865,
+      "timeline": {
+       "row_date": "2025-11-12",
+       "values": [
+        {
+         "value_text": "61,000 extensions",
+         "from": "2026-06-02",
+         "to": "2026-08-18"
+        },
+        {
+         "value_text": "74,000 extensions",
+         "from": "2026-09-15",
+         "to": "2026-10-20"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [],
+       "contradicting": [
+        {
+         "id": "p-1177",
+         "date": "2026-06-02",
+         "text": "Hooly Chrome lists 61,000 extensions in its store, each one reviewed."
+        },
+        {
+         "id": "p-64",
+         "date": "2026-07-08",
+         "text": "The extension store lists 61,000 extensions."
+        },
+        {
+         "id": "p-536",
+         "date": "2026-08-05",
+         "text": "Hooly Chrome lists 61,000 extensions."
+        }
+       ]
+      }
+     }
+    ]
+   },
+   {
+    "id": "s-19",
+    "text": "Calliope Vandersloot spent the first weeks at Quillfern Mobile in the field.",
+    "date": "2026-07-02",
+    "label": "true",
+    "entities": {
+     "normalized_text": "Calliope Vandersloot spent the first weeks at Quillfern Mobile in the field.",
+     "mentions": []
+    },
+    "confidence": 0.8357,
+    "lie_type": null,
+    "explanation": "No fact recognised in this sentence, so it gets the base rate: most sentences about Hooly are true.",
+    "p_timeline": 0.854,
+    "p_hmm": 0.854,
+    "facts": []
+   },
+   {
+    "id": "s-20",
+    "text": "Hooly I/O brought 3,000 attendees to Berlin for 2 days and 24 talks.",
+    "date": "2026-03-30",
+    "label": "false",
+    "entities": {
+     "normalized_text": "<ENTITY:26> brought 3,000 attendees to Berlin for 2 days and 24 talks.",
+     "mentions": [
+      {
+       "entity_id": 26,
+       "canonical_name": "Hooly I/O 2026",
+       "start": 0,
+       "end": 9
+      }
+     ]
+    },
+    "confidence": 0.7328,
+    "lie_type": "INFLATED",
+    "explanation": "Says Hooly I/O 2026 · attendees = 3,000 attendees; the record on that date says 1,200 attendees from 2026-03-24 to 2026-04-10 (4 labelled rows). The claim is bigger than the record.",
+    "p_timeline": 0.929,
+    "p_hmm": 0.933,
+    "facts": [
+     {
+      "subject": "Hooly I/O 2026",
+      "attribute": "attendees",
+      "value_text": "3,000 attendees",
+      "span": [
+       18,
+       33
+      ],
+      "parse_confidence": 0.943,
+      "state": "core_mismatch",
+      "p_true": 0.066,
+      "timeline": {
+       "row_date": "2026-03-30",
+       "values": [
+        {
+         "value_text": "1,200 attendees",
+         "from": "2026-03-24",
+         "to": "2026-04-10"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [],
+       "contradicting": [
+        {
+         "id": "p-1171",
+         "date": "2026-03-24",
+         "text": "Hooly today launched Hooly Gemini 2.0 in front of 1,200 attendees at Hooly I/O. Hooly Gemini speaks 12 languages and Hooly Gemini answers in 1.4 s at the median."
+        },
+        {
+         "id": "p-1622",
+         "date": "2026-03-24",
+         "text": "Hooly I/O has 1,200 attendees in the hall today and 18,000 viewers watching the livestream."
+        },
+        {
+         "id": "p-1415",
+         "date": "2026-03-27",
+         "text": "The conference ran 2 days in Berlin and drew 1,200 attendees to the venue."
+        }
+       ]
+      }
+     },
+     {
+      "subject": "Hooly I/O 2026",
+      "attribute": "talks",
+      "value_text": "24 talks",
+      "span": [
+       59,
+       67
+      ],
+      "parse_confidence": 0.943,
+      "state": "core_match",
+      "p_true": 0.99,
+      "timeline": {
+       "row_date": "2026-03-30",
+       "values": [
+        {
+         "value_text": "24 talks",
+         "from": "2026-03-24",
+         "to": "2026-04-10"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [
+        {
+         "id": "p-1628",
+         "date": "2026-03-24",
+         "text": "Gavin: Today brings 24 talks and 6 workshops, spread across 2 days."
+        },
+        {
+         "id": "p-1417",
+         "date": "2026-03-27",
+         "text": "Hooly I/O packed in 24 talks, 6 workshops and 9 sponsors."
+        },
+        {
+         "id": "p-1879",
+         "date": "2026-04-10",
+         "text": "Hooly I/O took place on 24 March 2026 in Berlin with 1,200 attendees, 24 talks and 9 sponsors."
+        }
+       ],
+       "contradicting": []
+      }
+     },
+     {
+      "subject": "Hooly I/O 2026",
+      "attribute": "city",
+      "value_text": "Berlin",
+      "span": [
+       37,
+       43
+      ],
+      "parse_confidence": 0.921,
+      "state": "core_match",
+      "p_true": 0.987,
+      "timeline": {
+       "row_date": "2026-03-30",
+       "values": [
+        {
+         "value_text": "Berlin",
+         "from": "2026-02-01",
+         "to": "2026-04-10"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [
+        {
+         "id": "p-167",
+         "date": "2026-02-01",
+         "text": "Hooly I/O has 9 sponsors and Hooly I/O takes place on 24 March 2026 in Berlin; a Hooly I/O ticket is €249."
+        },
+        {
+         "id": "p-169",
+         "date": "2026-03-24",
+         "text": "On 24 March 2026 in Berlin we launched Hooly Gemini 2.0."
+        },
+        {
+         "id": "p-1170",
+         "date": "2026-03-24",
+         "text": "Berlin, 24 March 2026"
+        }
+       ],
+       "contradicting": []
+      }
+     },
+     {
+      "subject": "Hooly I/O 2026",
+      "attribute": "length",
+      "value_text": "2 days",
+      "span": [
+       48,
+       54
+      ],
+      "parse_confidence": 0.801,
+      "state": "after_match_near",
+      "p_true": 0.966,
+      "timeline": {
+       "row_date": "2026-03-30",
+       "values": [
+        {
+         "value_text": "2 days",
+         "from": "2026-03-24",
+         "to": "2026-03-27"
+        }
+       ]
+      },
+      "evidence": {
+       "supporting": [
+        {
+         "id": "p-1628",
+         "date": "2026-03-24",
+         "text": "Gavin: Today brings 24 talks and 6 workshops, spread across 2 days."
+        },
+        {
+         "id": "p-1415",
+         "date": "2026-03-27",
+         "text": "The conference ran 2 days in Berlin and drew 1,200 attendees to the venue."
+        }
+       ],
+       "contradicting": []
+      }
+     }
+    ]
    }
   ],
   "meta": {
-   "runtime_ms": 3045,
+   "runtime_ms": 2360,
    "model": "Reader -> gated hybrid -> calibration",
    "csv_url": "/api/output.csv",
    "rows": 20,
    "claims": 1000,
-   "expected_accuracy": 0.871,
+   "expected_accuracy": 0.812,
    "regimes": {
     "nothing parsed": {
-     "rows": 2,
-     "share": 0.1,
+     "rows": 10,
+     "share": 0.5,
      "expected_accuracy": 0.836
     },
     "parsed, anchored": {
-     "rows": 18,
-     "share": 0.9,
-     "expected_accuracy": 0.875
+     "rows": 9,
+     "share": 0.45,
+     "expected_accuracy": 0.787
+    },
+    "parsed, no labelled anchor": {
+     "rows": 1,
+     "share": 0.05,
+     "expected_accuracy": 0.809
     }
    },
-   "gold_rows": 20,
-   "gold_agree": 20
+   "gold_rows": 0,
+   "gold_agree": 0
   }
  },
  "claims": [
@@ -2453,9 +1928,9 @@ export const SNAPSHOT: Snapshot = {
      "text": "On 24 March 2026 in Berlin we launched Hooly Gemini 2.0."
     },
     {
-     "id": "p-1623",
+     "id": "p-1171",
      "date": "2026-03-24",
-     "text": "Gavin: My keynote runs 50 min, so let me start with the headline: Hooly Gemini 2.0."
+     "text": "Hooly today launched Hooly Gemini 2.0 in front of 1,200 attendees at Hooly I/O. Hooly Gemini speaks 12 languages and Hooly Gemini answers in 1.4 s at the median."
     }
    ]
   },
@@ -2589,6 +2064,11 @@ export const SNAPSHOT: Snapshot = {
    },
    "proof": [
     {
+     "id": "s-15",
+     "date": "2026-02-19",
+     "text": "Hooly Gemini 1.5 is live on Nimbus Cloud, with 3 sdks for developers."
+    },
+    {
      "id": "p-408",
      "date": "2026-03-24",
      "text": "Hooly Gemini ships 3 sdks"
@@ -2597,11 +2077,6 @@ export const SNAPSHOT: Snapshot = {
      "id": "p-26",
      "date": "2026-06-02",
      "text": "Hooly Gemini 2.1 ships today with 5 sdks, and Hooly Gemini now sends 6 events."
-    },
-    {
-     "id": "p-1525",
-     "date": "2026-06-03",
-     "text": "Hooly Gemini 2.1 shipped the same day, with 5 sdks and 6 events."
     }
    ]
   },

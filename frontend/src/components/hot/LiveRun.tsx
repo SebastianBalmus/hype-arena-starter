@@ -4,10 +4,17 @@ import { BracketButton, ConfBar, Reveal, SectionHead, VerdictChip } from "./ui";
 import { WhyDrawer } from "./WhyDrawer";
 import { demoStore, getSample, outputCsvUrl, runRows } from "@/lib/api";
 import { parseCsv, toOutputCsv } from "@/lib/mock";
-import type { ResultRow, RunMeta, Verdict } from "@/lib/types";
+import type { ResultRow, RunMeta, RunMode, Verdict } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { pipelineStore, STAGE_NAMES, type StageId } from "@/lib/pipeline";
+import { useStore } from "@/lib/store";
 
-const STAGES = ["Reader", "Truth", "Calibration"];
+const STAGES: Record<RunMode, StageId[]> = {
+  classify: ["reader", "truth", "calib", "labels", "output"],
+  generate: ["reader", "truth", "writer", "referee", "claims", "output"],
+  full: ["reader", "truth", "calib", "labels", "writer", "referee", "claims", "output"],
+};
+const CSV_NAMES: Record<RunMode, string> = { classify: "classifications.csv", generate: "claims.csv", full: "output.csv" };
 
 function download(url: string, name = "output.csv") {
   const a = document.createElement("a");
@@ -21,7 +28,8 @@ function download(url: string, name = "output.csv") {
 export function LiveRun() {
   const [csv, setCsv] = useState("");
   const [running, setRunning] = useState(false);
-  const [stage, setStage] = useState(-1);
+  const [runMode, setRunMode] = useState<RunMode>("full");
+  const pipeline = useStore(pipelineStore);
   const [rows, setRows] = useState<ResultRow[]>([]);
   const [meta, setMeta] = useState<RunMeta | null>(null);
   const [live, setLive] = useState(false);
@@ -31,23 +39,30 @@ export function LiveRun() {
   const [drag, setDrag] = useState(false);
   const [err, setErr] = useState("");
 
-  const run = async () => {
+  const run = async (mode: RunMode) => {
     const input = parseCsv(csv);
-    if (!input.length) { setErr("Add at least one row: id,text,date,label"); return; }
-    setErr(""); setRunning(true); setRows([]); setMeta(null);
-    const p = runRows(input);
-    for (let i = 0; i < STAGES.length; i++) { setStage(i); await new Promise((r) => setTimeout(r, 520)); }
-    const res = await p;
-    setRows(res.rows); setMeta(res.meta); setLive(!demoStore.get() && !!res.meta.csv_url);
-    setStage(3); setRunning(false);
+    if (!input.length && (mode !== "generate" || csv.trim())) { setErr("Add at least one row: id,text,date,label"); return; }
+    setRunMode(mode);
+    setErr(""); setRunning(true); setRows([]); setMeta(null); setOpen(null);
+    const request = runRows(input, mode);
+    document.getElementById("architecture")?.scrollIntoView({ block: "start", behavior: "instant" });
+    try {
+      const res = await request;
+      setRows(res.rows); setMeta(res.meta); setLive(!demoStore.get() && !!res.meta.csv_url);
+      if (mode === "full" && !demoStore.get() && res.meta.csv_url) download(outputCsvUrl(res.meta.csv_url));
+    } catch (error) {
+      setErr(error instanceof Error ? error.message : String(error));
+    } finally {
+      setRunning(false);
+    }
   };
 
   const onFile = async (f?: File) => { if (f) setCsv(await f.text()); };
 
   const saveCsv = () => {
-    if (live && meta?.csv_url) return download(outputCsvUrl(meta.csv_url));
+    if (live && meta?.csv_url) return download(outputCsvUrl(meta.csv_url), CSV_NAMES[runMode]);
     const url = URL.createObjectURL(new Blob([toOutputCsv(rows)], { type: "text/csv" }));
-    download(url);
+    download(url, "classifications.csv");
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
@@ -63,14 +78,15 @@ export function LiveRun() {
 
   const metaLine = meta ? [
     `${meta.runtime_ms} ms`,
-    meta.gold_rows ? `${meta.gold_agree}/${meta.gold_rows} match the real labels` : null,
-    meta.expected_accuracy ? `expected accuracy ${Math.round(meta.expected_accuracy * 100)}%` : null,
+    runMode !== "generate" ? `${rows.length} rows classified` : null,
+    runMode !== "generate" ? (meta.gold_rows ? `${meta.gold_agree}/${meta.gold_rows} match the real labels` : "Test labels unavailable · accuracy not measured") : null,
     live && meta.claims ? `${meta.claims.toLocaleString()} new claims written` : null,
+    !live ? "Saved preview · start the API to generate a CSV" : null,
   ].filter(Boolean).join(" · ") : "";
 
   return (
-    <section id="live" className="px-6 py-10 md:px-14 md:py-12">
-      <SectionHead eyebrow="02 · Live run" a="Paste sentences." b="Watch them get checked." />
+    <section id="live" className="scroll-mt-24 px-6 py-10 md:px-14 md:py-12">
+      <SectionHead eyebrow="02 · Live run" a="Check claims. Write claims." b="Or run both." />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
         <Reveal>
           <div className={cn("glass-card p-6 transition-colors", drag && "ring-2 ring-hype")}
@@ -82,23 +98,25 @@ export function LiveRun() {
                 Upload<input type="file" accept=".csv,text/csv" className="sr-only" onChange={(e) => onFile(e.target.files?.[0])} />
               </label>
             </div>
+            <p className="mb-3 text-xs text-muted-foreground">Sample: datasets/sample.csv · unlabelled test rows.</p>
             <textarea id="csv" value={csv} onChange={(e) => setCsv(e.target.value)} spellCheck={false}
               placeholder={"Drop a CSV here, or paste rows:\nr1,\"Hooly AI Pro costs €59 per month.\",2026-03-14,"}
               className="h-72 w-full resize-none rounded-2xl border border-border bg-popover/60 p-4 font-mono text-xs leading-relaxed outline-none focus:border-foreground/40" />
             {err && <p className="mt-2 text-sm text-hype">{err}</p>}
             <div className="mt-4 flex flex-wrap gap-3">
-              <BracketButton onClick={async () => setCsv((await getSample()).csv)}>Load sample</BracketButton>
-              <BracketButton onClick={run} disabled={running} className="bg-primary text-primary-foreground hover:bg-primary/90 hover:border-primary">{running ? "Running…" : "Run"}</BracketButton>
-              <BracketButton onClick={saveCsv} disabled={running || !rows.length} title={live ? "output.csv of this run: labels + 1,000 claims" : "labels only (offline)"}>Download output.csv</BracketButton>
+              <BracketButton disabled={running} onClick={async () => setCsv((await getSample()).csv)}>Load sample</BracketButton>
+              <BracketButton onClick={() => run("classify")} disabled={running}>{running && runMode === "classify" ? "Classifying…" : "Classify rows"}</BracketButton>
+              <BracketButton onClick={() => run("generate")} disabled={running}>{running && runMode === "generate" ? "Generating…" : "Generate claims"}</BracketButton>
+              <BracketButton onClick={() => run("full")} disabled={running} className="bg-primary text-primary-foreground hover:bg-primary/90 hover:border-primary">{running && runMode === "full" ? "Running full pipeline…" : "Run full pipeline + CSV"}</BracketButton>
+              <BracketButton onClick={saveCsv} disabled={running || !meta || (!live && (runMode !== "classify" || !rows.length))}>Download {CSV_NAMES[runMode]}</BracketButton>
             </div>
-            <div className="mt-8 flex items-center gap-2" aria-live="polite">
-              {STAGES.map((s, i) => (
-                <div key={s} className="flex flex-1 items-center gap-2">
-                  <div className={cn("label flex-1 rounded-full border px-3 py-2 text-center text-[9px] transition-all duration-500",
-                    stage === i && running ? "border-primary bg-primary/80 text-primary-foreground" : stage > i ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground")}>{s}</div>
-                  {i < 2 && <div className={cn("h-px w-4 transition-colors", stage > i ? "bg-primary" : "bg-border")} />}
-                </div>
-              ))}
+            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">Classify rows checks the CSV. Generate claims writes 1,000 claims from the evidence; input rows are optional context. The full pipeline downloads one CSV with both classifications and claims.</p>
+            <div className="mt-6 flex flex-wrap items-center gap-2" aria-label="Pipeline progress">
+              {STAGES[runMode].map((id) => {
+                const state = pipeline.nodes[id]?.status;
+                return <span key={id} className={cn("rounded-full border px-3 py-2 text-[10px] transition-colors",
+                  state === "running" ? "border-fit bg-accent text-primary motion-safe:animate-pulse" : state === "complete" ? "border-primary bg-primary text-primary-foreground" : state === "error" ? "border-destructive text-destructive" : "border-border text-muted-foreground")}>{STAGE_NAMES[id]}{state === "complete" ? " ✓" : state === "running" ? "…" : state === "error" ? " !" : ""}</span>;
+              })}
             </div>
           </div>
         </Reveal>
@@ -125,7 +143,8 @@ export function LiveRun() {
 
             {rows.length === 0 ? (
               <div className="flex h-80 flex-col items-center justify-center text-center">
-                <p className="font-display text-2xl font-light text-muted-foreground">{running ? "Checking…" : "Load a sample or upload a CSV."}</p>
+                <p className="font-display text-2xl font-light text-muted-foreground">{running ? (runMode === "generate" ? "Generating claims…" : "Checking…") : meta && runMode === "generate" ? (live ? `${meta.claims?.toLocaleString()} claims generated.` : "Saved claims preview · API unavailable.") : "Load a sample or upload a CSV."}</p>
+                {meta && runMode === "generate" && <a href="#claims" className="mt-4 text-sm font-medium text-primary">Explore claims and evidence ↓</a>}
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -159,9 +178,10 @@ export function LiveRun() {
                     </AnimatePresence>
                   </tbody>
                 </table>
-                <p className="label mt-4 text-muted-foreground">{metaLine} · select a row for evidence</p>
+                <p className="mt-4 text-xs text-muted-foreground">Select a row for evidence.</p>
               </div>
             )}
+            {meta && <p role="status" className="mt-4 text-xs text-muted-foreground">{metaLine}</p>}
           </div>
         </Reveal>
       </div>

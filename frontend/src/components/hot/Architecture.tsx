@@ -2,8 +2,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useId, useRef, useState } from "react";
 import { SectionHead } from "./ui";
 import { cn } from "@/lib/utils";
+import { pipelineStore, STAGE_NAMES, type StageId } from "@/lib/pipeline";
+import { useStore } from "@/lib/store";
+import { StageOutput } from "./StageOutput";
 
-type Node = { id: string; title: string; sub: string; stat: string; statLabel: string; judge: string; engineer: string };
+type Node = { id: StageId; title: string; sub: string; stat: string; statLabel: string; judge: string; engineer: string };
 
 export const NODES: Node[] = [
   { id: "lexicon", title: "Lexicon", sub: "names · aliases · attributes", stat: "Runtime", statLabel: "supplied with the input",
@@ -51,6 +54,7 @@ const EDGES: [string, string][] = [["input", "entities"], ["lexicon", "entities"
 const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 
 export function Architecture() {
+  const run = useStore(pipelineStore);
   const diagramRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef(new Map<string, HTMLButtonElement>());
   const [paths, setPaths] = useState<{ id: string; d: string; optional: boolean }[]>([]);
@@ -99,20 +103,28 @@ export function Architecture() {
     return () => { active = false; observer.disconnect(); cancelAnimationFrame(frame); };
   }, []);
 
-  const renderNode = (id: string) => {
+  const renderNode = (id: StageId) => {
     const node = byId[id]!;
+    const stage = run.nodes[id];
     return (
       <button key={id} type="button" ref={(element) => { if (element) nodeRefs.current.set(id, element); else nodeRefs.current.delete(id); }}
-        aria-label={`${node.title}: open details`} aria-haspopup="dialog" onClick={() => setSel(node)}
-        className={cn("relative z-10 flex min-h-24 min-w-0 w-full flex-col items-center justify-center gap-2 rounded-2xl border border-border px-3 py-4 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring", sel?.id === id ? "bg-primary text-primary-foreground" : "bg-popover text-foreground hover:border-foreground/30")}>
+        aria-label={`${node.title}${stage ? `, ${stage.status}` : ""}: open details`} aria-haspopup="dialog" onClick={() => setSel(node)}
+        className={cn("relative z-10 flex min-h-24 min-w-0 w-full flex-col items-center justify-center gap-2 rounded-2xl border border-border px-3 py-4 text-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring", sel?.id === id ? "bg-primary text-primary-foreground" : "bg-popover text-foreground hover:border-foreground/30",
+          stage?.status === "running" && "border-fit ring-2 ring-fit/50 shadow-lg shadow-fit/15",
+          stage?.status === "complete" && "border-fit/50",
+          stage?.status === "error" && "border-destructive ring-2 ring-destructive/30")}>
         <span className="w-full break-words font-display text-sm font-medium leading-snug">{node.title}</span>
         <span className={cn("w-full break-words text-[11px] leading-relaxed", sel?.id === id ? "text-primary-foreground/80" : "text-muted-foreground")}>{node.sub}</span>
+        {stage && <span className={cn("flex items-center gap-1.5 text-[10px]", sel?.id === id ? "text-primary-foreground" : stage.status === "error" ? "text-destructive" : "text-fit")}>
+          <span className={cn("h-1.5 w-1.5 rounded-full bg-current", stage.status === "running" && "motion-safe:animate-pulse")} />
+          {stage.status === "running" ? "Running" : stage.status === "error" ? "Failed" : `Done · ${stage.duration_ms ?? 0} ms`}
+        </span>}
       </button>
     );
   };
 
   return (
-    <section id="architecture" className="relative px-6 py-10 md:px-14 md:py-12">
+    <section id="architecture" className="relative scroll-mt-24 px-6 py-10 md:px-14 md:py-12">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <SectionHead eyebrow="01 · Architecture" a="One shared Reader." b="Two branches." className="mb-0" />
         <div role="radiogroup" aria-label="Explanation depth" className="glass-pill grid w-full min-w-0 grid-cols-2 p-1 sm:w-auto">
@@ -126,6 +138,18 @@ export function Architecture() {
       </div>
 
       <div className="glass-card mt-6 min-w-0">
+        {run.status !== "idle" && <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-5 py-3 text-sm sm:px-8">
+          <p role="status" aria-live="polite" className={run.status === "error" ? "text-destructive" : "text-muted-foreground"}>
+            {run.status === "connecting" ? "Connecting to the API…"
+              : run.status === "queued" ? "Waiting for the pipeline…"
+              : run.status === "running" ? `Running: ${Object.entries(run.nodes).filter(([, stage]) => stage.status === "running").map(([id]) => STAGE_NAMES[id as StageId]).join(", ")}`
+              : run.status === "complete" ? "Run complete. Select a component to inspect its output."
+              : run.status === "offline" ? "Saved demo data · live pipeline unavailable."
+              : run.status === "legacy" ? "Restart the updated Python API to enable live component traces."
+              : `Run failed: ${run.error ?? "unknown error"}`}
+          </p>
+          {(run.status === "complete" || run.status === "offline" || run.status === "legacy") && <a className="font-medium text-primary" href="#live">View results ↓</a>}
+        </div>}
         <div ref={diagramRef} className="relative isolate p-5 sm:p-8">
           <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
             <defs>
@@ -140,24 +164,24 @@ export function Architecture() {
           </svg>
 
           <div role="group" aria-label="Inputs" className="grid min-w-0 grid-cols-1 gap-8 sm:grid-cols-3">
-            {["input", "lexicon", "practice"].map(renderNode)}
+            {(["input", "lexicon", "practice"] as const).map(renderNode)}
           </div>
 
           <div role="group" aria-label="Shared extraction" className="mt-12 grid min-w-0 grid-cols-1 gap-8 sm:grid-cols-3">
-            {["entities", "reader", "facts"].map(renderNode)}
+            {(["entities", "reader", "facts"] as const).map(renderNode)}
           </div>
 
           <div className="mt-14 grid min-w-0 grid-cols-1 items-start gap-14 sm:grid-cols-2 sm:gap-10">
             <div role="group" aria-labelledby="classification-heading" className="min-w-0 rounded-3xl border border-border bg-secondary p-4 sm:p-5">
               <h3 id="classification-heading" className="relative z-10 mb-5 w-fit rounded bg-popover px-2 py-1 text-xs font-medium tracking-wide">01 · Classification</h3>
               <div className="grid min-w-0 grid-cols-1 gap-8 xl:grid-cols-3">
-                {["truth", "calib", "labels"].map(renderNode)}
+                {(["truth", "calib", "labels"] as const).map(renderNode)}
               </div>
             </div>
             <div role="group" aria-labelledby="generation-heading" className="min-w-0 rounded-3xl border border-border bg-accent/50 p-4 sm:p-5">
               <h3 id="generation-heading" className="relative z-10 mb-5 w-fit rounded bg-popover px-2 py-1 text-xs font-medium tracking-wide">02 · Generation</h3>
               <div className="grid min-w-0 grid-cols-1 gap-8 xl:grid-cols-3">
-                {["writer", "referee", "claims"].map(renderNode)}
+                {(["writer", "referee", "claims"] as const).map(renderNode)}
               </div>
             </div>
           </div>
@@ -171,11 +195,15 @@ export function Architecture() {
         {sel && (
           <>
             <motion.div className="fixed inset-0 z-[55] bg-foreground/10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSel(null)} />
-            <motion.aside role="dialog" aria-label={sel.title} onKeyDown={(e) => e.key === "Escape" && setSel(null)} className="glass-card fixed bottom-4 right-4 top-4 z-[56] w-[min(420px,calc(100vw-2rem))] overflow-y-auto bg-popover p-8"
+            <motion.aside role="dialog" aria-label={sel.title} onKeyDown={(e) => e.key === "Escape" && setSel(null)} className="glass-card fixed bottom-4 right-4 top-4 z-[56] w-[min(600px,calc(100vw-2rem))] overflow-y-auto bg-popover p-6 sm:p-8"
               initial={{ x: 40, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: 40, opacity: 0 }} transition={{ duration: 0.35 }}>
               <button className="label absolute right-6 top-6 text-muted-foreground hover:text-foreground" onClick={() => setSel(null)} autoFocus>[ Close ]</button>
               <p className="label text-muted-foreground">{sel.sub}</p>
               <h3 className="mt-3 text-4xl font-light">{sel.title}</h3>
+              <div className="mt-5 flex flex-wrap gap-2" role="radiogroup" aria-label="Component explanation depth">
+                {(["judge", "engineer"] as const).map((value) => <button key={value} role="radio" aria-checked={mode === value} onClick={() => setMode(value)} className={cn("rounded-full border border-border px-3 py-2 text-xs", mode === value && "bg-primary text-primary-foreground")}>{value === "judge" ? "Overview" : "Technical details"}</button>)}
+              </div>
+              {mode === "engineer" && <StageOutput key={sel.id} id={sel.id} run={run} />}
               <AnimatePresence mode="wait">
                 <motion.p key={mode} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-6 leading-relaxed text-foreground/80">
                   {mode === "judge" ? sel.judge : sel.engineer}

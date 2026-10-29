@@ -1,6 +1,7 @@
 import { create } from "./store";
 import { MOCK_CLAIMS, MOCK_METRICS, SAMPLE_CSV, mockRun } from "./mock";
-import type { Claim, InputRow, Metrics, RunResponse } from "./types";
+import type { Claim, InputRow, Metrics, RunMode, RunResponse } from "./types";
+import { applyPipelineEvent, pipelineStore, readRunStream } from "./pipeline";
 
 export const API_BASE = (import.meta.env['VITE_API_URL'] as string | undefined) ?? "http://localhost:8000";
 
@@ -25,10 +26,49 @@ async function call<T>(path: string, init: RequestInit | undefined, fallback: ()
   }
 }
 
-export const runRows = async (rows: InputRow[]) => {
-  const res = await call<RunResponse>("/api/run", { method: "POST", body: JSON.stringify({ rows }) }, () => mockRun(rows), 120000);
-  if (!demoStore.get()) runVersion.set(runVersion.get() + 1);
-  return res;
+export const runRows = async (rows: InputRow[], mode: RunMode = "full") => {
+  pipelineStore.set({ status: "connecting", nodes: {} });
+  const ctrl = new AbortController();
+  const timeout = setTimeout(() => ctrl.abort(), 120000);
+  let streaming = false;
+  let responded = false;
+  try {
+    const response = await fetch(API_BASE + "/api/run?stream=1", {
+      method: "POST", body: JSON.stringify({ rows, mode }), signal: ctrl.signal,
+      headers: { "Content-Type": "application/json" },
+    });
+    responded = true;
+    if (!response.ok) throw new Error(`API returned ${response.status}`);
+    streaming = response.headers.get("Content-Type")?.includes("application/x-ndjson") ?? false;
+    if (streaming && !response.body) throw new Error("The API returned no progress stream.");
+    const result = streaming
+      ? await readRunStream(response.body!, applyPipelineEvent)
+      : await response.json() as RunResponse;
+    if (mode !== "full" && result.meta.mode !== mode) throw new Error("Restart the Python API to enable separate classification and generation.");
+    pipelineStore.set({ ...pipelineStore.get(), status: streaming ? "complete" : "legacy" });
+    demoStore.set(false);
+    if (mode !== "classify") runVersion.set(runVersion.get() + 1);
+    return result;
+  } catch (error) {
+    if (streaming || responded) {
+      const state = pipelineStore.get();
+      const message = error instanceof Error ? error.message : String(error);
+      const nodes = { ...state.nodes };
+      for (const key of Object.keys(nodes) as (keyof typeof nodes)[]) {
+        const node = nodes[key];
+        if (node?.status === "running") nodes[key] = { ...node, status: "error" };
+      }
+      pipelineStore.set({ ...state, nodes, status: "error", error: message });
+      throw error;
+    }
+    demoStore.set(true);
+    pipelineStore.set({ status: "offline", nodes: {} });
+    if (mode !== "classify") runVersion.set(runVersion.get() + 1);
+    return mockRun(rows, mode);
+  } finally {
+    clearTimeout(timeout);
+    ctrl.abort();
+  }
 };
 
 export const getClaims = () =>
