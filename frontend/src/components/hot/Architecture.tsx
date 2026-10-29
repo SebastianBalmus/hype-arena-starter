@@ -15,9 +15,9 @@ export const NODES: Node[] = [
   { id: "practice", title: "Practice forms", sub: "labelled examples", stat: "3 fields", statLabel: "ID, text and date must match",
     judge: "The practice data supplies annotated examples for learning how to read sentences. Its true rows also anchor the factual record.",
     engineer: "Batch: packaged forms are re-attached only to labelled runtime rows matching ID, text and date. Demo: labelled practice rows are loaded directly. The Reader learns extraction from annotated rows across labels; false compound rows do not make every extracted fact false. Consecutive same-date rows supply a page hypothesis for context." },
-  { id: "input", title: "Input rows", sub: "id · text · date", stat: "19,000", statLabel: "rows in 47 s",
+  { id: "input", title: "Input rows", sub: "id · text · date", stat: "20,000", statLabel: "rows in approximately 90 s",
     judge: "Every sentence about the company comes in with the date it was written. Labels only for the practice rows.",
-    engineer: "Batch reads universe.csv (id, text, date, label) plus lexicon.json. The live API accepts uploaded ID/text/date rows and combines them with labelled practice rows. Only unlabelled rows receive predictions. Consecutive same-date rows are treated as a page hypothesis, not a supplied page identity. The 47-second figure is a recorded simulated batch benchmark." },
+    engineer: "Batch reads universe.csv (id, text, date, label) plus lexicon.json. The live API accepts uploaded ID/text/date rows and combines them with labelled practice rows. Only unlabelled rows receive predictions. Consecutive same-date rows are treated as a page hypothesis, not a supplied page identity. A 20,000-row simulation completed in 85.8 seconds (approximately 90 seconds) inside linux/amd64 Docker with 2 CPUs, 6 GiB RAM, no network and a read-only filesystem. It used repeated sample text with unique IDs and produced 18,103 classifications plus 1,000 claims; this measures throughput, not accuracy." },
   { id: "entities", title: "Entities", sub: "registry · stable IDs", stat: "62", statLabel: "entities, 0 ambiguous names on practice",
     judge: "Before reading any number, the system works out which product, person or event each sentence is about, using the organisers' list of names and aliases.",
     engineer: "Entity resolution by Sebastian Balmus (hooly/entities.py): every lexicon name and alias matched as whole words in any case and spacing, longest span first, so a name inside a longer name belongs to the longer one, exactly as the claim referee reads names. Each entity gets a stable ID (<ENTITY:23>); a spelling shared by two entities stays unresolved instead of guessed; 'Hooly Android 16.0' is Hooly Android at version 16.0." },
@@ -53,6 +53,25 @@ export const NODES: Node[] = [
 const EDGES: [string, string][] = [["input", "entities"], ["lexicon", "entities"], ["practice", "reader"], ["entities", "reader"], ["reader", "facts"], ["facts", "truth"], ["truth", "calib"], ["calib", "labels"], ["facts", "writer"], ["labels", "writer"], ["writer", "referee"], ["referee", "claims"], ["labels", "output"], ["claims", "output"]];
 const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 
+type Point = { x: number; y: number };
+
+// Round each elbow while keeping the long runs aligned with the diagram grid.
+function connector(points: Point[]) {
+  let d = `M${points[0]!.x},${points[0]!.y}`;
+  for (let i = 1; i < points.length - 1; i++) {
+    const previous = points[i - 1]!, corner = points[i]!, next = points[i + 1]!;
+    const before = Math.hypot(corner.x - previous.x, corner.y - previous.y);
+    const after = Math.hypot(next.x - corner.x, next.y - corner.y);
+    if (!before || !after) continue;
+    const radius = Math.min(10, before / 2, after / 2);
+    const entry = { x: corner.x + (previous.x - corner.x) * radius / before, y: corner.y + (previous.y - corner.y) * radius / before };
+    const exit = { x: corner.x + (next.x - corner.x) * radius / after, y: corner.y + (next.y - corner.y) * radius / after };
+    d += ` L${entry.x},${entry.y} Q${corner.x},${corner.y} ${exit.x},${exit.y}`;
+  }
+  const end = points[points.length - 1]!;
+  return `${d} L${end.x},${end.y}`;
+}
+
 export function Architecture() {
   const run = useStore(pipelineStore);
   const diagramRef = useRef<HTMLDivElement>(null);
@@ -75,18 +94,39 @@ export function Architecture() {
         const a = { left: source.left - bounds.left, right: source.right - bounds.left, top: source.top - bounds.top, bottom: source.bottom - bounds.top, x: (source.left + source.right) / 2 - bounds.left, y: (source.top + source.bottom) / 2 - bounds.top };
         const b = { left: target.left - bounds.left, right: target.right - bounds.left, top: target.top - bounds.top, bottom: target.bottom - bounds.top, x: (target.left + target.right) / 2 - bounds.left, y: (target.top + target.bottom) / 2 - bounds.top };
         const optional = from === "labels" && to === "writer";
+        const outgoing = EDGES.filter(([id]) => id === from);
+        const incoming = EDGES.filter(([, id]) => id === to);
+        const sourceOffset = (outgoing.findIndex(([, id]) => id === to) - (outgoing.length - 1) / 2) * 14;
+        const targetOffset = (incoming.findIndex(([id]) => id === from) - (incoming.length - 1) / 2) * 14;
         let d: string;
         if (optional && b.left > a.right) {
           const mid = (a.right + b.left) / 2;
-          d = `M${a.right},${a.y} C${mid},${a.y} ${mid},${b.y} ${b.left},${b.y}`;
+          d = connector([{ x: a.right + 5, y: a.y }, { x: mid, y: a.y }, { x: mid, y: b.y }, { x: b.left - 7, y: b.y }]);
         } else if (optional) {
           // On phones the branches stack; keep the fallback in the outside gutter.
-          d = `M${a.left},${a.y} H8 V${b.y} H${b.left}`;
+          d = connector([{ x: a.left - 5, y: a.y }, { x: 8, y: a.y }, { x: 8, y: b.y }, { x: b.left - 7, y: b.y }]);
         } else if (Math.abs(a.y - b.y) < 4 && b.left > a.right) {
-          d = `M${a.right},${a.y} H${b.left}`;
+          d = connector([{ x: a.right + 5, y: a.y }, { x: b.left - 7, y: b.y }]);
         } else {
-          const mid = (a.bottom + b.top) / 2;
-          d = `M${a.x},${a.bottom} C${a.x},${mid} ${b.x},${mid} ${b.x},${b.top}`;
+          const blocked = Array.from(nodeRefs.current.entries()).some(([id, node]) => {
+            if (id === from || id === to) return false;
+            const box = node.getBoundingClientRect();
+            return box.top - bounds.top > a.bottom && box.bottom - bounds.top < b.top
+              && box.right - bounds.left > Math.min(a.x, b.x) && box.left - bounds.left < Math.max(a.x, b.x) + 1;
+          });
+          if (blocked) {
+            // Long links on stacked layouts travel around cards, never through them.
+            const gutter = from === "labels" ? bounds.width - 10 : from === "lexicon" ? 10 : 6;
+            const right = from === "labels";
+            d = connector([{ x: right ? a.right + 5 : a.left - 5, y: a.y + sourceOffset },
+              { x: gutter, y: a.y + sourceOffset }, { x: gutter, y: b.y + targetOffset },
+              { x: right ? b.right + 7 : b.left - 7, y: b.y + targetOffset }]);
+          } else {
+            const mid = (a.bottom + b.top) / 2 + sourceOffset;
+            d = connector([{ x: a.x + sourceOffset, y: a.bottom + 5 },
+              { x: a.x + sourceOffset, y: mid }, { x: b.x + targetOffset, y: mid },
+              { x: b.x + targetOffset, y: b.top - 7 }]);
+          }
         }
         return [{ id: `${from}-${to}`, d, optional }];
       }));
@@ -153,13 +193,13 @@ export function Architecture() {
         <div ref={diagramRef} className="relative isolate p-5 sm:p-8">
           <svg className="pointer-events-none absolute inset-0 h-full w-full overflow-visible" aria-hidden="true">
             <defs>
-              <marker id={markerId} viewBox="0 0 8 8" refX={7} refY={4} markerWidth={6} markerHeight={6} orient="auto-start-reverse">
-                <path d="M1,1 L7,4 L1,7" fill="none" stroke="var(--ghost)" strokeWidth={1.5} />
+              <marker id={markerId} viewBox="0 0 8 8" refX={6.5} refY={4} markerWidth={7} markerHeight={7} markerUnits="userSpaceOnUse" orient="auto">
+                <path d="M1.5,1.5 L6.5,4 L1.5,6.5" fill="none" stroke="var(--ghost)" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round" />
               </marker>
             </defs>
             {paths.map(({ id, d, optional }) => (
-              <path key={id} d={d} fill="none" stroke="var(--ghost)" strokeWidth={1.5}
-                strokeDasharray={optional ? "5 5" : undefined} markerEnd={`url(#${markerId})`} />
+              <path key={id} d={d} fill="none" stroke="var(--ghost)" strokeWidth={1.4} strokeLinecap="round" strokeLinejoin="round"
+                opacity={optional ? 0.55 : 0.75} strokeDasharray={optional ? "4 6" : undefined} markerEnd={`url(#${markerId})`} />
             ))}
           </svg>
 

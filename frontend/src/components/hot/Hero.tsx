@@ -64,7 +64,7 @@ export function Hero() {
         {[
           [<Counter key="a" to={88.8} decimals={1} suffix="%" />, "accurate on unseen pages"],
           [<Counter key="b" to={1000} />, "target new claims per run"],
-          [<><Counter key="c" to={47} /> s</>, "for 19,000 rows"],
+          [<>≈<Counter key="c" to={90} /> s</>, "for 20,000 rows"],
         ].map(([n, l], i) => (
           <div key={i}>
             <div className="font-display text-4xl font-light md:text-5xl">{n}</div>

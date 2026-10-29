@@ -7,11 +7,17 @@ import { cn } from "@/lib/utils";
 
 export function Evaluation() {
   const [m, setM] = useState<Metrics | null>(null);
+  const [experimentPage, setExperimentPage] = useState(1);
   useEffect(() => { getMetrics().then(setM); }, []);
   if (!m) return <section id="evaluation" className="min-h-32" />;
   const lo = 0.7, hi = 0.92;
   const maxN = Math.max(...m.reliability.map((r) => r.n));
   const best = Math.max(...m.ladder.map((l) => l.accuracy));
+  const pageSize = 3;
+  const pageCount = Math.max(1, Math.ceil(m.experiments.length / pageSize));
+  const currentPage = Math.min(experimentPage, pageCount);
+  const start = (currentPage - 1) * pageSize;
+  const experiments = m.experiments.slice(start, start + pageSize);
   return (
     <section id="evaluation" className="px-6 py-10 md:px-14 md:py-12">
       <SectionHead eyebrow="04 · Evaluation" a="How good is it," b="honestly?" />
@@ -60,21 +66,28 @@ export function Evaluation() {
           </div>
         </Reveal>
         <Reveal className="lg:col-span-2" delay={0.1}>
-          <details className="glass-card p-8">
-            <summary className="label cursor-pointer text-muted-foreground">Experiments</summary>
-            <ol className="relative mt-6 space-y-6 border-l border-border pl-6">
-              {m.experiments.map((x) => (
+          <details className="glass-card p-6 sm:p-8">
+            <summary className="label cursor-pointer text-muted-foreground">Experiments <span className="ml-2 rounded-full border border-border px-2 py-1 text-[9px]">{m.experiments.length}</span></summary>
+            <ol start={start + 1} aria-label="Experiment results" className="relative mt-6 space-y-5 border-l border-border pl-6">
+              {experiments.map((x) => (
                 <li key={x.id} className="relative">
                   <span className={cn("absolute -left-[29px] top-1.5 h-2.5 w-2.5 rounded-full", x.held ? "bg-primary" : "bg-hype")} />
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="font-display text-lg">{x.idea}</span>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-display text-base leading-snug">{x.idea}</span>
                     <span className={cn("label rounded-full border px-2 py-0.5 text-[8px]", x.held ? "border-primary" : "border-hype text-hype")}>{x.held ? "Held" : "Failed"}</span>
-                    <span className="label text-[8px] text-muted-foreground">{x.source}</span>
                   </div>
-                  <p className="mt-1 text-sm text-muted-foreground">Predicted: {x.prediction} → <span className="text-foreground">{x.outcome}</span></p>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground">{x.outcome}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Predicted: {x.prediction} · {x.source}</p>
                 </li>
               ))}
             </ol>
+            {pageCount > 1 && <nav aria-label="Experiments pagination" className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4 text-xs">
+              <p role="status" aria-live="polite" className="text-muted-foreground">{start + 1}–{Math.min(start + pageSize, m.experiments.length)} of {m.experiments.length} experiments</p>
+              <div className="flex items-center gap-2">
+                <button type="button" disabled={currentPage === 1} onClick={() => setExperimentPage(currentPage - 1)} className="rounded-full border border-border px-3 py-2 transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40">← Previous</button>
+                <button type="button" disabled={currentPage === pageCount} onClick={() => setExperimentPage(currentPage + 1)} className="rounded-full border border-border px-3 py-2 transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40">Next →</button>
+              </div>
+            </nav>}
           </details>
         </Reveal>
       </div>
@@ -91,7 +104,7 @@ export function Footer() {
           <p className="label text-muted-foreground">Built by</p>
           <p className="mt-2 font-display">Team Cercetasii</p>
         </div>
-        <a href="https://github.com" target="_blank" rel="noreferrer" className="btn-bracket">[ GitHub ]</a>
+        <a href="https://github.com/SebastianBalmus/hype-arena-starter" target="_blank" rel="noreferrer" className="btn-bracket">[ GitHub ]</a>
       </div>
     </footer>
   );
